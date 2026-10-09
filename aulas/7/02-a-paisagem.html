@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Paisagem e os seus elementos — Geografia 7.º ano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F1E1;
+  --paper-2:#FCF8EE;
+  --card:#FFFDF7;
+  --ink:#2C241B;
+  --ink-soft:#5C5140;
+  --line:#D9C7A3;
+  --contour:#C2A876;
+
+  --water-deep:#2E6C86;
+  --water:#6FB3C9;
+  --water-light:#BFE0E7;
+  --low:#B9CE86;
+  --mid:#E6CB7C;
+  --high:#CB9F62;
+  --peak:#9E6B3E;
+
+  --natural:#3E7A4E;
+  --natural-bg:#E7F0DC;
+  --humano:#B25A2E;
+  --humano-bg:#F6E4D3;
+
+  --accent:#2E6C86;
+  --accent-ink:#1C4C60;
+  --ok:#3E7A4E;
+  --no:#B04A3A;
+
+  --shadow:0 2px 0 rgba(155,132,86,.25), 0 10px 26px -14px rgba(70,54,30,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Atkinson Hyperlegible",system-ui,sans-serif;
+  color:var(--ink);
+  line-height:1.6;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(111,179,201,.10), transparent 40%),
+    radial-gradient(circle at 90% 92%, rgba(185,206,134,.12), transparent 42%),
+    var(--paper);
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+
+/* ---------- COVER ---------- */
+.cover{
+  max-width:none;margin:0;padding:56px 20px 48px;
+  background:
+    linear-gradient(180deg, rgba(46,108,134,.14), transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 26px, rgba(194,168,118,.16) 26px, rgba(194,168,118,.16) 27px),
+    repeating-linear-gradient(90deg, transparent, transparent 26px, rgba(194,168,118,.16) 26px, rgba(194,168,118,.16) 27px),
+    var(--paper-2);
+  border-bottom:3px solid var(--contour);
+  text-align:center;
+}
+.cover .eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;
+  color:var(--accent-ink);margin:0 0 14px;
+}
+.cover h1{
+  font-family:"Fraunces",serif;font-weight:900;
+  font-size:clamp(2rem,6vw,3.4rem);line-height:1.02;
+  margin:0 auto 10px;max-width:16ch;color:var(--ink);
+  text-wrap:balance;
+}
+.cover .sub{font-size:1.05rem;color:var(--ink-soft);margin:0 auto;max-width:52ch}
+.cover .tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.tag{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;
+  background:var(--card);border:1.5px solid var(--line);
+  padding:5px 11px;border-radius:999px;color:var(--accent-ink);
+}
+.credit{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  color:var(--ink-soft);margin-top:26px;opacity:.85;
+}
+
+/* ---------- NAV ---------- */
+nav.toc{
+  position:sticky;top:0;z-index:20;
+  background:rgba(252,248,238,.94);backdrop-filter:blur(6px);
+  border-bottom:2px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+nav.toc .wrap{padding-top:0;padding-bottom:0;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.toc a{
+  flex:0 0 auto;text-decoration:none;
+  font-family:"IBM Plex Mono",monospace;font-size:.76rem;
+  color:var(--accent-ink);border:1.5px solid var(--line);
+  padding:6px 12px;border-radius:999px;background:var(--card);
+  white-space:nowrap;transition:.15s;
+}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ---------- SECTIONS ---------- */
+section{padding-top:40px;scroll-margin-top:64px}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);
+  margin-bottom:8px;
+}
+.kicker .num{
+  background:var(--accent);color:#fff;border-radius:6px;
+  width:26px;height:26px;display:grid;place-items:center;font-weight:500;
+}
+h2{
+  font-family:"Fraunces",serif;font-weight:600;
+  font-size:clamp(1.5rem,4vw,2.1rem);line-height:1.1;margin:0 0 14px;
+  color:var(--ink);
+}
+h3{
+  font-family:"Fraunces",serif;font-weight:600;font-size:1.2rem;
+  margin:26px 0 8px;color:var(--accent-ink);
+}
+p{margin:0 0 14px}
+strong{color:var(--ink)}
+.lead{font-size:1.08rem}
+
+/* ---------- DEF BLOCKS ---------- */
+.def{
+  background:var(--card);
+  border:1.5px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:12px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow);
+}
+.def .term{
+  font-family:"Fraunces",serif;font-weight:600;font-size:1.08rem;
+  color:var(--accent-ink);display:block;margin-bottom:2px;
+}
+.def.natural{border-left-color:var(--natural)}
+.def.natural .term{color:var(--natural)}
+.def.humano{border-left-color:var(--humano)}
+.def.humano .term{color:var(--humano)}
+
+/* ---------- FIGURE ---------- */
+figure{margin:22px 0;padding:0}
+figure svg{width:100%;height:auto;display:block;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--paper-2);box-shadow:var(--shadow)}
+figcaption{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-soft);
+  margin-top:8px;padding-left:2px;
+}
+figcaption b{color:var(--accent-ink);font-weight:500}
+
+/* ---------- TABLE ---------- */
+.tbl{overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;min-width:460px;background:var(--card);
+  border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+caption{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-soft);
+  text-align:left;padding:0 2px 8px;caption-side:top}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--accent);color:#fff;font-family:"Fraunces",serif;font-weight:600;font-size:.98rem}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:rgba(230,203,124,.10)}
+td.h-natural{color:var(--natural);font-weight:700}
+td.h-humano{color:var(--humano);font-weight:700}
+
+/* ---------- CALLOUT ---------- */
+.note{
+  background:var(--natural-bg);border:1.5px dashed var(--natural);
+  border-radius:12px;padding:14px 16px;margin:16px 0;font-size:.98rem;
+}
+.note.warn{background:#FBF0DC;border-color:var(--high)}
+.note .lbl{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--natural);display:block;margin-bottom:4px}
+.note.warn .lbl{color:var(--peak)}
+
+/* ---------- HOW-TO STEPS ---------- */
+.howto{background:var(--card);border:1.5px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:14px;padding:16px 20px;margin:16px 0;box-shadow:var(--shadow)}
+.howto .howto-lbl{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent-ink);display:block;margin-bottom:10px}
+ol.steps{counter-reset:step;list-style:none;margin:0;padding:0}
+ol.steps>li{counter-increment:step;position:relative;padding:9px 0 9px 46px;border-bottom:1px solid var(--line)}
+ol.steps>li:last-child{border-bottom:none;padding-bottom:2px}
+ol.steps>li::before{content:counter(step);position:absolute;left:0;top:9px;width:30px;height:30px;
+  background:var(--accent);color:#fff;border-radius:8px;display:grid;place-items:center;
+  font-family:"IBM Plex Mono",monospace;font-size:.92rem}
+ol.steps b{color:var(--accent-ink)}
+ol.steps .sub{margin-top:8px;padding:8px 12px;background:var(--paper-2);border-radius:8px;font-size:.95rem}
+ol.steps .sub span{display:block;margin:3px 0}
+ol.steps .sub .p1 b{color:var(--humano)}
+ol.steps .sub .p2 b{color:var(--accent-ink)}
+ol.steps .sub .p3 b{color:var(--natural)}
+
+/* ---------- CLASSIFY GAME ---------- */
+.game{background:var(--paper-2);border:2px solid var(--line);border-radius:16px;
+  padding:20px;margin:18px 0;box-shadow:var(--shadow)}
+.game h3{margin-top:0}
+.game .instr{font-size:.96rem;color:var(--ink-soft);margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:.98rem;
+  border:2px solid var(--line);background:var(--card);color:var(--ink);
+  padding:9px 14px;border-radius:999px;cursor:pointer;transition:.15s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.chip:hover{transform:translateY(-1px)}
+.chip:disabled{cursor:default}
+.chip.correct-natural{background:var(--natural-bg);border-color:var(--natural);color:var(--natural)}
+.chip.correct-humano{background:var(--humano-bg);border-color:var(--humano);color:var(--humano)}
+.chip .ico{font-size:.9rem}
+.game-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.btn{
+  font-family:"IBM Plex Mono",monospace;font-size:.82rem;cursor:pointer;
+  border:2px solid var(--accent);background:var(--accent);color:#fff;
+  padding:9px 16px;border-radius:10px;transition:.15s;
+}
+.btn:hover{background:var(--accent-ink);border-color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--accent-ink)}
+.btn.ghost:hover{background:var(--card)}
+.game-score{font-family:"IBM Plex Mono",monospace;font-size:.9rem;color:var(--accent-ink)}
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:.86rem;margin-top:6px}
+.legend-row span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+.dot.n{background:var(--natural)}
+.dot.h{background:var(--humano)}
+
+/* ---------- DRAG GAME ---------- */
+.game .instr b{color:var(--accent-ink)}
+.pool-lbl{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--ink-soft);margin:4px 0 6px}
+.pool{display:flex;flex-wrap:wrap;gap:10px;min-height:62px;padding:12px;
+  border:2px dashed var(--contour);border-radius:12px;background:var(--card);
+  align-content:flex-start;margin-bottom:14px}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.bins{grid-template-columns:1fr}}
+.bin{border:2px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);transition:outline .12s}
+.bin>header{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#fff;
+  padding:9px 13px;display:flex;align-items:center;gap:9px}
+.bin>header .dot{border:2px solid rgba(255,255,255,.85)}
+.bin-natural>header{background:var(--natural)}
+.bin-humano>header{background:var(--humano)}
+.bin .drop{min-height:96px;padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.bin.over{outline:3px solid var(--accent);outline-offset:-3px}
+.bin.over .drop{background:rgba(46,108,134,.08)}
+.dchip{
+  font-family:"Atkinson Hyperlegible",sans-serif;font-size:1rem;
+  border:2px solid var(--contour);background:var(--paper-2);color:var(--ink);
+  padding:10px 15px;border-radius:999px;cursor:grab;
+  display:inline-flex;align-items:center;gap:8px;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+  box-shadow:0 2px 0 rgba(155,132,86,.25);transition:border-color .12s,background .12s,transform .06s;
+}
+.dchip:hover{border-color:var(--accent)}
+.dchip:active{transform:translateY(1px)}
+.dchip.dragging{position:fixed;cursor:grabbing;z-index:1000;margin:0;
+  box-shadow:0 14px 32px -8px rgba(70,54,30,.55);transform:scale(1.04)}
+.dchip.correct{border-color:var(--ok);background:var(--natural-bg);color:var(--natural)}
+.dchip.wrong{border-color:var(--no);background:#F7E2DE;color:var(--no)}
+.dchip .ico{font-size:1rem}
+
+/* ---------- QUIZ ---------- */
+.quiz{background:var(--card);border:2px solid var(--line);border-radius:16px;
+  padding:22px;margin:20px 0;box-shadow:var(--shadow)}
+.q{padding:16px 0;border-bottom:1px solid var(--line)}
+.q:last-of-type{border-bottom:none}
+.q .qnum{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--accent-ink)}
+.q p.stem{font-weight:700;margin:4px 0 12px}
+.opt{display:block;margin:7px 0;padding:11px 14px;border:2px solid var(--line);
+  border-radius:10px;background:var(--paper-2);cursor:pointer;transition:.12s;font-size:.98rem}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-right:9px}
+.opt.sel{border-color:var(--accent);background:#fff}
+.opt.right{border-color:var(--ok);background:var(--natural-bg)}
+.opt.wrong{border-color:var(--no);background:#F7E2DE}
+.explain{margin-top:10px;font-size:.92rem;background:var(--paper-2);border-left:4px solid var(--accent);
+  border-radius:8px;padding:10px 13px;display:none}
+.explain.show{display:block}
+.explain b{color:var(--accent-ink)}
+.quiz-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.result{display:none;margin-top:18px;padding:18px;border-radius:14px;
+  background:var(--paper-2);border:2px solid var(--line);text-align:center}
+.result.show{display:block}
+.result .grade{font-family:"Fraunces",serif;font-weight:900;font-size:2.6rem;line-height:1;color:var(--accent-ink)}
+.result .pct{font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);margin-top:6px}
+.result .msg{margin-top:10px;font-size:1rem}
+
+footer{margin-top:56px;padding-top:22px;border-top:2px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-soft);text-align:center}
+
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:560px){
+  .cover{padding:40px 18px 34px}
+  .quiz,.game{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <p class="eyebrow">Geografia · 7.º ano · A Terra: estudos e representações</p>
+  <h1>A Paisagem e os seus elementos</h1>
+  <p class="sub">O que é uma paisagem, que elementos a compõem e como distinguir uma paisagem natural de uma paisagem humanizada.</p>
+  <div class="tags">
+    <span class="tag">Paisagem</span>
+    <span class="tag">Elementos naturais</span>
+    <span class="tag">Elementos humanos</span>
+    <span class="tag">Natural vs. humanizada</span>
+  </div>
+  <p class="credit">Powered by Claude IA &amp; Francisco Cavaco</p>
+</header>
+
+<nav class="toc" aria-label="Índice">
+  <div class="wrap">
+    <a href="#geografia">A Geografia</a>
+    <a href="#paisagem">Paisagem</a>
+    <a href="#elementos">Elementos</a>
+    <a href="#observar">Observar</a>
+    <a href="#classificar">Classificar</a>
+    <a href="#humanizacao">Humanização</a>
+    <a href="#jogo">Jogo</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 1. GEOGRAFIA -->
+  <section id="geografia">
+    <span class="kicker"><span class="num">1</span> Ponto de partida</span>
+    <h2>O que estuda a Geografia?</h2>
+    <p class="lead">A <strong>Geografia</strong> é a ciência que estuda a superfície terrestre, procurando compreender e localizar os fenómenos que rodeiam o ser humano e avaliar as consequências da ação humana sobre a Natureza.</p>
+    <p>A superfície da Terra é constituída por uma enorme <strong>diversidade de paisagens</strong>. É a partir da observação dessas paisagens que o geógrafo começa a sua investigação, seguindo um método com quatro etapas.</p>
+
+    <div class="tbl">
+      <table>
+        <caption>Quadro 1 — As quatro etapas do método de estudo da Geografia.</caption>
+        <thead><tr><th>Etapa</th><th>Pergunta</th><th>O que se faz</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1.ª Observação</strong></td><td>O quê?</td><td>Primeiro contacto com a paisagem; o que estou a observar.</td></tr>
+          <tr><td><strong>2.ª Localização</strong></td><td>Onde?</td><td>Onde se localiza a paisagem.</td></tr>
+          <tr><td><strong>3.ª Descrição</strong></td><td>Como?</td><td>Como se caracteriza o relevo, a ocupação humana, as atividades.</td></tr>
+          <tr><td><strong>4.ª Interpretação</strong></td><td>Porquê?</td><td>Por que motivo existe o que se observa.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2. PAISAGEM -->
+  <section id="paisagem">
+    <span class="kicker"><span class="num">2</span> Conceito-chave</span>
+    <h2>O que é uma paisagem?</h2>
+    <div class="def">
+      <span class="term">Paisagem</span>
+      Área da superfície terrestre que podemos observar a partir de um determinado lugar. É um espaço <strong>dinâmico</strong>, constituído por <strong>elementos naturais e/ou humanos</strong> acessíveis à observação.
+    </div>
+    <p>Cada paisagem é <strong>única</strong> e resulta da ação dos elementos naturais e da interação destes com os elementos humanos, ao longo do tempo. Por isso, as paisagens estão em constante mudança.</p>
+
+    <div class="def">
+      <span class="term">Esboço de paisagem</span>
+      Representação esquemática e simplificada de uma paisagem, que realça os seus elementos mais significativos. Ajuda a organizar a informação e a descrever a paisagem.
+    </div>
+  </section>
+
+  <!-- 3. ELEMENTOS -->
+  <section id="elementos">
+    <span class="kicker"><span class="num">3</span> Composição</span>
+    <h2>Os elementos da paisagem</h2>
+    <div class="def">
+      <span class="term">Elementos da paisagem</span>
+      São todos os elementos que definem a estrutura de uma paisagem e que permitem a sua análise pormenorizada. Dividem-se em <strong>elementos naturais</strong> e <strong>elementos humanos</strong>.
+    </div>
+
+    <div class="def natural">
+      <span class="term">Elemento natural</span>
+      Elemento relacionado com a Natureza e <strong>sem intervenção humana</strong>: montanhas, rios, mar, vegetação, o céu, o relevo, os animais.
+    </div>
+    <div class="def humano">
+      <span class="term">Elemento humano</span>
+      Elemento que <strong>resulta da ação humana</strong>: edifícios, estradas, pontes, campos agrícolas, barragens, vias de comunicação.
+    </div>
+  </section>
+
+  <!-- 4. OBSERVAR -->
+  <section id="observar">
+    <span class="kicker"><span class="num">4</span> Como se estuda</span>
+    <h2>Observar e descrever a paisagem</h2>
+    <p>A <strong>observação</strong> é o primeiro contacto que se estabelece com a paisagem. Pode ser de dois tipos:</p>
+    <div class="def">
+      <span class="term">Observação direta</span>
+      Realiza-se <strong>no próprio local</strong>, <em>in loco</em> (por exemplo, numa saída de campo).
+    </div>
+    <div class="def">
+      <span class="term">Observação indireta</span>
+      Realiza-se a partir de <strong>outros suportes</strong>, sem ir ao local: fotografias, filmes, mapas, imagens de satélite, textos.
+    </div>
+
+    <h3>Os três planos de observação</h3>
+    <p>Para descrever uma paisagem com rigor, divide-se a observação em três planos, do mais próximo ao mais afastado do observador:</p>
+    <div class="tbl">
+      <table>
+        <caption>Quadro 2 — Os três planos de observação de uma paisagem.</caption>
+        <thead><tr><th>Plano</th><th>Posição</th><th>Nível de pormenor</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1.º plano</strong></td><td>Mais próximo do observador (parte inferior).</td><td>Permite ver com maior pormenor.</td></tr>
+          <tr><td><strong>2.º plano</strong></td><td>Distância intermédia (parte central).</td><td>Pormenor médio.</td></tr>
+          <tr><td><strong>3.º plano</strong></td><td>Mais afastado (parte superior / fundo).</td><td>Difícil destacar pormenores.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure>
+      <!-- Esboço de paisagem com três planos e elementos anotados -->
+      <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Esboço de uma paisagem com três planos de observação, mostrando elementos naturais e humanos.">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#CFE7EE"/><stop offset="1" stop-color="#EAF4E9"/>
+          </linearGradient>
+          <linearGradient id="mtn" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9E6B3E"/><stop offset="1" stop-color="#CB9F62"/>
+          </linearGradient>
+          <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#B9CE86"/><stop offset="1" stop-color="#9DBE6A"/>
+          </linearGradient>
+          <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#6FB3C9"/><stop offset="1" stop-color="#2E6C86"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="800" height="440" fill="url(#sky)"/>
+
+        <!-- plane dividers -->
+        <line x1="0" y1="150" x2="800" y2="150" stroke="#C2A876" stroke-width="1" stroke-dasharray="5 6"/>
+        <line x1="0" y1="290" x2="800" y2="290" stroke="#C2A876" stroke-width="1" stroke-dasharray="5 6"/>
+
+        <!-- 3rd plane: mountains + clouds + sun -->
+        <circle cx="700" cy="60" r="26" fill="#E6CB7C"/>
+        <path d="M0 150 L90 70 L170 130 L260 55 L360 135 L470 80 L560 140 L660 90 L760 145 L800 120 L800 150 Z" fill="url(#mtn)"/>
+        <path d="M90 70 L120 100 M260 55 L300 100 M470 80 L500 110" stroke="#fff" stroke-opacity=".5" stroke-width="4" fill="none"/>
+        <ellipse cx="180" cy="55" rx="42" ry="14" fill="#fff" opacity=".8"/>
+        <ellipse cx="420" cy="42" rx="52" ry="16" fill="#fff" opacity=".8"/>
+
+        <!-- 2nd plane: hills, fields, trees -->
+        <path d="M0 290 L0 175 Q200 150 400 185 Q600 215 800 175 L800 290 Z" fill="url(#hill)"/>
+        <!-- agricultural fields (human) -->
+        <g stroke="#8A6A3A" stroke-width="1.5" opacity=".55">
+          <path d="M60 235 L200 220 M70 255 L215 240 M85 275 L230 260" fill="none"/>
+        </g>
+        <rect x="520" y="205" width="150" height="60" fill="#D9B461" opacity=".55" transform="skewX(-6)"/>
+        <line x1="545" y1="205" x2="530" y2="265" stroke="#8A6A3A" stroke-width="1.4"/>
+        <line x1="590" y1="203" x2="575" y2="263" stroke="#8A6A3A" stroke-width="1.4"/>
+        <line x1="635" y1="201" x2="620" y2="261" stroke="#8A6A3A" stroke-width="1.4"/>
+        <!-- trees (natural) -->
+        <g fill="#3E7A4E">
+          <circle cx="330" cy="215" r="16"/><rect x="327" y="225" width="6" height="16" fill="#7A5A34"/>
+          <circle cx="370" cy="225" r="13"/><rect x="367" y="233" width="5" height="14" fill="#7A5A34"/>
+        </g>
+
+        <!-- 1st plane: river + bridge + houses -->
+        <path d="M0 440 L0 300 Q180 285 300 320 Q420 355 800 315 L800 440 Z" fill="#A9C46C"/>
+        <path d="M120 440 Q220 360 340 380 Q470 400 560 440 Z" fill="url(#river)"/>
+        <!-- bridge (human) -->
+        <g>
+          <rect x="300" y="372" width="120" height="12" rx="3" fill="#8A6A3A"/>
+          <path d="M310 384 Q360 410 410 384" fill="none" stroke="#8A6A3A" stroke-width="5"/>
+          <line x1="325" y1="372" x2="325" y2="384" stroke="#8A6A3A" stroke-width="4"/>
+          <line x1="395" y1="372" x2="395" y2="384" stroke="#8A6A3A" stroke-width="4"/>
+        </g>
+        <!-- houses (human) -->
+        <g>
+          <rect x="600" y="345" width="46" height="40" fill="#F0E6D0" stroke="#8A6A3A" stroke-width="2"/>
+          <path d="M596 345 L623 322 L650 345 Z" fill="#B25A2E"/>
+          <rect x="614" y="360" width="14" height="25" fill="#8A6A3A"/>
+          <rect x="655" y="352" width="38" height="33" fill="#F0E6D0" stroke="#8A6A3A" stroke-width="2"/>
+          <path d="M651 352 L674 333 L697 352 Z" fill="#B25A2E"/>
+        </g>
+
+        <!-- plane labels -->
+        <g font-family="IBM Plex Mono, monospace" font-size="15" fill="#1C4C60">
+          <rect x="14" y="98" width="132" height="26" rx="6" fill="#FCF8EE" stroke="#C2A876"/>
+          <text x="24" y="116">3.º plano (fundo)</text>
+          <rect x="14" y="238" width="150" height="26" rx="6" fill="#FCF8EE" stroke="#C2A876"/>
+          <text x="24" y="256">2.º plano (intermédio)</text>
+          <rect x="14" y="398" width="146" height="26" rx="6" fill="#FCF8EE" stroke="#C2A876"/>
+          <text x="24" y="416">1.º plano (próximo)</text>
+        </g>
+
+        <!-- element callouts -->
+        <g font-family="Atkinson Hyperlegible, sans-serif" font-size="14">
+          <circle cx="360" cy="55" r="5" fill="#3E7A4E"/>
+          <text x="372" y="60" fill="#3E7A4E" font-weight="700">Montanhas (natural)</text>
+          <circle cx="330" cy="215" r="5" fill="#3E7A4E" opacity="0"/>
+          <text x="392" y="205" fill="#3E7A4E" font-weight="700">Vegetação</text>
+          <circle cx="430" cy="378" r="5" fill="#B25A2E"/>
+          <text x="440" y="383" fill="#B25A2E" font-weight="700">Ponte (humano)</text>
+          <circle cx="240" cy="360" r="5" fill="#2E6C86"/>
+          <text x="70" y="345" fill="#2E6C86" font-weight="700">Rio (natural)</text>
+          <circle cx="600" cy="330" r="5" fill="#B25A2E" opacity="0"/>
+          <text x="560" y="322" fill="#B25A2E" font-weight="700">Casas (humano)</text>
+        </g>
+      </svg>
+      <figcaption><b>Fig. 1</b> — Esboço de uma paisagem com os <b>três planos de observação</b>. Os elementos naturais (montanhas, rio, vegetação) e humanos (casas, ponte, campos agrícolas) coexistem na mesma paisagem.</figcaption>
+    </figure>
+    <div class="howto">
+      <span class="howto-lbl">Como fazer um esboço de paisagem</span>
+      <ol class="steps">
+        <li><b>Delimitar o campo de visão.</b> Desenha um retângulo (moldura) na folha de papel.</li>
+        <li><b>Marcar a linha do horizonte.</b> Traça a linha que separa o céu da superfície terrestre.</li>
+        <li><b>Dividir pelos planos de observação.</b>
+          <div class="sub">
+            <span class="p1"><b>1.º plano (frente)</b> — elementos mais próximos, com maior detalhe e dimensão.</span>
+            <span class="p2"><b>2.º plano (intermédio)</b> — elementos a meia distância (por exemplo, povoado e campos de cultivo).</span>
+            <span class="p3"><b>3.º plano (fundo)</b> — elementos mais distantes (por exemplo, serras no horizonte).</span>
+          </div>
+        </li>
+        <li><b>Traçar as linhas mestras.</b> Desenha apenas os contornos das grandes formas (relevo, estradas, curso de água, manchas de floresta ou povoamento), sem pormenores individuais.</li>
+        <li><b>Legenda e orientação.</b> Identifica os elementos com símbolos ou cores simples e indica a orientação, se aplicável.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5. CLASSIFICAR -->
+  <section id="classificar">
+    <span class="kicker"><span class="num">5</span> Classificação</span>
+    <h2>Paisagem natural e paisagem humanizada</h2>
+    <p>A partir da observação e da descrição, e conforme o <strong>grau de intervenção do ser humano</strong>, identificam-se dois tipos de paisagem.</p>
+
+    <div class="def natural">
+      <span class="term">Paisagem natural</span>
+      Aquela onde estão presentes, exclusiva ou quase exclusivamente, <strong>elementos naturais</strong> e onde <strong>não é visível a intervenção humana</strong>. O meio natural encontra-se inalterado. Exemplos: desertos quentes e frios, cordilheiras, florestas densas, a Antártida.
+    </div>
+    <div class="def humano">
+      <span class="term">Paisagem humanizada</span>
+      Aquela que apresenta <strong>marcas significativas da presença do ser humano</strong>, que ao longo do tempo foi alterando o meio natural e adaptando-o às suas necessidades. Exemplos: cidades, campos agrícolas, aldeias, zonas industriais.
+    </div>
+
+    <figure>
+      <!-- Comparação natural vs humanizada -->
+      <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparação entre uma paisagem natural, à esquerda, e uma paisagem humanizada, à direita.">
+        <defs>
+          <linearGradient id="skyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFE7EE"/><stop offset="1" stop-color="#E7F0DC"/></linearGradient>
+          <linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9E6EC"/><stop offset="1" stop-color="#F0E6D5"/></linearGradient>
+        </defs>
+        <!-- NATURAL -->
+        <rect x="0" y="0" width="395" height="300" fill="url(#skyN)"/>
+        <path d="M0 300 L0 150 L70 90 L150 150 L230 80 L320 150 L395 110 L395 300 Z" fill="#CB9F62"/>
+        <path d="M70 90 L100 130 M230 80 L270 135" stroke="#fff" stroke-opacity=".55" stroke-width="5" fill="none"/>
+        <path d="M0 300 L0 200 Q200 175 395 205 L395 300 Z" fill="#9DBE6A"/>
+        <g fill="#3E7A4E">
+          <circle cx="90" cy="205" r="20"/><rect x="86" y="218" width="8" height="20" fill="#7A5A34"/>
+          <circle cx="150" cy="220" r="16"/><rect x="147" y="230" width="6" height="16" fill="#7A5A34"/>
+          <circle cx="300" cy="215" r="22"/><rect x="295" y="230" width="9" height="22" fill="#7A5A34"/>
+          <circle cx="240" cy="228" r="14"/><rect x="237" y="238" width="6" height="14" fill="#7A5A34"/>
+        </g>
+        <rect x="16" y="16" width="150" height="26" rx="6" fill="#E7F0DC" stroke="#3E7A4E"/>
+        <text x="26" y="34" font-family="IBM Plex Mono, monospace" font-size="14" fill="#3E7A4E">Paisagem natural</text>
+
+        <!-- divider -->
+        <line x1="400" y1="20" x2="400" y2="280" stroke="#C2A876" stroke-width="2" stroke-dasharray="6 6"/>
+
+        <!-- HUMANIZADA -->
+        <rect x="405" y="0" width="395" height="300" fill="url(#skyH)"/>
+        <path d="M405 300 L405 230 L800 230 L800 300 Z" fill="#B7A98C"/>
+        <!-- buildings -->
+        <g stroke="#7A5A34" stroke-width="1.5">
+          <rect x="430" y="120" width="46" height="110" fill="#CBB79A"/>
+          <rect x="486" y="90" width="40" height="140" fill="#D9C7A3"/>
+          <rect x="536" y="140" width="52" height="90" fill="#C2A876"/>
+          <rect x="598" y="70" width="44" height="160" fill="#CBB79A"/>
+          <rect x="652" y="130" width="50" height="100" fill="#D9C7A3"/>
+          <rect x="712" y="100" width="42" height="130" fill="#C2A876"/>
+        </g>
+        <!-- windows -->
+        <g fill="#8FB4C4">
+          <rect x="438" y="132" width="8" height="10"/><rect x="454" y="132" width="8" height="10"/>
+          <rect x="438" y="152" width="8" height="10"/><rect x="454" y="152" width="8" height="10"/>
+          <rect x="606" y="84" width="8" height="10"/><rect x="622" y="84" width="8" height="10"/>
+          <rect x="606" y="104" width="8" height="10"/><rect x="622" y="104" width="8" height="10"/>
+          <rect x="720" y="114" width="8" height="10"/><rect x="736" y="114" width="8" height="10"/>
+        </g>
+        <!-- road + cars -->
+        <rect x="405" y="255" width="395" height="26" fill="#6E6455"/>
+        <line x1="405" y1="268" x2="800" y2="268" stroke="#E6CB7C" stroke-width="2" stroke-dasharray="14 12"/>
+        <rect x="470" y="260" width="30" height="12" rx="3" fill="#B25A2E"/>
+        <rect x="640" y="260" width="30" height="12" rx="3" fill="#2E6C86"/>
+        <rect x="620" y="18" width="168" height="26" rx="6" fill="#F6E4D3" stroke="#B25A2E"/>
+        <text x="630" y="36" font-family="IBM Plex Mono, monospace" font-size="14" fill="#B25A2E">Paisagem humanizada</text>
+      </svg>
+      <figcaption><b>Fig. 2</b> — À esquerda, uma <b>paisagem natural</b> (predomínio de elementos naturais). À direita, uma <b>paisagem humanizada</b> (grande densidade de elementos humanos).</figcaption>
+    </figure>
+
+    <div class="note warn">
+      <span class="lbl">Vocabulário</span>
+      As paisagens humanizadas podem ter diferentes <strong>graus de humanização</strong>. As <strong>paisagens rurais</strong> apresentam um grau de intervenção menor; as <strong>paisagens urbanas</strong> revelam o maior grau de intervenção.
+    </div>
+
+    <h3>Tipos de paisagem humanizada</h3>
+    <p>Conforme os elementos e as funções predominantes, distinguem-se vários tipos de paisagem humanizada. Os mais comuns são a urbana, a rural, a agrária e a industrial.</p>
+
+    <div class="def humano">
+      <span class="term">Paisagem urbana</span>
+      Paisagem das <strong>cidades</strong>, com grande densidade de elementos humanos (edifícios, ruas, transportes) e elevada densidade populacional. Predominam as atividades ligadas ao <strong>comércio e aos serviços</strong>. Corresponde ao maior grau de humanização.
+    </div>
+    <div class="def humano">
+      <span class="term">Paisagem rural</span>
+      Paisagem do <strong>campo</strong>, associada às atividades <strong>agrícolas, à pecuária e à silvicultura</strong>. Tem menor grau de humanização, com predomínio de campos, pastagens e povoamento mais disperso, e maior proximidade com a Natureza.
+    </div>
+    <div class="def humano">
+      <span class="term">Paisagem agrária</span>
+      Paisagem dominada pela <strong>produção agrícola</strong>: a porção de espaço cultivado, com os <strong>campos de cultura</strong>, as parcelas, os caminhos que as ligam, os canais de rega e as construções agrícolas. Distingue-se pela forma e arranjo dos campos. É um tipo particular de paisagem rural, centrado no cultivo da terra.
+    </div>
+    <div class="def humano">
+      <span class="term">Paisagem industrial</span>
+      Paisagem marcada pela presença de <strong>fábricas, unidades industriais, armazéns e infraestruturas de produção</strong>. Está ligada à <strong>atividade industrial</strong>, ou seja, à transformação de matérias-primas em produtos.
+    </div>
+
+    <figure>
+      <!-- Quatro tipos de paisagem humanizada: urbana, rural, agraria, industrial -->
+      <svg viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Quatro tipos de paisagem humanizada: urbana, rural, agrária e industrial.">
+        <defs>
+          <linearGradient id="skyT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9E6EC"/><stop offset="1" stop-color="#F0EAD8"/></linearGradient>
+        </defs>
+        <rect x="0" y="0" width="800" height="240" fill="url(#skyT)"/>
+        <line x1="200" y1="14" x2="200" y2="226" stroke="#C2A876" stroke-width="2" stroke-dasharray="6 6"/>
+        <line x1="400" y1="14" x2="400" y2="226" stroke="#C2A876" stroke-width="2" stroke-dasharray="6 6"/>
+        <line x1="600" y1="14" x2="600" y2="226" stroke="#C2A876" stroke-width="2" stroke-dasharray="6 6"/>
+
+        <!-- URBANA (0-200) -->
+        <rect x="0" y="188" width="200" height="52" fill="#B7A98C"/>
+        <g stroke="#7A5A34" stroke-width="1.4">
+          <rect x="18" y="108" width="26" height="80" fill="#CBB79A"/>
+          <rect x="50" y="86" width="24" height="102" fill="#D9C7A3"/>
+          <rect x="80" y="120" width="30" height="68" fill="#C2A876"/>
+          <rect x="116" y="78" width="26" height="110" fill="#CBB79A"/>
+          <rect x="148" y="112" width="30" height="76" fill="#D9C7A3"/>
+        </g>
+        <g fill="#8FB4C4">
+          <rect x="23" y="116" width="6" height="8"/><rect x="34" y="116" width="6" height="8"/>
+          <rect x="121" y="88" width="6" height="8"/><rect x="132" y="88" width="6" height="8"/>
+          <rect x="153" y="122" width="6" height="8"/><rect x="164" y="122" width="6" height="8"/>
+        </g>
+        <rect x="12" y="18" width="90" height="24" rx="6" fill="#F6E4D3" stroke="#B25A2E"/>
+        <text x="22" y="35" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B25A2E">Urbana</text>
+
+        <!-- RURAL (200-400) -->
+        <rect x="200" y="152" width="200" height="88" fill="#A9C46C"/>
+        <g fill="#3E7A4E">
+          <circle cx="238" cy="150" r="15"/><rect x="234" y="160" width="7" height="16" fill="#7A5A34"/>
+          <circle cx="360" cy="154" r="13"/><rect x="357" y="163" width="6" height="14" fill="#7A5A34"/>
+          <circle cx="330" cy="146" r="11"/>
+        </g>
+        <!-- farmhouse -->
+        <rect x="286" y="122" width="42" height="30" fill="#F0E6D0" stroke="#8A6A3A" stroke-width="2"/>
+        <path d="M282 122 L307 104 L332 122 Z" fill="#B25A2E"/>
+        <rect x="300" y="132" width="12" height="20" fill="#8A6A3A"/>
+        <!-- some pasture texture -->
+        <g stroke="#8AA65A" stroke-width="1.2" opacity=".6">
+          <path d="M212 200 L240 196 M260 210 L300 205 M340 200 L385 196" fill="none"/>
+        </g>
+        <rect x="212" y="18" width="80" height="24" rx="6" fill="#F6E4D3" stroke="#B25A2E"/>
+        <text x="222" y="35" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B25A2E">Rural</text>
+
+        <!-- AGRARIA (400-600) -->
+        <rect x="400" y="150" width="200" height="90" fill="#C9B96A"/>
+        <!-- ordered cultivated parcels / crop rows -->
+        <g stroke="#8A6A3A" stroke-width="1.6">
+          <line x1="412" y1="162" x2="590" y2="158"/>
+          <line x1="412" y1="176" x2="590" y2="172"/>
+          <line x1="412" y1="190" x2="590" y2="186"/>
+          <line x1="412" y1="204" x2="590" y2="200"/>
+          <line x1="412" y1="218" x2="590" y2="214"/>
+        </g>
+        <g fill="#6E9A3E" opacity=".7">
+          <rect x="412" y="158" width="178" height="4"/>
+          <rect x="412" y="186" width="178" height="4"/>
+          <rect x="412" y="214" width="178" height="4"/>
+        </g>
+        <!-- path between parcels -->
+        <path d="M498 150 L502 240" stroke="#E6DAB0" stroke-width="6"/>
+        <!-- little tractor -->
+        <g>
+          <rect x="430" y="136" width="20" height="10" rx="2" fill="#B25A2E"/>
+          <circle cx="434" cy="148" r="5" fill="#4A3B2A"/><circle cx="448" cy="148" r="7" fill="#4A3B2A"/>
+        </g>
+        <rect x="412" y="18" width="90" height="24" rx="6" fill="#F6E4D3" stroke="#B25A2E"/>
+        <text x="422" y="35" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B25A2E">Agrária</text>
+
+        <!-- INDUSTRIAL (600-800) -->
+        <rect x="600" y="188" width="200" height="52" fill="#9C917C"/>
+        <g stroke="#5E5647" stroke-width="1.4">
+          <path d="M620 188 L620 146 L688 146 L688 188 Z" fill="#C2B49A"/>
+          <path d="M620 146 L633 135 L646 146 L659 135 L672 146 L685 135 L688 146" fill="#C2B49A"/>
+          <rect x="704" y="128" width="60" height="60" fill="#CBB79A"/>
+        </g>
+        <rect x="742" y="96" width="11" height="34" fill="#8A6A3A"/>
+        <g fill="#C9C3B6" opacity=".8">
+          <circle cx="747" cy="88" r="8"/><circle cx="756" cy="80" r="6"/><circle cx="763" cy="74" r="5"/>
+        </g>
+        <g fill="#8FB4C4">
+          <rect x="632" y="156" width="10" height="10"/><rect x="654" y="156" width="10" height="10"/>
+          <rect x="716" y="142" width="10" height="10"/><rect x="738" y="142" width="10" height="10"/>
+        </g>
+        <rect x="612" y="18" width="100" height="24" rx="6" fill="#F6E4D3" stroke="#B25A2E"/>
+        <text x="622" y="35" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B25A2E">Industrial</text>
+      </svg>
+      <figcaption><b>Fig. 3</b> — Quatro tipos de paisagem humanizada: <b>urbana</b> (cidade), <b>rural</b> (campo), <b>agrária</b> (campos de cultura) e <b>industrial</b> (fábricas).</figcaption>
+    </figure>
+  </section>
+
+  <!-- 6. HUMANIZACAO -->
+  <section id="humanizacao">
+    <span class="kicker"><span class="num">6</span> Aprofundamento</span>
+    <h2>Unidades de paisagem e humanização</h2>
+    <div class="def">
+      <span class="term">Unidade de paisagem</span>
+      Área espacialmente homogénea quanto aos fatores naturais e/ou humanos (uso do solo, povoamento, vegetação, clima…). No seu conjunto, conferem à paisagem um caráter <strong>multifuncional</strong>.
+    </div>
+    <div class="def">
+      <span class="term">Multifuncionalidade</span>
+      Espaço onde coexiste uma <strong>diversidade de funções</strong> (por exemplo, produção agrícola, função residencial, função ecológica).
+    </div>
+
+    <h3>Fatores de humanização das paisagens</h3>
+    <p>A crescente humanização das paisagens resulta de vários fatores:</p>
+    <div class="tbl">
+      <table>
+        <caption>Quadro 3 — Principais fatores de humanização das paisagens.</caption>
+        <thead><tr><th>Fator</th><th>Como transforma a paisagem</th></tr></thead>
+        <tbody>
+          <tr><td class="h-humano">Movimentos migratórios</td><td>Deslocação de pessoas que ocupam e transformam novos territórios.</td></tr>
+          <tr><td class="h-humano">Industrialização</td><td>Instalação de fábricas e infraestruturas.</td></tr>
+          <tr><td class="h-humano">Transportes e vias de comunicação</td><td>Construção de estradas, pontes e linhas férreas.</td></tr>
+          <tr><td class="h-humano">Aumento da população mundial</td><td>Maior procura de espaço e de recursos.</td></tr>
+          <tr><td class="h-humano">Expansão urbana</td><td>Crescimento das cidades sobre o meio natural.</td></tr>
+          <tr><td class="h-humano">Exploração dos recursos naturais</td><td>Agricultura, desflorestação, extração de recursos.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="lbl">Não esquecer</span>
+      As paisagens naturais também mudam, mas por <strong>ação de fatores naturais</strong> — a erosão causada pelos rios, oceanos e vento, os movimentos tectónicos (sismos) e os fenómenos naturais extremos.
+    </div>
+  </section>
+
+  <!-- 7. JOGO -->
+  <section id="jogo">
+    <span class="kicker"><span class="num">7</span> Praticar</span>
+    <h2>Jogo: natural ou humano?</h2>
+    <div class="game">
+      <h3>Arrasta cada elemento para a coluna certa</h3>
+      <p class="instr">Arrasta cada elemento da reserva para <b>Elementos naturais</b> ou <b>Elementos humanos</b>. Em alternativa, <b>toca</b> num elemento para o fazer saltar de coluna. No fim, toca em <b>Ver correção</b>.</p>
+
+      <div class="pool-lbl">Reserva — elementos por classificar</div>
+      <div class="pool" id="pool" aria-label="Elementos por classificar"></div>
+
+      <div class="bins">
+        <div class="bin bin-natural" id="binN">
+          <header><span class="dot n"></span> Elementos naturais</header>
+          <div class="drop" id="dropN" aria-label="Coluna dos elementos naturais"></div>
+        </div>
+        <div class="bin bin-humano" id="binH">
+          <header><span class="dot h"></span> Elementos humanos</header>
+          <div class="drop" id="dropH" aria-label="Coluna dos elementos humanos"></div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <button class="btn" id="checkGame" type="button">Ver correção</button>
+        <button class="btn ghost" id="resetGame" type="button">Recomeçar</button>
+        <span class="game-score" id="gameScore" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. QUIZ -->
+  <section id="quiz">
+    <span class="kicker"><span class="num">8</span> Avaliação</span>
+    <h2>Quiz — Descrição da paisagem</h2>
+    <p>Responde às 10 perguntas e clica em <strong>Corrigir</strong>. Recebes a percentagem, a nota de 0 a 20 e a explicação de cada resposta.</p>
+    <div class="quiz" id="quizBox"></div>
+  </section>
+
+  <footer>
+    Geografia · 7.º ano · A Terra: estudos e representações — Descrição da paisagem<br>
+    Powered by Claude IA &amp; Francisco Cavaco · Fonte de conteúdo: manual de Geografia 7.º ano
+  </footer>
+
+</main>
+
+<script>
+"use strict";
+
+/* ---------- JOGO: arrastar elementos para colunas ---------- */
+var GAME_ITEMS = [
+  { t:"Montanha", tipo:"natural", ico:"\u26F0\uFE0F" },
+  { t:"Ponte", tipo:"humano", ico:"\uD83C\uDF09" },
+  { t:"Rio", tipo:"natural", ico:"\uD83C\uDF0A" },
+  { t:"Edif\u00EDcios", tipo:"humano", ico:"\uD83C\uDFE2" },
+  { t:"Vegeta\u00E7\u00E3o", tipo:"natural", ico:"\uD83C\uDF33" },
+  { t:"Estrada", tipo:"humano", ico:"\uD83D\uDEE3\uFE0F" },
+  { t:"Mar", tipo:"natural", ico:"\uD83C\uDF0A" },
+  { t:"Campos agr\u00EDcolas", tipo:"humano", ico:"\uD83C\uDF3E" },
+  { t:"Nuvens", tipo:"natural", ico:"\u2601\uFE0F" },
+  { t:"Barragem", tipo:"humano", ico:"\uD83C\uDF0A" }
+];
+
+var pool = document.getElementById("pool");
+var dropN = document.getElementById("dropN");
+var dropH = document.getElementById("dropH");
+var binN = document.getElementById("binN");
+var binH = document.getElementById("binH");
+var gameScore = document.getElementById("gameScore");
+
+function rectHas(el, x, y){
+  var r = el.getBoundingClientRect();
+  return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+}
+function containerUnder(x, y){
+  if (rectHas(binN, x, y)) return dropN;
+  if (rectHas(binH, x, y)) return dropH;
+  return pool;
+}
+function clearOver(){ binN.classList.remove("over"); binH.classList.remove("over"); }
+function highlightUnder(x, y){
+  clearOver();
+  if (rectHas(binN, x, y)) binN.classList.add("over");
+  else if (rectHas(binH, x, y)) binH.classList.add("over");
+}
+
+/* toque/tecla: faz o elemento saltar pool -> naturais -> humanos -> pool */
+function cycle(chip){
+  var p = chip.parentNode;
+  if (p === pool) dropN.appendChild(chip);
+  else if (p === dropN) dropH.appendChild(chip);
+  else pool.appendChild(chip);
+}
+
+function attachDrag(chip){
+  chip.addEventListener("pointerdown", function(e){
+    if (e.button !== undefined && e.button !== 0) return;
+    e.preventDefault();
+    var startX = e.clientX, startY = e.clientY;
+    var dragging = false, offX = 0, offY = 0;
+    var origParent = chip.parentNode;
+    try { chip.setPointerCapture(e.pointerId); } catch (err) {}
+
+    function onMove(ev){
+      var dx = ev.clientX - startX, dy = ev.clientY - startY;
+      if (!dragging && (Math.abs(dx) > 6 || Math.abs(dy) > 6)){
+        dragging = true;
+        var rect = chip.getBoundingClientRect();
+        offX = startX - rect.left; offY = startY - rect.top;
+        chip.classList.add("dragging");
+        chip.style.width = rect.width + "px";
+        chip.style.left = rect.left + "px";
+        chip.style.top = rect.top + "px";
+        document.body.appendChild(chip);
+      }
+      if (dragging){
+        chip.style.left = (ev.clientX - offX) + "px";
+        chip.style.top = (ev.clientY - offY) + "px";
+        highlightUnder(ev.clientX, ev.clientY);
+      }
+    }
+    function finish(ev, cancelled){
+      chip.removeEventListener("pointermove", onMove);
+      chip.removeEventListener("pointerup", onUp);
+      chip.removeEventListener("pointercancel", onCancel);
+      clearOver();
+      if (dragging){
+        chip.classList.remove("dragging");
+        chip.style.position = ""; chip.style.left = ""; chip.style.top = ""; chip.style.width = "";
+        var target = cancelled ? origParent : containerUnder(ev.clientX, ev.clientY);
+        target.appendChild(chip);
+      } else if (!cancelled){
+        cycle(chip); /* foi um toque, não um arrasto */
+      }
+    }
+    function onUp(ev){ finish(ev, false); }
+    function onCancel(ev){ finish(ev, true); }
+
+    chip.addEventListener("pointermove", onMove);
+    chip.addEventListener("pointerup", onUp);
+    chip.addEventListener("pointercancel", onCancel);
+  });
+
+  /* teclado: Enter/Espaço muda de coluna */
+  chip.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " " || e.key === "Spacebar"){
+      e.preventDefault();
+      cycle(chip);
+    }
+  });
+}
+
+function makeChip(it){
+  var b = document.createElement("button");
+  b.type = "button";
+  b.className = "dchip";
+  b.dataset.correct = it.tipo;
+  b.setAttribute("aria-label", it.t);
+  b.innerHTML = '<span class="ico" aria-hidden="true">' + it.ico + '</span>' + it.t;
+  attachDrag(b);
+  return b;
+}
+
+function shuffled(arr){
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function buildGame(){
+  pool.innerHTML = ""; dropN.innerHTML = ""; dropH.innerHTML = "";
+  gameScore.textContent = "";
+  shuffled(GAME_ITEMS).forEach(function(it){ pool.appendChild(makeChip(it)); });
+}
+
+document.getElementById("checkGame").addEventListener("click", function(){
+  var chips = document.querySelectorAll(".dchip");
+  var ok = 0, porClassificar = 0;
+  chips.forEach(function(chip){
+    chip.classList.remove("correct","wrong");
+    var p = chip.parentNode;
+    var escolha = (p === dropN) ? "natural" : (p === dropH) ? "humano" : "";
+    if (escolha === ""){ porClassificar++; return; }
+    if (escolha === chip.dataset.correct){ chip.classList.add("correct"); ok++; }
+    else { chip.classList.add("wrong"); }
+  });
+  var msg = "Certos: " + ok + " de " + chips.length + ".";
+  if (porClassificar > 0) msg += " Ainda tens " + porClassificar + " por classificar.";
+  gameScore.textContent = msg;
+});
+
+document.getElementById("resetGame").addEventListener("click", buildGame);
+buildGame();
+
+/* ---------- QUIZ ---------- */
+var QUESTIONS = [
+  {
+    stem:"O que é uma paisagem?",
+    opts:[
+      "Apenas o conjunto dos edifícios de uma cidade.",
+      "A área da superfície terrestre observável a partir de um lugar, com elementos naturais e/ou humanos.",
+      "Um mapa da superfície terrestre.",
+      "Somente os elementos naturais de um território."
+    ],
+    correct:1,
+    exp:"A paisagem é a área da superfície terrestre que observamos a partir de um lugar, constituída por elementos naturais e/ou humanos."
+  },
+  {
+    stem:"Qual dos seguintes é um elemento natural?",
+    opts:["Uma ponte","Um campo agrícola","Uma montanha","Uma estrada"],
+    correct:2,
+    exp:"A montanha é um elemento natural, pois existe sem intervenção humana. Ponte, campo agrícola e estrada resultam da ação humana."
+  },
+  {
+    stem:"Um elemento humano da paisagem é aquele que…",
+    opts:[
+      "resulta da ação do ser humano.",
+      "existe sem qualquer intervenção humana.",
+      "só se encontra em desertos.",
+      "nunca muda ao longo do tempo."
+    ],
+    correct:0,
+    exp:"Os elementos humanos resultam da ação do ser humano (edifícios, pontes, estradas, campos agrícolas)."
+  },
+  {
+    stem:"A observação feita no próprio local, in loco, chama-se observação…",
+    opts:["indireta","direta","cartográfica","aérea"],
+    correct:1,
+    exp:"A observação direta realiza-se no próprio local; a indireta faz-se a partir de fotografias, mapas ou imagens de satélite."
+  },
+  {
+    stem:"Ao observar uma paisagem através de uma fotografia, estás a fazer uma observação…",
+    opts:["direta","de campo","indireta","no local"],
+    correct:2,
+    exp:"Observar através de uma fotografia é observação indireta, porque não estás no local."
+  },
+  {
+    stem:"No esboço, o plano mais próximo do observador, com maior pormenor, é o…",
+    opts:["3.º plano","2.º plano","1.º plano","plano de fundo"],
+    correct:2,
+    exp:"O 1.º plano é o mais próximo do observador e permite ver os elementos com maior pormenor."
+  },
+  {
+    stem:"Uma paisagem natural caracteriza-se por…",
+    opts:[
+      "grande densidade de edifícios.",
+      "não apresentar (ou quase não apresentar) intervenção humana.",
+      "ter muitas estradas e pontes.",
+      "ser sempre uma cidade."
+    ],
+    correct:1,
+    exp:"Na paisagem natural o meio encontra-se inalterado, sem marcas significativas da presença humana."
+  },
+  {
+    stem:"Qual destas é um exemplo de paisagem humanizada?",
+    opts:["A Antártida","Um deserto quente","Uma cidade","Uma floresta densa e intacta"],
+    correct:2,
+    exp:"A cidade é uma paisagem humanizada, com grande densidade de elementos humanos. As restantes são paisagens naturais."
+  },
+  {
+    stem:"A paisagem que revela o maior grau de intervenção humana designa-se paisagem…",
+    opts:["rural","urbana","natural","polar"],
+    correct:1,
+    exp:"A paisagem urbana revela o maior grau de intervenção; a rural tem um grau de humanização menor."
+  },
+  {
+    stem:"Qual destes NÃO é um fator de humanização das paisagens?",
+    opts:["A expansão urbana","A industrialização","A erosão causada pelos rios","Os movimentos migratórios"],
+    correct:2,
+    exp:"A erosão causada pelos rios é um fator natural de mudança. Os restantes são fatores de humanização (ação do ser humano)."
+  }
+];
+
+var quizBox = document.getElementById("quizBox");
+
+QUESTIONS.forEach(function(q, qi){
+  var wrap = document.createElement("div");
+  wrap.className = "q";
+  var html = '<div class="qnum">Pergunta ' + (qi+1) + ' de ' + QUESTIONS.length + '</div>';
+  html += '<p class="stem">' + q.stem + '</p>';
+  q.opts.forEach(function(opt, oi){
+    var id = "q" + qi + "o" + oi;
+    html += '<label class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
+      '<input type="radio" name="q' + qi + '" value="' + oi + '" id="' + id + '"> ' +
+      opt + '</label>';
+  });
+  html += '<div class="explain" id="exp' + qi + '"></div>';
+  wrap.innerHTML = html;
+  quizBox.appendChild(wrap);
+});
+
+/* selection highlight */
+quizBox.addEventListener("change", function(e){
+  if (e.target && e.target.type === "radio"){
+    var qi = e.target.name.slice(1);
+    var labels = quizBox.querySelectorAll('.opt[data-q="' + qi + '"]');
+    labels.forEach(function(l){ l.classList.remove("sel"); });
+    e.target.closest(".opt").classList.add("sel");
+  }
+});
+
+var actions = document.createElement("div");
+actions.className = "quiz-actions";
+actions.innerHTML =
+  '<button class="btn" id="corrigir" type="button">Corrigir</button>' +
+  '<button class="btn ghost" id="limpar" type="button">Limpar</button>';
+quizBox.appendChild(actions);
+
+var result = document.createElement("div");
+result.className = "result";
+result.id = "result";
+quizBox.appendChild(result);
+
+document.getElementById("corrigir").addEventListener("click", function(){
+  var acertos = 0;
+  var respondidas = 0;
+  QUESTIONS.forEach(function(q, qi){
+    var labels = quizBox.querySelectorAll('.opt[data-q="' + qi + '"]');
+    var checked = quizBox.querySelector('input[name="q' + qi + '"]:checked');
+    labels.forEach(function(l){ l.classList.remove("right","wrong"); });
+    if (checked) respondidas++;
+    labels.forEach(function(l){
+      var oi = parseInt(l.dataset.o, 10);
+      if (oi === q.correct) l.classList.add("right");
+      if (checked && parseInt(checked.value,10) === oi && oi !== q.correct) l.classList.add("wrong");
+    });
+    if (checked && parseInt(checked.value,10) === q.correct) acertos++;
+    var exp = document.getElementById("exp" + qi);
+    var certo = checked && parseInt(checked.value,10) === q.correct;
+    exp.innerHTML = '<b>' + (certo ? "Certo. " : "A resposta correta é a assinalada a verde. ") + '</b>' + q.exp;
+    exp.classList.add("show");
+  });
+
+  var total = QUESTIONS.length;
+  var pct = Math.round((acertos / total) * 100);
+  var nota = Math.round((acertos / total) * 20 * 10) / 10;
+  var msg;
+  if (pct >= 90) msg = "Excelente! Dominas bem a descrição da paisagem.";
+  else if (pct >= 70) msg = "Bom trabalho. Revê os pontos que falharam.";
+  else if (pct >= 50) msg = "Estás quase. Vale a pena voltar às definições.";
+  else msg = "Revê a matéria e tenta de novo — consegues melhorar.";
+  if (respondidas < total) msg = "Responde a todas as perguntas para uma nota final. " + msg;
+
+  var res = document.getElementById("result");
+  res.innerHTML =
+    '<div class="grade">' + nota.toString().replace(".",",") + ' / 20</div>' +
+    '<div class="pct">' + acertos + ' de ' + total + ' certas · ' + pct + '%</div>' +
+    '<div class="msg">' + msg + '</div>';
+  res.classList.add("show");
+  res.scrollIntoView({ behavior:"smooth", block:"center" });
+});
+
+document.getElementById("limpar").addEventListener("click", function(){
+  quizBox.querySelectorAll('input[type="radio"]').forEach(function(r){ r.checked = false; });
+  quizBox.querySelectorAll(".opt").forEach(function(l){ l.classList.remove("sel","right","wrong"); });
+  quizBox.querySelectorAll(".explain").forEach(function(e){ e.classList.remove("show"); e.innerHTML = ""; });
+  var res = document.getElementById("result");
+  res.classList.remove("show");
+  res.innerHTML = "";
+});
+</script>
+</body>
+</html>

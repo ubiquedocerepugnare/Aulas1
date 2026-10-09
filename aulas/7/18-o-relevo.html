@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O relevo — formas, representação e agentes erosivos (Geografia, 7.º ano)</title>
+<!--
+  AULA INTERATIVA — GEOGRAFIA 7.º ANO — MEIO NATURAL: O RELEVO
+  Ficheiro único: todo o CSS e JavaScript estão incorporados; funciona sem ligação à Internet.
+  Todas as figuras são desenhos SVG originais (esquemas), não reproduções dos manuais.
+  Powered by Claude IA & Ideias&Soltas — concepção de produtos multimédia
+-->
+<style>
+/* ============ 1. VARIÁVEIS (paleta hipsométrica) ============ */
+:root{
+  --papel:#f5f0e1; --cartao:#fffdf6; --tinta:#1f2d33; --tinta2:#4a5a60; --linha:#d9cfb4;
+  --mar:#2e6e8e; --mar-c:#cfe3ea; --verde:#5f9a5a; --verde-e:#2f6b3f; --areia:#e9d48b;
+  --ocre:#cf9a4a; --terra:#9a5f38; --castanho:#6b3f26;
+  --ok:#1e7a46; --ok-f:#e2f3e7; --erro:#b3362b; --erro-f:#f9e3e0;
+  --titulo:"Fraunces",Georgia,"Times New Roman",serif;
+  --texto:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+/* ============ 2. BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:var(--titulo);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(1.7rem,4.5vw,2.7rem)}
+h2{font-size:clamp(1.35rem,3.2vw,1.9rem);color:var(--verde-e)}
+h3{font-size:1.15rem;color:var(--castanho);margin-top:1.4em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin-bottom:.35em}
+li,p,td{overflow-wrap:anywhere}
+a{color:var(--mar)}
+strong{color:var(--castanho)}
+.etq{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta2)}
+/* ============ 3. CABEÇALHO E NAVEGAÇÃO ============ */
+header.topo{position:sticky;top:0;z-index:20;background:var(--tinta);color:#fff;padding:.55rem 1rem}
+.topo-linha{max-width:980px;margin:0 auto;display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}
+.topo-titulo{font-family:var(--titulo);font-size:1.02rem;flex:1 1 180px}
+.topo select{font:inherit;font-size:.9rem;padding:.35rem .5rem;border-radius:6px;border:0;max-width:100%;background:#fff;color:var(--tinta)}
+.barra{height:9px;background:rgba(0,0,0,.14);border-radius:9px;overflow:hidden}
+.barra span{display:block;height:100%;width:0;border-radius:9px;transition:width .3s;
+  background:linear-gradient(90deg,var(--verde),var(--areia),var(--ocre),var(--terra))}
+.topo .barra{max-width:980px;margin:.45rem auto 0;background:rgba(255,255,255,.2)}
+main{max-width:980px;margin:0 auto;padding:1.2rem 1rem 6.5rem}
+.pagina{display:none;animation:entra .25s ease}
+.pagina.ativa{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+nav.rodape{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--cartao);border-top:2px solid var(--linha);padding:.55rem 1rem}
+.rodape-linha{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.rodape-info{font-family:var(--mono);font-size:.82rem;color:var(--tinta2);text-align:center}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--verde-e);color:#fff;border:0;border-radius:8px;padding:.6rem 1.05rem;font-weight:700;min-height:44px}
+.btn:hover{background:#245432}
+.btn:disabled{background:#b9b7a8;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--verde-e);border:2px solid var(--verde-e)}
+/* ============ 4. BLOCOS DE CONTEÚDO ============ */
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:12px;padding:1.1rem 1.2rem;margin:0 0 1.1rem;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.capa{background:linear-gradient(160deg,#2f6b3f 0%,#5f9a5a 35%,#e9d48b 68%,#cf9a4a 85%,#9a5f38 100%);color:#fff;border-radius:14px;padding:2rem 1.4rem;margin-bottom:1.1rem}
+.capa h1{color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.35)}
+.capa .etq{color:#fff;opacity:.95}
+.capa p{font-size:1.08rem;max-width:44em;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.def{border-left:6px solid var(--ocre);background:#fbf3d9;border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.def b{font-family:var(--titulo);color:var(--castanho);font-size:1.05rem}
+.curio{border-left:6px solid var(--mar);background:var(--mar-c);border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.curio::before{content:"Curiosidade";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mar);font-weight:700}
+.exemplo{border-left:6px solid var(--verde);background:#e8f1e2;border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.exemplo::before{content:"Exemplo prático";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-e);font-weight:700}
+.pensa{border:2px dashed var(--terra);border-radius:10px;padding:.75rem 1rem;margin:0 0 1rem;background:#fff}
+.pensa::before{content:"Pensa nisto";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.grelha{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-bottom:1rem}
+.grelha .cartao{margin:0}
+figure{margin:0 0 1.1rem;background:#fff;border:1px solid var(--linha);border-radius:12px;padding:.6rem}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:.86rem;color:var(--tinta2);padding:.4rem .3rem 0}
+figcaption b{font-family:var(--mono);color:var(--verde-e)}
+.rolagem{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:.95rem;background:#fff}
+th,td{border:1px solid var(--linha);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--verde-e);color:#fff;font-family:var(--titulo)}
+td.n{font-family:var(--mono);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:.2rem 0 .7rem}
+.chip{background:#fff;border:2px solid var(--terra);color:var(--castanho);border-radius:999px;padding:.4rem .9rem;font-weight:700;min-height:42px}
+.chip.ativo{background:var(--terra);color:#fff}
+.painel{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:.7rem .9rem;min-height:3.4em}
+.legenda-hipso{display:flex;flex-wrap:wrap;gap:0;margin:.4rem 0 1rem;border:1px solid var(--linha);border-radius:8px;overflow:hidden}
+.legenda-hipso span{flex:1 1 90px;padding:.45rem .3rem;text-align:center;font-family:var(--mono);font-size:.76rem}
+input[type=range]{width:100%;height:34px}
+/* ============ 5. QUESTIONÁRIOS ============ */
+.quiz-topo{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.quiz-topo .barra{flex:1}
+.quiz-topo .cont{font-family:var(--mono);font-size:.85rem;white-space:nowrap}
+.q{background:var(--cartao);border:1px solid var(--linha);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem}
+.q .enun{font-weight:700;margin-bottom:.7rem}
+.q .num{font-family:var(--mono);color:var(--terra);margin-right:.35rem}
+.ops{display:grid;gap:.5rem}
+.ops.vf{grid-template-columns:1fr 1fr}
+.op{text-align:left;background:#fff;border:2px solid var(--linha);border-radius:9px;padding:.6rem .8rem;min-height:46px;color:var(--tinta)}
+.op:hover:not(:disabled){border-color:var(--mar)}
+.op:disabled{cursor:default;opacity:1}
+.op.certa{background:var(--ok-f);border-color:var(--ok);font-weight:700}
+.op.certa::after{content:"  ✓ correta"}
+.op.errada{background:var(--erro-f);border-color:var(--erro)}
+.op.errada::after{content:"  ✗ incorreta"}
+.fb{display:none;margin-top:.7rem;padding:.6rem .8rem;border-radius:9px;font-size:.95rem}
+.fb.ok{display:block;background:var(--ok-f);border:1px solid var(--ok)}
+.fb.erro{display:block;background:var(--erro-f);border:1px solid var(--erro)}
+.par{display:grid;grid-template-columns:minmax(120px,1fr) minmax(150px,1.6fr);gap:.5rem;align-items:center;padding:.4rem;border-radius:8px;margin-bottom:.3rem}
+.par select{font:inherit;padding:.5rem;border-radius:8px;border:2px solid var(--linha);width:100%;background:#fff;min-height:44px}
+.par.certa{background:var(--ok-f)} .par.certa select{border-color:var(--ok)}
+.par.errada{background:var(--erro-f)} .par.errada select{border-color:var(--erro)}
+.par .corr{grid-column:1/-1;font-size:.88rem;color:var(--erro)}
+textarea{width:100%;min-height:110px;font:inherit;padding:.6rem;border-radius:9px;border:2px solid var(--linha);background:#fff}
+.oculto{display:none}
+.nota{font-family:var(--titulo);font-size:clamp(2rem,7vw,3.2rem);color:var(--verde-e);line-height:1}
+.creditos{text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--tinta2);margin-top:1.5rem}
+@media (max-width:560px){
+  body{font-size:16px}
+  .par{grid-template-columns:1fr}
+  .btn{padding:.55rem .8rem}
+  .rodape-info{font-size:.72rem}
+}
+@media print{
+  header.topo,nav.rodape{display:none}
+  .pagina{display:block;page-break-after:always}
+  main{padding-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= CABEÇALHO ======================= -->
+<header class="topo">
+  <div class="topo-linha">
+    <div class="topo-titulo">O relevo · Geografia 7.º ano</div>
+    <label class="oculto" for="indice">Índice</label>
+    <select id="indice" aria-label="Índice da aula"></select>
+  </div>
+  <div class="barra" aria-hidden="true"><span id="barra-aula"></span></div>
+</header>
+
+<main>
+
+<!-- ======================= 0. INÍCIO ======================= -->
+<section class="pagina" data-titulo="Início">
+  <div class="capa">
+    <div class="etq">Geografia · 7.º ano · Meio natural</div>
+    <h1>O relevo: formas, representação e agentes que o transformam</h1>
+    <p><b>Tema principal:</b> as grandes formas de relevo no mundo e em Portugal, a sua representação em mapas e perfis, e a ação dos agentes internos e externos (com destaque para a água, o vento e o ser humano).</p>
+  </div>
+
+  <div class="cartao">
+    <h2>Objetivos de aprendizagem</h2>
+    <p>No final desta aula deves ser capaz de:</p>
+    <ul>
+      <li>Identificar e descrever as diferentes formas de relevo (planície, colina, planalto, montanha, cordilheira e vale).</li>
+      <li>Reconhecer a localização das grandes formas de relevo à escala mundial e em Portugal.</li>
+      <li>Interpretar mapas hipsométricos, descrevendo as diferentes formas de relevo.</li>
+      <li>Interpretar mapas topográficos, identificando os principais elementos que os constituem.</li>
+      <li>Relacionar os perfis topográficos com as formas de relevo.</li>
+      <li>Distinguir agentes internos de agentes externos.</li>
+      <li>Caracterizar os principais agentes erosivos (água e vento).</li>
+      <li>Distinguir as três fases do processo erosivo: desgaste, transporte e acumulação.</li>
+      <li>Identificar as grandes formas resultantes da erosão e da acumulação de sedimentos por ação da água e do vento.</li>
+      <li>Exemplificar formas de relevo regionais resultantes da ação dos agentes erosivos.</li>
+      <li>Inferir a ação do ser humano na alteração das paisagens.</li>
+    </ul>
+  </div>
+
+  <div class="cartao">
+    <h2>Resumo inicial</h2>
+    <p>A superfície da Terra não é lisa: tem montanhas, planaltos, colinas, planícies e vales. A este conjunto de irregularidades chamamos <strong>relevo</strong>. O relevo é criado sobretudo por forças que vêm do interior da Terra (<strong>agentes internos</strong>) e é continuamente modelado por forças que atuam à superfície (<strong>agentes externos</strong>), como a água, o gelo, o vento e o próprio ser humano.</p>
+    <p>Para estudar o relevo usamos <strong>mapas hipsométricos</strong> (cores), <strong>mapas topográficos</strong> (curvas de nível) e <strong>perfis topográficos</strong> (cortes verticais do terreno).</p>
+    <h3>Como usar esta aula</h3>
+    <ul>
+      <li>Avança e recua com os botões <b>Anterior</b> e <b>Seguinte</b> (ou com as setas do teclado) e usa o <b>índice</b> no topo para saltar de secção.</li>
+      <li>Experimenta as figuras interativas e responde às caixas «Pensa nisto» no caderno.</li>
+      <li>No fim, faz a avaliação: escolha múltipla, verdadeiro ou falso, associação e desafio final. A correção é automática e a classificação aparece em percentagem e na escala de 0 a 20.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 1. ALTITUDE E FORMAS ======================= -->
+<section class="pagina" data-titulo="1. Altitude e formas de relevo">
+  <div class="etq">Secção 1</div>
+  <h2>Altitude e formas de relevo</h2>
+
+  <div class="def"><b>Relevo</b> — conjunto das formas (irregularidades) que a superfície terrestre apresenta, distinguidas pela altitude e pela configuração.</div>
+  <div class="def"><b>Altitude</b> — distância, em metros, medida na vertical, entre o nível médio das águas do mar e um lugar. Pode ser <b>positiva</b> (acima do nível do mar), <b>nula</b> (ao nível do mar) ou <b>negativa</b> (abaixo do nível do mar, em terra emersa). Quando o lugar está submerso fala-se em <b>profundidade</b>.</div>
+
+  <p>Toca em cada forma de relevo para a localizares no esquema e leres a sua descrição.</p>
+  <div class="chips" id="chips-formas"></div>
+  <figure>
+    <svg viewBox="0 0 720 300" role="img" aria-label="Corte esquemático com as principais formas de relevo">
+      <defs>
+        <linearGradient id="gHipso" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0" stop-color="#5f9a5a"/><stop offset=".3" stop-color="#b9cf7a"/>
+          <stop offset=".5" stop-color="#e9d48b"/><stop offset=".7" stop-color="#cf9a4a"/>
+          <stop offset=".88" stop-color="#9a5f38"/><stop offset="1" stop-color="#f4f1ea"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="720" height="300" fill="#eef5f7"/>
+      <!-- destaque interativo -->
+      <rect id="destaque-forma" x="0" y="20" width="0" height="262" fill="#2e6e8e" opacity=".18" rx="6"/>
+      <!-- mar -->
+      <rect x="0" y="240" width="74" height="42" fill="#2e6e8e"/>
+      <!-- terreno -->
+      <path d="M70,240 L80,232 L190,228 Q235,186 282,226 L300,232 Q318,240 338,230 L365,170 L470,165 L492,202 L515,192 L560,70 L600,180 L620,112 L640,150 L665,58 L690,140 L720,100 L720,282 L0,282 L0,270 L70,262 Z" fill="url(#gHipso)" stroke="#6b3f26" stroke-width="1.5"/>
+      <!-- rio no vale -->
+      <path d="M306,234 Q318,241 332,232" fill="none" stroke="#2e6e8e" stroke-width="4" stroke-linecap="round"/>
+      <!-- nível do mar -->
+      <line x1="0" y1="240" x2="720" y2="240" stroke="#1f2d33" stroke-dasharray="6 5" stroke-width="1"/>
+      <text x="8" y="296" font-size="12" font-family="monospace" fill="#1f2d33">- - nível médio das águas do mar (0 m)</text>
+      <g font-size="13" font-weight="700" fill="#1f2d33" text-anchor="middle" font-family="Georgia,serif">
+        <text x="36" y="258" fill="#fff">mar</text>
+        <text x="135" y="218">planície</text>
+        <text x="236" y="190">colina</text>
+        <text x="318" y="216">vale</text>
+        <text x="418" y="154">planalto</text>
+        <text x="548" y="56">montanha</text>
+        <text x="650" y="38">cordilheira</text>
+      </g>
+      <path d="M612,44 L712,44" stroke="#1f2d33" stroke-width="1.2"/><path d="M612,40 v8 M712,40 v8" stroke="#1f2d33" stroke-width="1.2"/>
+    </svg>
+    <figcaption><b>Fig. 1</b> Corte esquemático com as principais formas de relevo (desenho original, sem escala).</figcaption>
+  </figure>
+  <div class="painel" id="painel-formas" aria-live="polite">Escolhe uma forma de relevo.</div>
+
+  <h3>Dois conceitos que ajudam a descrever o relevo</h3>
+  <div class="grelha">
+    <div class="def"><b>Vertente (ou encosta)</b> — cada um dos lados de uma elevação, entre o topo (cume) e a base.</div>
+    <div class="def"><b>Declive</b> — grau de inclinação de uma vertente em relação a uma superfície horizontal. Pode ser forte (terreno íngreme) ou fraco (terreno suave).</div>
+  </div>
+
+  <div class="curio">Os valores de altitude usados para separar as formas de relevo (por exemplo, 200 m para a planície ou 1000 m para a montanha) são <b>convenções</b> que variam um pouco de autor para autor. O que realmente distingue as formas é a combinação entre <b>altitude</b>, <b>declive</b> e <b>configuração</b> do terreno.</div>
+
+  <div class="pensa">Olha pela janela ou recorda o caminho de casa até à escola. Que forma de relevo predomina? Que pistas (altitude, declive das ruas, presença de um rio) te ajudaram a decidir?</div>
+</section>
+
+<!-- ======================= 2. RELEVO NO MUNDO ======================= -->
+<section class="pagina" data-titulo="2. O relevo no mundo">
+  <div class="etq">Secção 2</div>
+  <h2>As grandes formas de relevo no mundo</h2>
+
+  <h3>As maiores cadeias montanhosas</h3>
+  <div class="rolagem"><table>
+    <tr><th>Cordilheira</th><th>Continente</th><th>Ponto mais alto</th><th>Altitude</th></tr>
+    <tr><td>Himalaias</td><td>Ásia</td><td>Monte Evereste (fronteira Nepal–China)</td><td class="n">≈ 8849 m</td></tr>
+    <tr><td>Andes</td><td>América do Sul</td><td>Aconcágua (Argentina)</td><td class="n">≈ 6960 m</td></tr>
+    <tr><td>Cordilheira do Alasca</td><td>América do Norte</td><td>Denali (EUA)</td><td class="n">6190 m</td></tr>
+    <tr><td>Montanhas Rochosas</td><td>América do Norte</td><td>Monte Elbert (EUA)</td><td class="n">≈ 4400 m</td></tr>
+    <tr><td>Alpes</td><td>Europa</td><td>Monte Branco (França–Itália)</td><td class="n">≈ 4800 m</td></tr>
+    <tr><td>Cáucaso</td><td>Europa (limite com a Ásia)</td><td>Monte Elbrus (Rússia)</td><td class="n">≈ 5640 m</td></tr>
+  </table></div>
+  <p style="font-size:.88rem;color:#4a5a60">Valores arredondados. As altitudes do Evereste e do Denali seguem as medições oficiais mais recentes (ver Fontes).</p>
+
+  <figure>
+    <svg id="grafico-cumes" viewBox="0 0 720 310" role="img" aria-label="Gráfico com o ponto mais alto de cada continente"></svg>
+    <figcaption><b>Fig. 2</b> Ponto mais alto de cada continente (altitudes aproximadas, em metros). As cores seguem a lógica de um mapa hipsométrico.</figcaption>
+  </figure>
+
+  <h3>Planaltos, planícies e campos de dunas</h3>
+  <div class="grelha">
+    <div class="cartao"><b>Planaltos</b><br>O <b>planalto do Tibete</b> (Ásia) é o maior e o mais alto do mundo, a mais de 4000 m de altitude. Outros exemplos: planalto do Brasil, planalto da Etiópia, planalto do Colorado.</div>
+    <div class="cartao"><b>Planícies</b><br>A <b>Grande Planície Europeia</b> e a <b>planície da Sibéria Ocidental</b> formam, em conjunto, a mais extensa área plana do mundo, separadas pelos montes Urais. Destacam-se ainda a planície Central da América do Norte e a planície Amazónica.</div>
+    <div class="cartao"><b>Grandes conjuntos de dunas</b><br>Localizam-se nos desertos, onde o vento é o principal agente modelador: <b>Sara</b> e <b>Namibe</b> (África), <b>Gobi</b> (Ásia), <b>Atacama</b> (América do Sul) e Grande Deserto Australiano.</div>
+  </div>
+
+  <div class="curio">A altitude do Evereste foi medida de novo pelo Nepal (2019) e pela China (2020). Os dois países anunciaram em conjunto, em dezembro de 2020, o valor oficial de <b>8848,86 m</b>. É por isso que encontras 8848, 8849 ou 8850 m em livros diferentes: são arredondamentos ou medições mais antigas.</div>
+  <div class="curio">O lugar mais profundo dos oceanos é o <b>abismo Challenger</b>, na fossa das Marianas (oceano Pacífico), com cerca de <b>10 935 m</b> de profundidade segundo a NOAA. Outros levantamentos indicam cerca de 10 994 m (± 40 m): medir a 11 km de profundidade é difícil e os resultados dependem do método. Se o Evereste fosse colocado lá dentro, o seu cume ficaria debaixo de água a mais de 2000 m de profundidade.</div>
+  <div class="curio">Medido desde a base, no fundo do oceano, o vulcão <b>Mauna Kea</b> (Havai) ultrapassa os 10 000 m — mais do que o Evereste. Mas só cerca de 4200 m ficam acima do nível do mar, e a altitude mede-se sempre a partir do nível do mar.</div>
+
+  <div class="pensa">As cordilheiras mais altas (Himalaias, Andes) localizam-se junto ao contacto entre placas tectónicas. O que te diz isto sobre a origem das montanhas? Guarda a tua hipótese: vais confirmá-la na Secção 5.</div>
+</section>
+
+<!-- ======================= 3. RELEVO EM PORTUGAL ======================= -->
+<section class="pagina" data-titulo="3. O relevo em Portugal">
+  <div class="etq">Secção 3</div>
+  <h2>O relevo em Portugal</h2>
+  <p>Em Portugal continental predominam as <strong>áreas de baixa altitude</strong>: cerca de 70% do território fica abaixo dos 400 m e apenas cerca de 12% ultrapassa os 700 m. Mas o relevo distribui-se de forma muito desigual.</p>
+
+  <div class="def"><b>Dois grandes contrastes</b> — <b>Norte / Sul</b>: a Cordilheira Central (serras da Estrela, Açor, Lousã e Gardunha) e o vale do Tejo separam um norte mais alto e acidentado de um sul mais baixo e aplanado. <b>Litoral / Interior</b>: o litoral é, em geral, mais baixo e plano do que o interior.</div>
+
+  <div class="rolagem"><table>
+    <tr><th>A norte do rio Tejo</th><th>A sul do rio Tejo</th></tr>
+    <tr>
+      <td>Relevo mais acidentado e com maiores altitudes médias.<br>Predominam os <b>planaltos</b> (por exemplo, o planalto transmontano) e os <b>conjuntos montanhosos</b>.<br>Aqui ficam as serras mais altas do continente: Estrela, Gerês, Larouco, Montesinho, Marão e Peneda.<br>Vales profundos e encaixados (por exemplo, o vale do Douro).</td>
+      <td>Relevo mais suave e com altitudes médias mais baixas.<br>Domina a <b>peneplanície alentejana</b>, vasta superfície quase plana, levemente ondulada, que resultou de uma erosão muito prolongada.<br>Sobressaem alguns relevos isolados, mais resistentes à erosão: serras de São Mamede, Ossa, Caldeirão e Monchique.<br>Planícies aluviais extensas (lezíria do Tejo, vale do Sado).</td>
+    </tr>
+  </table></div>
+
+  <h3>Os pontos mais altos</h3>
+  <div class="rolagem"><table>
+    <tr><th>Território</th><th>Ponto mais alto</th><th>Altitude</th><th>Origem</th></tr>
+    <tr><td>Portugal (todo o país)</td><td>Montanha do Pico, ilha do Pico, Açores</td><td class="n">2351 m</td><td>Vulcânica</td></tr>
+    <tr><td>Portugal continental</td><td>Torre, serra da Estrela</td><td class="n">1993 m</td><td>Tectónica; modelada por glaciares</td></tr>
+    <tr><td>Arquipélago da Madeira</td><td>Pico Ruivo, ilha da Madeira</td><td class="n">1862 m</td><td>Vulcânica</td></tr>
+  </table></div>
+
+  <div class="exemplo">Imagina uma viagem em linha reta de <b>Bragança</b> a <b>Beja</b>. Começas num planalto, a mais de 600 m; atravessas vales encaixados e, na Cordilheira Central, serras com mais de 1000 m; depois de cruzares o Tejo, o terreno torna-se baixo e suavemente ondulado, quase sempre abaixo dos 300 m. O perfil dessa viagem mostra o contraste norte–sul.</div>
+
+  <div class="curio">Nos arquipélagos dos Açores e da Madeira, de origem vulcânica, o relevo é muito acidentado: as ilhas são, na prática, o topo de grandes vulcões que se erguem do fundo do oceano. Por isso predominam as costas altas e as ribeiras curtas com forte declive.</div>
+
+  <div class="pensa">Porque será que as cidades mais populosas de Portugal se localizam sobretudo no litoral e em áreas de baixa altitude? Indica duas vantagens do relevo plano para a fixação humana.</div>
+</section>
+
+<!-- ======================= 4. REPRESENTAR O RELEVO ======================= -->
+<section class="pagina" data-titulo="4. Representar o relevo">
+  <div class="etq">Secção 4</div>
+  <h2>Como se representa o relevo?</h2>
+
+  <h3>Mapas hipsométricos</h3>
+  <p>Num mapa hipsométrico, cada <strong>cor</strong> corresponde a uma <strong>classe de altitude</strong>. São mapas de <b>pequena escala</b>, indicados para áreas extensas (o mundo, um continente, um país). Para os interpretar, lê primeiro a legenda.</p>
+  <div class="legenda-hipso" aria-label="Legenda hipsométrica">
+    <span style="background:#2e6e8e;color:#fff">mar (profundidade)</span>
+    <span style="background:#5f9a5a;color:#fff">0–200 m</span>
+    <span style="background:#b9cf7a">200–500 m</span>
+    <span style="background:#e9d48b">500–1000 m</span>
+    <span style="background:#cf9a4a">1000–2000 m</span>
+    <span style="background:#9a5f38;color:#fff">2000–4000 m</span>
+    <span style="background:#6b3f26;color:#fff">&gt; 4000 m</span>
+  </div>
+  <div class="exemplo"><b>Como descrever um mapa hipsométrico em três passos:</b> (1) lê a legenda e identifica as classes de altitude; (2) localiza as manchas de cores — verdes extensos indicam planícies, amarelos e laranjas indicam planaltos e áreas de altitude média, castanhos indicam montanhas e cordilheiras; (3) descreve a distribuição usando os pontos cardeais («as maiores altitudes localizam-se a nordeste…»).</div>
+
+  <h3>Mapas topográficos</h3>
+  <p>São mapas de <b>grande escala</b>, com muito pormenor (em Portugal, a Carta Militar na escala 1:25 000). O relevo é representado por <strong>curvas de nível</strong> e <strong>pontos cotados</strong>.</p>
+  <div class="grelha">
+    <div class="def"><b>Curva de nível</b> — linha que une pontos com a mesma altitude. As curvas de nível nunca se cruzam.</div>
+    <div class="def"><b>Equidistância</b> — diferença de altitude, sempre igual, entre duas curvas de nível consecutivas (10 m na Carta Militar 1:25 000).</div>
+    <div class="def"><b>Curvas mestras e intermédias</b> — as mestras têm traço mais grosso e a altitude indicada (de 5 em 5 curvas); as intermédias têm traço fino.</div>
+    <div class="def"><b>Ponto cotado</b> — ponto do mapa com a altitude exata indicada, muitas vezes no topo de uma elevação.</div>
+  </div>
+  <p>Outros elementos de um mapa topográfico: linhas de água (a azul), vegetação, estradas, povoações, escala, orientação e legenda.</p>
+  <div class="def"><b>Regra de ouro</b> — curvas de nível <b>muito próximas</b> = <b>declive forte</b>; curvas de nível <b>afastadas</b> = <b>declive fraco</b>.</div>
+
+  <h3>Perfis topográficos</h3>
+  <div class="def"><b>Perfil topográfico</b> — representação gráfica de um corte vertical do terreno, segundo uma linha traçada no mapa topográfico, construída a partir das curvas de nível e dos pontos cotados.</div>
+  <p><b>Experimenta:</b> desloca o cursor ao longo do segmento A–B e observa como o mapa (visto de cima) se relaciona com o perfil (visto de lado).</p>
+  <figure>
+    <svg viewBox="0 0 600 220" role="img" aria-label="Mapa de curvas de nível de uma colina com o segmento A–B">
+      <rect width="600" height="220" fill="#f3efdf"/>
+      <g fill="none" stroke="#9a5f38" stroke-width="1.6">
+        <ellipse cx="300" cy="110" rx="240" ry="90" fill="#dfe9c4"/>
+        <ellipse cx="265" cy="110" rx="185" ry="70" fill="#eadf9f"/>
+        <ellipse cx="235" cy="110" rx="135" ry="52" fill="#e3c27c"/>
+        <ellipse cx="210" cy="110" rx="90" ry="36" fill="#d3a35f"/>
+        <ellipse cx="185" cy="110" rx="45" ry="19" fill="#bd8448"/>
+      </g>
+      <g font-size="11" font-family="monospace" fill="#6b3f26">
+        <text x="300" y="196" text-anchor="middle">50</text><text x="265" y="177" text-anchor="middle">100</text>
+        <text x="235" y="159" text-anchor="middle">150</text><text x="210" y="143" text-anchor="middle">200</text>
+        <text x="190" y="127" text-anchor="middle">250</text>
+      </g>
+      <line x1="30" y1="110" x2="570" y2="110" stroke="#b3362b" stroke-width="2" stroke-dasharray="7 4"/>
+      <circle cx="175" cy="110" r="3" fill="#1f2d33"/><text x="180" y="103" font-size="11" font-family="monospace" fill="#1f2d33">· 268</text>
+      <g font-size="15" font-weight="700" fill="#b3362b" font-family="Georgia,serif"><text x="14" y="104">A</text><text x="576" y="104">B</text></g>
+      <circle id="marca-mapa" cx="30" cy="110" r="7" fill="#b3362b" stroke="#fff" stroke-width="2"/>
+      <text x="590" y="16" text-anchor="end" font-size="11" font-family="monospace" fill="#4a5a60">equidistância: 50 m · vista de cima</text>
+    </svg>
+    <svg id="perfil-svg" viewBox="0 0 600 200" role="img" aria-label="Perfil topográfico entre A e B" style="margin-top:.4rem">
+      <rect width="600" height="200" fill="#fff"/>
+      <g stroke="#d9cfb4" stroke-width="1">
+        <line x1="30" y1="180" x2="570" y2="180"/><line x1="30" y1="125" x2="570" y2="125"/><line x1="30" y1="70" x2="570" y2="70"/>
+      </g>
+      <g font-size="11" font-family="monospace" fill="#4a5a60">
+        <text x="2" y="184">0 m</text><text x="2" y="129">100</text><text x="2" y="74">200</text>
+        <text x="590" y="16" text-anchor="end">perfil topográfico A–B · vista de lado</text>
+      </g>
+      <polygon id="perfil-area" fill="#cf9a4a" opacity=".55" stroke="#6b3f26" stroke-width="2"/>
+      <line id="marca-linha" x1="30" y1="20" x2="30" y2="180" stroke="#b3362b" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle id="marca-perfil" cx="30" cy="160" r="7" fill="#b3362b" stroke="#fff" stroke-width="2"/>
+      <g font-size="15" font-weight="700" fill="#b3362b" font-family="Georgia,serif"><text x="26" y="197">A</text><text x="566" y="197">B</text></g>
+    </svg>
+    <figcaption><b>Fig. 3</b> Do mapa topográfico ao perfil topográfico (esquema original).</figcaption>
+  </figure>
+  <label for="cursor-perfil"><b>Posição ao longo de A–B</b></label>
+  <input type="range" id="cursor-perfil" min="30" max="570" value="30" step="1">
+  <div class="painel" id="painel-perfil" aria-live="polite"></div>
+
+  <h3 style="margin-top:1.2em">Como construir um perfil topográfico</h3>
+  <ol>
+    <li>Traça no mapa um segmento de reta entre dois pontos (A e B), se possível perpendicular às curvas de nível.</li>
+    <li>Em papel milimétrico, desenha um eixo horizontal com o mesmo comprimento do segmento (distância).</li>
+    <li>Desenha um eixo vertical com a escala das altitudes, em metros.</li>
+    <li>Encosta o papel ao segmento e assinala onde este cruza cada curva de nível, ponto cotado e linha de água.</li>
+    <li>Projeta cada marca na vertical até à altitude correspondente.</li>
+    <li>Une os pontos com uma linha contínua e suave: obténs o perfil.</li>
+  </ol>
+
+  <div class="curio">Com o Google Earth podes obter perfis de qualquer lugar: desenha um caminho e escolhe «Mostrar perfil de elevação». Experimenta com o percurso entre a tua casa e a escola (precisas de ligação à Internet).</div>
+  <div class="pensa">No esquema, a vertente oeste (lado de A) tem as curvas de nível muito juntas e a vertente este (lado de B) tem as curvas afastadas. Se tivesses de subir a pé até ao ponto cotado 268, por que lado irias? Justifica com o perfil.</div>
+</section>
+
+<!-- ======================= 5. AGENTES E PROCESSO EROSIVO ======================= -->
+<section class="pagina" data-titulo="5. Agentes e processo erosivo">
+  <div class="etq">Secção 5</div>
+  <h2>Como se forma e se transforma o relevo?</h2>
+
+  <div class="grelha">
+    <div class="cartao">
+      <h3 style="margin-top:0">Agentes internos — criam o relevo</h3>
+      <p>Têm origem no <b>interior da Terra</b> e são responsáveis pelas grandes linhas do relevo.</p>
+      <ul>
+        <li><b>Movimentos tectónicos</b> — o choque entre placas enruga e levanta a crosta, formando cordilheiras (Himalaias, Andes).</li>
+        <li><b>Vulcões</b> — a acumulação de lava e cinzas constrói montanhas (monte Fuji, montanha do Pico).</li>
+        <li><b>Sismos</b> — associados a falhas que deslocam blocos da crosta.</li>
+      </ul>
+    </div>
+    <div class="cartao">
+      <h3 style="margin-top:0">Agentes externos — transformam o relevo</h3>
+      <p>Atuam à <b>superfície</b> e modelam, pouco a pouco, as formas criadas pelos agentes internos. Chamam-se também <b>agentes erosivos</b>.</p>
+      <ul>
+        <li><b>Água</b> — da chuva, dos rios, dos glaciares (gelo) e do mar.</li>
+        <li><b>Vento</b>.</li>
+        <li><b>Variações de temperatura</b> — fraturam as rochas.</li>
+        <li><b>Seres vivos</b>, com destaque para o <b>ser humano</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>O processo erosivo: três fases</h3>
+  <div class="def"><b>Erosão (em sentido amplo)</b> — processo que inclui o desgaste da superfície terrestre, o transporte dos materiais e a sua acumulação.</div>
+  <figure>
+    <svg viewBox="0 0 720 230" role="img" aria-label="As três fases do processo erosivo ao longo de uma vertente">
+      <rect width="720" height="230" fill="#eef5f7"/>
+      <rect x="640" y="186" width="80" height="44" fill="#2e6e8e"/>
+      <path d="M0,40 C120,50 200,150 360,165 S600,180 660,188 L720,205 L720,230 L0,230 Z" fill="url(#gHipso)" stroke="#6b3f26" stroke-width="1.5"/>
+      <path d="M40,46 C140,62 210,150 360,163 S600,178 660,186" fill="none" stroke="#2e6e8e" stroke-width="3.5" stroke-linecap="round"/>
+      <g fill="#6b3f26"><circle cx="560" cy="186" r="3"/><circle cx="585" cy="190" r="3.5"/><circle cx="610" cy="192" r="3"/><circle cx="632" cy="196" r="4"/><circle cx="655" cy="199" r="3"/><circle cx="676" cy="203" r="3.5"/></g>
+      <g font-family="Georgia,serif" font-weight="700" font-size="16" text-anchor="middle">
+        <text x="150" y="28" fill="#b3362b">1. Desgaste</text>
+        <text x="370" y="120" fill="#9a5f38">2. Transporte</text>
+        <text x="600" y="150" fill="#2f6b3f">3. Acumulação</text>
+      </g>
+      <g font-size="12" font-family="monospace" fill="#1f2d33" text-anchor="middle">
+        <text x="150" y="212">declive forte · água veloz</text>
+        <text x="370" y="212">declive menor</text>
+        <text x="570" y="222">declive fraco · água lenta</text>
+      </g>
+      <path d="M210,75 l40,34 m0,0 l-12,-3 m12,3 l-3,-12 M400,132 l50,8 m0,0 l-9,-7 m9,7 l-10,5" stroke="#1f2d33" stroke-width="2" fill="none"/>
+    </svg>
+    <figcaption><b>Fig. 4</b> As três fases do processo erosivo ao longo do percurso de um rio (esquema original).</figcaption>
+  </figure>
+  <div class="grelha">
+    <div class="def"><b>1. Desgaste</b> — as rochas são fraturadas, desagregadas e arrancadas.</div>
+    <div class="def"><b>2. Transporte</b> — os materiais arrancados são deslocados; quanto maior o declive e a velocidade do agente, maior a capacidade de transporte.</div>
+    <div class="def"><b>3. Acumulação (ou deposição)</b> — quando o agente perde força, deposita os materiais (sedimentos), criando novas formas.</div>
+  </div>
+
+  <h3>O relevo ao longo do tempo</h3>
+  <p>Pouco depois de se formarem, as montanhas têm <b>cumes pontiagudos</b> e <b>vales encaixados</b>. Com milhões de anos de erosão, os cumes ficam <b>arredondados</b>, as vertentes menos inclinadas e os vales <b>mais abertos</b>. No limite, forma-se uma superfície de baixa altitude, quase plana, com alguns relevos isolados — como a peneplanície alentejana.</p>
+
+  <div class="exemplo">A cordilheira dos <b>Himalaias</b> é «jovem» (formou-se pelo choque entre a placa da Índia e a placa da Eurásia, iniciado há cerca de 50 milhões de anos): os cumes são altos e pontiagudos. As serras do <b>Alentejo</b> são relevos muito antigos e desgastados: baixos e de formas suaves. Mesma origem tectónica, idades diferentes, formas diferentes.</div>
+  <div class="pensa">Se os agentes externos estão sempre a desgastar o relevo, porque é que a Terra não é completamente plana? Usa na resposta a expressão «agentes internos».</div>
+</section>
+
+<!-- ======================= 6. ÁGUA E VENTO ======================= -->
+<section class="pagina" data-titulo="6. A água e o vento">
+  <div class="etq">Secção 6</div>
+  <h2>A água e o vento: os grandes agentes erosivos</h2>
+
+  <h3>A água — o principal agente erosivo</h3>
+  <div class="rolagem"><table>
+    <tr><th>Tipo de erosão</th><th>Agente</th><th>Como atua</th><th>Formas resultantes</th></tr>
+    <tr><td><b>Pluvial</b></td><td>Água da chuva</td><td>Desgasta os solos, sobretudo em vertentes inclinadas e sem vegetação.</td><td>Sulcos e ravinas nas vertentes.</td></tr>
+    <tr><td><b>Fluvial</b></td><td>Rios</td><td>Escava o leito, desgasta as margens, transporta e deposita sedimentos.</td><td>Vales, gargantas e canhões (desgaste); planícies aluviais e deltas (acumulação).</td></tr>
+    <tr><td><b>Glaciar</b></td><td>Gelo (glaciares)</td><td>O gelo desliza lentamente, arrancando e arrastando rochas.</td><td>Vales glaciários em forma de «U»; depósitos de blocos (moreias).</td></tr>
+    <tr><td><b>Marinha</b></td><td>Ondas, marés e correntes</td><td>As ondas embatem na costa (abrasão marinha); as correntes transportam e depositam areias.</td><td>Arribas, grutas, arcos (desgaste); praias, restingas, tômbolos (acumulação).</td></tr>
+  </table></div>
+
+  <h3>Os rios: do desgaste à acumulação</h3>
+  <div class="grelha">
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale em V fechado"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,14 L72,80 L80,85 L88,80 L160,14 L160,90 L0,90Z" fill="#9a5f38"/><path d="M74,82 L80,86 L86,82" stroke="#2e6e8e" stroke-width="4" fill="none"/></svg>
+      <figcaption><b>Curso superior</b> — forte declive, água veloz. Predomina o <b>desgaste</b>. Vale em <b>«V» fechado</b>, garganta ou canhão.</figcaption></figure>
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale em V aberto"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,34 L58,76 L102,76 L160,34 L160,90 L0,90Z" fill="#cf9a4a"/><rect x="66" y="73" width="28" height="5" fill="#2e6e8e"/></svg>
+      <figcaption><b>Curso médio</b> — declive menor. Predomina o <b>transporte</b>; o rio alarga as margens. Vale em <b>«V» aberto</b>.</figcaption></figure>
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale de fundo plano"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,58 L26,72 L134,72 L160,58 L160,90 L0,90Z" fill="#b9cf7a"/><rect x="52" y="70" width="56" height="5" fill="#2e6e8e"/></svg>
+      <figcaption><b>Curso inferior</b> — declive fraco, água lenta. Predomina a <b>acumulação</b>. Vale largo de <b>fundo plano</b>: planície aluvial.</figcaption></figure>
+  </div>
+  <div class="grelha">
+    <div class="def"><b>Planície aluvial</b> — planície junto ao leito de um rio, formada pela deposição de sedimentos (aluviões). Tem solos muito férteis.</div>
+    <div class="def"><b>Delta</b> — acumulação de sedimentos na foz de um rio, que se divide em vários braços (por exemplo, o delta do Nilo ou o do Ganges).</div>
+    <div class="def"><b>Estuário</b> — parte terminal de um rio com um único canal, que se alarga e aprofunda até à foz, onde a água doce se mistura com a do mar.</div>
+  </div>
+
+  <h3>O mar: a costa alta e a costa baixa</h3>
+  <figure>
+    <svg viewBox="0 0 720 240" role="img" aria-label="Arriba, sapa na base e plataforma de abrasão">
+      <rect width="720" height="240" fill="#eef5f7"/>
+      <rect x="0" y="150" width="340" height="90" fill="#2e6e8e"/>
+      <path d="M190,240 L205,166 L335,154 L335,240Z" fill="#8c8576"/>
+      <path d="M335,240 L335,152 L320,140 L320,118 L346,110 L346,48 L720,48 L720,240Z" fill="#cf9a4a" stroke="#6b3f26" stroke-width="1.5"/>
+      <rect x="346" y="40" width="374" height="10" fill="#5f9a5a"/>
+      <path d="M278,152 l14,-9 l12,9 Z M300,154 l10,-7 l9,7 Z" fill="#9a5f38"/>
+      <path d="M0,150 q20,-12 40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 q16,-14 38,-22" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <g font-family="Georgia,serif" font-weight="700" font-size="15" fill="#1f2d33">
+        <text x="500" y="110">arriba</text>
+        <text x="360" y="136" font-size="13">sapa: desgaste na base</text>
+        <text x="200" y="210" fill="#fff" font-size="13">plataforma de abrasão</text>
+        <text x="24" y="130" font-size="13">ondas (abrasão marinha)</text>
+      </g>
+      <path d="M356,132 L326,130" stroke="#1f2d33" stroke-width="1.5"/>
+    </svg>
+    <figcaption><b>Fig. 5</b> Recuo de uma arriba: as ondas escavam a base, o topo perde apoio e desmorona; os blocos acumulam-se na plataforma de abrasão (esquema original).</figcaption>
+  </figure>
+  <div class="grelha">
+    <div class="cartao"><b>Costa alta e rochosa (arriba)</b><br>Rochas duras e resistentes (granito, xisto, calcário), vertentes quase verticais. Predomina o <b>desgaste</b>. Formas: arribas, cabos, grutas, arcos e farilhões. Uma arriba que o mar já não atinge chama-se <b>arriba morta ou fóssil</b>.</div>
+    <div class="cartao"><b>Costa baixa e arenosa</b><br>Rochas brandas (areias, argilas), baixa altitude. Predomina a <b>acumulação</b>. Formas: praias, dunas, restingas, tômbolos, ilhas-barreira e lagunas.</div>
+  </div>
+  <div class="rolagem"><table>
+    <tr><th>Forma litoral</th><th>Descrição</th><th>Processo dominante</th></tr>
+    <tr><td>Arriba</td><td>Costa alta e escarpada, talhada em rochas resistentes.</td><td>Desgaste</td></tr>
+    <tr><td>Cabo</td><td>Saliência da costa que penetra no mar.</td><td>Desgaste (rocha mais resistente)</td></tr>
+    <tr><td>Baía</td><td>Reentrância da costa.</td><td>Desgaste (rocha menos resistente)</td></tr>
+    <tr><td>Gruta, arco e farilhão</td><td>Cavidade na arriba; abertura num cabo; rocha isolada que resta quando o arco desaba.</td><td>Desgaste</td></tr>
+    <tr><td>Praia</td><td>Acumulação de areias ou seixos transportados pelo mar.</td><td>Acumulação</td></tr>
+    <tr><td>Restinga</td><td>Cordão de areia ligado à costa numa das extremidades.</td><td>Acumulação</td></tr>
+    <tr><td>Tômbolo</td><td>Cordão de areia que liga uma ilha ao continente.</td><td>Acumulação</td></tr>
+    <tr><td>Ilha-barreira e laguna</td><td>Ilha arenosa, estreita e paralela à costa; a laguna é a massa de água que fica separada do mar.</td><td>Acumulação</td></tr>
+  </table></div>
+
+  <h3>O vento — erosão eólica</h3>
+  <p>O vento é um agente erosivo importante onde a <b>vegetação é escassa</b> e os materiais estão soltos e secos: nos <b>desertos</b> e nas <b>praias</b>. Atua de duas maneiras no desgaste:</p>
+  <div class="grelha">
+    <div class="def"><b>Deflação</b> — o vento levanta e remove as partículas soltas mais finas (poeiras e areias).</div>
+    <div class="def"><b>Abrasão eólica</b> — os grãos de areia transportados pelo vento embatem nas rochas e desgastam-nas, como uma lixa, esculpindo formas invulgares.</div>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 190" role="img" aria-label="Formação de uma duna pelo vento">
+      <rect width="720" height="190" fill="#eef5f7"/>
+      <path d="M0,160 L90,160 L400,62 L478,160 L520,160 L650,118 L690,160 L720,160 L720,190 L0,190Z" fill="#e9d48b" stroke="#cf9a4a" stroke-width="1.5"/>
+      <path d="M40,60 H210 m0,0 l-14,-8 m14,8 l-14,8" stroke="#2e6e8e" stroke-width="4" fill="none"/>
+      <g font-family="Georgia,serif" font-weight="700" font-size="14" fill="#1f2d33">
+        <text x="40" y="44" fill="#2e6e8e">vento dominante</text>
+        <text x="140" y="118" transform="rotate(-17 140 118)">vertente suave (de onde vem o vento)</text>
+        <text x="470" y="80">vertente abrupta (abrigada)</text>
+      </g>
+      <g fill="#cf9a4a"><circle cx="250" cy="96" r="2.5"/><circle cx="290" cy="80" r="2.5"/><circle cx="330" cy="70" r="2.5"/><circle cx="372" cy="56" r="2.5"/><circle cx="420" cy="74" r="2.5"/></g>
+    </svg>
+    <figcaption><b>Fig. 6</b> Uma duna forma-se quando o vento perde velocidade e deposita a areia que transportava (esquema original).</figcaption>
+  </figure>
+  <div class="def"><b>Duna</b> — acumulação de areia transportada pelo vento. A vertente virada ao vento é suave; a vertente abrigada é mais inclinada. Onde não há vegetação a fixá-las, as dunas deslocam-se.</div>
+
+  <h3>Exemplos regionais em Portugal</h3>
+  <div class="rolagem"><table>
+    <tr><th>Lugar</th><th>Forma de relevo</th><th>Agente e processo</th></tr>
+    <tr><td>Vale do Douro (Douro Internacional e Alto Douro)</td><td>Vale encaixado, com troços em canhão</td><td>Rio — desgaste</td></tr>
+    <tr><td>Vale do Zêzere, serra da Estrela</td><td>Vale glaciário em «U»</td><td>Gelo — desgaste</td></tr>
+    <tr><td>Lezíria do Tejo</td><td>Planície aluvial</td><td>Rio — acumulação</td></tr>
+    <tr><td>Estuários do Tejo e do Sado</td><td>Estuário</td><td>Rio e mar</td></tr>
+    <tr><td>Ria de Aveiro</td><td>Laguna e haff-delta (sedimentos do Vouga retidos atrás de uma restinga)</td><td>Rio e mar — acumulação</td></tr>
+    <tr><td>Peniche</td><td>Tômbolo (antiga ilha ligada ao continente por areias)</td><td>Mar — acumulação</td></tr>
+    <tr><td>São Martinho do Porto</td><td>Baía em forma de concha</td><td>Mar — desgaste e acumulação</td></tr>
+    <tr><td>Ria Formosa (Faro)</td><td>Sistema lagunar com ilhas-barreira e restingas</td><td>Mar — acumulação</td></tr>
+    <tr><td>Cabo de São Vicente (Sagres)</td><td>Cabo e arribas</td><td>Mar — desgaste</td></tr>
+    <tr><td>Benagil (Lagoa, Algarve)</td><td>Grutas e arcos em arribas calcárias</td><td>Mar — desgaste</td></tr>
+    <tr><td>Costa da Caparica</td><td>Arriba fóssil</td><td>Mar — desgaste antigo</td></tr>
+    <tr><td>Litoral entre Espinho e a Nazaré</td><td>Praias extensas e cordões de dunas</td><td>Mar e vento — acumulação</td></tr>
+  </table></div>
+
+  <div class="curio">Nem só os desertos têm dunas. As dunas costeiras funcionam como uma barreira natural que protege as terras do interior das ondas e das tempestades. É por isso que, em muitas praias portuguesas, há passadiços e paliçadas: servem para não pisarmos a vegetação que segura a areia.</div>
+  <div class="pensa">Um rio e o vento conseguem transportar materiais. Qual deles transporta materiais mais pesados? O que acontece aos materiais quando o agente perde velocidade? Relaciona a resposta com a terceira fase do processo erosivo.</div>
+</section>
+
+<!-- ======================= 7. SER HUMANO ======================= -->
+<section class="pagina" data-titulo="7. O ser humano e a paisagem">
+  <div class="etq">Secção 7</div>
+  <h2>O ser humano também transforma o relevo</h2>
+  <p>O ser humano é um agente externo cada vez mais importante: altera a altitude e a forma do terreno e interfere com o trabalho dos outros agentes erosivos.</p>
+
+  <div class="grelha">
+    <div class="cartao"><b>Socalcos</b><br>No <b>Alto Douro Vinhateiro</b> (Património Mundial da UNESCO), as vertentes íngremes foram transformadas em degraus sustentados por muros de xisto, para plantar vinha e travar a erosão do solo.</div>
+    <div class="cartao"><b>Barragens</b><br>Armazenam água, produzem eletricidade e regularizam os caudais, mas inundam vales e <b>retêm os sedimentos</b> que deveriam chegar ao litoral. A barragem de Alqueva, no Guadiana, submergiu a antiga aldeia da Luz, reconstruída noutro local em 2002.</div>
+    <div class="cartao"><b>Pólderes</b><br>Nos <b>Países Baixos</b>, extensas áreas foram conquistadas ao mar com diques e bombas. Uma parte do país fica abaixo do nível médio das águas do mar (altitude negativa).</div>
+    <div class="cartao"><b>Construção e extração</b><br>Estradas, túneis, aterros, pedreiras, minas e cidades cortam vertentes, nivelam terrenos e impermeabilizam os solos. A extração de areias nos rios reduz os sedimentos disponíveis.</div>
+  </div>
+
+  <h3>Um problema atual: o recuo da linha de costa</h3>
+  <p>Em vários troços do litoral português a linha de costa está a recuar. As causas combinam fatores <b>naturais</b> e <b>humanos</b>:</p>
+  <ul>
+    <li>subida do nível médio das águas do mar, associada ao aquecimento global;</li>
+    <li>diminuição dos sedimentos que chegam à costa, devido às barragens e à extração de areias;</li>
+    <li>construção de habitações e infraestruturas sobre dunas e arribas;</li>
+    <li>obras pesadas (esporões, paredões, molhes) que protegem um local, mas interrompem o transporte de areias e agravam a erosão mais adiante.</li>
+  </ul>
+  <div class="exemplo">A Agência Portuguesa do Ambiente (APA) monitoriza a costa desde 2018 através do programa <b>COSMO</b>. Os resultados mostram que os troços mais críticos são de litoral baixo e arenoso, como Cortegaça–Furadouro, Barra–Mira e Cova-Gala–Leirosa. Na <b>Costa da Caparica</b>, a alimentação artificial das praias com areias dragadas tem atenuado a erosão.</div>
+
+  <h3>Soluções: ordenar o território</h3>
+  <div class="def"><b>Programas da Orla Costeira (POC)</b> — instrumentos de ordenamento, da responsabilidade da APA, que definem como pode ser usada a faixa litoral, identificam as áreas de risco e estabelecem medidas de proteção. Substituíram os antigos Planos de Ordenamento da Orla Costeira (POOC). Só o POC Ovar–Marinha Grande abrange cerca de 140 km de costa.</div>
+  <div class="rolagem"><table>
+    <tr><th>Medida</th><th>Vantagem</th><th>Limitação</th></tr>
+    <tr><td>Esporões e paredões</td><td>Protegem de imediato casas e estradas.</td><td>Caros; agravam a erosão nas praias a seguir ao esporão.</td></tr>
+    <tr><td>Alimentação artificial das praias</td><td>Repõe a areia sem obras pesadas.</td><td>Tem de ser repetida ao fim de alguns anos.</td></tr>
+    <tr><td>Recuperação de dunas (paliçadas, passadiços, vegetação)</td><td>Solução natural e barata; protege o interior.</td><td>Resultados lentos; exige o respeito de todos.</td></tr>
+    <tr><td>Interdição de construir em áreas de risco</td><td>Evita prejuízos futuros.</td><td>Difícil de aplicar onde já existe construção.</td></tr>
+  </table></div>
+
+  <div class="pensa">Uma autarquia quer autorizar um hotel sobre uma duna, junto a uma praia que perde areia todos os anos. Que argumentos apresentarias a favor e contra? Qual seria a tua decisão?</div>
+</section>
+
+<!-- ======================= 8. SÍNTESE ======================= -->
+<section class="pagina" data-titulo="8. Síntese final">
+  <div class="etq">Secção 8</div>
+  <h2>Síntese final</h2>
+  <div class="cartao">
+    <ul>
+      <li>O <b>relevo</b> é o conjunto das formas da superfície terrestre. A <b>altitude</b> mede-se na vertical, a partir do nível médio das águas do mar.</li>
+      <li>Principais formas: <b>planície</b> (baixa e plana), <b>colina</b> (pequena elevação de topo arredondado), <b>planalto</b> (elevado e aplanado), <b>montanha</b> (grande altitude e vertentes inclinadas), <b>cordilheira</b> (conjunto alinhado de montanhas) e <b>vale</b> (depressão entre vertentes, em geral com um rio).</li>
+      <li>No mundo destacam-se os Himalaias, os Andes, as Montanhas Rochosas e os Alpes; o planalto do Tibete; a Grande Planície Europeia e a planície Amazónica.</li>
+      <li>Em Portugal continental, o relevo é mais alto e acidentado a <b>norte do Tejo</b> e no interior, e mais baixo e plano a <b>sul</b> e no litoral. O ponto mais alto do país é a montanha do Pico (2351 m).</li>
+      <li>Os <b>mapas hipsométricos</b> usam cores; os <b>mapas topográficos</b> usam curvas de nível e pontos cotados; os <b>perfis topográficos</b> mostram o terreno em corte. Curvas próximas = declive forte.</li>
+      <li>Os <b>agentes internos</b> (movimentos tectónicos, vulcões, sismos) criam o relevo; os <b>agentes externos</b> (água, gelo, vento, temperatura, ser humano) transformam-no.</li>
+      <li>O processo erosivo tem três fases: <b>desgaste → transporte → acumulação</b>.</li>
+      <li>A <b>água</b> origina vales, canhões, arribas e grutas (desgaste) e planícies aluviais, deltas, praias, restingas e tômbolos (acumulação). O <b>vento</b> esculpe as rochas (deflação e abrasão) e forma <b>dunas</b> (acumulação).</li>
+      <li>O <b>ser humano</b> altera as paisagens com socalcos, barragens, pólderes e construções; o ordenamento do território (por exemplo, os POC) procura reduzir os impactos negativos.</li>
+    </ul>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="Esquema-síntese do relevo">
+      <rect width="720" height="250" fill="#fff"/>
+      <g font-family="Georgia,serif" font-size="13" text-anchor="middle">
+        <rect x="300" y="8" width="120" height="34" rx="17" fill="#2f6b3f"/><text x="360" y="30" fill="#fff" font-weight="700" font-size="16">RELEVO</text>
+        <g stroke="#6b3f26" stroke-width="1.5" fill="none"><path d="M360,42 V60 M90,60 H630 M90,60 V78 M270,60 V78 M450,60 V78 M630,60 V78"/></g>
+        <g font-family="monospace" font-size="11" fill="#4a5a60"><text x="90" y="74" dx="44">é criado por</text><text x="270" y="74" dx="54">é transformado por</text><text x="450" y="74" dx="48">representa-se em</text><text x="630" y="74" dx="-52">tem as formas</text></g>
+        <rect x="20" y="80" width="140" height="28" rx="6" fill="#9a5f38"/><text x="90" y="99" fill="#fff" font-weight="700">Agentes internos</text>
+        <rect x="200" y="80" width="140" height="28" rx="6" fill="#2e6e8e"/><text x="270" y="99" fill="#fff" font-weight="700">Agentes externos</text>
+        <rect x="380" y="80" width="140" height="28" rx="6" fill="#cf9a4a"/><text x="450" y="99" font-weight="700">Mapas e perfis</text>
+        <rect x="560" y="80" width="140" height="28" rx="6" fill="#5f9a5a"/><text x="630" y="99" fill="#fff" font-weight="700">Formas de relevo</text>
+        <g fill="#1f2d33">
+          <text x="90" y="130">Movimentos tectónicos</text><text x="90" y="148">Vulcões</text><text x="90" y="166">Sismos</text>
+          <text x="270" y="130">Água · Gelo · Vento</text><text x="270" y="148">Temperatura</text><text x="270" y="166">Ser humano</text>
+          <text x="450" y="130">Mapa hipsométrico</text><text x="450" y="148">Mapa topográfico</text><text x="450" y="166">Perfil topográfico</text>
+          <text x="630" y="130">Planície · Colina</text><text x="630" y="148">Planalto · Vale</text><text x="630" y="166">Montanha · Cordilheira</text>
+        </g>
+        <path d="M270,174 V192" stroke="#6b3f26" stroke-width="1.5"/>
+        <rect x="110" y="194" width="320" height="44" rx="8" fill="#fbf3d9" stroke="#cf9a4a"/>
+        <text x="270" y="213" font-weight="700" fill="#6b3f26">Processo erosivo</text>
+        <text x="270" y="231" fill="#1f2d33">desgaste → transporte → acumulação</text>
+      </g>
+    </svg>
+    <figcaption><b>Fig. 7</b> Esquema-síntese da aula.</figcaption>
+  </figure>
+  <p><b>Segue para a avaliação:</b> quatro partes com correção automática e feedback imediato.</p>
+</section>
+
+<!-- ======================= 9. ESCOLHA MÚLTIPLA ======================= -->
+<section class="pagina" data-titulo="Avaliação 1 · Escolha múltipla">
+  <div class="etq">Avaliação · Parte 1</div>
+  <h2>Escolha múltipla</h2>
+  <p>Seleciona a opção correta. Só podes responder uma vez a cada pergunta.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-em"></span></div><div class="cont" id="cont-em"></div></div>
+  <div id="quiz-em"></div>
+</section>
+
+<!-- ======================= 10. VERDADEIRO OU FALSO ======================= -->
+<section class="pagina" data-titulo="Avaliação 2 · Verdadeiro ou falso">
+  <div class="etq">Avaliação · Parte 2</div>
+  <h2>Verdadeiro ou falso</h2>
+  <p>Classifica cada afirmação. As falsas são corrigidas no feedback.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-vf"></span></div><div class="cont" id="cont-vf"></div></div>
+  <div id="quiz-vf"></div>
+</section>
+
+<!-- ======================= 11. ASSOCIAÇÃO ======================= -->
+<section class="pagina" data-titulo="Avaliação 3 · Associação de conceitos">
+  <div class="etq">Avaliação · Parte 3</div>
+  <h2>Associação de conceitos</h2>
+  <p>Em cada exercício, escolhe na lista a correspondência certa para cada elemento e carrega em «Verificar».</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-as"></span></div><div class="cont" id="cont-as"></div></div>
+  <div id="quiz-as"></div>
+</section>
+
+<!-- ======================= 12. DESAFIO FINAL ======================= -->
+<section class="pagina" data-titulo="Avaliação 4 · Desafio final">
+  <div class="etq">Avaliação · Parte 4</div>
+  <h2>Desafio final: aplica o que aprendeste</h2>
+  <p>Situações novas, em que tens de usar os conhecimentos da aula.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-df"></span></div><div class="cont" id="cont-df"></div></div>
+  <div id="quiz-df"></div>
+
+  <h3>Questões de resposta aberta</h3>
+  <p>Escreve a tua resposta e só depois compara com a proposta. Estas questões não contam para a classificação automática.</p>
+  <div class="q">
+    <div class="enun"><span class="num">A.</span>Os socalcos do Alto Douro Vinhateiro alteraram profundamente as vertentes do vale. Na tua opinião, esta intervenção humana degradou ou valorizou a paisagem? Apresenta dois argumentos.</div>
+    <textarea aria-label="Resposta à questão A" placeholder="Escreve aqui a tua resposta…"></textarea>
+    <p><button class="btn sec" type="button" data-mostra="prop-a">Ver proposta de resposta</button></p>
+    <div class="fb" id="prop-a">Resposta pessoal, desde que fundamentada. Argumentos possíveis: os socalcos <b>reduzem o declive</b> e travam a erosão pluvial, conservando o solo; permitiram a <b>agricultura em vertentes íngremes</b>, criando riqueza e fixando população; originaram uma paisagem cultural única, reconhecida pela UNESCO. Em sentido contrário: a vegetação natural foi substituída e o relevo original foi alterado. O importante é mostrar que a ação humana pode ter impactos positivos e negativos.</div>
+  </div>
+  <div class="q">
+    <div class="enun"><span class="num">B.</span>Uma praia do litoral centro perde vários metros de areal por ano. Propõe duas medidas para enfrentar o problema e indica uma limitação de cada uma.</div>
+    <textarea aria-label="Resposta à questão B" placeholder="Escreve aqui a tua resposta…"></textarea>
+    <p><button class="btn sec" type="button" data-mostra="prop-b">Ver proposta de resposta</button></p>
+    <div class="fb" id="prop-b">Exemplos: <b>alimentação artificial da praia</b> (limitação: tem de ser repetida periodicamente e tem custos); <b>recuperação das dunas</b> com paliçadas e vegetação (limitação: resultados lentos); <b>esporões ou paredões</b> (limitação: caros e agravam a erosão nas praias vizinhas); <b>proibir novas construções</b> em áreas de risco, como preveem os Programas da Orla Costeira (limitação: não resolve o que já está construído).</div>
+  </div>
+</section>
+
+<!-- ======================= 13. RESULTADOS ======================= -->
+<section class="pagina" data-titulo="Resultados">
+  <div class="etq">Avaliação</div>
+  <h2>Os teus resultados</h2>
+  <div class="cartao">
+    <div class="nota" id="nota-final">—</div>
+    <p id="nota-texto" style="margin-top:.6rem"></p>
+    <div class="barra" style="height:14px"><span id="barra-nota"></span></div>
+  </div>
+  <div class="rolagem"><table id="tabela-res">
+    <tr><th>Parte</th><th>Respondidas</th><th>Certas</th></tr>
+  </table></div>
+  <p style="margin-top:1rem" id="conselho"></p>
+  <p><button class="btn" type="button" id="recomecar">Recomeçar a avaliação</button></p>
+</section>
+
+<!-- ======================= 14. FONTES ======================= -->
+<section class="pagina" data-titulo="Bibliografia e fontes">
+  <div class="etq">Referências</div>
+  <h2>Bibliografia e fontes consultadas</h2>
+  <div class="cartao">
+    <h3 style="margin-top:0">Materiais de base</h3>
+    <ul>
+      <li>Manuais escolares de Geografia do 7.º ano disponibilizados na Escola Virtual (capítulos sobre o relevo, a hidrografia e a dinâmica do litoral): <i>Check-In 7</i>, <i>GEO+ 7</i> e <i>Geovisão 7</i>. Serviram de referência para os conceitos, a sequência dos conteúdos e os dados sobre Portugal. Todos os textos e esquemas desta aula foram redigidos e desenhados de novo.</li>
+    </ul>
+    <h3>Fontes institucionais e científicas</h3>
+    <ul>
+      <li>NOAA — National Ocean Service (Estados Unidos). <i>How deep is the ocean?</i> https://oceanservice.noaa.gov/facts/oceandepth.html — profundidade do abismo Challenger.</li>
+      <li>NASA Earth Observatory. <i>New View of the Deepest Trench.</i> https://earthobservatory.nasa.gov/images/77640/new-view-of-the-deepest-trench — levantamento de 2010 (10 994 m ± 40 m).</li>
+      <li>USGS — U.S. Geological Survey. <i>New Elevation for Nation's Highest Peak</i> (2015). https://www.usgs.gov/news/national-news-release/new-elevation-nations-highest-peak — altitude do Denali (6190 m).</li>
+      <li>USGS — U.S. Geological Survey. <i>Finding Your Way with Map and Compass</i>, Fact Sheet 035-01 (2001). https://pubs.usgs.gov/fs/2001/0035/ — leitura de curvas de nível.</li>
+      <li>National Park Service (Estados Unidos). <i>Aeolian (Dunes) Landforms</i> e <i>Monitoring Aeolian Features and Processes</i>. https://www.nps.gov/subjects/geology/aeolian-landforms.htm · https://www.nps.gov/articles/aeolian.htm — deflação, abrasão e dunas.</li>
+      <li>Governos do Nepal e da China — anúncio conjunto da altitude do Evereste (8848,86 m), 8 de dezembro de 2020, noticiado por <i>Australian Geographic</i>. https://www.australiangeographic.com.au/news/2020/12/turns-out-everest-is-higher-than-we-thought/</li>
+      <li>Agência Portuguesa do Ambiente (APA). <i>APA atualiza diagnóstico do estado da faixa costeira</i> (Programa COSMO), nota à comunicação social n.º 62/2022. https://apambiente.pt/sites/default/files/_A_APA/Comunicacao/Media/NotasOCS2022/NotaOCS_62-2022_APAAtualizaDiagnosticoEstadoFaixaCosteira.pdf</li>
+      <li>Departamento do Litoral e Proteção Costeira da APA. «Intervenções de defesa costeira — balanço e perspetivas futuras». <i>Territorium</i>, n.º 27 (I), Imprensa da Universidade de Coimbra. https://impactum-journals.uc.pt/territorium/article/download/1647-7723_27-1_14/6061</li>
+      <li>Governo de Portugal. <i>Litoral mais protegido: Governo aprova novas regras para praias de Ovar à Marinha Grande</i> (Programa da Orla Costeira Ovar–Marinha Grande). https://portugal.gov.pt/gc25/comunicacao/comunicados/litoral-mais-protegido-governo-aprova-novas-regras-para-praias-de-ovar-a-marinha-grande</li>
+    </ul>
+    <h3>Nota sobre os dados</h3>
+    <p>As altitudes apresentadas são valores arredondados. Pequenas diferenças entre fontes resultam de medições feitas em datas e com métodos diferentes. As ligações exigem acesso à Internet; todo o resto da aula funciona sem ligação.</p>
+  </div>
+  <p class="creditos">Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</p>
+</section>
+
+</main>
+
+<!-- ======================= NAVEGAÇÃO INFERIOR ======================= -->
+<nav class="rodape" aria-label="Navegação da aula">
+  <div class="rodape-linha">
+    <button class="btn sec" type="button" id="anterior">← Anterior</button>
+    <div class="rodape-info" id="info-pagina"></div>
+    <button class="btn" type="button" id="seguinte">Seguinte →</button>
+  </div>
+</nav>
+
+<script>
+/* =====================================================================
+   AULA INTERATIVA — O RELEVO (7.º ano)
+   Índice do código:
+   A. Utilitários
+   B. Navegação entre secções e barra de progresso
+   C. Figuras interativas (formas de relevo, gráfico de cumes, perfil)
+   D. Dados da avaliação
+   E. Motor dos questionários (escolha múltipla, V/F, desafio)
+   F. Associação de conceitos
+   G. Resultados
+   Escrito em JavaScript simples, para funcionar em computadores antigos.
+   ===================================================================== */
+
+/* ---------- A. Utilitários ---------- */
+function $(id){ return document.getElementById(id); }
+function baralhar(lista){
+  var a = lista.slice(), i, j, t;
+  for(i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+
+/* ---------- B. Navegação ---------- */
+var paginas = document.querySelectorAll(".pagina");
+var atual = 0;
+var PAG_RESULTADOS = 13; /* posição da secção «Resultados» */
+
+function construirIndice(){
+  var sel = $("indice"), i, o;
+  for(i = 0; i < paginas.length; i++){
+    o = document.createElement("option");
+    o.value = i; o.text = paginas[i].getAttribute("data-titulo");
+    sel.appendChild(o);
+  }
+  sel.onchange = function(){ mostrar(parseInt(sel.value, 10)); };
+}
+function mostrar(i){
+  var k;
+  if(i < 0 || i >= paginas.length){ return; }
+  for(k = 0; k < paginas.length; k++){ paginas[k].className = "pagina" + (k === i ? " ativa" : ""); }
+  atual = i;
+  $("indice").value = i;
+  $("barra-aula").style.width = Math.round((i + 1) / paginas.length * 100) + "%";
+  $("info-pagina").innerHTML = "Secção " + (i + 1) + " de " + paginas.length + "<br>" + paginas[i].getAttribute("data-titulo");
+  $("anterior").disabled = (i === 0);
+  $("seguinte").disabled = (i === paginas.length - 1);
+  if(i === PAG_RESULTADOS){ atualizarResultados(); }
+  window.scrollTo(0, 0);
+}
+$("anterior").onclick = function(){ mostrar(atual - 1); };
+$("seguinte").onclick = function(){ mostrar(atual + 1); };
+document.onkeydown = function(e){
+  e = e || window.event;
+  var alvo = (e.target || e.srcElement).tagName;
+  if(alvo === "INPUT" || alvo === "SELECT" || alvo === "TEXTAREA"){ return; }
+  if(e.keyCode === 37){ mostrar(atual - 1); }
+  if(e.keyCode === 39){ mostrar(atual + 1); }
+};
+
+/* ---------- C1. Formas de relevo (Fig. 1) ---------- */
+var FORMAS = [
+  {n:"Planície", x:78, w:114, d:"Superfície extensa e aplanada, de baixa altitude (em geral inferior a 200 m). Exemplos: Grande Planície Europeia; lezíria do Tejo."},
+  {n:"Colina", x:190, w:94, d:"Pequena elevação de topo arredondado e vertentes suaves, com altitude reduzida (normalmente inferior a 400 m)."},
+  {n:"Vale", x:282, w:70, d:"Depressão alongada entre duas vertentes, geralmente percorrida por um curso de água. Exemplo: vale do Douro."},
+  {n:"Planalto", x:350, w:146, d:"Superfície elevada e relativamente aplanada (em geral acima dos 200 m), delimitada por vertentes inclinadas. Exemplo: planalto do Tibete; planalto transmontano."},
+  {n:"Montanha", x:505, w:100, d:"Elevação de grande altitude (normalmente superior a 1000 m), com vertentes muito inclinadas e cume bem marcado. Exemplo: monte Evereste; montanha do Pico."},
+  {n:"Cordilheira", x:505, w:215, d:"Conjunto extenso e alinhado de montanhas. Exemplos: Himalaias, Andes, Alpes, Montanhas Rochosas."}
+];
+function iniciarFormas(){
+  var caixa = $("chips-formas"), i, b;
+  for(i = 0; i < FORMAS.length; i++){
+    b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.innerHTML = FORMAS[i].n;
+    b.onclick = (function(k){ return function(){ escolherForma(k); }; })(i);
+    caixa.appendChild(b);
+  }
+}
+function escolherForma(k){
+  var bs = $("chips-formas").getElementsByTagName("button"), i;
+  for(i = 0; i < bs.length; i++){ bs[i].className = "chip" + (i === k ? " ativo" : ""); }
+  $("destaque-forma").setAttribute("x", FORMAS[k].x);
+  $("destaque-forma").setAttribute("width", FORMAS[k].w);
+  $("painel-formas").innerHTML = "<b>" + FORMAS[k].n + "</b> — " + FORMAS[k].d;
+}
+
+/* ---------- C2. Gráfico dos pontos mais altos (Fig. 2) ---------- */
+var CUMES = [
+  ["Ásia","Evereste",8849], ["América do Sul","Aconcágua",6961], ["América do Norte","Denali",6190],
+  ["África","Kilimanjaro",5895], ["Europa","Elbrus",5642], ["Antártida","Vinson",4892], ["Oceânia","Puncak Jaya",4884]
+];
+function corAltitude(a){ return a > 8000 ? "#6b3f26" : a > 6000 ? "#9a5f38" : a > 5000 ? "#cf9a4a" : "#d9bb6a"; }
+function desenharCumes(){
+  var s = "", base = 250, i, x, h, c;
+  s += "<rect width='720' height='310' fill='#eef5f7'/>";
+  s += "<line x1='20' y1='" + base + "' x2='700' y2='" + base + "' stroke='#1f2d33' stroke-width='1.5'/>";
+  for(i = 0; i < CUMES.length; i++){
+    c = CUMES[i]; x = 30 + i * 96; h = c[2] * 0.0235;
+    s += "<polygon points='" + x + "," + base + " " + (x + 42) + "," + (base - h) + " " + (x + 84) + "," + base + "' fill='" + corAltitude(c[2]) + "' stroke='#6b3f26'/>";
+    s += "<polygon points='" + (x + 36) + "," + (base - h + 14) + " " + (x + 42) + "," + (base - h) + " " + (x + 48) + "," + (base - h + 14) + "' fill='#fff'/>";
+    s += "<text x='" + (x + 42) + "' y='" + (base - h - 8) + "' text-anchor='middle' font-family='monospace' font-size='13' font-weight='700' fill='#1f2d33'>" + c[2] + " m</text>";
+    s += "<text x='" + (x + 42) + "' y='" + (base + 18) + "' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='700' fill='#1f2d33'>" + c[1] + "</text>";
+    s += "<text x='" + (x + 42) + "' y='" + (base + 35) + "' text-anchor='middle' font-family='monospace' font-size='9.5' fill='#4a5a60'>" + c[0] + "</text>";
+  }
+  $("grafico-cumes").innerHTML = s;
+}
+
+/* ---------- C3. Perfil topográfico interativo (Fig. 3) ---------- */
+/* Pares [posição x ao longo de A–B, altitude em metros] lidos nas curvas de nível do esquema */
+var PERFIL = [[30,30],[60,50],[80,100],[100,150],[120,200],[140,250],[175,268],[230,250],[300,200],[370,150],[450,100],[540,50],[570,30]];
+function altitudeEm(x){
+  var i, a, b;
+  for(i = 0; i < PERFIL.length - 1; i++){
+    a = PERFIL[i]; b = PERFIL[i + 1];
+    if(x >= a[0] && x <= b[0]){ return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); }
+  }
+  return 30;
+}
+function yPerfil(alt){ return 180 - alt * 0.55; }
+function iniciarPerfil(){
+  var pts = "30,180 ", i;
+  for(i = 0; i < PERFIL.length; i++){ pts += PERFIL[i][0] + "," + yPerfil(PERFIL[i][1]) + " "; }
+  pts += "570,180";
+  $("perfil-area").setAttribute("points", pts);
+  $("cursor-perfil").oninput = atualizarPerfil;
+  $("cursor-perfil").onchange = atualizarPerfil;
+  atualizarPerfil();
+}
+function atualizarPerfil(){
+  var x = parseInt($("cursor-perfil").value, 10);
+  var alt = altitudeEm(x);
+  var x1 = Math.max(30, x - 5), x2 = Math.min(570, x + 5);
+  var inclinacao = Math.abs(altitudeEm(x2) - altitudeEm(x1)) / (x2 - x1);
+  var sentido = altitudeEm(x2) > altitudeEm(x1) ? "a subir" : "a descer";
+  var txt = inclinacao > 1.5 ? "<b>declive forte</b> — repara como as curvas de nível estão muito próximas"
+                             : "<b>declive fraco</b> — as curvas de nível estão afastadas";
+  $("marca-mapa").setAttribute("cx", x);
+  $("marca-perfil").setAttribute("cx", x);
+  $("marca-perfil").setAttribute("cy", yPerfil(alt));
+  $("marca-linha").setAttribute("x1", x); $("marca-linha").setAttribute("x2", x);
+  if(alt >= altitudeEm(x1) && alt >= altitudeEm(x2) && x > 30 && x < 570){
+    $("painel-perfil").innerHTML = "Altitude neste ponto: <b>" + Math.round(alt) + " m</b>. Estás no <b>topo</b> da elevação (ponto cotado 268).";
+  } else {
+    $("painel-perfil").innerHTML = "Altitude neste ponto: <b>" + Math.round(alt) + " m</b>. Terreno " + sentido + ", com " + txt + ".";
+  }
+}
+
+/* ---------- D. Dados da avaliação ---------- */
+/* p = pergunta; o = opções; c = índice da opção correta; e = explicação */
+var EM = [
+  {p:"A altitude de um lugar é…", o:["a distância, na vertical, entre o nível médio das águas do mar e esse lugar.","a distância, na horizontal, entre esse lugar e o mar.","a distância entre esse lugar e o equador.","a inclinação do terreno nesse lugar."], c:0, e:"A altitude mede-se em metros, na vertical, a partir do nível médio das águas do mar."},
+  {p:"A forma de relevo extensa, aplanada e de baixa altitude (em geral inferior a 200 m) é…", o:["o planalto.","a planície.","a colina.","a cordilheira."], c:1, e:"A planície é baixa e plana. O planalto também é aplanado, mas está a maior altitude."},
+  {p:"Um planalto distingue-se de uma planície porque…", o:["tem cumes pontiagudos.","é sempre percorrido por um rio.","é uma superfície aplanada situada a maior altitude e delimitada por vertentes inclinadas.","se encontra sempre abaixo do nível do mar."], c:2, e:"Ambos são aplanados; a diferença está na altitude e nas vertentes que delimitam o planalto."},
+  {p:"Num mapa hipsométrico, o relevo é representado por…", o:["curvas de nível numeradas.","símbolos pontuais para cada montanha.","fotografias aéreas.","cores que correspondem a classes de altitude."], c:3, e:"Cada cor da legenda corresponde a um intervalo de altitudes."},
+  {p:"A linha que, num mapa topográfico, une pontos com a mesma altitude chama-se…", o:["curva de nível.","ponto cotado.","perfil topográfico.","linha de água."], c:0, e:"As curvas de nível unem pontos de igual altitude e nunca se cruzam."},
+  {p:"Num mapa topográfico, curvas de nível muito próximas umas das outras indicam…", o:["uma planície.","um declive forte.","um declive fraco.","a presença de um rio."], c:1, e:"Quanto mais próximas as curvas, maior a variação de altitude em pouca distância: declive forte."},
+  {p:"São agentes internos da formação do relevo…", o:["a água, o gelo e o vento.","o vento e as variações de temperatura.","os movimentos tectónicos, os sismos e os vulcões.","os rios e o ser humano."], c:2, e:"Os agentes internos têm origem no interior da Terra e criam as grandes formas de relevo."},
+  {p:"A ordem correta das fases do processo erosivo é…", o:["transporte, desgaste, acumulação.","acumulação, transporte, desgaste.","desgaste, acumulação, transporte.","desgaste, transporte, acumulação."], c:3, e:"Primeiro os materiais são arrancados, depois deslocados e por fim depositados."},
+  {p:"No curso superior de um rio predomina…", o:["o desgaste, originando vales em «V» fechado.","a acumulação, originando planícies aluviais.","o transporte, originando deltas.","a acumulação, originando dunas."], c:0, e:"Com forte declive e água veloz, o rio escava o leito em profundidade."},
+  {p:"As dunas resultam…", o:["do desgaste das rochas pelas ondas.","da acumulação de areia transportada pelo vento.","do choque entre placas tectónicas.","da acumulação de sedimentos na foz de um rio."], c:1, e:"As dunas são formas de acumulação eólica: surgem onde o vento perde velocidade e deposita a areia."},
+  {p:"O monte Evereste, ponto mais alto da Terra, localiza-se na cordilheira…", o:["dos Andes.","dos Alpes.","dos Himalaias.","das Montanhas Rochosas."], c:2, e:"O Evereste fica nos Himalaias (Ásia), na fronteira entre o Nepal e a China."},
+  {p:"Em Portugal continental, o relevo mais acidentado e de maior altitude localiza-se…", o:["a sul do rio Tejo.","junto ao litoral.","no Alentejo.","a norte do rio Tejo."], c:3, e:"A norte do Tejo predominam planaltos e serras; a sul domina a peneplanície alentejana."}
+];
+/* p = afirmação; v = true se verdadeira; e = explicação */
+var VF = [
+  {p:"O ponto mais alto de Portugal é a Torre, na serra da Estrela.", v:false, e:"A Torre (1993 m) é o ponto mais alto de Portugal continental. O ponto mais alto do país é a montanha do Pico, nos Açores (2351 m)."},
+  {p:"Um lugar situado ao nível médio das águas do mar tem altitude nula.", v:true, e:"Altitude nula corresponde a 0 m."},
+  {p:"Os mapas hipsométricos são mapas de grande escala, que mostram o relevo com muito pormenor através de curvas de nível.", v:false, e:"São mapas de pequena escala, que usam cores. Os mapas topográficos é que são de grande escala e usam curvas de nível."},
+  {p:"Num mapa topográfico, curvas de nível afastadas indicam um declive fraco.", v:true, e:"A altitude varia pouco ao longo de uma grande distância."},
+  {p:"O vento é um agente interno da formação do relevo.", v:false, e:"O vento é um agente externo: atua à superfície e modela o relevo."},
+  {p:"A água é o principal agente erosivo da superfície terrestre.", v:true, e:"Atua sob a forma de chuva, rios, gelo e mar."},
+  {p:"No curso inferior de um rio predomina a acumulação de sedimentos, que origina planícies aluviais.", v:true, e:"Com declive fraco e água lenta, o rio deposita os materiais que transporta."},
+  {p:"Uma colina tem, normalmente, maior altitude do que uma montanha.", v:false, e:"A colina é uma pequena elevação de topo arredondado; a montanha tem grande altitude e vertentes inclinadas."},
+  {p:"A cordilheira dos Andes localiza-se na Ásia.", v:false, e:"Os Andes localizam-se na América do Sul. Na Ásia ficam os Himalaias."},
+  {p:"Um perfil topográfico representa um corte vertical do terreno.", v:true, e:"Constrói-se a partir das curvas de nível e dos pontos cotados de um mapa topográfico."},
+  {p:"As barragens retêm sedimentos, o que pode contribuir para o recuo da linha de costa.", v:true, e:"Menos sedimentos chegam à foz e às praias, que ficam com menos areia."},
+  {p:"A sul do rio Tejo predominam os grandes conjuntos montanhosos.", v:false, e:"A sul do Tejo predomina a peneplanície alentejana, de relevo suave, com algumas serras isoladas."}
+];
+/* Cada exercício: t = título; pares = [elemento, correspondência correta] */
+var AS = [
+  {t:"Exercício 1 — Formas de relevo e descrições", pares:[
+    ["Planície","Superfície extensa, aplanada e de baixa altitude"],
+    ["Colina","Pequena elevação de topo arredondado"],
+    ["Planalto","Superfície elevada e aplanada, delimitada por vertentes"],
+    ["Montanha","Elevação de grande altitude e vertentes muito inclinadas"],
+    ["Vale","Depressão entre duas vertentes, geralmente com um rio"]]},
+  {t:"Exercício 2 — Processo erosivo", pares:[
+    ["Desgaste","As rochas são fraturadas e arrancadas"],
+    ["Transporte","Os materiais são deslocados pelo agente erosivo"],
+    ["Acumulação","Os materiais são depositados, formando sedimentos"],
+    ["Agente erosivo","Força externa que modela o relevo"]]},
+  {t:"Exercício 3 — Agente interno ou externo?", pares:[
+    ["Movimentos tectónicos","Agente interno"],
+    ["Vulcões","Agente interno"],
+    ["Vento","Agente externo"],
+    ["Rios","Agente externo"],
+    ["Ser humano","Agente externo"]]},
+  {t:"Exercício 4 — Formas e processos que as originam", pares:[
+    ["Duna","Acumulação pelo vento"],
+    ["Arriba","Desgaste pelo mar"],
+    ["Delta","Acumulação por um rio"],
+    ["Vale em «V» fechado","Desgaste por um rio"],
+    ["Praia","Acumulação pelo mar"]]},
+  {t:"Exercício 5 — Exemplos regionais em Portugal", pares:[
+    ["Peniche","Tômbolo"],
+    ["Ria de Aveiro","Laguna e haff-delta"],
+    ["São Martinho do Porto","Baía em forma de concha"],
+    ["Foz do Tejo","Estuário"],
+    ["Costa da Caparica","Arriba fóssil"],
+    ["Alentejo","Peneplanície"]]},
+  {t:"Exercício 6 — Relevo e continente", pares:[
+    ["Himalaias","Ásia"],
+    ["Andes","América do Sul"],
+    ["Montanhas Rochosas","América do Norte"],
+    ["Alpes","Europa"],
+    ["Kilimanjaro","África"]]}
+];
+var DF = [
+  {p:"Num mapa topográfico, entre os pontos A e B, as curvas de nível estão muito juntas do lado oeste de uma elevação e afastadas do lado este. O perfil topográfico A–B mostrará…", o:["duas vertentes igualmente inclinadas.","uma vertente oeste íngreme e uma vertente este suave.","uma vertente oeste suave e uma vertente este íngreme.","uma superfície plana."], c:1, e:"Curvas juntas = declive forte (oeste); curvas afastadas = declive fraco (este)."},
+  {p:"Num mapa topográfico observas várias curvas de nível fechadas e concêntricas, com valores que aumentam para o interior (100, 150, 200, 250) e um ponto cotado de 268 m no centro. Trata-se de…", o:["uma depressão.","um vale.","uma elevação, com o topo no ponto cotado.","uma planície."], c:2, e:"Se a altitude aumenta para o centro, é uma elevação (colina ou monte). Numa depressão, os valores diminuiriam para o interior."},
+  {p:"O mapa hipsométrico de um país mostra uma extensa mancha verde no centro e no sul, e manchas castanhas a nordeste. Como descreves o relevo?", o:["Predominam as planícies, com montanhas a nordeste.","Predominam as montanhas, com planícies a nordeste.","O país é todo montanhoso.","O país fica abaixo do nível do mar."], c:0, e:"Nos mapas hipsométricos, os verdes indicam baixas altitudes e os castanhos as altitudes mais elevadas."},
+  {p:"Depois da construção de um esporão, a praia situada imediatamente antes ganhou areia, mas a praia seguinte perdeu grande parte do areal. Porquê?", o:["Porque o esporão aumentou a altura das ondas.","Porque o vento deixou de soprar.","Porque a areia se dissolveu na água.","Porque o esporão interrompeu o transporte de areias ao longo da costa: acumulam-se de um lado e faltam do outro."], c:3, e:"As correntes transportam areia ao longo da costa. O esporão retém-na de um lado; do outro, o mar continua a desgastar sem haver reposição."},
+  {p:"Num deserto observas rochas esculpidas, mais estreitas na base, e, alguns quilómetros adiante, um extenso campo de dunas. Que fases do processo erosivo explicam as duas observações?", o:["Acumulação nas rochas e desgaste nas dunas.","Desgaste (abrasão eólica) nas rochas; transporte e acumulação de areia nas dunas.","Apenas transporte nos dois casos.","Ação de agentes internos nos dois casos."], c:1, e:"A areia levada pelo vento desgasta as rochas junto ao solo; mais adiante, quando o vento perde força, a areia acumula-se em dunas."}
+];
+
+/* ---------- E. Motor dos questionários ---------- */
+/* estado[chave] = {total, respondidas, certas} */
+var estado = {};
+function atualizarBarra(chave){
+  var s = estado[chave];
+  $("barra-" + chave).style.width = Math.round(s.respondidas / s.total * 100) + "%";
+  $("cont-" + chave).innerHTML = s.respondidas + "/" + s.total + " · certas: " + s.certas;
+}
+/* Cria um questionário de opções (serve para escolha múltipla, V/F e desafio) */
+function criarQuiz(chave, dados, tipoVF){
+  var caixa = $("quiz-" + chave), i;
+  caixa.innerHTML = "";
+  estado[chave] = {total: dados.length, respondidas: 0, certas: 0};
+  for(i = 0; i < dados.length; i++){ caixa.appendChild(criarPergunta(chave, dados[i], i, tipoVF)); }
+  atualizarBarra(chave);
+}
+function criarPergunta(chave, d, n, tipoVF){
+  var q = document.createElement("div"), ops = document.createElement("div"), fb = document.createElement("div");
+  var lista = [], i, b, ordem;
+  q.className = "q";
+  q.innerHTML = "<div class='enun'><span class='num'>" + (n + 1) + ".</span>" + d.p + "</div>";
+  ops.className = "ops" + (tipoVF ? " vf" : "");
+  fb.className = "fb";
+  if(tipoVF){
+    lista = [{t:"Verdadeiro", certa: d.v === true}, {t:"Falso", certa: d.v === false}];
+  } else {
+    for(i = 0; i < d.o.length; i++){ lista.push({t: d.o[i], certa: i === d.c}); }
+    lista = baralhar(lista);
+  }
+  for(i = 0; i < lista.length; i++){
+    b = document.createElement("button");
+    b.type = "button"; b.className = "op"; b.innerHTML = lista[i].t;
+    b.setAttribute("data-certa", lista[i].certa ? "1" : "0");
+    b.onclick = function(){ responder(chave, this, ops, fb, d.e); };
+    ops.appendChild(b);
+  }
+  q.appendChild(ops); q.appendChild(fb);
+  return q;
+}
+function responder(chave, botao, ops, fb, explicacao){
+  var bs = ops.getElementsByTagName("button"), i, acertou = botao.getAttribute("data-certa") === "1";
+  for(i = 0; i < bs.length; i++){
+    bs[i].disabled = true;
+    if(bs[i].getAttribute("data-certa") === "1"){ bs[i].className = "op certa"; }
+  }
+  if(!acertou){ botao.className = "op errada"; }
+  fb.className = "fb " + (acertou ? "ok" : "erro");
+  fb.innerHTML = (acertou ? "<b>✓ Correto.</b> " : "<b>✗ Incorreto.</b> ") + explicacao;
+  estado[chave].respondidas++;
+  if(acertou){ estado[chave].certas++; }
+  atualizarBarra(chave);
+}
+
+/* ---------- F. Associação de conceitos ---------- */
+function criarAssociacao(){
+  var caixa = $("quiz-as"), total = 0, i;
+  caixa.innerHTML = "";
+  for(i = 0; i < AS.length; i++){ total += AS[i].pares.length; caixa.appendChild(criarExercicio(AS[i])); }
+  estado.as = {total: total, respondidas: 0, certas: 0};
+  atualizarBarra("as");
+}
+function criarExercicio(ex){
+  var q = document.createElement("div"), fb = document.createElement("div"), bt = document.createElement("button");
+  var opcoes = [], vistos = {}, i, j, linha, sel, o, pares = baralhar(ex.pares);
+  q.className = "q";
+  q.innerHTML = "<div class='enun'>" + ex.t + "</div>";
+  /* lista de correspondências sem repetições */
+  for(i = 0; i < ex.pares.length; i++){
+    if(!vistos[ex.pares[i][1]]){ vistos[ex.pares[i][1]] = true; opcoes.push(ex.pares[i][1]); }
+  }
+  opcoes = baralhar(opcoes);
+  for(i = 0; i < pares.length; i++){
+    linha = document.createElement("div"); linha.className = "par";
+    linha.innerHTML = "<b>" + pares[i][0] + "</b>";
+    sel = document.createElement("select");
+    sel.setAttribute("aria-label", "Correspondência para " + pares[i][0]);
+    sel.setAttribute("data-certa", pares[i][1]);
+    o = document.createElement("option"); o.value = ""; o.text = "— escolhe —"; sel.appendChild(o);
+    for(j = 0; j < opcoes.length; j++){ o = document.createElement("option"); o.value = opcoes[j]; o.text = opcoes[j]; sel.appendChild(o); }
+    linha.appendChild(sel);
+    q.appendChild(linha);
+  }
+  fb.className = "fb";
+  bt.type = "button"; bt.className = "btn"; bt.innerHTML = "Verificar";
+  bt.onclick = function(){ verificarExercicio(q, bt, fb); };
+  q.appendChild(bt); q.appendChild(fb);
+  return q;
+}
+function verificarExercicio(q, bt, fb){
+  var sels = q.getElementsByTagName("select"), i, certas = 0, c, linha;
+  for(i = 0; i < sels.length; i++){
+    if(sels[i].value === ""){
+      fb.className = "fb erro"; fb.innerHTML = "Falta escolher uma correspondência para todos os elementos."; return;
+    }
+  }
+  for(i = 0; i < sels.length; i++){
+    linha = sels[i].parentNode;
+    sels[i].disabled = true;
+    if(sels[i].value === sels[i].getAttribute("data-certa")){
+      linha.className = "par certa"; certas++;
+    } else {
+      linha.className = "par errada";
+      c = document.createElement("div"); c.className = "corr";
+      c.innerHTML = "✗ Resposta correta: <b>" + sels[i].getAttribute("data-certa") + "</b>";
+      linha.appendChild(c);
+    }
+  }
+  bt.disabled = true;
+  fb.className = "fb " + (certas === sels.length ? "ok" : "erro");
+  fb.innerHTML = (certas === sels.length ? "<b>✓ Tudo certo!</b> " : "") + "Acertaste " + certas + " de " + sels.length + " associações.";
+  estado.as.respondidas += sels.length;
+  estado.as.certas += certas;
+  atualizarBarra("as");
+}
+
+/* Botões «Ver proposta de resposta» das questões abertas */
+function iniciarPropostas(){
+  var bs = document.querySelectorAll("button[data-mostra]"), i;
+  for(i = 0; i < bs.length; i++){
+    bs[i].onclick = function(){
+      var alvo = $(this.getAttribute("data-mostra"));
+      alvo.className = (alvo.className === "fb ok") ? "fb" : "fb ok";
+    };
+  }
+}
+
+/* ---------- G. Resultados ---------- */
+var PARTES = [["em","Escolha múltipla"],["vf","Verdadeiro ou falso"],["as","Associação de conceitos"],["df","Desafio final"]];
+function atualizarResultados(){
+  var t = $("tabela-res"), linhas = "<tr><th>Parte</th><th>Respondidas</th><th>Certas</th></tr>";
+  var total = 0, resp = 0, certas = 0, i, s, perc, nota, msg;
+  for(i = 0; i < PARTES.length; i++){
+    s = estado[PARTES[i][0]];
+    total += s.total; resp += s.respondidas; certas += s.certas;
+    linhas += "<tr><td>" + PARTES[i][1] + "</td><td class='n'>" + s.respondidas + " / " + s.total + "</td><td class='n'>" + s.certas + "</td></tr>";
+  }
+  linhas += "<tr><td><b>Total</b></td><td class='n'><b>" + resp + " / " + total + "</b></td><td class='n'><b>" + certas + "</b></td></tr>";
+  t.innerHTML = linhas;
+  perc = Math.round(certas / total * 100);
+  nota = (certas / total * 20).toFixed(1).replace(".", ",");
+  $("nota-final").innerHTML = perc + "% · " + nota + " valores";
+  $("barra-nota").style.width = perc + "%";
+  $("nota-texto").innerHTML = "Acertaste <b>" + certas + "</b> de <b>" + total + "</b> itens. A classificação conta todos os itens da avaliação: os que ficaram por responder valem zero."
+    + (resp < total ? " <b>Ainda tens " + (total - resp) + " itens por responder.</b>" : "");
+  if(perc >= 90){ msg = "Excelente! Dominas o tema. Experimenta explicar a um colega a diferença entre mapa hipsométrico e mapa topográfico."; }
+  else if(perc >= 70){ msg = "Bom trabalho! Revê as explicações das respostas em que falhaste para consolidar."; }
+  else if(perc >= 50){ msg = "Estás no bom caminho. Volta às secções em que tiveste mais dificuldade e repete a avaliação."; }
+  else { msg = "Vale a pena rever a aula com calma, secção a secção, e tentar de novo. Errar faz parte de aprender."; }
+  $("conselho").innerHTML = msg;
+}
+function iniciarAvaliacao(){
+  criarQuiz("em", EM, false);
+  criarQuiz("vf", VF, true);
+  criarAssociacao();
+  criarQuiz("df", DF, false);
+}
+$("recomecar").onclick = function(){ iniciarAvaliacao(); mostrar(9); };
+
+/* ---------- Arranque ---------- */
+construirIndice();
+iniciarFormas();
+desenharCumes();
+iniciarPerfil();
+iniciarAvaliacao();
+iniciarPropostas();
+mostrar(0);
+</script>
+</body>
+</html>

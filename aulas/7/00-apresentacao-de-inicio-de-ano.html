@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geografia · Início do Ano Letivo · 7.º e 9.º Ano</title>
+<style>
+  :root{
+    --navy:#173a5e;
+    --navy-dark:#0e2740;
+    --teal:#2a7f7f;
+    --gold:#c8962c;
+    --paper:#faf7f0;
+    --ink:#22303f;
+    --line:#dcd4c2;
+    --card:#ffffff;
+    --danger:#a83e3e;
+  }
+  *{box-sizing:border-box;}
+  html{font-size:19px;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;
+    line-height:1.55;
+  }
+  header.hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
+    color:#fff;
+    padding:2.4rem 1.5rem 2rem;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;
+    right:-60px;top:-60px;
+    width:220px;height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #3f8f8f 0%, #2a7f7f 40%, #173a5e 75%);
+    opacity:.55;
+  }
+  .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+  .eyebrow{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:#bcd2e0;
+    margin:0 0 .5rem;
+  }
+  h1.title{margin:0 0 .35rem;font-size:2.1rem;font-weight:700;}
+  .subtitle{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:1.02rem;
+    color:#e4ecf1;
+    margin:0 0 1.1rem;
+  }
+  .tab-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;}
+  .tab-btn{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    padding:.45rem 1.1rem;
+    border-radius:999px;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.55);
+    background:transparent;
+    color:#fff;
+    transition:background .15s ease, color .15s ease;
+  }
+  .tab-btn:hover{background:rgba(255,255,255,.15);}
+  .tab-btn.active{background:var(--gold);color:#3a2b06;border-color:var(--gold);}
+
+  nav.agenda{
+    max-width:900px;
+    margin:-1.4rem auto 0;
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(23,58,94,.12);
+    padding:1.2rem 1.5rem;
+    position:relative;
+    z-index:2;
+  }
+  nav.agenda h2{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 .6rem;
+  }
+  nav.agenda ol{
+    margin:0;
+    padding-left:1.2rem;
+    columns:2;
+    column-gap:2rem;
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:.92rem;
+  }
+  nav.agenda li{margin-bottom:.35rem;}
+  nav.agenda a{color:var(--navy);text-decoration:none;}
+  nav.agenda a:hover{text-decoration:underline;}
+
+  main{max-width:900px;margin:2rem auto 3rem;padding:0 1.5rem;}
+
+  section{margin-bottom:2.4rem;}
+  section h2{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:1.35rem;
+    color:var(--navy);
+    border-bottom:3px solid var(--gold);
+    padding-bottom:.4rem;
+    margin:0 0 1rem;
+  }
+  section h3{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:1.02rem;
+    color:var(--teal);
+    margin:1.3rem 0 .5rem;
+  }
+  section h4{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:.92rem;
+    color:var(--navy);
+    margin:1.1rem 0 .5rem;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.1rem 1.3rem;
+    margin-bottom:1rem;
+  }
+  table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card);margin-bottom:.9rem;}
+  table caption{
+    text-align:left;
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:.85rem;
+    color:var(--teal);
+    margin-bottom:.4rem;
+  }
+  th,td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left;vertical-align:top;}
+  th{background:#eef2ea;font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;font-size:.85rem;color:var(--navy);}
+  ul.plain{margin:.3rem 0;padding-left:1.3rem;}
+  ul.plain li{margin-bottom:.45rem;}
+  .note{background:#fbf3df;border-left:4px solid var(--gold);padding:.7rem 1rem;font-size:.92rem;margin-top:.8rem;}
+  .warn{background:#f7e9e9;border-left:4px solid var(--danger);padding:.7rem 1rem;font-size:.92rem;margin-top:.8rem;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  @media (max-width:640px){
+    .two-col{grid-template-columns:1fr;}
+    nav.agenda ol{columns:1;}
+    h1.title{font-size:1.6rem;}
+  }
+  .test-highlight td:first-child{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-weight:700;color:var(--navy);background:#eef2ea;
+  }
+  footer{max-width:900px;margin:0 auto 2rem;padding:1.5rem;text-align:center;font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;}
+  .closing{
+    background:linear-gradient(135deg,#fbf3df,#f5e6c4);
+    border-radius:12px;padding:1.6rem;font-size:1.15rem;
+    color:var(--navy-dark);font-weight:700;margin-bottom:1.2rem;
+  }
+  .credits{color:#8a8375;font-size:.78rem;}
+  .eyebrow-inline{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-size:.85rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-top:0;
+  }
+  .formula{
+    font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;
+    background:var(--navy-dark);
+    color:#eaf3f7;
+    padding:.9rem 1.1rem;
+    border-radius:8px;
+    font-size:.88rem;
+    line-height:1.6;
+    margin:.9rem 0 1.1rem;
+    overflow-x:auto;
+  }
+  .example-title{
+    font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 .4rem;
+  }
+  .example-block{margin-bottom:1.4rem;}
+  .result-row td{font-weight:700;background:#eef2ea;}
+  .nota-2{color:#a83e3e;}
+  .nota-3{color:#b5850f;}
+  .nota-4{color:#2a7f4f;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Agrupamento de Escolas Monte da Lua · Escola Básica 2,3 D. Fernando II</p>
+    <h1 class="title">Geografia — Apresentação de Início de Ano</h1>
+    <p class="subtitle">Ano letivo 2026/2027 · Professor: Francisco Cavaco</p>
+    <div class="tab-row" role="tablist" aria-label="Escolher ano">
+      <button class="tab-btn active" data-tab="7" onclick="setYear('7')">7.º Ano</button>
+      <button class="tab-btn" data-tab="9" onclick="setYear('9')">9.º Ano</button>
+    </div>
+  </div>
+</header>
+
+<nav class="agenda">
+  <h2>Nesta apresentação</h2>
+  <ol>
+    <li><a href="#calendario">Calendário escolar</a></li>
+    <li><a href="#normas">Normas de funcionamento</a></li>
+    <li><a href="#faltas">Regime de faltas</a></li>
+    <li><a href="#material">Material necessário</a></li>
+    <li><a href="#manual">Manual adotado</a></li>
+    <li><a href="#conteudos">Conteúdos programáticos</a></li>
+    <li><a href="#avaliacao">Critérios de avaliação</a></li>
+    <li><a href="#testes">Marcação dos testes</a></li>
+    <li data-year="7"><a href="#quinzenais">Aulas quinzenais Geografia/História</a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <section id="calendario">
+    <h2>Calendário escolar — 3.º Ciclo</h2>
+    <div class="card">
+      <table>
+        <caption>Semestres</caption>
+        <thead><tr><th>Semestre</th><th>Duração</th></tr></thead>
+        <tbody>
+          <tr><td>1.º</td><td>11 de setembro a 26 de janeiro</td></tr>
+          <tr data-year="7"><td>2.º</td><td>1 de fevereiro a 11 de junho</td></tr>
+          <tr data-year="9"><td>2.º</td><td>1 de fevereiro a 4 de junho</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <table>
+        <caption>Interrupções letivas</caption>
+        <thead><tr><th>Período</th><th>Datas</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3">1.º Semestre</td><td>11 a 13 de novembro (reuniões intercalares)</td></tr>
+          <tr><td>23 de dezembro a 3 de janeiro (férias de Natal)</td></tr>
+          <tr><td>27 a 29 de janeiro (reuniões de final de 1.º semestre)</td></tr>
+          <tr><td rowspan="2">2.º Semestre</td><td>8 a 10 de fevereiro (férias de Carnaval)</td></tr>
+          <tr><td>22 de março a 4 de abril (reuniões intercalares e férias da Páscoa)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="normas">
+    <h2>Normas de funcionamento</h2>
+    <div class="card">
+      <ul class="plain">
+        <li>Ser assíduo e pontual. Haverá marcação de falta de presença à 3.ª ocorrência de falta de pontualidade.</li>
+        <li>Entrar e sair da sala de forma ordenada e em silêncio, após autorização da professora.</li>
+        <li>Sentar no lugar de acordo com a planta de sala de aula em todas as aulas e disciplinas. Não sair do lugar estipulado sem autorização.</li>
+        <li>Trazer o material necessário para cada aula e mantê-lo em bom estado. Haverá sempre marcação de falta de presença à 3.ª ocorrência de falta de material e seguintes.</li>
+        <li>Não usar boné/chapéu/gorro dentro da sala de aula.</li>
+        <li>Não comer ou beber dentro da sala de aula (só podem beber água). Não ter pastilhas elásticas na boca (são proibidas na sala de aula).</li>
+        <li>Os alunos estão proibidos de utilizar smartphones e outros equipamentos com acesso à internet dentro da escola, em qualquer espaço. Apenas o kit tecnológico e/ou tablet pode ser usado para fins de aprendizagem.</li>
+        <li>Participar ativamente nas atividades propostas, pedindo para intervir de forma correta (aguardando a sua vez de dedo no ar).</li>
+        <li>Respeitar professores e colegas.</li>
+        <li>Manter o lugar e a sala limpos e organizados.</li>
+        <li>É interdita a permanência na sala de aula na ausência dos professores.</li>
+        <li>A comunicação com os alunos será efetuada através da Equipa Teams.</li>
+      </ul>
+      <div class="warn">
+        <strong>Penalizações pelo uso de smartphones/equipamentos com internet:</strong><br>
+        1.ª infração — repreensão oral (medida disciplinar corretiva).<br>
+        2.ª infração — repreensão escrita registada (medida disciplinar sancionatória).<br>
+        3.ª infração — 1 dia de suspensão das atividades letivas (medida disciplinar sancionatória).
+      </div>
+    </div>
+  </section>
+
+  <section id="faltas">
+    <h2>Regime de faltas</h2>
+
+    <h3>Faltas de pontualidade — Regulamento Interno (Caderno 7, Art.º 10.º)</h3>
+    <div class="card">
+      <p><strong>6.</strong> Nos 2.º e 3.º ciclos e no ensino secundário, o aluno que chega atrasado deve justificar-se oralmente ao professor da razão do seu atraso. Este deve comunicar ao diretor de turma o atraso do aluno, que deverá veicular a informação ao respetivo encarregado de educação.</p>
+      <p><strong>7.</strong> Se o atraso se repetir por três vezes, deve o professor, à terceira ocorrência, registar falta de presença. A partir do terceiro atraso serão marcadas sempre faltas de presença.</p>
+    </div>
+
+    <h3>Faltas de material — Regulamento Interno (Caderno 7, Art.º 10.º)</h3>
+    <div class="card">
+      <p><strong>8.</strong> Ao aluno que não se faça acompanhar do material necessário às atividades escolares, deverá o professor dos 2.º, 3.º ciclos e ensino secundário marcar falta de presença à terceira incidência.</p>
+      <p><strong>9.</strong> A segunda falta de presença (corresponde à quarta falta de material), marcada de acordo com o estipulado na alínea anterior, será considerada injustificada; após a marcação da segunda falta de presença, a cada incidência de ausência de material corresponde uma falta injustificada.</p>
+    </div>
+
+    <h3>Estatuto do Aluno e Ética Escolar — Lei n.º 51/2012, de 5 de setembro</h3>
+    <div class="card">
+      <p>O não cumprimento das regras dá origem a marcação de ocorrência e/ou de falta disciplinar no INOVAR, com procedimento disciplinar de acordo com a gravidade e penalização na avaliação.</p>
+    </div>
+
+    <h3>Faltas injustificadas</h3>
+    <div class="card">
+      <p>O limite de faltas injustificadas corresponde ao <strong>dobro do número de aulas semanais</strong> da disciplina.</p>
+      <div class="note" data-year="7">
+        <strong>Geografia — 7.º Ano</strong> (2,5 aulas/semana) → limite de <strong>5 faltas</strong> injustificadas.
+      </div>
+      <div class="note" data-year="9">
+        <strong>Geografia — 9.º Ano</strong> (2 aulas/semana) → limite de <strong>4 faltas</strong> injustificadas.
+      </div>
+    </div>
+  </section>
+
+  <section id="material">
+    <h2>Material necessário</h2>
+    <div class="card">
+      <p class="eyebrow-inline">Em todas as aulas</p>
+      <ul class="plain">
+        <li data-year="7">Manual escolar adotado e caderno de atividades (só no 7.º ano).</li>
+        <li data-year="9">Manual escolar adotado.</li>
+        <li>Caderno diário ou dossiê.</li>
+        <li>Material de escrita (caneta, lápis, borracha, apara-lápis e régua).</li>
+        <li>Mica/capa para guardar instrumentos de avaliação, fichas de trabalho ou outros documentos.</li>
+      </ul>
+      <div class="note">
+        <strong>Obs.:</strong> Outro material específico necessário (calculadora, papel milimétrico, lápis de cor, …) deve ser indicado pela professora na aula anterior.
+      </div>
+    </div>
+  </section>
+
+  <section id="manual">
+    <h2>Manual adotado</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Ano</th><th>Nome e autores</th></tr></thead>
+        <tbody>
+          <tr data-year="7">
+            <td>7.º Ano</td>
+            <td><strong>GEO+ 7</strong><br>Autores: Sandra Custódio, Eva Ribeiro, Vera Ribeiro e António Pereira</td>
+          </tr>
+          <tr data-year="9">
+            <td>9.º Ano</td>
+            <td><strong>GEO+ 9</strong><br>Autores: Sandra Custódio, Eva Ribeiro, Vera Ribeiro e António Pereira</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="conteudos">
+    <h2>Conteúdos programáticos a lecionar</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Tema</th><th>Subtemas</th></tr></thead>
+        <tbody data-year="7">
+          <tr>
+            <td rowspan="4"><strong>Tema 1</strong><br>A Terra: Estudos e representações</td>
+            <td>1. Descrição da paisagem</td>
+          </tr>
+          <tr><td>2. Mapas como forma de representar a superfície terrestre</td></tr>
+          <tr><td>3. Localização dos diferentes elementos da superfície terrestre</td></tr>
+          <tr><td>4. A Europa e o Mundo</td></tr>
+          <tr>
+            <td rowspan="3"><strong>Tema 2</strong><br>Meio Natural</td>
+            <td>1. Clima e formações vegetais</td>
+          </tr>
+          <tr><td>2. O relevo e hidrografia</td></tr>
+          <tr><td>3. Dinâmica do litoral</td></tr>
+        </tbody>
+        <tbody data-year="9">
+          <tr>
+            <td rowspan="2"><strong>Tema 4</strong><br>Atividades Económicas<br><span style="font-weight:400;font-size:.85rem;color:var(--teal);">(Recuperação de aprendizagens de 8.º Ano)</span></td>
+            <td>3. Setor Secundário: a Indústria</td>
+          </tr>
+          <tr><td>4. Setor Terciário: os serviços e o turismo; as redes e os meios de transportes e as telecomunicações</td></tr>
+          <tr>
+            <td rowspan="2"><strong>Tema 5</strong><br>Contrastes de desenvolvimento</td>
+            <td>1. Países desenvolvidos versus países em desenvolvimento</td>
+          </tr>
+          <tr><td>2. Interdependência entre espaços com diferentes níveis de desenvolvimento</td></tr>
+          <tr>
+            <td rowspan="3"><strong>Tema 6</strong><br>Ambiente e Sociedade</td>
+            <td>1. Clima</td>
+          </tr>
+          <tr><td>2. Riscos e catástrofes naturais</td></tr>
+          <tr><td>3. Alterações ao ambiente natural</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="avaliacao">
+    <h2>Critérios de avaliação — Geografia</h2>
+    <div class="card two-col">
+      <div><strong>70%</strong> — Conhecimento geográfico do território</div>
+      <div><strong>15%</strong> — Métodos e técnicas geográficas</div>
+      <div><strong>15%</strong> — Compromisso com a aprendizagem</div>
+    </div>
+    <div class="note">
+      Os alunos apenas poderão faltar às fichas/testes de avaliação com justificação por parte do Encarregado de Educação, com um motivo atendível, e esta justificação tem de ser aceite pela Professora e pela Diretora de Turma.
+    </div>
+
+    <h3>Como se calcula a nota final</h3>
+    <div class="card">
+      <p>Cada instrumento de avaliação (testes, fichas, trabalhos, observação direta, etc.) é cotado de <strong>0 a 100 pontos</strong>. A média dos instrumentos de cada domínio dá a percentagem obtida nesse domínio; a nota final resulta da soma ponderada dos três domínios:</p>
+      <div class="formula">Nota final (%) = 0,70 × Conhecimento Geográfico do Território<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,15 × Métodos e Técnicas Geográficas<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,15 × Compromisso com a Aprendizagem</div>
+
+      <table>
+        <caption>Conversão da percentagem final em nota</caption>
+        <thead><tr><th>Percentagem</th><th>Nota</th><th>Menção</th></tr></thead>
+        <tbody>
+          <tr><td>0% – 19%</td><td>1</td><td>Fraco</td></tr>
+          <tr><td>20% – 49%</td><td>2</td><td>Insuficiente</td></tr>
+          <tr><td>50% – 69%</td><td>3</td><td>Suficiente</td></tr>
+          <tr><td>70% – 89%</td><td>4</td><td>Bom</td></tr>
+          <tr><td>90% – 100%</td><td>5</td><td>Muito Bom</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Exemplos de cálculo</h4>
+
+      <div class="example-block">
+        <p class="example-title nota-2">Exemplo para obter Nota 2 (Insuficiente)</p>
+        <table>
+          <thead><tr><th>Domínio</th><th>Peso</th><th>Pontuação (0–100)</th><th>Contributo</th></tr></thead>
+          <tbody>
+            <tr><td>Conhecimento Geográfico do Território</td><td>70%</td><td>30</td><td>0,70 × 30 = 21,00</td></tr>
+            <tr><td>Métodos e Técnicas Geográficas</td><td>15%</td><td>45</td><td>0,15 × 45 = 6,75</td></tr>
+            <tr><td>Compromisso com a Aprendizagem</td><td>15%</td><td>55</td><td>0,15 × 55 = 8,25</td></tr>
+            <tr class="result-row"><td colspan="3">Total</td><td>21,00 + 6,75 + 8,25 = <strong>36,00%</strong> → Nota <strong>2</strong> (Insuficiente)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="example-block">
+        <p class="example-title nota-3">Exemplo para obter Nota 3 (Suficiente)</p>
+        <table>
+          <thead><tr><th>Domínio</th><th>Peso</th><th>Pontuação (0–100)</th><th>Contributo</th></tr></thead>
+          <tbody>
+            <tr><td>Conhecimento Geográfico do Território</td><td>70%</td><td>55</td><td>0,70 × 55 = 38,50</td></tr>
+            <tr><td>Métodos e Técnicas Geográficas</td><td>15%</td><td>60</td><td>0,15 × 60 = 9,00</td></tr>
+            <tr><td>Compromisso com a Aprendizagem</td><td>15%</td><td>65</td><td>0,15 × 65 = 9,75</td></tr>
+            <tr class="result-row"><td colspan="3">Total</td><td>38,50 + 9,00 + 9,75 = <strong>57,25%</strong> → Nota <strong>3</strong> (Suficiente)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="example-block">
+        <p class="example-title nota-4">Exemplo para obter Nota 4 (Bom)</p>
+        <table>
+          <thead><tr><th>Domínio</th><th>Peso</th><th>Pontuação (0–100)</th><th>Contributo</th></tr></thead>
+          <tbody>
+            <tr><td>Conhecimento Geográfico do Território</td><td>70%</td><td>78</td><td>0,70 × 78 = 54,60</td></tr>
+            <tr><td>Métodos e Técnicas Geográficas</td><td>15%</td><td>82</td><td>0,15 × 82 = 12,30</td></tr>
+            <tr><td>Compromisso com a Aprendizagem</td><td>15%</td><td>90</td><td>0,15 × 90 = 13,50</td></tr>
+            <tr class="result-row"><td colspan="3">Total</td><td>54,60 + 12,30 + 13,50 = <strong>80,40%</strong> → Nota <strong>4</strong> (Bom)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        Estes valores são exemplos ilustrativos do cálculo — as pontuações reais de cada aluno dependem do desempenho em cada instrumento de avaliação.
+      </div>
+    </div>
+  </section>
+
+  <section id="testes">
+    <h2>Marcação dos testes de avaliação</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th rowspan="2">Turma</th><th colspan="2">1.º Semestre</th><th colspan="2">2.º Semestre</th></tr>
+          <tr><th>1.º Teste</th><th>2.º Teste</th><th>3.º Teste</th><th>4.º Teste</th></tr>
+        </thead>
+        <tbody>
+          <tr class="test-highlight" data-year="7"><td>7.º B</td><td>19 nov</td><td>14 jan</td><td>19 março</td><td>20 maio</td></tr>
+          <tr class="test-highlight" data-year="9"><td>9.º A</td><td>19 nov</td><td>14 jan</td><td>18 março</td><td>20 maio</td></tr>
+          <tr class="test-highlight" data-year="9"><td>9.º B</td><td>19 nov</td><td>14 jan</td><td>18 março</td><td>20 maio</td></tr>
+          <tr class="test-highlight" data-year="9"><td>9.º C</td><td>19 nov</td><td>21 jan</td><td>18 março</td><td>13 maio</td></tr>
+          <tr class="test-highlight" data-year="9"><td>9.º D</td><td>19 nov</td><td>14 jan</td><td>18 março</td><td>20 maio</td></tr>
+          <tr class="test-highlight" data-year="9"><td>9.º E</td><td>18 nov</td><td>13 jan</td><td>17 março</td><td>19 maio</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="quinzenais" data-year="7">
+    <h2>Aulas quinzenais Geografia/História — 7.º Ano</h2>
+    <div class="card">
+      <p>De 15 em 15 dias irão ter a aula de Geografia/História marcada no vosso horário com a simbologia <strong>Q_GEO</strong> ou <strong>Q_HIS</strong>, de forma alternada — isto é, uma semana têm Geografia e na semana seguinte têm História.</p>
+      <div class="note">
+        <strong>Nota:</strong> têm de consultar todas as semanas, no INOVAR, os Sumários (marcado no vosso horário) para trazerem o material da disciplina que irão ter.
+      </div>
+      <p style="margin-top:1rem;"><strong>Em Geografia — início das aulas quinzenais:</strong></p>
+      <p>7.º B — 6.º tempo de 2.ª feira</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="closing">Bom ano letivo e sucesso educativo! 🌍</div>
+  <p class="credits">Powered by Claude IA &amp; Francisco Cavaco</p>
+</footer>
+
+<script>
+  function setYear(y){
+    document.querySelectorAll('[data-year]').forEach(function(el){
+      el.style.display = (el.getAttribute('data-year') === y) ? '' : 'none';
+    });
+    document.querySelectorAll('.tab-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.tab === y);
+    });
+  }
+  setYear('7');
+</script>
+
+</body>
+</html>

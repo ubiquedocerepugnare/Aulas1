@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Os rios e as bacias hidrográficas (Geografia, 7.º ano)</title>
+<!--
+  AULA INTERATIVA — GEOGRAFIA 7.º ANO — MEIO NATURAL: OS RIOS E AS BACIAS HIDROGRÁFICAS
+  Ficheiro único: todo o CSS e JavaScript estão incorporados; funciona sem ligação à Internet.
+  Todas as figuras são desenhos SVG originais (esquemas), não reproduções dos manuais.
+  Powered by Claude IA & Ideias&Soltas — concepção de produtos multimédia
+-->
+<style>
+/* ============ 1. VARIÁVEIS (paleta hipsométrica) ============ */
+:root{
+  --papel:#f5f0e1; --cartao:#fffdf6; --tinta:#1f2d33; --tinta2:#4a5a60; --linha:#d9cfb4;
+  --mar:#2e6e8e; --mar-c:#cfe3ea; --verde:#5f9a5a; --verde-e:#2f6b3f; --areia:#e9d48b;
+  --ocre:#cf9a4a; --terra:#9a5f38; --castanho:#6b3f26;
+  --ok:#1e7a46; --ok-f:#e2f3e7; --erro:#b3362b; --erro-f:#f9e3e0;
+  --titulo:"Fraunces",Georgia,"Times New Roman",serif;
+  --texto:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+/* ============ 2. BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:var(--titulo);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(1.7rem,4.5vw,2.7rem)}
+h2{font-size:clamp(1.35rem,3.2vw,1.9rem);color:var(--verde-e)}
+h3{font-size:1.15rem;color:var(--castanho);margin-top:1.4em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin-bottom:.35em}
+li,p,td{overflow-wrap:anywhere}
+a{color:var(--mar)}
+strong{color:var(--castanho)}
+.etq{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta2)}
+/* ============ 3. CABEÇALHO E NAVEGAÇÃO ============ */
+header.topo{position:sticky;top:0;z-index:20;background:var(--tinta);color:#fff;padding:.55rem 1rem}
+.topo-linha{max-width:980px;margin:0 auto;display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}
+.topo-titulo{font-family:var(--titulo);font-size:1.02rem;flex:1 1 180px}
+.topo select{font:inherit;font-size:.9rem;padding:.35rem .5rem;border-radius:6px;border:0;max-width:100%;background:#fff;color:var(--tinta)}
+.barra{height:9px;background:rgba(0,0,0,.14);border-radius:9px;overflow:hidden}
+.barra span{display:block;height:100%;width:0;border-radius:9px;transition:width .3s;
+  background:linear-gradient(90deg,var(--verde),var(--areia),var(--ocre),var(--terra))}
+.topo .barra{max-width:980px;margin:.45rem auto 0;background:rgba(255,255,255,.2)}
+main{max-width:980px;margin:0 auto;padding:1.2rem 1rem 6.5rem}
+.pagina{display:none;animation:entra .25s ease}
+.pagina.ativa{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+nav.rodape{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--cartao);border-top:2px solid var(--linha);padding:.55rem 1rem}
+.rodape-linha{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.rodape-info{font-family:var(--mono);font-size:.82rem;color:var(--tinta2);text-align:center}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--verde-e);color:#fff;border:0;border-radius:8px;padding:.6rem 1.05rem;font-weight:700;min-height:44px}
+.btn:hover{background:#245432}
+.btn:disabled{background:#b9b7a8;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--verde-e);border:2px solid var(--verde-e)}
+/* ============ 4. BLOCOS DE CONTEÚDO ============ */
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:12px;padding:1.1rem 1.2rem;margin:0 0 1.1rem;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.capa{background:linear-gradient(160deg,#2f6b3f 0%,#5f9a5a 35%,#e9d48b 68%,#cf9a4a 85%,#9a5f38 100%);color:#fff;border-radius:14px;padding:2rem 1.4rem;margin-bottom:1.1rem}
+.capa h1{color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.35)}
+.capa .etq{color:#fff;opacity:.95}
+.capa p{font-size:1.08rem;max-width:44em;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.def{border-left:6px solid var(--ocre);background:#fbf3d9;border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.def b{font-family:var(--titulo);color:var(--castanho);font-size:1.05rem}
+.curio{border-left:6px solid var(--mar);background:var(--mar-c);border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.curio::before{content:"Curiosidade";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mar);font-weight:700}
+.exemplo{border-left:6px solid var(--verde);background:#e8f1e2;border-radius:0 10px 10px 0;padding:.75rem 1rem;margin:0 0 1rem}
+.exemplo::before{content:"Exemplo prático";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-e);font-weight:700}
+.pensa{border:2px dashed var(--terra);border-radius:10px;padding:.75rem 1rem;margin:0 0 1rem;background:#fff}
+.pensa::before{content:"Pensa nisto";display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.grelha{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-bottom:1rem}
+.grelha .cartao{margin:0}
+figure{margin:0 0 1.1rem;background:#fff;border:1px solid var(--linha);border-radius:12px;padding:.6rem}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:.86rem;color:var(--tinta2);padding:.4rem .3rem 0}
+figcaption b{font-family:var(--mono);color:var(--verde-e)}
+.rolagem{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:.95rem;background:#fff}
+th,td{border:1px solid var(--linha);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--verde-e);color:#fff;font-family:var(--titulo)}
+td.n{font-family:var(--mono);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:.2rem 0 .7rem}
+.chip{background:#fff;border:2px solid var(--terra);color:var(--castanho);border-radius:999px;padding:.4rem .9rem;font-weight:700;min-height:42px}
+.chip.ativo{background:var(--terra);color:#fff}
+.painel{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:.7rem .9rem;min-height:3.4em}
+.legenda-hipso{display:flex;flex-wrap:wrap;gap:0;margin:.4rem 0 1rem;border:1px solid var(--linha);border-radius:8px;overflow:hidden}
+.legenda-hipso span{flex:1 1 90px;padding:.45rem .3rem;text-align:center;font-family:var(--mono);font-size:.76rem}
+input[type=range]{width:100%;height:34px}
+/* ============ 5. QUESTIONÁRIOS ============ */
+.quiz-topo{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.quiz-topo .barra{flex:1}
+.quiz-topo .cont{font-family:var(--mono);font-size:.85rem;white-space:nowrap}
+.q{background:var(--cartao);border:1px solid var(--linha);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem}
+.q .enun{font-weight:700;margin-bottom:.7rem}
+.q .num{font-family:var(--mono);color:var(--terra);margin-right:.35rem}
+.ops{display:grid;gap:.5rem}
+.ops.vf{grid-template-columns:1fr 1fr}
+.op{text-align:left;background:#fff;border:2px solid var(--linha);border-radius:9px;padding:.6rem .8rem;min-height:46px;color:var(--tinta)}
+.op:hover:not(:disabled){border-color:var(--mar)}
+.op:disabled{cursor:default;opacity:1}
+.op.certa{background:var(--ok-f);border-color:var(--ok);font-weight:700}
+.op.certa::after{content:"  ✓ correta"}
+.op.errada{background:var(--erro-f);border-color:var(--erro)}
+.op.errada::after{content:"  ✗ incorreta"}
+.fb{display:none;margin-top:.7rem;padding:.6rem .8rem;border-radius:9px;font-size:.95rem}
+.fb.ok{display:block;background:var(--ok-f);border:1px solid var(--ok)}
+.fb.erro{display:block;background:var(--erro-f);border:1px solid var(--erro)}
+.par{display:grid;grid-template-columns:minmax(120px,1fr) minmax(150px,1.6fr);gap:.5rem;align-items:center;padding:.4rem;border-radius:8px;margin-bottom:.3rem}
+.par select{font:inherit;padding:.5rem;border-radius:8px;border:2px solid var(--linha);width:100%;background:#fff;min-height:44px}
+.par.certa{background:var(--ok-f)} .par.certa select{border-color:var(--ok)}
+.par.errada{background:var(--erro-f)} .par.errada select{border-color:var(--erro)}
+.par .corr{grid-column:1/-1;font-size:.88rem;color:var(--erro)}
+textarea{width:100%;min-height:110px;font:inherit;padding:.6rem;border-radius:9px;border:2px solid var(--linha);background:#fff}
+.oculto{display:none}
+.nota{font-family:var(--titulo);font-size:clamp(2rem,7vw,3.2rem);color:var(--verde-e);line-height:1}
+.creditos{text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--tinta2);margin-top:1.5rem}
+@media (max-width:560px){
+  body{font-size:16px}
+  .par{grid-template-columns:1fr}
+  .btn{padding:.55rem .8rem}
+  .rodape-info{font-size:.72rem}
+}
+@media print{
+  header.topo,nav.rodape{display:none}
+  .pagina{display:block;page-break-after:always}
+  main{padding-bottom:0}
+}
+
+/* ============ 6. AJUSTES DESTA AULA (tema: água) ============ */
+h2{color:#1d5f86}
+.capa{background:linear-gradient(160deg,#143f5c 0%,#1d5f86 35%,#2e8e9a 65%,#5f9a5a 100%)}
+.btn{background:#1d5f86}.btn:hover{background:#164a69}
+.btn.sec{color:#1d5f86;border-color:#1d5f86}
+th{background:#1d5f86}
+.chip{border-color:#1d5f86;color:#1d5f86}.chip.ativo{background:#1d5f86;color:#fff}
+.barra span{background:linear-gradient(90deg,#5f9a5a,#2e8e9a,#1d5f86)}
+#fig-bacia .el,#mapa-pt .rio{transition:opacity .2s}
+</style>
+</head>
+<body>
+
+<!-- ======================= CABEÇALHO ======================= -->
+<header class="topo">
+  <div class="topo-linha">
+    <div class="topo-titulo">Os rios · Geografia 7.º ano</div>
+    <label class="oculto" for="indice">Índice</label>
+    <select id="indice" aria-label="Índice da aula"></select>
+  </div>
+  <div class="barra" aria-hidden="true"><span id="barra-aula"></span></div>
+</header>
+
+<main>
+
+<!-- ======================= 0. INÍCIO ======================= -->
+<section class="pagina" data-titulo="Início">
+  <div class="capa">
+    <div class="etq">Geografia · 7.º ano · Meio natural</div>
+    <h1>Os rios e as bacias hidrográficas: da nascente à foz, da natureza à gestão</h1>
+    <p><b>Tema principal:</b> os principais rios do mundo, da Europa e de Portugal; redes e bacias hidrográficas; caudais, regimes e leitos; as secções de um rio; e a gestão partilhada dos recursos hídricos.</p>
+  </div>
+
+  <div class="cartao">
+    <h2>Objetivos de aprendizagem</h2>
+    <p>No final desta aula deves ser capaz de:</p>
+    <ul>
+      <li>Reconhecer a localização dos principais rios no mundo e na Europa.</li>
+      <li>Distinguir rede hidrográfica de bacia hidrográfica.</li>
+      <li>Distinguir caudal de regime fluvial.</li>
+      <li>Caracterizar os diferentes regimes fluviais (perenes, intermitentes e efémeros).</li>
+      <li>Apresentar os fatores responsáveis pelos diferentes caudais e regimes fluviais.</li>
+      <li>Distinguir leito normal de leito de inundação (leito maior) e de leito de estiagem (leito menor).</li>
+      <li>Identificar as diferentes secções de um rio e relacionar as suas características com os processos de erosão e de acumulação predominantes.</li>
+      <li>Localizar as principais bacias hidrográficas em Portugal (luso-espanholas e exclusivamente nacionais) e os principais rios luso-espanhóis e portugueses.</li>
+      <li>Explicar a variação espacial e temporal do caudal dos rios portugueses como resultado da interação entre fatores naturais e antrópicos.</li>
+      <li>Inferir a importância da intervenção humana na gestão dos recursos hídricos de uma bacia hidrográfica e os seus impactos nos ambientes biogeográficos.</li>
+      <li>Identificar situações de conflito na gestão dos recursos hídricos e os fatores que as explicam.</li>
+      <li>Reconhecer a necessidade da cooperação internacional na gestão dos recursos hídricos.</li>
+    </ul>
+  </div>
+
+  <div class="cartao">
+    <h2>Resumo inicial</h2>
+    <p>Um <strong>rio</strong> é um curso natural de água que nasce, geralmente, em áreas de montanha e desagua no mar, num lago ou noutro rio. Os rios organizam-se em <strong>redes hidrográficas</strong>, que drenam áreas chamadas <strong>bacias hidrográficas</strong>.</p>
+    <p>A quantidade de água que um rio transporta (<strong>caudal</strong>) não é sempre a mesma: varia ao longo do ano (<strong>regime fluvial</strong>) por causas naturais, como o clima e o relevo, e por causas humanas, como as barragens e os consumos. Como muitas bacias são partilhadas por vários países, a água pode gerar <strong>conflitos</strong> — e exige <strong>cooperação</strong>.</p>
+    <h3>Como usar esta aula</h3>
+    <ul>
+      <li>Avança e recua com os botões <b>Anterior</b> e <b>Seguinte</b> (ou com as setas do teclado) e usa o <b>índice</b> no topo para saltar de secção.</li>
+      <li>Experimenta as figuras interativas e responde às caixas «Pensa nisto» no caderno.</li>
+      <li>No fim, faz a avaliação: escolha múltipla, verdadeiro ou falso, associação e desafio final. A correção é automática e a classificação aparece em percentagem e na escala de 0 a 20.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 1. REDE E BACIA ======================= -->
+<section class="pagina" data-titulo="1. Rede e bacia hidrográfica">
+  <div class="etq">Secção 1</div>
+  <h2>O rio, a rede hidrográfica e a bacia hidrográfica</h2>
+
+  <div class="grelha">
+    <div class="def"><b>Nascente</b> — local onde a água emerge naturalmente à superfície e onde o rio tem origem.</div>
+    <div class="def"><b>Foz</b> — local onde o rio desagua: num oceano, num mar, num lago ou noutro rio.</div>
+    <div class="def"><b>Afluente</b> — curso de água que desagua noutro maior. Um <b>subafluente</b> desagua num afluente.</div>
+    <div class="def"><b>Confluência</b> — local onde dois cursos de água se juntam.</div>
+  </div>
+
+  <div class="def"><b>Rede hidrográfica</b> — conjunto formado por um rio principal e por todos os seus afluentes e subafluentes. Engloba apenas as <b>linhas de água</b>.</div>
+  <div class="def"><b>Bacia hidrográfica</b> — <b>área</b> drenada por uma rede hidrográfica. Toda a precipitação que cai dentro dessa área é conduzida para o mesmo ponto: a foz do rio principal. A bacia toma o nome desse rio.</div>
+  <div class="def"><b>Interflúvio (ou linha divisória de águas)</b> — linha que une os pontos de maior altitude e separa duas bacias hidrográficas. De um lado e do outro, a água escoa em sentidos diferentes.</div>
+
+  <p>Toca em cada elemento para o localizares no esquema.</p>
+  <div class="chips" id="chips-bacia"></div>
+  <figure>
+    <svg id="fig-bacia" viewBox="0 0 720 360" role="img" aria-label="Esquema de duas bacias hidrográficas vistas de cima">
+      <rect width="720" height="360" fill="#eef5f7"/>
+      <rect x="0" y="306" width="720" height="54" fill="#2e6e8e"/>
+      <text x="360" y="345" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#fff">mar</text>
+      <!-- bacias -->
+      <polygon class="el" data-el="bacia" points="40,40 360,30 400,300 240,315 60,300" fill="#cfe0b4" stroke="none"/>
+      <polygon class="el" data-el="baciaB" points="360,30 690,50 680,300 520,315 400,300" fill="#e6dfb8" stroke="none"/>
+      <!-- limites exteriores -->
+      <polyline points="60,300 40,40 360,30 690,50 680,300" fill="none" stroke="#9a5f38" stroke-width="2" stroke-dasharray="3 5" opacity=".6"/>
+      <!-- interflúvio -->
+      <g class="el" data-el="interfluvio">
+        <line x1="360" y1="30" x2="400" y2="300" stroke="#6b3f26" stroke-width="5" stroke-dasharray="10 6"/>
+        <path d="M352,70 l14,-22 l14,22 Z M362,150 l14,-22 l14,22 Z M374,230 l14,-22 l14,22 Z" fill="#9a5f38"/>
+      </g>
+      <!-- rede A -->
+      <g fill="none" stroke="#2e6e8e" stroke-linecap="round">
+        <path class="el" data-el="principal rede" d="M200,70 C210,140 230,200 240,315" stroke-width="7"/>
+        <path class="el" data-el="afluente rede" d="M90,110 Q150,150 220,176" stroke-width="4.5"/>
+        <path class="el" data-el="afluente rede" d="M330,100 Q290,180 227,212" stroke-width="4.5"/>
+        <path class="el" data-el="subafluente rede" d="M120,62 Q130,110 142,141" stroke-width="2.5"/>
+        <path class="el" data-el="subafluente rede" d="M290,60 Q296,120 303,146" stroke-width="2.5"/>
+        <!-- rede B (sem destaque) -->
+        <path d="M540,80 C530,150 525,230 520,315" stroke-width="6" opacity=".55"/>
+        <path d="M650,130 Q590,170 528,192" stroke-width="4" opacity=".55"/>
+        <path d="M430,110 Q480,150 530,168" stroke-width="4" opacity=".55"/>
+      </g>
+      <circle class="el" data-el="nascente" cx="200" cy="70" r="9" fill="#fff" stroke="#b3362b" stroke-width="3"/>
+      <circle class="el" data-el="confluencia" cx="220" cy="176" r="9" fill="#fff" stroke="#b3362b" stroke-width="3"/>
+      <circle class="el" data-el="foz" cx="240" cy="312" r="9" fill="#fff" stroke="#b3362b" stroke-width="3"/>
+      <g font-family="monospace" font-size="12" fill="#1f2d33">
+        <text x="70" y="290">bacia A</text><text x="600" y="290">bacia B</text>
+      </g>
+    </svg>
+    <figcaption><b>Fig. 1</b> Duas bacias hidrográficas vizinhas, vistas de cima (esquema original, sem escala).</figcaption>
+  </figure>
+  <div class="painel" id="painel-bacia" aria-live="polite">Escolhe um elemento.</div>
+
+  <div class="grelha" style="margin-top:1rem">
+    <div class="def"><b>Montante</b> — o lado da nascente (para onde o rio «vem»).</div>
+    <div class="def"><b>Jusante</b> — o lado da foz (para onde o rio «vai»).</div>
+  </div>
+
+  <div class="exemplo">A água que cai na serra da Estrela pode acabar em sítios muito diferentes. Se cair na vertente virada ao Mondego, chega ao mar na Figueira da Foz. Se cair na vertente do Zêzere, segue para o Tejo e só encontra o mar em Lisboa. A serra funciona como <b>interflúvio</b> entre duas bacias.</div>
+
+  <div class="pensa">Um colega diz: «A bacia hidrográfica do Tejo é o rio Tejo e os seus afluentes.» Onde está o erro? Reescreve a frase de forma correta.</div>
+</section>
+
+<!-- ======================= 2. RIOS DO MUNDO E DA EUROPA ======================= -->
+<section class="pagina" data-titulo="2. Rios do mundo e da Europa">
+  <div class="etq">Secção 2</div>
+  <h2>Os principais rios do mundo e da Europa</h2>
+  <p>A localização dos grandes rios depende sobretudo do <strong>clima</strong> e do <strong>relevo</strong>: é nas regiões com mais precipitação e nas áreas de montanha que a rede hidrográfica é mais densa e os rios são mais extensos e caudalosos.</p>
+
+  <h3>Os rios mais extensos do mundo</h3>
+  <figure>
+    <svg id="grafico-mundo" viewBox="0 0 720 250" role="img" aria-label="Gráfico de barras com os cinco rios mais extensos do mundo"></svg>
+    <figcaption><b>Fig. 2</b> Os cinco rios mais extensos do mundo (extensão em quilómetros, segundo os valores do manual).</figcaption>
+  </figure>
+
+  <div class="rolagem"><table>
+    <tr><th>Continente</th><th>Rios a conhecer</th><th>Onde desaguam</th></tr>
+    <tr><td>África</td><td>Nilo, Congo, Níger, Zambeze</td><td>Mediterrâneo (Nilo); Atlântico (Congo e Níger); Índico (Zambeze)</td></tr>
+    <tr><td>América do Sul</td><td>Amazonas, Paraná</td><td>Atlântico</td></tr>
+    <tr><td>América do Norte</td><td>Mississípi–Missouri, Mackenzie</td><td>Golfo do México (Mississípi); oceano Glacial Ártico (Mackenzie)</td></tr>
+    <tr><td>Ásia</td><td>Iansequião, Huang He (rio Amarelo), Ienissei, Ob, Lena, Ganges, Indo, Mecom</td><td>Pacífico, Glacial Ártico e Índico</td></tr>
+    <tr><td>Oceânia</td><td>Murray–Darling</td><td>Índico (sul da Austrália)</td></tr>
+  </table></div>
+
+  <div class="curio">Qual é o rio mais comprido: o Nilo ou o Amazonas? Depende de onde se considera que cada um nasce e de como se mede. A maioria das fontes, incluindo o teu manual, dá o primeiro lugar ao <b>Nilo</b>, mas há medições que colocam o Amazonas à frente. Em Geografia, os números dependem sempre do método.</div>
+  <div class="curio">Em quantidade de água não há dúvida: o <b>Amazonas</b> é o rio mais caudaloso da Terra. Segundo a NASA, a bacia do Amazonas lança no oceano cerca de <b>18%</b> de toda a água que os rios do mundo descarregam no mar — quase um quinto — e guarda cerca de 38% da água existente nos rios do planeta.</div>
+
+  <h3>Os rios mais extensos da Europa</h3>
+  <p>Apesar de ter uma <b>rede hidrográfica muito densa</b>, a Europa não tem rios muito extensos: é um continente pequeno e de litoral muito recortado, com penínsulas, ilhas e arquipélagos. Os rios maiores ficam a leste, onde o continente é mais largo.</p>
+  <figure>
+    <svg id="grafico-europa" viewBox="0 0 720 250" role="img" aria-label="Gráfico de barras com os cinco rios mais extensos da Europa"></svg>
+    <figcaption><b>Fig. 3</b> Os cinco rios mais extensos da Europa (extensão em quilómetros, segundo os valores do manual). A escala é a mesma da Fig. 2, para poderes comparar.</figcaption>
+  </figure>
+  <div class="rolagem"><table>
+    <tr><th>Rio</th><th>Por onde passa</th><th>Onde desagua</th></tr>
+    <tr><td><b>Volga</b></td><td>Rússia</td><td>Mar Cáspio</td></tr>
+    <tr><td><b>Danúbio</b></td><td>Nasce na Alemanha e atravessa dez países da Europa Central e de Leste</td><td>Mar Negro</td></tr>
+    <tr><td><b>Ural</b></td><td>Rússia e Cazaquistão</td><td>Mar Cáspio</td></tr>
+    <tr><td><b>Dniepre</b></td><td>Rússia, Bielorrússia e Ucrânia</td><td>Mar Negro</td></tr>
+    <tr><td><b>Don</b></td><td>Rússia</td><td>Mar de Azov</td></tr>
+    <tr><td>Outros rios importantes</td><td>Reno, Elba, Vístula, Loire, Sena, Ródano, Pó, Ebro, Tamisa</td><td>Mar do Norte, mar Báltico, Atlântico e Mediterrâneo</td></tr>
+  </table></div>
+
+  <div class="pensa">O rio mais extenso da Europa (Volga) tem pouco mais de metade do comprimento do Nilo. Indica duas características do continente europeu que ajudam a explicar esta diferença.</div>
+</section>
+
+<!-- ======================= 3. CAUDAL E REGIME ======================= -->
+<section class="pagina" data-titulo="3. Caudal e regime fluvial">
+  <div class="etq">Secção 3</div>
+  <h2>Caudal e regime fluvial</h2>
+
+  <div class="grelha">
+    <div class="def"><b>Caudal</b> — volume de água que passa numa determinada secção de um rio por unidade de tempo. Mede-se em <b>metros cúbicos por segundo (m³/s)</b>.</div>
+    <div class="def"><b>Regime fluvial</b> — variação do caudal de um rio <b>ao longo do ano</b>.</div>
+  </div>
+  <div class="exemplo">O caudal é como uma fotografia: «neste momento passam aqui 300 m³ de água por segundo». O regime é como um filme: mostra como o caudal sobe e desce de janeiro a dezembro.</div>
+
+  <h3>Três tipos de regime fluvial</h3>
+  <p>Escolhe um regime e observa o gráfico do caudal ao longo do ano.</p>
+  <div class="chips" id="chips-regime"></div>
+  <figure>
+    <svg id="grafico-regime" viewBox="0 0 720 260" role="img" aria-label="Gráfico do caudal ao longo do ano"></svg>
+    <figcaption><b>Fig. 4</b> Caudal ao longo do ano em três regimes fluviais. Valores ilustrativos, para um rio do hemisfério norte.</figcaption>
+  </figure>
+  <div class="painel" id="painel-regime" aria-live="polite"></div>
+
+  <h3 style="margin-top:1.2em">Porque varia o caudal? Fatores naturais</h3>
+  <div class="rolagem"><table>
+    <tr><th>Fator</th><th>Maior caudal quando…</th><th>Menor caudal quando…</th></tr>
+    <tr><td><b>Clima</b> (precipitação e temperatura)</td><td>a precipitação é elevada; a neve e o gelo fundem.</td><td>a precipitação é escassa; a temperatura alta aumenta a evaporação.</td></tr>
+    <tr><td><b>Relevo</b></td><td>é acidentado: a água escorre depressa pelas vertentes.</td><td>é plano: a água escoa devagar e infiltra-se mais.</td></tr>
+    <tr><td><b>Permeabilidade das rochas e do solo</b></td><td>as rochas são pouco permeáveis (xisto, granito): menos infiltração.</td><td>as rochas são permeáveis (calcário, arenito): mais infiltração.</td></tr>
+    <tr><td><b>Cobertura vegetal</b></td><td>é pouco densa ou inexistente: nada trava a água.</td><td>é densa: a vegetação retém a água e favorece a infiltração.</td></tr>
+  </table></div>
+  <p>Influenciam ainda o caudal a <b>dimensão e a forma da bacia hidrográfica</b>: uma bacia maior recolhe mais água.</p>
+
+  <h3>Fatores humanos (antrópicos)</h3>
+  <div class="grelha">
+    <div class="cartao"><b>Aumentam o escoamento superficial</b><br>Desflorestação e impermeabilização dos solos (estradas, edifícios, parques de estacionamento). A água não se infiltra e chega depressa aos rios: o caudal sobe mais e mais rapidamente quando chove, e o risco de cheia aumenta.</div>
+    <div class="cartao"><b>Diminuem o caudal</b><br>Construção de barragens (que retêm a água a montante) e captação de água para uso doméstico, industrial e, sobretudo, agrícola (rega).</div>
+  </div>
+  <div class="def"><b>Caudal ecológico</b> — caudal mínimo que é necessário manter num curso de água, por exemplo a jusante de uma barragem, para assegurar a conservação dos ecossistemas aquáticos e ribeirinhos.</div>
+
+  <div class="curio">Rios intermitentes e efémeros não são raridades: são muito comuns nas regiões de clima mediterrâneo, tropical seco e desértico. Nos desertos do Norte de África e do Médio Oriente, os leitos secos onde a água só corre depois de uma chuvada chamam-se <b>uádis</b>.</div>
+  <div class="pensa">Duas bacias vizinhas recebem a mesma quantidade de chuva. Uma está coberta de floresta; a outra ardeu no verão passado. Em qual das duas o caudal do rio sobe mais depressa depois de uma chuvada forte? Explica porquê.</div>
+</section>
+
+<!-- ======================= 4. LEITOS ======================= -->
+<section class="pagina" data-titulo="4. Os leitos de um rio">
+  <div class="etq">Secção 4</div>
+  <h2>Os leitos de um rio</h2>
+  <div class="def"><b>Leito</b> — espaço do vale que é, ou pode ser, ocupado pelas águas de um rio. Como o caudal varia ao longo do ano, o rio não ocupa sempre o mesmo espaço.</div>
+
+  <p><b>Experimenta:</b> altera o caudal e observa que leito o rio ocupa.</p>
+  <figure>
+    <svg viewBox="0 0 720 270" role="img" aria-label="Corte transversal de um vale com os três tipos de leito">
+      <rect width="720" height="270" fill="#eef5f7"/>
+      <rect id="agua-leito" x="0" y="212" width="720" height="60" fill="#2e6e8e" opacity=".85"/>
+      <path d="M0,110 L60,150 L240,150 L270,200 L320,200 L335,222 L385,222 L400,200 L450,200 L480,150 L660,150 L720,110 L720,270 L0,270 Z" fill="#b98a5a" stroke="#6b3f26" stroke-width="1.5"/>
+      <!-- casas na planície de inundação -->
+      <g><rect x="110" y="128" width="34" height="22" fill="#fffdf6" stroke="#6b3f26"/><path d="M106,128 L127,112 L148,128 Z" fill="#b3362b"/></g>
+      <g><rect x="560" y="128" width="34" height="22" fill="#fffdf6" stroke="#6b3f26"/><path d="M556,128 L577,112 L598,128 Z" fill="#b3362b"/></g>
+      <g><path d="M30,112 l0,-18 M22,100 a9,9 0 1,1 16,0 Z" stroke="#2f6b3f" stroke-width="3" fill="#5f9a5a"/><path d="M690,112 l0,-18 M682,100 a9,9 0 1,1 16,0 Z" stroke="#2f6b3f" stroke-width="3" fill="#5f9a5a"/></g>
+      <!-- chavetas dos leitos -->
+      <g font-family="monospace" font-size="12" fill="#1f2d33" text-anchor="middle">
+        <path d="M335,238 H385" stroke="#1f2d33" stroke-width="1.5"/><path d="M335,234 v8 M385,234 v8" stroke="#1f2d33" stroke-width="1.5"/>
+        <text x="360" y="254">leito de estiagem (menor)</text>
+        <path d="M252,60 H468" stroke="#1f2d33" stroke-width="1.5"/><path d="M252,56 v8 M468,56 v8" stroke="#1f2d33" stroke-width="1.5"/>
+        <text x="360" y="52">leito normal</text>
+        <path d="M60,30 H660" stroke="#1f2d33" stroke-width="1.5"/><path d="M60,26 v8 M660,26 v8" stroke="#1f2d33" stroke-width="1.5"/>
+        <text x="360" y="22">leito de inundação (maior)</text>
+      </g>
+    </svg>
+    <figcaption><b>Fig. 5</b> Corte transversal de um vale: os três tipos de leito (esquema original).</figcaption>
+  </figure>
+  <label for="cursor-leito"><b>Caudal do rio</b> (de muito baixo a muito alto)</label>
+  <input type="range" id="cursor-leito" min="0" max="100" value="10" step="1">
+  <div class="painel" id="painel-leito" aria-live="polite"></div>
+
+  <div class="rolagem" style="margin-top:1rem"><table>
+    <tr><th>Leito</th><th>Quando é ocupado</th></tr>
+    <tr><td><b>Leito de estiagem</b> (ou leito menor)</td><td>Nos períodos em que a precipitação é escassa ou inexistente — a estiagem. Corresponde aos pontos mais baixos do fundo do vale.</td></tr>
+    <tr><td><b>Leito normal</b></td><td>Em situações de caudal médio. É o espaço que o rio ocupa habitualmente, bem delimitado pelas margens.</td></tr>
+    <tr><td><b>Leito de inundação</b> (ou leito maior)</td><td>Em períodos de cheia, quando a precipitação intensa faz o rio subir e transbordar as margens do leito normal.</td></tr>
+  </table></div>
+
+  <div class="def"><b>Caudal de estiagem</b> — o menor caudal que o rio transporta durante o ano, correspondente à estação seca.</div>
+  <div class="curio">O leito de inundação <b>pertence ao rio</b>, mesmo que passe anos seco. As cheias depositam aí sedimentos finos que tornam os solos muito férteis — por isso essas áreas foram sempre procuradas para a agricultura. O problema surge quando se constroem casas, estradas e fábricas num espaço que, mais cedo ou mais tarde, a água volta a ocupar.</div>
+  <div class="pensa">Uma família quer comprar um terreno barato, plano e junto ao rio para construir casa. O rio «nunca lá chegou» nos últimos dez anos. Que conselho lhe darias? Usa a expressão «leito de inundação» na resposta.</div>
+</section>
+
+<!-- ======================= 5. SECÇÕES DE UM RIO ======================= -->
+<section class="pagina" data-titulo="5. As secções de um rio">
+  <div class="etq">Secção 5</div>
+  <h2>As secções de um rio: da nascente à foz</h2>
+  <p>Os rios são importantes <strong>agentes erosivos</strong>: desgastam as rochas, transportam os materiais e depositam-nos mais adiante. Ao longo do percurso de um rio distinguem-se três secções, e em cada uma predomina uma fase do processo erosivo.</p>
+  <div class="grelha">
+    <div class="def"><b>Perfil longitudinal</b> — linha que une os pontos do fundo do leito de um rio, desde a nascente até à foz.</div>
+    <div class="def"><b>Perfil transversal</b> — corte do vale feito perpendicularmente à direção do rio, num determinado ponto.</div>
+  </div>
+
+  <p>Escolhe uma secção para a localizares no perfil longitudinal.</p>
+  <div class="chips" id="chips-seccoes"></div>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="Perfil longitudinal de um rio com as três secções">
+      <rect width="720" height="250" fill="#eef5f7"/>
+      <rect id="destaque-seccao" x="60" y="14" width="0" height="206" fill="#2e6e8e" opacity=".18" rx="6"/>
+      <rect x="640" y="200" width="80" height="50" fill="#2e6e8e"/>
+      <path d="M60,36 C120,150 260,188 400,196 S600,200 660,202 L720,214 L720,250 L60,250 Z" fill="#cf9a4a" stroke="#6b3f26" stroke-width="1.5"/>
+      <path d="M60,36 C120,150 260,188 400,196 S600,200 660,202" fill="none" stroke="#2e6e8e" stroke-width="4" stroke-linecap="round"/>
+      <line x1="60" y1="20" x2="60" y2="250" stroke="#1f2d33" stroke-width="1"/>
+      <g font-family="monospace" font-size="12" fill="#1f2d33">
+        <text x="6" y="34">altitude</text>
+        <text x="66" y="30" fill="#b3362b" font-weight="700">nascente</text>
+        <text x="652" y="194" fill="#b3362b" font-weight="700">foz</text>
+        <text x="690" y="240" fill="#fff">mar</text>
+      </g>
+      <g font-family="Georgia,serif" font-size="14" font-weight="700" fill="#1f2d33" text-anchor="middle">
+        <text x="150" y="238">curso superior</text><text x="370" y="238">curso médio</text><text x="560" y="238">curso inferior</text>
+      </g>
+      <path d="M250,216 v30 M480,216 v30" stroke="#1f2d33" stroke-dasharray="3 3"/>
+      <text x="390" y="70" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a5a60">montante  ◄──────────────────►  jusante</text>
+    </svg>
+    <figcaption><b>Fig. 6</b> Perfil longitudinal de um rio (esquema original, sem escala).</figcaption>
+  </figure>
+  <div class="painel" id="painel-seccoes" aria-live="polite">Escolhe uma secção.</div>
+
+  <h3 style="margin-top:1.2em">O perfil transversal em cada secção</h3>
+  <div class="grelha">
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale em V fechado"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,14 L72,80 L80,85 L88,80 L160,14 L160,90 L0,90Z" fill="#9a5f38"/><path d="M74,82 L80,86 L86,82" stroke="#2e6e8e" stroke-width="4" fill="none"/></svg>
+      <figcaption><b>Curso superior</b> — vale estreito e profundo, em <b>«V» fechado</b> ou em garganta.</figcaption></figure>
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale em V aberto"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,34 L58,76 L102,76 L160,34 L160,90 L0,90Z" fill="#cf9a4a"/><rect x="66" y="73" width="28" height="5" fill="#2e6e8e"/></svg>
+      <figcaption><b>Curso médio</b> — vale mais largo, em <b>«V» aberto</b>.</figcaption></figure>
+    <figure><svg viewBox="0 0 160 90" role="img" aria-label="Vale de fundo plano"><rect width="160" height="90" fill="#eef5f7"/><path d="M0,58 L26,72 L134,72 L160,58 L160,90 L0,90Z" fill="#b9cf7a"/><rect x="52" y="70" width="56" height="5" fill="#2e6e8e"/></svg>
+      <figcaption><b>Curso inferior</b> — vale muito largo e pouco profundo, de <b>fundo plano</b> (caleira aluvial).</figcaption></figure>
+  </div>
+
+  <div class="rolagem"><table>
+    <tr><th></th><th>Curso superior</th><th>Curso médio</th><th>Curso inferior</th></tr>
+    <tr><td><b>Localização</b></td><td>Secção inicial, junto à nascente</td><td>Secção intermédia</td><td>Secção final, junto à foz</td></tr>
+    <tr><td><b>Declive</b></td><td>Muito acentuado</td><td>Menor</td><td>Fraco: terreno quase plano</td></tr>
+    <tr><td><b>Velocidade da água</b></td><td>Grande</td><td>Começa a diminuir</td><td>Baixa</td></tr>
+    <tr><td><b>Processo dominante</b></td><td><b>Desgaste</b>: o rio escava o leito em profundidade</td><td><b>Transporte</b>; há ainda desgaste lateral das margens</td><td><b>Acumulação</b>: o rio perde força e deposita os sedimentos</td></tr>
+    <tr><td><b>Formas resultantes</b></td><td>Vales encaixados, gargantas, quedas de água</td><td>Vales mais abertos</td><td>Planícies aluviais; deltas ou estuários na foz</td></tr>
+  </table></div>
+  <div class="def"><b>Planície aluvial</b> — planície junto ao leito de um rio, formada pela deposição de sedimentos (aluviões) vindos de montante. Tem solos muito férteis.</div>
+
+  <div class="exemplo">O <b>Douro</b> mostra bem as diferenças: no Douro Internacional corre apertado entre vertentes quase verticais, num vale muito encaixado. Já o <b>Tejo</b>, depois de Santarém, espraia-se por uma planície aluvial larga e fértil — a lezíria — antes de formar um grande estuário em frente a Lisboa.</div>
+  <div class="pensa">Porque é que as pedras do leito são grandes e angulosas perto da nascente, e junto à foz só se encontram areias finas e lodo? Relaciona a resposta com a velocidade da água.</div>
+</section>
+
+<!-- ======================= 6. PORTUGAL ======================= -->
+<section class="pagina" data-titulo="6. Rios e bacias de Portugal">
+  <div class="etq">Secção 6</div>
+  <h2>Os rios e as bacias hidrográficas de Portugal</h2>
+
+  <p>Toca num rio para o localizares e conheceres a nascente e a foz.</p>
+  <div class="chips" id="chips-rios"></div>
+  <div class="grelha" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start">
+    <figure style="max-width:420px;margin-left:auto;margin-right:auto;width:100%">
+      <svg id="mapa-pt" viewBox="0 0 300 570" role="img" aria-label="Esquema dos principais rios de Portugal continental">
+        <rect width="300" height="570" fill="#cfe3ea"/>
+        <!-- Espanha -->
+        <polygon points="62,35 119,5 300,0 300,570 186,528 178,488 221,420 200,378 225,336 196,294 176,267 221,266 238,194 227,123 290,74 289,63 255,26 204,32 127,42" fill="#efe9d6"/>
+        <!-- Portugal continental (contorno simplificado) -->
+        <polygon points="62,35 119,5 127,42 204,32 255,26 289,63 290,74 227,123 238,194 221,266 176,267 196,294 225,336 200,378 221,420 178,488 186,528 142,549 55,546 62,446 60,389 34,398 43,362 15,368 9,359 19,298 45,273 63,215 72,164 79,110 65,54" fill="#dfe9c4" stroke="#6b3f26" stroke-width="1.2"/>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <!-- troços em Espanha -->
+          <g stroke="#7fa9bb" stroke-width="2" stroke-dasharray="4 3">
+            <path d="M119,5 L150,0"/><path d="M127,42 L150,30"/><path d="M290,74 L300,70"/><path d="M221,266 L300,262"/><path d="M225,336 L300,330"/>
+          </g>
+          <!-- rios luso-espanhóis -->
+          <path class="rio" data-rio="minho" d="M119,5 L92,22 L62,35" stroke="#1d5f86" stroke-width="3.5"/>
+          <path class="rio" data-rio="lima" d="M127,42 L98,48 L65,54" stroke="#1d5f86" stroke-width="3.5"/>
+          <path class="rio" data-rio="douro" d="M290,74 L262,96 L227,123 L190,112 L154,109 L112,114 L79,110" stroke="#1d5f86" stroke-width="4.5"/>
+          <path class="rio" data-rio="tejo" d="M221,266 L176,267 L146,280 L119,288 L96,300 L78,312 L58,340 L43,362 L20,370" stroke="#1d5f86" stroke-width="4.5"/>
+          <path class="rio" data-rio="guadiana" d="M225,336 L210,358 L200,378 L186,400 L179,420 L170,452 L165,479 L178,488 L182,508 L186,528" stroke="#1d5f86" stroke-width="4.5"/>
+          <!-- rios exclusivamente nacionais -->
+          <path class="rio" data-rio="cavado" d="M157,42 L124,58 L96,64 L70,70" stroke="#2f8f6b" stroke-width="3"/>
+          <path class="rio" data-rio="ave" d="M136,66 L108,80 L73,89" stroke="#2f8f6b" stroke-width="3"/>
+          <path class="rio" data-rio="vouga" d="M170,137 L132,148 L100,156 L72,164" stroke="#2f8f6b" stroke-width="3"/>
+          <path class="rio" data-rio="mondego" d="M174,187 L190,172 L166,176 L138,196 L99,210 L63,215" stroke="#2f8f6b" stroke-width="3.5"/>
+          <path class="rio" data-rio="zezere" d="M170,190 L176,214 L150,236 L128,262 L112,286" stroke="#2f8f6b" stroke-width="3"/>
+          <path class="rio" data-rio="lis" d="M72,262 L62,252 L54,244" stroke="#2f8f6b" stroke-width="3"/>
+          <path class="rio" data-rio="sado" d="M115,467 L108,440 L100,420 L93,402 L78,394 L62,389" stroke="#2f8f6b" stroke-width="3.5"/>
+          <path class="rio" data-rio="mira" d="M119,499 L96,488 L70,470" stroke="#2f8f6b" stroke-width="3"/>
+        </g>
+        <g font-family="monospace" font-size="9.5" fill="#1f2d33">
+          <text x="18" y="24">Minho</text><text x="20" y="50">Lima</text><text x="14" y="72">Cávado</text><text x="38" y="92">Ave</text>
+          <text x="24" y="114">Douro</text><text x="26" y="168">Vouga</text><text x="2" y="222">Mondego</text><text x="34" y="240">Lis</text>
+          <text x="134" y="244">Zêzere</text><text x="84" y="330">Tejo</text><text x="104" y="412">Sado</text><text x="40" y="482">Mira</text><text x="186" y="456">Guadiana</text>
+          <text x="232" y="230" font-size="12" fill="#6b3f26">ESPANHA</text>
+          <text x="6" y="520" font-size="10" fill="#2e6e8e">oceano</text><text x="6" y="532" font-size="10" fill="#2e6e8e">Atlântico</text>
+        </g>
+        <circle cx="174" cy="188" r="4" fill="#9a5f38"/><text x="182" y="186" font-family="monospace" font-size="8.5" fill="#6b3f26">S.ª da Estrela</text>
+        <g font-family="monospace" font-size="9" fill="#1f2d33">
+          <line x1="150" y1="560" x2="170" y2="560" stroke="#1d5f86" stroke-width="4"/><text x="174" y="563">luso-espanhol</text>
+          <line x1="56" y1="560" x2="76" y2="560" stroke="#2f8f6b" stroke-width="4"/><text x="80" y="563">nacional</text>
+        </g>
+      </svg>
+      <figcaption><b>Fig. 7</b> Principais rios de Portugal continental. Esquema simplificado: os traçados são aproximados e não substituem o mapa do manual.</figcaption>
+    </figure>
+    <div>
+      <div class="painel" id="painel-rios" aria-live="polite">Escolhe um rio.</div>
+      <div class="def" style="margin-top:1rem"><b>Rios luso-espanhóis</b> — nascem em Espanha e desaguam em Portugal: <b>Minho, Lima, Douro, Tejo e Guadiana</b>. As suas bacias são as maiores do país.</div>
+      <div class="def"><b>Rios exclusivamente nacionais</b> — nascem e desaguam em Portugal: <b>Mondego, Sado, Vouga, Cávado, Ave, Lis, Mira e Zêzere</b> (este último é afluente do Tejo). As maiores bacias nacionais são as do Mondego, do Sado e do Vouga.</div>
+    </div>
+  </div>
+
+  <h3>Características gerais da rede hidrográfica</h3>
+  <ul>
+    <li>A maior parte dos rios corre de <b>este para oeste</b> ou de <b>nordeste para sudoeste</b>, acompanhando a inclinação geral do relevo da Península Ibérica, e desagua no <b>oceano Atlântico</b>, no litoral ocidental.</li>
+    <li>Duas exceções: o <b>Sado</b> corre de sul para norte e o <b>Guadiana</b> de norte para sul.</li>
+  </ul>
+
+  <h3>As bacias partilhadas com Espanha</h3>
+  <div class="rolagem"><table>
+    <tr><th>Bacia</th><th>Área total (km²)</th><th>Em Portugal (km²)</th><th>Parte portuguesa</th></tr>
+    <tr><td>Minho</td><td class="n">17 080</td><td class="n">850</td><td class="n">5%</td></tr>
+    <tr><td>Lima</td><td class="n">2 480</td><td class="n">1 180</td><td class="n">48%</td></tr>
+    <tr><td>Douro</td><td class="n">97 600</td><td class="n">18 600</td><td class="n">19%</td></tr>
+    <tr><td>Tejo</td><td class="n">80 600</td><td class="n">24 800</td><td class="n">31%</td></tr>
+    <tr><td>Guadiana</td><td class="n">66 800</td><td class="n">11 500</td><td class="n">17%</td></tr>
+  </table></div>
+  <p style="font-size:.88rem;color:#4a5a60">Valores arredondados do Plano Nacional da Água (Agência Portuguesa do Ambiente). Podem diferir ligeiramente dos do manual, que usa os Planos de Gestão de Região Hidrográfica mais recentes.</p>
+  <div class="curio">As cinco bacias luso-espanholas ocupam cerca de <b>64%</b> do território de Portugal continental — quase dois terços. E em todas elas a maior parte da área fica em <b>Espanha</b>, a montante. É por isso que o que acontece aos rios do lado espanhol se reflete diretamente em Portugal.</div>
+
+  <h3>Como varia o caudal dos rios portugueses?</h3>
+  <div class="rolagem"><table>
+    <tr><th>Variação espacial: norte e sul</th><th>Variação temporal: ao longo do ano e de ano para ano</th></tr>
+    <tr>
+      <td><b>A norte do Tejo</b>, chove mais e o relevo é mais acidentado: os rios têm <b>maior caudal</b> e correm em vales mais estreitos, profundos e de maior declive.<br><br><b>A sul do Tejo</b>, chove menos e o relevo é mais plano: a rede é <b>menos densa</b>, os rios têm <b>menor caudal</b> e são mais <b>irregulares</b>, correndo em vales largos e pouco profundos. Muitas ribeiras secam no verão.</td>
+      <td>O clima de Portugal continental tem verões quentes e secos. Por isso, os caudais são <b>mais altos no inverno</b>, quando chove mais, e <b>mais baixos no verão</b> (estiagem).<br><br>A precipitação também varia muito de ano para ano: há anos de <b>cheias</b> e anos de <b>seca</b>.</td>
+    </tr>
+  </table></div>
+  <div class="def"><b>Fatores naturais + fatores antrópicos</b> — o caudal dos rios portugueses resulta da interação entre o clima, o relevo, as rochas e a vegetação (fatores naturais) e as <b>barragens</b>, as <b>captações de água</b> para rega e abastecimento e os <b>transvases</b>, em Portugal e em Espanha (fatores humanos). As barragens tornam o regime mais regular: guardam água no inverno e libertam-na no verão.</div>
+
+  <h3>E nas regiões autónomas?</h3>
+  <p>Nos Açores e na Madeira os cursos de água são curtos e chamam-se <b>ribeiras</b>. Dispõem-se de forma <b>radial</b>: descem das áreas mais altas em direção ao mar, em todos os sentidos. Nos Açores, onde a chuva é mais regular, os caudais variam menos. Na Madeira, as ribeiras têm caudais elevados no inverno e baixos no verão, chegando algumas a secar.</p>
+
+  <div class="pensa">Compara um rio do Minho com uma ribeira do Baixo Alentejo. Qual terá um regime mais irregular? Indica um fator natural e um fator humano que influenciem o caudal de cada um.</div>
+</section>
+
+<!-- ======================= 7. GESTÃO, CONFLITOS, COOPERAÇÃO ======================= -->
+<section class="pagina" data-titulo="7. Gestão, conflitos e cooperação">
+  <div class="etq">Secção 7</div>
+  <h2>Gerir a água: intervenção humana, conflitos e cooperação</h2>
+
+  <div class="def"><b>Recursos hídricos</b> — conjunto das águas superficiais (rios, lagos, albufeiras) e subterrâneas (aquíferos) disponíveis para utilização numa bacia hidrográfica.</div>
+  <p>O ser humano usa os rios para o abastecimento das populações, a rega, a indústria, a produção de eletricidade, a navegação, a pesca e o lazer. Para isso, transforma as bacias hidrográficas — e a intervenção com maiores impactos é a <strong>construção de barragens</strong>, porque altera o rio a montante e a jusante.</p>
+
+  <div class="rolagem"><table>
+    <tr><th>Barragens: vantagens</th><th>Barragens: desvantagens</th></tr>
+    <tr>
+      <td>Armazenam água para o abastecimento, a agricultura e a indústria.<br>Produzem energia hidroelétrica.<br>Regularizam os caudais, reduzindo o risco de cheias e os efeitos das secas.<br>As albufeiras servem o turismo e o lazer.</td>
+      <td>Inundam vales, campos agrícolas e, por vezes, povoações, obrigando a deslocar populações.<br>Destroem habitats e interrompem as migrações de peixes.<br>Retêm os sedimentos, que deixam de chegar às praias do litoral.<br>Diminuem o caudal a jusante.<br>Dificultam a gestão dos rios internacionais.</td>
+    </tr>
+  </table></div>
+
+  <div class="exemplo"><b>Alqueva, no Guadiana.</b> A barragem criou uma das maiores albufeiras da Europa, que rega o Alentejo, produz eletricidade e atrai turismo. Mas submergiu a antiga <b>aldeia da Luz</b>: os habitantes foram realojados numa nova aldeia, construída em 2002, com 212 casas, e até o cemitério foi trasladado. Um mesmo projeto pode ter impactos positivos e negativos.</div>
+
+  <h3>Impactos nos ambientes biogeográficos</h3>
+  <ul>
+    <li><b>Peixes migradores</b>, como a lampreia, o sável e a enguia, deixam de conseguir subir o rio para se reproduzirem.</li>
+    <li>A <b>vegetação ribeirinha</b> e os animais que dela dependem são afetados quando o caudal diminui ou deixa de variar naturalmente.</li>
+    <li>Os <b>estuários e deltas</b> recebem menos água doce e menos sedimentos.</li>
+    <li>A <b>poluição</b> (esgotos, adubos, pesticidas, descargas industriais) degrada a qualidade da água em toda a bacia a jusante.</li>
+  </ul>
+  <p>É para reduzir estes impactos que se definem <b>caudais ecológicos</b>, se constroem passagens para peixes e se controlam as descargas poluentes.</p>
+
+  <h3>Porque há conflitos pela água?</h3>
+  <div class="grelha">
+    <div class="cartao"><b>Distribuição desigual</b><br>A água não se distribui de igual forma pelo planeta. Os conflitos são mais frequentes nas regiões áridas e semiáridas, de rios intermitentes ou efémeros.</div>
+    <div class="cartao"><b>Bacias partilhadas</b><br>Muitas bacias abrangem vários países. Quem está a <b>montante</b> pode reter, desviar ou poluir a água que chega a quem está a <b>jusante</b>.</div>
+    <div class="cartao"><b>Procura crescente</b><br>O crescimento da população, das cidades, da agricultura de regadio e da indústria aumenta o consumo.</div>
+    <div class="cartao"><b>Secas mais frequentes</b><br>As alterações climáticas tornam a água mais escassa e irregular em muitas regiões.</div>
+  </div>
+  <div class="curio">Segundo as Nações Unidas (UN-Water), <b>153 países</b> têm território em pelo menos uma das 286 bacias de rios e lagos partilhadas entre países. Essas águas transfronteiriças representam cerca de <b>60%</b> do escoamento de água doce do mundo. No entanto, só 24 países declaram ter todas as suas bacias partilhadas cobertas por acordos de cooperação.</div>
+
+  <h3>Três casos para analisar</h3>
+  <div class="cartao">
+    <b>1. O rio Nilo e a Grande Barragem do Renascimento</b>
+    <p>A Etiópia construiu no Nilo Azul, junto à fronteira com o Sudão, a maior central hidroelétrica de África, inaugurada em setembro de 2025, para produzir a eletricidade de que o país precisa. O <b>Egito</b>, a jusante, depende do Nilo para cerca de 90% da sua água doce e receia que a barragem reduza o caudal, sobretudo em anos de seca. O <b>Sudão</b> reconhece vantagens (controlo das cheias, eletricidade), mas exige um acordo sobre o funcionamento da barragem. Depois de muitos anos de negociações, os três países ainda não chegaram a consenso.</p>
+  </div>
+  <div class="cartao">
+    <b>2. O mar de Aral</b>
+    <p>Situado entre o Cazaquistão e o Usbequistão, era o quarto maior lago do mundo. A partir da década de 1960, a União Soviética desviou a água dos rios <b>Amu Dária</b> e <b>Sir Dária</b>, que o alimentavam, para regar campos de algodão. O lago encolheu, dividiu-se e, em 2014, a sua parte oriental secou por completo. A pesca desapareceu, a água tornou-se muito salgada e as poeiras do fundo exposto, contaminadas com produtos químicos agrícolas, passaram a afetar a saúde das populações. Em 2005, o Cazaquistão concluiu a barragem de Kok-Aral, que permitiu recuperar a parte norte.</p>
+  </div>
+  <div class="cartao">
+    <b>3. Portugal e Espanha</b>
+    <p>Como Portugal está a jusante nas cinco bacias partilhadas, podem surgir problemas: a <b>poluição</b> dos rios em Espanha reflete-se nos cursos de água portugueses; as <b>barragens</b> e os <b>transvases</b> espanhóis (como o que desvia água do Tejo para o sudeste de Espanha) reduzem os caudais, sobretudo em períodos de <b>seca</b>; e as descargas das barragens espanholas, quando estão cheias, podem agravar as <b>cheias</b> em Portugal.</p>
+  </div>
+
+  <h3>A solução: cooperação internacional</h3>
+  <div class="def"><b>Convenção de Albufeira</b> — acordo entre Portugal e Espanha para a proteção e o aproveitamento sustentável das águas das bacias do Minho, Lima, Douro, Tejo e Guadiana. Foi assinada em Albufeira, a 30 de novembro de 1998, e aperfeiçoada em 2008 com melhorias no <b>regime de caudais</b> que Espanha deve garantir. A sua aplicação é acompanhada por uma comissão dos dois países (CADC), que reúne todos os anos.</div>
+  <p>Uma bacia hidrográfica é uma unidade natural: a água não conhece fronteiras. Por isso, a sua gestão deve ser <b>partilhada</b> e <b>sustentável</b>, com troca de informação, caudais mínimos garantidos, controlo da poluição e planos comuns para as secas e as cheias.</p>
+
+  <div class="pensa">Coloca-te no lugar de um agricultor egípcio e, depois, de um estudante etíope sem eletricidade em casa. Que argumentos usaria cada um sobre a barragem do Nilo? Que tipo de acordo poderia satisfazer os dois?</div>
+</section>
+
+<!-- ======================= 8. SÍNTESE ======================= -->
+<section class="pagina" data-titulo="8. Síntese final">
+  <div class="etq">Secção 8</div>
+  <h2>Síntese final</h2>
+  <div class="cartao">
+    <ul>
+      <li>A <b>rede hidrográfica</b> é o conjunto das linhas de água (rio principal, afluentes e subafluentes); a <b>bacia hidrográfica</b> é a área drenada por essa rede, delimitada pelos <b>interflúvios</b>.</li>
+      <li>Os rios mais extensos do mundo são o <b>Nilo</b>, o <b>Amazonas</b> (o mais caudaloso), o Iansequião, o Mississípi–Missouri e o Ienissei. Na Europa destacam-se o <b>Volga</b> e o <b>Danúbio</b>.</li>
+      <li>O <b>caudal</b> é o volume de água que passa numa secção do rio por unidade de tempo (m³/s); o <b>regime fluvial</b> é a variação do caudal ao longo do ano.</li>
+      <li>Os regimes podem ser <b>perenes</b> (água todo o ano), <b>intermitentes</b> (secam na estação seca) ou <b>efémeros</b> (só têm água depois de chover).</li>
+      <li>O caudal depende de fatores <b>naturais</b> (clima, relevo, permeabilidade das rochas, vegetação) e <b>humanos</b> (desflorestação, impermeabilização, barragens, consumos).</li>
+      <li>O rio pode ocupar o <b>leito de estiagem</b> (menor), o <b>leito normal</b> ou o <b>leito de inundação</b> (maior).</li>
+      <li>No <b>curso superior</b> predomina o desgaste (vale em «V» fechado); no <b>curso médio</b>, o transporte (vale em «V» aberto); no <b>curso inferior</b>, a acumulação (planície aluvial).</li>
+      <li>Em Portugal, os rios <b>luso-espanhóis</b> são o Minho, o Lima, o Douro, o Tejo e o Guadiana; os principais rios <b>nacionais</b> são o Mondego, o Sado e o Vouga. Os caudais são maiores e mais regulares a norte e variam muito entre o inverno e o verão.</li>
+      <li>As <b>barragens</b> trazem vantagens, mas têm impactos nos ecossistemas e nos países a jusante. A partilha da água pode gerar <b>conflitos</b> (Nilo, mar de Aral), que só a <b>cooperação internacional</b> resolve — como na Convenção de Albufeira.</li>
+    </ul>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="Esquema-síntese sobre os rios">
+      <rect width="720" height="250" fill="#fff"/>
+      <g font-family="Georgia,serif" font-size="13" text-anchor="middle">
+        <rect x="290" y="8" width="140" height="34" rx="17" fill="#1d5f86"/><text x="360" y="30" fill="#fff" font-weight="700" font-size="16">RIOS</text>
+        <g stroke="#6b3f26" stroke-width="1.5" fill="none"><path d="M360,42 V60 M90,60 H630 M90,60 V78 M270,60 V78 M450,60 V78 M630,60 V78"/></g>
+        <rect x="20" y="80" width="140" height="28" rx="6" fill="#2e6e8e"/><text x="90" y="99" fill="#fff" font-weight="700">Organizam-se em</text>
+        <rect x="200" y="80" width="140" height="28" rx="6" fill="#5f9a5a"/><text x="270" y="99" fill="#fff" font-weight="700">Têm um caudal</text>
+        <rect x="380" y="80" width="140" height="28" rx="6" fill="#cf9a4a"/><text x="450" y="99" font-weight="700">Têm três secções</text>
+        <rect x="560" y="80" width="140" height="28" rx="6" fill="#9a5f38"/><text x="630" y="99" fill="#fff" font-weight="700">Exigem gestão</text>
+        <g fill="#1f2d33">
+          <text x="90" y="130">Redes hidrográficas</text><text x="90" y="148">Bacias hidrográficas</text><text x="90" y="166">separadas por interflúvios</text>
+          <text x="270" y="130">que varia: regime fluvial</text><text x="270" y="148">perene · intermitente</text><text x="270" y="166">efémero</text>
+          <text x="450" y="130">superior: desgaste</text><text x="450" y="148">médio: transporte</text><text x="450" y="166">inferior: acumulação</text>
+          <text x="630" y="130">Barragens e consumos</text><text x="630" y="148">Conflitos pela água</text><text x="630" y="166">Cooperação internacional</text>
+        </g>
+        <path d="M270,174 V192" stroke="#6b3f26" stroke-width="1.5"/>
+        <rect x="80" y="194" width="380" height="44" rx="8" fill="#e2eef2" stroke="#2e6e8e"/>
+        <text x="270" y="213" font-weight="700" fill="#1d5f86">Leitos</text>
+        <text x="270" y="231" fill="#1f2d33">de estiagem (menor) · normal · de inundação (maior)</text>
+      </g>
+    </svg>
+    <figcaption><b>Fig. 8</b> Esquema-síntese da aula.</figcaption>
+  </figure>
+  <p><b>Segue para a avaliação:</b> quatro partes com correção automática e feedback imediato.</p>
+</section>
+
+<!-- ======================= 9. ESCOLHA MÚLTIPLA ======================= -->
+<section class="pagina" data-titulo="Avaliação 1 · Escolha múltipla">
+  <div class="etq">Avaliação · Parte 1</div>
+  <h2>Escolha múltipla</h2>
+  <p>Seleciona a opção correta. Só podes responder uma vez a cada pergunta.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-em"></span></div><div class="cont" id="cont-em"></div></div>
+  <div id="quiz-em"></div>
+</section>
+
+<!-- ======================= 10. VERDADEIRO OU FALSO ======================= -->
+<section class="pagina" data-titulo="Avaliação 2 · Verdadeiro ou falso">
+  <div class="etq">Avaliação · Parte 2</div>
+  <h2>Verdadeiro ou falso</h2>
+  <p>Classifica cada afirmação. As falsas são corrigidas no feedback.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-vf"></span></div><div class="cont" id="cont-vf"></div></div>
+  <div id="quiz-vf"></div>
+</section>
+
+<!-- ======================= 11. ASSOCIAÇÃO ======================= -->
+<section class="pagina" data-titulo="Avaliação 3 · Associação de conceitos">
+  <div class="etq">Avaliação · Parte 3</div>
+  <h2>Associação de conceitos</h2>
+  <p>Em cada exercício, escolhe na lista a correspondência certa para cada elemento e carrega em «Verificar».</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-as"></span></div><div class="cont" id="cont-as"></div></div>
+  <div id="quiz-as"></div>
+</section>
+
+<!-- ======================= 12. DESAFIO FINAL ======================= -->
+<section class="pagina" data-titulo="Avaliação 4 · Desafio final">
+  <div class="etq">Avaliação · Parte 4</div>
+  <h2>Desafio final: aplica o que aprendeste</h2>
+  <p>Situações novas, em que tens de usar os conhecimentos da aula.</p>
+  <div class="quiz-topo"><div class="barra"><span id="barra-df"></span></div><div class="cont" id="cont-df"></div></div>
+  <div id="quiz-df"></div>
+
+  <h3>Questões de resposta aberta</h3>
+  <p>Escreve a tua resposta e só depois compara com a proposta. Estas questões não contam para a classificação automática.</p>
+  <div class="q">
+    <div class="enun"><span class="num">A.</span>A construção de uma grande barragem, como a de Alqueva, é uma boa ou uma má decisão? Apresenta dois argumentos a favor e dois contra, e conclui com a tua opinião.</div>
+    <textarea aria-label="Resposta à questão A" placeholder="Escreve aqui a tua resposta…"></textarea>
+    <p><button class="btn sec" type="button" data-mostra="prop-a">Ver proposta de resposta</button></p>
+    <div class="fb" id="prop-a">Resposta pessoal, desde que fundamentada. <b>A favor:</b> armazena água para rega e abastecimento numa região seca; produz eletricidade; regulariza os caudais, reduzindo cheias e os efeitos das secas; cria oportunidades de turismo. <b>Contra:</b> submerge terrenos agrícolas, habitats e povoações (aldeia da Luz); interrompe a migração de peixes; retém sedimentos que alimentariam o litoral; diminui o caudal a jusante. O importante é pesar os impactos positivos e negativos e reconhecer que é preciso garantir caudais ecológicos.</div>
+  </div>
+  <div class="q">
+    <div class="enun"><span class="num">B.</span>Explica porque é que os rios do Norte de Portugal têm, em geral, caudais maiores e mais regulares do que os do Sul. Refere fatores naturais e humanos.</div>
+    <textarea aria-label="Resposta à questão B" placeholder="Escreve aqui a tua resposta…"></textarea>
+    <p><button class="btn sec" type="button" data-mostra="prop-b">Ver proposta de resposta</button></p>
+    <div class="fb" id="prop-b"><b>Fatores naturais:</b> a norte chove mais e durante mais meses, e o relevo é mais acidentado, o que favorece o escoamento; a sul chove menos, os verões são mais longos e secos e o relevo é mais plano, pelo que muitas ribeiras têm regime irregular e chegam a secar. <b>Fatores humanos:</b> as barragens (em Portugal e em Espanha) retêm água e regularizam o caudal; as captações para rega, mais intensas no Sul, reduzem-no; em anos de seca, a retenção de água a montante, em Espanha, diminui o caudal dos rios luso-espanhóis.</div>
+  </div>
+</section>
+
+<!-- ======================= 13. RESULTADOS ======================= -->
+<section class="pagina" data-titulo="Resultados">
+  <div class="etq">Avaliação</div>
+  <h2>Os teus resultados</h2>
+  <div class="cartao">
+    <div class="nota" id="nota-final">—</div>
+    <p id="nota-texto" style="margin-top:.6rem"></p>
+    <div class="barra" style="height:14px"><span id="barra-nota"></span></div>
+  </div>
+  <div class="rolagem"><table id="tabela-res">
+    <tr><th>Parte</th><th>Respondidas</th><th>Certas</th></tr>
+  </table></div>
+  <p style="margin-top:1rem" id="conselho"></p>
+  <p><button class="btn" type="button" id="recomecar">Recomeçar a avaliação</button></p>
+</section>
+
+<!-- ======================= 14. FONTES ======================= -->
+<section class="pagina" data-titulo="Bibliografia e fontes">
+  <div class="etq">Referências</div>
+  <h2>Bibliografia e fontes consultadas</h2>
+  <div class="cartao">
+    <h3 style="margin-top:0">Materiais de base</h3>
+    <ul>
+      <li>Manuais escolares de Geografia do 7.º ano disponibilizados na Escola Virtual (capítulos sobre a hidrografia): <i>Check-In 7</i>, <i>GEO+ 7</i> e <i>Geovisão 7</i>. Serviram de referência para os conceitos, a sequência dos conteúdos, a extensão dos rios do mundo e da Europa e os estudos de caso. Todos os textos e esquemas desta aula foram redigidos e desenhados de novo.</li>
+    </ul>
+    <h3>Fontes institucionais e científicas</h3>
+    <ul>
+      <li>NASA Earth Observatory. <i>Global Accounting of Earth's Rivers.</i> https://science.nasa.gov/earth/earth-observatory/global-accounting-of-earths-rivers-152742/ — peso da bacia do Amazonas no escoamento mundial.</li>
+      <li>NASA Earth Observatory. <i>World of Change: Shrinking Aral Sea.</i> https://science.nasa.gov/earth/earth-observatory/world-of-change/aral-sea/ — evolução do mar de Aral.</li>
+      <li>UN-Water (Nações Unidas). <i>Transboundary Waters.</i> https://www.unwater.org/water-facts/transboundary-waters — bacias partilhadas e cooperação.</li>
+      <li>USGS — U.S. Geological Survey. Definições de cursos de água perenes, intermitentes e efémeros. https://pubs.usgs.gov/sir/2009/5015/section2.html</li>
+      <li>Agência Portuguesa do Ambiente (APA). <i>Convenção de Albufeira completa 25 anos</i>, nota à comunicação social n.º 84/2023. https://apambiente.pt/sites/default/files/_A_APA/Comunicacao/Media/NotasOCS2023/NotaOCS_84-2023_ConvencaoAlbufeiraCompleta25Anos-correcao.pdf</li>
+      <li>Agência Portuguesa do Ambiente (APA). <i>Plano Nacional da Água</i> (2002), volume 1, capítulo 2 — áreas das bacias luso-espanholas. https://apambiente.pt/sites/default/files/_SNIAMB_Agua/DRH/PlaneamentoOrdenamento/PNA/2002/Volume1_Capitulo2_T03.pdf</li>
+      <li>Agência Portuguesa do Ambiente (APA). <i>Plano de Gestão de Região Hidrográfica do Tejo e Ribeiras do Oeste 2022–2027</i>, resumo não técnico. https://apambiente.pt/sites/default/files/_Agua/DRH/ParticipacaoPublica/AAE_PGRH_PGRI/2022-2027/PGRH_3_PGRI_2_RH5A_ResumoNaoTecnico_PT.pdf</li>
+      <li>Vatican News (órgão de informação da Santa Sé). <i>Ethiopia inaugurates Africa's largest hydroelectric dam</i>, setembro de 2025. https://www.vaticannews.va/en/world/news/2025-09/ethiopia-inaugurates-africa-s-largest-hydroelectric-dam.html — fonte jornalística, usada apenas para a data de inauguração e as posições dos três países.</li>
+    </ul>
+    <h3>Nota sobre os dados</h3>
+    <p>A extensão dos rios varia de fonte para fonte, conforme o ponto considerado como nascente e o método de medição. Os gráficos de regime fluvial usam valores ilustrativos. O mapa de Portugal é um esquema simplificado. As ligações exigem acesso à Internet; todo o resto da aula funciona sem ligação.</p>
+  </div>
+  <p class="creditos">Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</p>
+</section>
+
+</main>
+
+<!-- ======================= NAVEGAÇÃO INFERIOR ======================= -->
+<nav class="rodape" aria-label="Navegação da aula">
+  <div class="rodape-linha">
+    <button class="btn sec" type="button" id="anterior">← Anterior</button>
+    <div class="rodape-info" id="info-pagina"></div>
+    <button class="btn" type="button" id="seguinte">Seguinte →</button>
+  </div>
+</nav>
+
+<script>
+/* =====================================================================
+   AULA INTERATIVA — OS RIOS E AS BACIAS HIDROGRÁFICAS (7.º ano)
+   Índice do código:
+   A. Utilitários
+   B. Navegação entre secções e barra de progresso
+   C. Figuras interativas (bacia, gráficos, regimes, leitos, secções, rios de Portugal)
+   D. Dados da avaliação
+   E. Motor dos questionários (escolha múltipla, V/F, desafio)
+   F. Associação de conceitos
+   G. Resultados
+   Escrito em JavaScript simples, para funcionar em computadores antigos.
+   ===================================================================== */
+
+/* ---------- A. Utilitários ---------- */
+function $(id){ return document.getElementById(id); }
+function baralhar(lista){
+  var a = lista.slice(), i, j, t;
+  for(i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+
+/* ---------- B. Navegação ---------- */
+var paginas = document.querySelectorAll(".pagina");
+var atual = 0;
+var PAG_RESULTADOS = 13; /* posição da secção «Resultados» */
+
+function construirIndice(){
+  var sel = $("indice"), i, o;
+  for(i = 0; i < paginas.length; i++){
+    o = document.createElement("option");
+    o.value = i; o.text = paginas[i].getAttribute("data-titulo");
+    sel.appendChild(o);
+  }
+  sel.onchange = function(){ mostrar(parseInt(sel.value, 10)); };
+}
+function mostrar(i){
+  var k;
+  if(i < 0 || i >= paginas.length){ return; }
+  for(k = 0; k < paginas.length; k++){ paginas[k].className = "pagina" + (k === i ? " ativa" : ""); }
+  atual = i;
+  $("indice").value = i;
+  $("barra-aula").style.width = Math.round((i + 1) / paginas.length * 100) + "%";
+  $("info-pagina").innerHTML = "Secção " + (i + 1) + " de " + paginas.length + "<br>" + paginas[i].getAttribute("data-titulo");
+  $("anterior").disabled = (i === 0);
+  $("seguinte").disabled = (i === paginas.length - 1);
+  if(i === PAG_RESULTADOS){ atualizarResultados(); }
+  window.scrollTo(0, 0);
+}
+$("anterior").onclick = function(){ mostrar(atual - 1); };
+$("seguinte").onclick = function(){ mostrar(atual + 1); };
+document.onkeydown = function(e){
+  e = e || window.event;
+  var alvo = (e.target || e.srcElement).tagName;
+  if(alvo === "INPUT" || alvo === "SELECT" || alvo === "TEXTAREA"){ return; }
+  if(e.keyCode === 37){ mostrar(atual - 1); }
+  if(e.keyCode === 39){ mostrar(atual + 1); }
+};
+
+/* ---------- C0. Seletor genérico de «chips» ---------- */
+/* Cria botões a partir de uma lista e chama aoEscolher(k) quando se toca num deles */
+function criarChips(idCaixa, nomes, aoEscolher){
+  var caixa = $(idCaixa), i, b;
+  for(i = 0; i < nomes.length; i++){
+    b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.innerHTML = nomes[i];
+    b.onclick = (function(k){ return function(){
+      var bs = caixa.getElementsByTagName("button"), j;
+      for(j = 0; j < bs.length; j++){ bs[j].className = "chip" + (j === k ? " ativo" : ""); }
+      aoEscolher(k);
+    }; })(i);
+    caixa.appendChild(b);
+  }
+}
+function nomesDe(lista){ var r = [], i; for(i = 0; i < lista.length; i++){ r.push(lista[i].n); } return r; }
+
+/* ---------- C1. Rede e bacia hidrográfica (Fig. 1) ---------- */
+var ELEMENTOS = [
+  {n:"Nascente", k:"nascente", d:"Local onde o rio tem origem, em geral numa área de maior altitude."},
+  {n:"Rio principal", k:"principal", d:"O curso de água mais importante da rede, que recebe os afluentes e dá o nome à bacia."},
+  {n:"Afluente", k:"afluente", d:"Curso de água que desagua no rio principal."},
+  {n:"Subafluente", k:"subafluente", d:"Curso de água que desagua num afluente."},
+  {n:"Confluência", k:"confluencia", d:"Local onde dois cursos de água se juntam."},
+  {n:"Foz", k:"foz", d:"Local onde o rio desagua — neste caso, no mar."},
+  {n:"Interflúvio", k:"interfluvio", d:"Linha de maior altitude que separa a bacia A da bacia B. A chuva que cai de cada lado escoa para rios diferentes."},
+  {n:"Rede hidrográfica", k:"rede", d:"Apenas as linhas de água: o rio principal, os afluentes e os subafluentes."},
+  {n:"Bacia hidrográfica", k:"bacia", d:"Toda a área drenada pela rede hidrográfica — a superfície a verde, incluindo o terreno entre os rios."}
+];
+function escolherElemento(i){
+  var els = $("fig-bacia").querySelectorAll(".el"), j, chaves;
+  for(j = 0; j < els.length; j++){
+    chaves = " " + els[j].getAttribute("data-el") + " ";
+    els[j].style.opacity = (chaves.indexOf(" " + ELEMENTOS[i].k + " ") >= 0) ? "1" : "0.22";
+  }
+  $("painel-bacia").innerHTML = "<b>" + ELEMENTOS[i].n + "</b> — " + ELEMENTOS[i].d;
+}
+
+/* ---------- C2. Gráficos de barras dos rios (Figs. 2 e 3) ---------- */
+var RIOS_MUNDO = [["Nilo","África",6693],["Amazonas","América do Sul",6436],["Iansequião","Ásia",6378],["Mississípi–Missouri","América do Norte",5970],["Ienissei–Angara–Selenga","Ásia",5539]];
+var RIOS_EUROPA = [["Volga","Europa",3692],["Danúbio","Europa",2860],["Ural","Europa",2428],["Dniepre","Europa",2290],["Don","Europa",1950]];
+function desenharBarras(id, dados, cor){
+  var s = "<rect width='720' height='250' fill='#eef5f7'/>", i, y, w, d;
+  for(i = 0; i < dados.length; i++){
+    d = dados[i]; y = 16 + i * 46; w = d[2] / 7000 * 470;
+    s += "<text x='14' y='" + (y + 14) + "' font-family='Georgia,serif' font-size='14' font-weight='700' fill='#1f2d33'>" + d[0] + "</text>";
+    s += "<text x='14' y='" + (y + 30) + "' font-family='monospace' font-size='11' fill='#4a5a60'>" + d[1] + "</text>";
+    s += "<rect x='190' y='" + y + "' width='" + w.toFixed(0) + "' height='30' rx='4' fill='" + cor + "'/>";
+    s += "<text x='" + (198 + w).toFixed(0) + "' y='" + (y + 20) + "' font-family='monospace' font-size='13' font-weight='700' fill='#1f2d33'>" + d[2] + " km</text>";
+  }
+  $(id).innerHTML = s;
+}
+
+/* ---------- C3. Regimes fluviais (Fig. 4) ---------- */
+var MESES = ["J","F","M","A","M","J","J","A","S","O","N","D"];
+var REGIMES = [
+  {n:"Perene", v:[9,9,8,7,6,5,4,4,5,6,8,9], d:"O rio tem água <b>durante todo o ano</b>, embora o caudal varie com a precipitação. É o caso dos grandes rios das regiões húmidas, como o Amazonas ou o Danúbio."},
+  {n:"Intermitente", v:[8,7,6,4,2,0,0,0,0,2,5,7], d:"O rio tem água durante a estação das chuvas, mas <b>seca na estação seca</b> (estiagem). É característico das regiões de clima mediterrâneo e tropical seco — por exemplo, muitas ribeiras do Sul de Portugal."},
+  {n:"Efémero", v:[0,0,6,0,0,0,0,0,0,0,3,0], d:"O rio <b>só tem água logo após uma chuvada intensa</b> e seca rapidamente. Forma-se sobretudo nas regiões desérticas quentes."}
+];
+function desenharRegime(i){
+  var r = REGIMES[i], s = "<rect width='720' height='260' fill='#eef5f7'/>", m, x, h, base = 210;
+  s += "<line x1='60' y1='" + base + "' x2='700' y2='" + base + "' stroke='#1f2d33' stroke-width='1.5'/>";
+  s += "<line x1='60' y1='30' x2='60' y2='" + base + "' stroke='#1f2d33' stroke-width='1.5'/>";
+  s += "<text x='18' y='24' font-family='monospace' font-size='12' fill='#4a5a60'>caudal</text>";
+  s += "<text x='380' y='252' text-anchor='middle' font-family='monospace' font-size='12' fill='#4a5a60'>meses do ano</text>";
+  for(m = 0; m < 12; m++){
+    x = 74 + m * 52; h = r.v[m] * 18;
+    if(h > 0){ s += "<rect x='" + x + "' y='" + (base - h) + "' width='38' height='" + h + "' rx='3' fill='#2e6e8e'/>"; }
+    else { s += "<text x='" + (x + 19) + "' y='" + (base - 8) + "' text-anchor='middle' font-family='monospace' font-size='11' fill='#b3362b'>seco</text>"; }
+    s += "<text x='" + (x + 19) + "' y='" + (base + 18) + "' text-anchor='middle' font-family='monospace' font-size='13' fill='#1f2d33'>" + MESES[m] + "</text>";
+  }
+  $("grafico-regime").innerHTML = s;
+  $("painel-regime").innerHTML = "<b>Regime " + r.n.toLowerCase() + "</b> — " + r.d;
+}
+
+/* ---------- C4. Leitos de um rio (Fig. 5) ---------- */
+function atualizarLeito(){
+  var v = parseInt($("cursor-leito").value, 10);
+  var y = 218 - v * 0.86;            /* nível da água: de 218 (quase seco) a 132 (cheia) */
+  var txt;
+  $("agua-leito").setAttribute("y", y);
+  $("agua-leito").setAttribute("height", 272 - y);
+  if(y > 200){ txt = "<b>Leito de estiagem (leito menor)</b> — caudal muito baixo, típico da estação seca. O rio ocupa apenas a parte mais funda do vale."; }
+  else if(y > 150){ txt = "<b>Leito normal</b> — caudal médio. O rio ocupa o espaço habitual, bem delimitado pelas margens."; }
+  else { txt = "<b>Leito de inundação (leito maior)</b> — cheia! O rio transbordou as margens e ocupa a planície, onde estão as casas."; }
+  $("painel-leito").innerHTML = txt;
+}
+
+/* ---------- C5. Secções de um rio (Fig. 6) ---------- */
+var SECCOES = [
+  {n:"Curso superior", x:60, w:190, d:"Secção inicial, junto à nascente. Declive muito acentuado e água veloz: predomina o <b>desgaste</b>. Vale estreito e profundo, em «V» fechado ou em garganta."},
+  {n:"Curso médio", x:250, w:230, d:"Secção intermédia. O declive diminui e predomina o <b>transporte</b> dos materiais; o rio desgasta lateralmente as margens. Vale em «V» aberto."},
+  {n:"Curso inferior", x:480, w:180, d:"Secção final, junto à foz. Terreno quase plano e água lenta: predomina a <b>acumulação</b>. Vale largo de fundo plano, com planícies aluviais."}
+];
+function escolherSeccao(i){
+  $("destaque-seccao").setAttribute("x", SECCOES[i].x);
+  $("destaque-seccao").setAttribute("width", SECCOES[i].w);
+  $("painel-seccoes").innerHTML = "<b>" + SECCOES[i].n + "</b> — " + SECCOES[i].d;
+}
+
+/* ---------- C6. Rios de Portugal (Fig. 7) ---------- */
+var RIOS_PT = [
+  {n:"Minho", k:"minho", t:"Luso-espanhol", d:"Nasce na Galiza (Espanha) e desagua em Caminha. Serve de fronteira entre Portugal e Espanha no seu troço final."},
+  {n:"Lima", k:"lima", t:"Luso-espanhol", d:"Nasce na Galiza (Espanha) e desagua em Viana do Castelo."},
+  {n:"Cávado", k:"cavado", t:"Exclusivamente nacional", d:"Nasce na serra do Larouco e desagua em Esposende."},
+  {n:"Ave", k:"ave", t:"Exclusivamente nacional", d:"Nasce na serra da Cabreira e desagua em Vila do Conde."},
+  {n:"Douro", k:"douro", t:"Luso-espanhol", d:"Nasce na serra de Urbión (Espanha) e desagua entre o Porto e Vila Nova de Gaia. Tem a maior bacia hidrográfica da Península Ibérica e serve de fronteira no Douro Internacional."},
+  {n:"Vouga", k:"vouga", t:"Exclusivamente nacional", d:"Nasce na serra da Lapa e desagua na ria de Aveiro."},
+  {n:"Mondego", k:"mondego", t:"Exclusivamente nacional", d:"Nasce na serra da Estrela e desagua na Figueira da Foz, depois de passar por Coimbra. É o maior rio que corre apenas em território português."},
+  {n:"Zêzere", k:"zezere", t:"Exclusivamente nacional (afluente do Tejo)", d:"Nasce na serra da Estrela e desagua no Tejo, em Constância."},
+  {n:"Lis", k:"lis", t:"Exclusivamente nacional", d:"Nasce perto de Leiria, atravessa a cidade e desagua junto à praia da Vieira."},
+  {n:"Tejo", k:"tejo", t:"Luso-espanhol", d:"Nasce na serra de Albarracín (Espanha) e desagua em Lisboa, num grande estuário. É o rio mais extenso da Península Ibérica, com cerca de 1000 km."},
+  {n:"Sado", k:"sado", t:"Exclusivamente nacional", d:"Nasce no Baixo Alentejo e desagua em Setúbal. É uma exceção: corre de sul para norte."},
+  {n:"Mira", k:"mira", t:"Exclusivamente nacional", d:"Nasce na serra do Caldeirão e desagua em Vila Nova de Milfontes."},
+  {n:"Guadiana", k:"guadiana", t:"Luso-espanhol", d:"Nasce em Espanha (Castela-Mancha) e desagua em Vila Real de Santo António. Corre de norte para sul e serve de fronteira em dois troços. Nele fica a barragem de Alqueva."}
+];
+function escolherRio(i){
+  var ps = $("mapa-pt").querySelectorAll(".rio"), j, sel;
+  for(j = 0; j < ps.length; j++){
+    sel = ps[j].getAttribute("data-rio") === RIOS_PT[i].k;
+    ps[j].style.opacity = sel ? "1" : "0.3";
+    ps[j].style.stroke = sel ? "#b3362b" : "";
+  }
+  $("painel-rios").innerHTML = "<b>Rio " + RIOS_PT[i].n + "</b><br><span class='etq'>" + RIOS_PT[i].t + "</span><br>" + RIOS_PT[i].d;
+}
+
+/* Arranque das figuras interativas */
+function iniciarFiguras(){
+  criarChips("chips-bacia", nomesDe(ELEMENTOS), escolherElemento);
+  desenharBarras("grafico-mundo", RIOS_MUNDO, "#2e6e8e");
+  desenharBarras("grafico-europa", RIOS_EUROPA, "#5f9a5a");
+  criarChips("chips-regime", nomesDe(REGIMES), desenharRegime);
+  $("chips-regime").getElementsByTagName("button")[0].className = "chip ativo";
+  desenharRegime(0);
+  $("cursor-leito").oninput = atualizarLeito;
+  $("cursor-leito").onchange = atualizarLeito;
+  atualizarLeito();
+  criarChips("chips-seccoes", nomesDe(SECCOES), escolherSeccao);
+  criarChips("chips-rios", nomesDe(RIOS_PT), escolherRio);
+}
+
+/* ---------- D. Dados da avaliação ---------- */
+/* p = pergunta; o = opções; c = índice da opção correta; e = explicação */
+var EM = [
+  {p:"Uma rede hidrográfica é…", o:["o conjunto formado por um rio principal e pelos seus afluentes e subafluentes.","a área drenada por um rio e pelos seus afluentes.","a linha que separa duas bacias hidrográficas.","a quantidade de água que passa numa secção do rio."], c:0, e:"A rede hidrográfica engloba apenas as linhas de água."},
+  {p:"Uma bacia hidrográfica é…", o:["o conjunto dos afluentes de um rio.","a área drenada por uma rede hidrográfica.","o local onde o rio desagua.","o leito ocupado pelo rio durante as cheias."], c:1, e:"A bacia é uma área: toda a superfície cuja água escoa para o mesmo rio principal."},
+  {p:"A linha de maior altitude que separa duas bacias hidrográficas chama-se…", o:["confluência.","perfil longitudinal.","interflúvio.","jusante."], c:2, e:"O interflúvio, ou linha divisória de águas, delimita as bacias."},
+  {p:"O caudal de um rio é…", o:["a variação da quantidade de água ao longo do ano.","a distância entre a nascente e a foz.","a área ocupada pelo rio durante as cheias.","o volume de água que passa numa secção do rio por unidade de tempo."], c:3, e:"O caudal mede-se em metros cúbicos por segundo (m³/s)."},
+  {p:"O regime fluvial corresponde…", o:["à variação do caudal de um rio ao longo do ano.","ao volume de água que passa numa secção do rio num dado momento.","ao conjunto dos afluentes de um rio.","à forma do vale no curso superior."], c:0, e:"O caudal é um valor num momento; o regime é a sua variação ao longo do ano."},
+  {p:"Um rio que só tem água logo após a ocorrência de precipitação e seca rapidamente tem um regime…", o:["perene.","efémero.","intermitente.","regular."], c:1, e:"Os rios efémeros formam-se sobretudo nas regiões desérticas quentes."},
+  {p:"O rio que transporta maior quantidade de água em todo o mundo é o…", o:["Nilo.","Iansequião.","Amazonas.","Volga."], c:2, e:"O Amazonas é o rio mais caudaloso da Terra; o Nilo é, segundo a maioria das fontes, o mais extenso."},
+  {p:"O rio mais extenso da Europa é o…", o:["Danúbio.","Reno.","Tejo.","Volga."], c:3, e:"O Volga, na Rússia, tem cerca de 3700 km e desagua no mar Cáspio."},
+  {p:"O espaço do vale que o rio ocupa quando, devido a precipitação intensa, transborda as margens é o…", o:["leito de inundação (leito maior).","leito normal.","leito de estiagem (leito menor).","caudal ecológico."], c:0, e:"Em período de cheia, o rio ocupa o leito de inundação."},
+  {p:"No curso inferior de um rio predomina…", o:["o desgaste, que origina vales em «V» fechado.","a acumulação, que origina planícies aluviais.","o transporte, que origina gargantas.","o desgaste, que origina quedas de água."], c:1, e:"Com declive fraco e água lenta, o rio deposita os sedimentos."},
+  {p:"Qual das seguintes ações humanas tende a AUMENTAR rapidamente o caudal de um rio quando chove?", o:["A construção de barragens.","A captação de água para rega.","A impermeabilização dos solos.","A plantação de floresta."], c:2, e:"Em solos impermeabilizados a água não se infiltra e escorre depressa para os rios."},
+  {p:"Os cinco principais rios luso-espanhóis são…", o:["Minho, Douro, Mondego, Tejo e Sado.","Lima, Vouga, Douro, Tejo e Guadiana.","Minho, Cávado, Douro, Tejo e Mira.","Minho, Lima, Douro, Tejo e Guadiana."], c:3, e:"Todos nascem em Espanha e desaguam em Portugal. Mondego, Sado, Vouga, Cávado e Mira são exclusivamente nacionais."}
+];
+/* p = afirmação; v = true se verdadeira; e = explicação */
+var VF = [
+  {p:"A rede hidrográfica inclui toda a área drenada por um rio e pelos seus afluentes.", v:false, e:"Essa é a definição de bacia hidrográfica. A rede hidrográfica inclui apenas as linhas de água."},
+  {p:"Montante é o lado da nascente e jusante é o lado da foz.", v:true, e:"O rio corre de montante para jusante."},
+  {p:"O rio Danúbio desagua no mar Negro.", v:true, e:"Nasce na Alemanha e atravessa a Europa Central e de Leste."},
+  {p:"O rio Amazonas localiza-se em África.", v:false, e:"O Amazonas localiza-se na América do Sul. Em África ficam o Nilo, o Congo e o Níger."},
+  {p:"Um rio de regime perene seca completamente durante o verão.", v:false, e:"Um rio perene tem água durante todo o ano. O que seca na estação seca é o rio intermitente."},
+  {p:"Os rios de regime intermitente são característicos de regiões com uma estação seca bem marcada, como as de clima mediterrâneo.", v:true, e:"Têm caudal durante o período das chuvas e secam na estiagem."},
+  {p:"Rochas permeáveis, como o calcário, favorecem a infiltração e reduzem o escoamento superficial.", v:true, e:"Com mais infiltração, chega menos água diretamente aos rios."},
+  {p:"O leito de estiagem é o espaço ocupado pelo rio durante as cheias.", v:false, e:"O leito de estiagem (menor) é ocupado na estação seca. Nas cheias, o rio ocupa o leito de inundação (maior)."},
+  {p:"No curso superior de um rio, o vale tem geralmente a forma de «V» fechado e predomina o desgaste.", v:true, e:"O declive é acentuado e a água tem grande velocidade."},
+  {p:"O Mondego é um rio luso-espanhol.", v:false, e:"O Mondego nasce na serra da Estrela e desagua na Figueira da Foz: é exclusivamente nacional."},
+  {p:"O rio Sado corre de sul para norte.", v:true, e:"É uma exceção, tal como o Guadiana, que corre de norte para sul."},
+  {p:"A Convenção de Albufeira é um acordo entre Portugal e Espanha para a gestão das bacias hidrográficas partilhadas.", v:true, e:"Foi assinada em 1998 e abrange as bacias do Minho, Lima, Douro, Tejo e Guadiana."}
+];
+/* Cada exercício: t = título; pares = [elemento, correspondência correta] */
+var AS = [
+  {t:"Exercício 1 — Elementos de uma bacia hidrográfica", pares:[
+    ["Nascente","Local onde o rio tem origem"],
+    ["Foz","Local onde o rio desagua"],
+    ["Afluente","Curso de água que desagua noutro maior"],
+    ["Confluência","Local onde dois cursos de água se juntam"],
+    ["Interflúvio","Linha que separa duas bacias hidrográficas"]]},
+  {t:"Exercício 2 — Caudal e regimes fluviais", pares:[
+    ["Caudal","Volume de água que passa numa secção do rio por unidade de tempo"],
+    ["Regime fluvial","Variação do caudal ao longo do ano"],
+    ["Regime perene","O rio tem água durante todo o ano"],
+    ["Regime intermitente","O rio seca durante a estação seca"],
+    ["Regime efémero","O rio só tem água logo após a chuva"]]},
+  {t:"Exercício 3 — Leitos de um rio", pares:[
+    ["Leito de estiagem","Ocupado quando a precipitação é escassa"],
+    ["Leito normal","Ocupado em situações de caudal médio"],
+    ["Leito de inundação","Ocupado em períodos de cheia"],
+    ["Caudal ecológico","Mínimo necessário para conservar os ecossistemas"]]},
+  {t:"Exercício 4 — Secções de um rio", pares:[
+    ["Vale em «V» fechado","Curso superior"],
+    ["Vale em «V» aberto","Curso médio"],
+    ["Planície aluvial","Curso inferior"],
+    ["Predomina o desgaste","Curso superior"],
+    ["Predomina o transporte","Curso médio"],
+    ["Predomina a acumulação","Curso inferior"]]},
+  {t:"Exercício 5 — Rios e continentes", pares:[
+    ["Nilo","África"],
+    ["Amazonas","América do Sul"],
+    ["Iansequião","Ásia"],
+    ["Mississípi–Missouri","América do Norte"],
+    ["Volga","Europa"],
+    ["Danúbio","Europa"]]},
+  {t:"Exercício 6 — Rios de Portugal: luso-espanhóis ou nacionais?", pares:[
+    ["Minho","Luso-espanhol"],
+    ["Douro","Luso-espanhol"],
+    ["Tejo","Luso-espanhol"],
+    ["Guadiana","Luso-espanhol"],
+    ["Mondego","Exclusivamente nacional"],
+    ["Sado","Exclusivamente nacional"],
+    ["Vouga","Exclusivamente nacional"]]},
+  {t:"Exercício 7 — Onde desaguam?", pares:[
+    ["Lima","Viana do Castelo"],
+    ["Douro","Porto"],
+    ["Mondego","Figueira da Foz"],
+    ["Tejo","Lisboa"],
+    ["Sado","Setúbal"],
+    ["Guadiana","Vila Real de Santo António"]]}
+];
+var DF = [
+  {p:"O gráfico do caudal de um rio mostra valores elevados de dezembro a março, uma descida na primavera e caudal nulo em julho, agosto e setembro. Qual é o regime deste rio?", o:["Perene.","Intermitente.","Efémero.","Não é possível saber."], c:1, e:"O rio tem água na estação das chuvas e seca na estiagem: regime intermitente, típico do clima mediterrâneo."},
+  {p:"Uma bacia hidrográfica foi muito urbanizada nos últimos vinte anos. Com a mesma quantidade de chuva, as cheias tornaram-se mais frequentes. Porquê?", o:["Porque as cidades fazem chover mais.","Porque os edifícios aumentam a infiltração.","Porque a impermeabilização dos solos reduz a infiltração e aumenta o escoamento superficial.","Porque o rio ficou com um leito maior."], c:2, e:"Em solos impermeabilizados a água escorre rapidamente para os rios, que sobem mais e mais depressa."},
+  {p:"Um armazém foi construído num terreno plano junto a um rio. No inverno seguinte, depois de vários dias de chuva intensa, ficou inundado. O armazém estava…", o:["no leito de inundação do rio.","no leito de estiagem do rio.","no interflúvio.","no curso superior do rio."], c:0, e:"O leito de inundação (leito maior) é ocupado pelo rio em períodos de cheia. Construir aí é um risco."},
+  {p:"Um país situado a montante quer construir uma grande barragem num rio internacional. O país a jusante depende desse rio para a agricultura. Qual é a melhor forma de evitar um conflito?", o:["O país a jusante construir uma barragem maior.","O país a montante usar toda a água de que precisar.","Deixar de usar a água do rio.","Os dois países estabelecerem um acordo que garanta caudais mínimos e a gestão partilhada da bacia."], c:3, e:"A cooperação internacional — com acordos como a Convenção de Albufeira — é a forma de garantir a todos o acesso à água."},
+  {p:"Num ano de seca, o caudal do Tejo à entrada em Portugal desce muito. Que explicação é mais completa?", o:["Apenas a falta de chuva em Portugal.","A pouca precipitação (fator natural), agravada pela retenção de água nas barragens e pelos consumos a montante, em Espanha (fatores humanos).","Apenas a evaporação no estuário do Tejo.","O aumento do declive do rio."], c:1, e:"O caudal resulta da interação entre fatores naturais e antrópicos. Cerca de 69% da bacia do Tejo fica em Espanha, a montante."}
+];
+
+/* ---------- E. Motor dos questionários ---------- */
+/* estado[chave] = {total, respondidas, certas} */
+var estado = {};
+function atualizarBarra(chave){
+  var s = estado[chave];
+  $("barra-" + chave).style.width = Math.round(s.respondidas / s.total * 100) + "%";
+  $("cont-" + chave).innerHTML = s.respondidas + "/" + s.total + " · certas: " + s.certas;
+}
+/* Cria um questionário de opções (serve para escolha múltipla, V/F e desafio) */
+function criarQuiz(chave, dados, tipoVF){
+  var caixa = $("quiz-" + chave), i;
+  caixa.innerHTML = "";
+  estado[chave] = {total: dados.length, respondidas: 0, certas: 0};
+  for(i = 0; i < dados.length; i++){ caixa.appendChild(criarPergunta(chave, dados[i], i, tipoVF)); }
+  atualizarBarra(chave);
+}
+function criarPergunta(chave, d, n, tipoVF){
+  var q = document.createElement("div"), ops = document.createElement("div"), fb = document.createElement("div");
+  var lista = [], i, b, ordem;
+  q.className = "q";
+  q.innerHTML = "<div class='enun'><span class='num'>" + (n + 1) + ".</span>" + d.p + "</div>";
+  ops.className = "ops" + (tipoVF ? " vf" : "");
+  fb.className = "fb";
+  if(tipoVF){
+    lista = [{t:"Verdadeiro", certa: d.v === true}, {t:"Falso", certa: d.v === false}];
+  } else {
+    for(i = 0; i < d.o.length; i++){ lista.push({t: d.o[i], certa: i === d.c}); }
+    lista = baralhar(lista);
+  }
+  for(i = 0; i < lista.length; i++){
+    b = document.createElement("button");
+    b.type = "button"; b.className = "op"; b.innerHTML = lista[i].t;
+    b.setAttribute("data-certa", lista[i].certa ? "1" : "0");
+    b.onclick = function(){ responder(chave, this, ops, fb, d.e); };
+    ops.appendChild(b);
+  }
+  q.appendChild(ops); q.appendChild(fb);
+  return q;
+}
+function responder(chave, botao, ops, fb, explicacao){
+  var bs = ops.getElementsByTagName("button"), i, acertou = botao.getAttribute("data-certa") === "1";
+  for(i = 0; i < bs.length; i++){
+    bs[i].disabled = true;
+    if(bs[i].getAttribute("data-certa") === "1"){ bs[i].className = "op certa"; }
+  }
+  if(!acertou){ botao.className = "op errada"; }
+  fb.className = "fb " + (acertou ? "ok" : "erro");
+  fb.innerHTML = (acertou ? "<b>✓ Correto.</b> " : "<b>✗ Incorreto.</b> ") + explicacao;
+  estado[chave].respondidas++;
+  if(acertou){ estado[chave].certas++; }
+  atualizarBarra(chave);
+}
+
+/* ---------- F. Associação de conceitos ---------- */
+function criarAssociacao(){
+  var caixa = $("quiz-as"), total = 0, i;
+  caixa.innerHTML = "";
+  for(i = 0; i < AS.length; i++){ total += AS[i].pares.length; caixa.appendChild(criarExercicio(AS[i])); }
+  estado.as = {total: total, respondidas: 0, certas: 0};
+  atualizarBarra("as");
+}
+function criarExercicio(ex){
+  var q = document.createElement("div"), fb = document.createElement("div"), bt = document.createElement("button");
+  var opcoes = [], vistos = {}, i, j, linha, sel, o, pares = baralhar(ex.pares);
+  q.className = "q";
+  q.innerHTML = "<div class='enun'>" + ex.t + "</div>";
+  /* lista de correspondências sem repetições */
+  for(i = 0; i < ex.pares.length; i++){
+    if(!vistos[ex.pares[i][1]]){ vistos[ex.pares[i][1]] = true; opcoes.push(ex.pares[i][1]); }
+  }
+  opcoes = baralhar(opcoes);
+  for(i = 0; i < pares.length; i++){
+    linha = document.createElement("div"); linha.className = "par";
+    linha.innerHTML = "<b>" + pares[i][0] + "</b>";
+    sel = document.createElement("select");
+    sel.setAttribute("aria-label", "Correspondência para " + pares[i][0]);
+    sel.setAttribute("data-certa", pares[i][1]);
+    o = document.createElement("option"); o.value = ""; o.text = "— escolhe —"; sel.appendChild(o);
+    for(j = 0; j < opcoes.length; j++){ o = document.createElement("option"); o.value = opcoes[j]; o.text = opcoes[j]; sel.appendChild(o); }
+    linha.appendChild(sel);
+    q.appendChild(linha);
+  }
+  fb.className = "fb";
+  bt.type = "button"; bt.className = "btn"; bt.innerHTML = "Verificar";
+  bt.onclick = function(){ verificarExercicio(q, bt, fb); };
+  q.appendChild(bt); q.appendChild(fb);
+  return q;
+}
+function verificarExercicio(q, bt, fb){
+  var sels = q.getElementsByTagName("select"), i, certas = 0, c, linha;
+  for(i = 0; i < sels.length; i++){
+    if(sels[i].value === ""){
+      fb.className = "fb erro"; fb.innerHTML = "Falta escolher uma correspondência para todos os elementos."; return;
+    }
+  }
+  for(i = 0; i < sels.length; i++){
+    linha = sels[i].parentNode;
+    sels[i].disabled = true;
+    if(sels[i].value === sels[i].getAttribute("data-certa")){
+      linha.className = "par certa"; certas++;
+    } else {
+      linha.className = "par errada";
+      c = document.createElement("div"); c.className = "corr";
+      c.innerHTML = "✗ Resposta correta: <b>" + sels[i].getAttribute("data-certa") + "</b>";
+      linha.appendChild(c);
+    }
+  }
+  bt.disabled = true;
+  fb.className = "fb " + (certas === sels.length ? "ok" : "erro");
+  fb.innerHTML = (certas === sels.length ? "<b>✓ Tudo certo!</b> " : "") + "Acertaste " + certas + " de " + sels.length + " associações.";
+  estado.as.respondidas += sels.length;
+  estado.as.certas += certas;
+  atualizarBarra("as");
+}
+
+/* Botões «Ver proposta de resposta» das questões abertas */
+function iniciarPropostas(){
+  var bs = document.querySelectorAll("button[data-mostra]"), i;
+  for(i = 0; i < bs.length; i++){
+    bs[i].onclick = function(){
+      var alvo = $(this.getAttribute("data-mostra"));
+      alvo.className = (alvo.className === "fb ok") ? "fb" : "fb ok";
+    };
+  }
+}
+
+/* ---------- G. Resultados ---------- */
+var PARTES = [["em","Escolha múltipla"],["vf","Verdadeiro ou falso"],["as","Associação de conceitos"],["df","Desafio final"]];
+function atualizarResultados(){
+  var t = $("tabela-res"), linhas = "<tr><th>Parte</th><th>Respondidas</th><th>Certas</th></tr>";
+  var total = 0, resp = 0, certas = 0, i, s, perc, nota, msg;
+  for(i = 0; i < PARTES.length; i++){
+    s = estado[PARTES[i][0]];
+    total += s.total; resp += s.respondidas; certas += s.certas;
+    linhas += "<tr><td>" + PARTES[i][1] + "</td><td class='n'>" + s.respondidas + " / " + s.total + "</td><td class='n'>" + s.certas + "</td></tr>";
+  }
+  linhas += "<tr><td><b>Total</b></td><td class='n'><b>" + resp + " / " + total + "</b></td><td class='n'><b>" + certas + "</b></td></tr>";
+  t.innerHTML = linhas;
+  perc = Math.round(certas / total * 100);
+  nota = (certas / total * 20).toFixed(1).replace(".", ",");
+  $("nota-final").innerHTML = perc + "% · " + nota + " valores";
+  $("barra-nota").style.width = perc + "%";
+  $("nota-texto").innerHTML = "Acertaste <b>" + certas + "</b> de <b>" + total + "</b> itens. A classificação conta todos os itens da avaliação: os que ficaram por responder valem zero."
+    + (resp < total ? " <b>Ainda tens " + (total - resp) + " itens por responder.</b>" : "");
+  if(perc >= 90){ msg = "Excelente! Dominas o tema. Experimenta explicar a um colega a diferença entre rede hidrográfica e bacia hidrográfica."; }
+  else if(perc >= 70){ msg = "Bom trabalho! Revê as explicações das respostas em que falhaste para consolidar."; }
+  else if(perc >= 50){ msg = "Estás no bom caminho. Volta às secções em que tiveste mais dificuldade e repete a avaliação."; }
+  else { msg = "Vale a pena rever a aula com calma, secção a secção, e tentar de novo. Errar faz parte de aprender."; }
+  $("conselho").innerHTML = msg;
+}
+function iniciarAvaliacao(){
+  criarQuiz("em", EM, false);
+  criarQuiz("vf", VF, true);
+  criarAssociacao();
+  criarQuiz("df", DF, false);
+}
+$("recomecar").onclick = function(){ iniciarAvaliacao(); mostrar(9); };
+
+/* ---------- Arranque ---------- */
+construirIndice();
+iniciarFiguras();
+iniciarAvaliacao();
+iniciarPropostas();
+mostrar(0);
+</script>
+</body>
+</html>
