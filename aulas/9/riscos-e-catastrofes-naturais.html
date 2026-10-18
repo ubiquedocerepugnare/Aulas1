@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riscos e Catástrofes Naturais — Geografia 9.º ano</title>
+<!--
+  Aula interativa — Geografia 9.º ano
+  Domínio: Ambiente e Sociedade | Subtema: Riscos e catástrofes naturais
+  Ficheiro único: todo o CSS e JavaScript estão incorporados; funciona offline.
+  Organização:
+    1. CSS (tokens de cor, tipografia, componentes)
+    2. HTML (secções = diapositivos; navegação; barra de progresso)
+    3. JavaScript (navegação, mapa interativo, simulador, quizzes, pontuação)
+-->
+<style>
+/* ===================== 1. TOKENS E BASE ===================== */
+:root{
+  --papel:#fbf8f1; --papel2:#f3ede0; --tinta:#1f2a30; --tinta2:#4a5a62; --linha:#d9cfbd;
+  --mar:#dcecf2; --mar2:#a9cfdd; --verde:#5b8c5a; --areia:#e9d8a6; --terra:#b5703c; --castanho:#6b3e26;
+  --hidro:#2f6f9f; --clima:#d0811a; --geo:#b23a2e; --geomorf:#7a5a3a;
+  --certo:#2e7d4f; --certo-bg:#e3f3e8; --errado:#b3261e; --errado-bg:#fbe5e3;
+  --destaque:#fff4d6; --raio:14px; --sombra:0 2px 10px rgba(31,42,48,.08);
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:var(--sans);font-size:17px;line-height:1.6;
+  background-image:radial-gradient(circle at 1px 1px, rgba(107,62,38,.06) 1px, transparent 0);background-size:22px 22px}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;margin:.2em 0 .5em}
+h1{font-size:clamp(1.9rem,5vw,3rem)} h2{font-size:clamp(1.45rem,3.6vw,2.1rem)} h3{font-size:1.2rem;margin-top:1.2em}
+p{margin:.5em 0 .9em} a{color:var(--hidro)}
+button{font:inherit;cursor:pointer}
+img,svg{max-width:100%}
+
+/* ===================== 2. CABEÇALHO, PROGRESSO, MENU ===================== */
+header.topo{position:sticky;top:0;z-index:30;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--linha)}
+.topo-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:8px 16px}
+.marca{font-family:var(--serif);font-weight:700;font-size:1rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.marca small{font-family:var(--mono);font-weight:400;color:var(--tinta2);font-size:.75rem;margin-left:6px}
+.btn-menu{border:1px solid var(--linha);background:#fff;border-radius:10px;padding:6px 12px}
+.progresso{height:6px;background:var(--papel2)}
+.progresso div{height:100%;width:0;background:linear-gradient(90deg,var(--hidro),var(--verde),var(--clima),var(--geo));transition:width .35s}
+.contador{font-family:var(--mono);font-size:.8rem;color:var(--tinta2)}
+nav.menu{position:fixed;inset:0 auto 0 0;width:min(330px,88vw);background:#fff;z-index:50;transform:translateX(-105%);transition:transform .3s;box-shadow:4px 0 20px rgba(0,0,0,.15);overflow-y:auto;padding:16px}
+nav.menu.aberto{transform:none}
+nav.menu ol{padding-left:0;list-style:none;margin:0}
+nav.menu li button{width:100%;text-align:left;border:0;background:none;padding:9px 10px;border-radius:8px;font-size:.95rem;display:flex;gap:8px}
+nav.menu li button:hover,nav.menu li button.atual{background:var(--mar)}
+nav.menu li button span{font-family:var(--mono);color:var(--tinta2);min-width:1.8em}
+.veu{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:40;display:none}
+.veu.ativo{display:block}
+
+/* ===================== 3. DIAPOSITIVOS ===================== */
+main{max-width:1100px;margin:0 auto;padding:22px 16px 120px}
+section.slide{display:none;animation:entra .35s ease}
+section.slide.ativo{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.etiqueta{display:inline-block;font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;background:var(--tinta);color:#fff;padding:3px 10px;border-radius:99px}
+.cartao{background:#fff;border:1px solid var(--linha);border-radius:var(--raio);padding:18px 20px;box-shadow:var(--sombra);margin:14px 0}
+.grelha{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+
+/* Blocos pedagógicos */
+.def{border-left:6px solid var(--terra);background:var(--destaque);padding:12px 16px;border-radius:0 12px 12px 0;margin:12px 0}
+.def b:first-child{font-family:var(--serif);font-size:1.05rem}
+.curiosidade{background:var(--mar);border:1px dashed var(--hidro);border-radius:12px;padding:12px 16px;margin:14px 0}
+.curiosidade::before{content:"💡 Sabias que…";display:block;font-weight:700;font-family:var(--serif);margin-bottom:4px}
+.exemplo{background:#f1f6ee;border:1px solid #c9dcc4;border-radius:12px;padding:12px 16px;margin:14px 0}
+.exemplo::before{content:"📍 Exemplo prático";display:block;font-weight:700;font-family:var(--serif);margin-bottom:4px}
+.pensa{background:#f6effa;border:1px solid #d8c4e6;border-radius:12px;padding:12px 16px;margin:14px 0}
+.pensa::before{content:"🤔 Pensa criticamente";display:block;font-weight:700;font-family:var(--serif);margin-bottom:4px}
+.fonte{font-family:var(--mono);font-size:.72rem;color:var(--tinta2);margin-top:6px}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:99px;color:#fff;margin:2px 4px 2px 0}
+.t-hidro{background:var(--hidro)} .t-clima{background:var(--clima)} .t-geo{background:var(--geo)} .t-geomorf{background:var(--geomorf)}
+
+/* Tabelas */
+.tabela-wrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:.93rem}
+th,td{border:1px solid var(--linha);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--papel2);font-family:var(--serif)}
+
+/* Cartões de classificação (clicáveis) */
+.tipo{border-radius:var(--raio);padding:16px;color:#fff;cursor:pointer;border:0;text-align:left;min-height:120px;box-shadow:var(--sombra);transition:transform .15s}
+.tipo:hover{transform:translateY(-2px)}
+.tipo h3{margin:0 0 6px;color:#fff}
+.tipo .mais{display:none;font-size:.92rem;margin-top:8px}
+.tipo.aberto .mais{display:block}
+
+/* Separadores (antes/durante/depois) */
+.abas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.abas button{border:1px solid var(--linha);background:#fff;border-radius:99px;padding:6px 14px}
+.abas button.ativo{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.painel{display:none} .painel.ativo{display:block}
+
+/* Mapa */
+.mapa-wrap{background:var(--mar);border-radius:var(--raio);padding:8px;border:1px solid var(--mar2)}
+.mapa-wrap svg{display:block;width:100%;height:auto}
+.continente{fill:#e9dfc4;stroke:#b9a77c;stroke-width:1}
+.marcador{cursor:pointer;stroke:#fff;stroke-width:1.5;transition:r .15s}
+.marcador:hover,.marcador.sel{stroke:#000;stroke-width:2.5}
+.filtros{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.filtros label{background:#fff;border:1px solid var(--linha);border-radius:99px;padding:4px 12px;font-size:.88rem;cursor:pointer;display:flex;gap:6px;align-items:center}
+#infoMapa{min-height:90px}
+
+/* Simulador */
+.sim label{display:block;font-weight:700;margin-top:10px}
+.sim input[type=range]{width:100%;accent-color:var(--terra)}
+.medidor{height:22px;border-radius:99px;background:linear-gradient(90deg,#4caf50,#f2c94c,#f2994a,#d32f2f);position:relative;margin:14px 0 6px}
+.agulha{position:absolute;top:-6px;width:6px;height:34px;background:var(--tinta);border-radius:3px;transition:left .3s}
+
+/* Navegação inferior */
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.97);border-top:1px solid var(--linha)}
+.navbar-in{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;gap:10px}
+.btn{border:0;border-radius:12px;padding:11px 18px;font-weight:700;background:var(--tinta);color:#fff}
+.btn.sec{background:#fff;color:var(--tinta);border:1px solid var(--linha)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn-peq{border:1px solid var(--linha);background:#fff;border-radius:10px;padding:7px 14px;font-weight:700}
+
+/* ===================== 4. QUIZZES ===================== */
+.q{background:#fff;border:1px solid var(--linha);border-radius:var(--raio);padding:16px 18px;margin:14px 0;box-shadow:var(--sombra)}
+.q .num{font-family:var(--mono);font-size:.78rem;color:var(--tinta2)}
+.q .enun{font-weight:700;margin:4px 0 10px}
+.opcoes{display:grid;gap:8px}
+.opcao{text-align:left;border:2px solid var(--linha);background:var(--papel);border-radius:10px;padding:10px 12px}
+.opcao:hover:not(:disabled){border-color:var(--hidro)}
+.opcao.certa{border-color:var(--certo);background:var(--certo-bg)}
+.opcao.errada{border-color:var(--errado);background:var(--errado-bg)}
+.opcao:disabled{cursor:default}
+.feedback{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.95rem}
+.feedback.ok{display:block;background:var(--certo-bg);color:#1d5235}
+.feedback.ko{display:block;background:var(--errado-bg);color:#7d1b15}
+.vf{display:flex;gap:8px}
+.vf button{flex:1;max-width:160px}
+.placar{position:sticky;top:62px;z-index:5;background:var(--tinta);color:#fff;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:.88rem}
+.assoc-linha{display:grid;grid-template-columns:minmax(120px,1fr) 2fr;gap:8px;align-items:center;margin:8px 0;padding:6px;border-radius:10px}
+.assoc-linha select{width:100%;font:inherit;padding:8px;border-radius:8px;border:2px solid var(--linha);background:#fff}
+.assoc-linha.certa select{border-color:var(--certo);background:var(--certo-bg)}
+.assoc-linha.errada select{border-color:var(--errado);background:var(--errado-bg)}
+textarea{width:100%;min-height:90px;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--linha)}
+.modelo{display:none;margin-top:10px;background:var(--certo-bg);border-radius:10px;padding:10px 12px}
+.modelo.ver{display:block}
+.resultado-final{text-align:center}
+.nota{font-family:var(--serif);font-size:3rem;font-weight:700}
+
+/* Capa */
+.capa{background:linear-gradient(135deg,#1f3a4a 0%,#2f6f9f 45%,#b5703c 100%);color:#fff;border-radius:22px;padding:30px 24px;position:relative;overflow:hidden}
+.capa h1{color:#fff}
+.capa .sub{font-family:var(--mono);font-size:.85rem;opacity:.9}
+.capa svg.deco{position:absolute;right:-30px;bottom:-30px;width:260px;opacity:.18}
+.creditos{font-family:var(--mono);font-size:.75rem;color:var(--tinta2);text-align:center;margin-top:24px}
+ul.objetivos li{margin:4px 0}
+
+
+/* ===================== 5. DICIONÁRIO DE CONCEITOS ===================== */
+.glos-ferr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.glos-ferr input{flex:1;min-width:200px;font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--linha)}
+.chip{border:1px solid var(--linha);background:#fff;border-radius:99px;padding:5px 12px;font-size:.88rem}
+.chip.ativo{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.termo{background:#fff;border:1px solid var(--linha);border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra)}
+.termo h3{margin:0 0 4px;font-size:1.1rem}
+.termo .estudar{margin:6px 0}
+.termo details{margin-top:8px;font-size:.93rem}
+.termo summary{cursor:pointer;font-weight:700;color:var(--hidro)}
+.termo ul{margin:6px 0;padding-left:18px}
+.livro{font-family:var(--mono);font-size:.74rem;font-weight:700;background:var(--papel2);border-radius:6px;padding:1px 6px;margin-right:4px}
+.alerta{background:var(--errado-bg);color:#7d1b15;border-radius:8px;padding:6px 10px;margin-top:8px;font-size:.9rem}
+.comp{font-size:.8rem;color:var(--tinta2);font-style:italic}
+
+/* ===================== 6. MAPA CONCETUAL DA SÍNTESE ===================== */
+.mapa-c{background:#f5eff8;border:1px solid #dccbe6;border-radius:18px;padding:18px 12px;text-align:center;--roxo:#8e5ea2}
+.mc-raiz{display:inline-block;background:var(--roxo);color:#fff;font-family:var(--serif);font-weight:700;padding:14px 26px;border-radius:999px;font-size:1.05rem}
+.mc-seta{color:#6d4a7d;font-size:.9rem;margin:8px 0}
+.mc-linha{display:flex;justify-content:center;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.mc-col{display:flex;flex-direction:column;align-items:center;min-width:220px;flex:1;max-width:380px}
+.mc-dif{font-size:2rem;color:var(--roxo);font-weight:700;align-self:center}
+.mc-no{border:0;background:var(--roxo);color:#fff;font:inherit;font-weight:700;border-radius:12px;padding:8px 16px;margin:3px}
+.mc-claro{background:#fff;color:var(--tinta);border:1px solid #dccbe6;font-weight:600}
+button.mc-no{cursor:pointer}
+.mc-par,.mc-tres{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.mc-quatro{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;text-align:left}
+.mc-cat{background:#fff;border-radius:12px;border-top:6px solid var(--c);padding:10px 12px;box-shadow:var(--sombra)}
+.mc-cat b{color:var(--c);font-family:var(--serif)}
+.mc-cat ul{margin:6px 0 0;padding-left:18px}
+.mc-nota{font-size:.85rem;color:#7d1b15;margin:8px 0 0}
+.mc-forte{display:inline-block;background:var(--roxo);color:#fff;font-weight:700;border-radius:12px;padding:10px 18px;border:0;font:inherit;font-weight:700}
+.mc-btn{cursor:pointer}
+.mc-caixa{background:#fff;border-radius:14px;padding:12px 16px;text-align:left;flex:1;min-width:230px;max-width:380px;box-shadow:var(--sombra)}
+.mc-caixa h4{margin:0 0 4px;color:var(--roxo);font-family:var(--serif)}
+.mc-caixa ul{margin:4px 0 0;padding-left:18px}
+#verifica label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed var(--linha);cursor:pointer}
+#verifica input{margin-top:5px;transform:scale(1.2);accent-color:var(--verde)}
+
+@media (max-width:600px){
+  body{font-size:16px}
+  .assoc-linha{grid-template-columns:1fr}
+  .btn{padding:10px 12px}
+  .placar{top:56px}
+}
+@media print{
+  header.topo,.navbar,nav.menu{display:none}
+  section.slide{display:block!important;page-break-after:always}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== CABEÇALHO ===================== -->
+<header class="topo">
+  <div class="topo-in">
+    <button class="btn-menu" id="abrirMenu" aria-label="Abrir índice">☰ Índice</button>
+    <div class="marca">Riscos e Catástrofes Naturais <small>Geografia · 9.º ano</small></div>
+    <span class="contador" id="contador">1/1</span>
+  </div>
+  <div class="progresso" aria-hidden="true"><div id="barra"></div></div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Índice da aula">
+  <h3>Índice da aula</h3>
+  <ol id="listaMenu"></ol>
+</nav>
+<div class="veu" id="veu"></div>
+
+<main>
+
+<!-- ============ 0. CAPA: título, tema, objetivos, resumo ============ -->
+<section class="slide" data-titulo="Apresentação">
+  <div class="capa">
+    <div class="sub">AMBIENTE E SOCIEDADE · GEOGRAFIA · 9.º ANO</div>
+    <h1>Riscos e Catástrofes Naturais</h1>
+    <p style="font-size:1.15rem;max-width:640px">Porque é que um sismo de magnitude 7 pode matar centenas de milhares de pessoas num país e muito poucas noutro? Nesta aula vais descobrir que a natureza fornece o <b>perigo</b>, mas é a sociedade que, em grande parte, decide o tamanho do <b>dano</b>.</p>
+    <svg class="deco" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#fff" stroke-width="3"/><path d="M10 60 L30 60 L36 40 L44 78 L52 25 L60 70 L66 52 L90 52" fill="none" stroke="#fff" stroke-width="4"/></svg>
+  </div>
+
+  <div class="grelha g2">
+    <div class="cartao">
+      <span class="etiqueta">Tema principal</span>
+      <h3>Riscos e catástrofes naturais</h3>
+      <p>Conceitos essenciais: <b>perigo – risco – dano</b>; <b>catástrofe</b> (natural e antrópica); riscos naturais: vaga de calor, vaga de frio, seca, cheia, tempestade, deslizamento, inundação, sismo e vulcão.</p>
+    </div>
+    <div class="cartao">
+      <span class="etiqueta">Resumo inicial</span>
+      <p>Os <b>riscos naturais</b> resultam de fenómenos da natureza (perigos) que podem atingir pessoas e bens. Classificam-se, pela origem, em <span class="tag t-hidro">hidrológicos</span><span class="tag t-clima">climáticos</span><span class="tag t-geo">geológicos</span><span class="tag t-geomorf">geomorfológicos</span>. A gravidade dos danos depende da força do fenómeno, mas também da <b>exposição</b> e da <b>vulnerabilidade</b> da população — por isso o grau de desenvolvimento conta tanto. A prevenção, a proteção e o controlo reduzem as perdas.</p>
+    </div>
+  </div>
+
+  <div class="cartao">
+    <span class="etiqueta">Objetivos de aprendizagem</span>
+    <ul class="objetivos">
+      <li>Definir os principais conceitos: perigo, risco, dano, vulnerabilidade, catástrofe.</li>
+      <li>Distinguir risco/catástrofe <b>natural</b> de risco/catástrofe <b>antrópica</b> (e mista).</li>
+      <li>Classificar os riscos naturais pela origem: hidrológicos, climáticos, geológicos e geomorfológicos.</li>
+      <li>Caracterizar a distribuição geográfica dos riscos no mundo e os fatores de suscetibilidade.</li>
+      <li>Identificar causas e consequências de cada risco e avaliar danos económicos, sociais, materiais e ambientais.</li>
+      <li>Relacionar as condições meteorológicas extremas e as características do meio com a ocorrência de riscos.</li>
+      <li>Relacionar os níveis de dano com o grau de desenvolvimento.</li>
+      <li>Indicar medidas de prevenção, proteção e controlo e formas corretas de atuação.</li>
+      <li>Caracterizar os riscos naturais que afetam o território nacional.</li>
+      <li>Aplicar as Tecnologias de Informação Geográfica (TIG) e organizar trabalho de campo.</li>
+    </ul>
+  </div>
+  <div class="cartao">
+    <b>Como usar esta aula:</b> avança com os botões <b>Seguinte ▸</b> e <b>◂ Anterior</b> (ou as setas do teclado), ou salta para qualquer parte pelo <b>☰ Índice</b>. A barra colorida no topo mostra o teu progresso. No final há quatro tipos de exercícios com correção imediata.
+  </div>
+  <p class="creditos">Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</p>
+</section>
+
+<!-- ============ 1. PERIGO, RISCO, DANO ============ -->
+<section class="slide" data-titulo="Perigo, risco e dano">
+  <span class="etiqueta">Secção 1</span>
+  <h2>Perigo, risco e dano… qual é a relação?</h2>
+  <p>No dia a dia usamos estas palavras como se fossem iguais, mas em Geografia têm significados diferentes e encadeados.</p>
+
+  <div class="grelha g3">
+    <div class="def"><b>Perigo</b><br>Fenómeno (natural, tecnológico ou misto) que <b>pode</b> causar danos: um sismo, uma tempestade, uma vertente instável.</div>
+    <div class="def"><b>Risco</b><br><b>Probabilidade</b> de um perigo ocorrer, num dado tempo e lugar, combinada com a <b>gravidade</b> das consequências esperadas para pessoas e bens.</div>
+    <div class="def"><b>Dano</b><br>Prejuízo efetivamente provocado quando o perigo se concretiza: vítimas, destruição, perdas económicas e ambientais.</div>
+  </div>
+
+  <div class="grelha g2">
+    <div class="def"><b>Exposição</b><br>Pessoas, edifícios, infraestruturas e atividades localizadas numa área onde o perigo pode atuar.</div>
+    <div class="def"><b>Vulnerabilidade</b><br>Grau de fragilidade dos elementos expostos: tipo de construção, pobreza, idade, falta de informação, ausência de sistemas de alerta.</div>
+  </div>
+
+  <div class="cartao" style="text-align:center">
+    <svg viewBox="0 0 720 150" role="img" aria-label="Esquema: Perigo vezes Exposição vezes Vulnerabilidade igual a Risco">
+      <g font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">
+        <rect x="10" y="40" width="150" height="70" rx="14" fill="#d0811a"/><text x="85" y="82" fill="#fff">PERIGO</text>
+        <text x="190" y="84" font-size="30" fill="#1f2a30">×</text>
+        <rect x="220" y="40" width="150" height="70" rx="14" fill="#2f6f9f"/><text x="295" y="82" fill="#fff">EXPOSIÇÃO</text>
+        <text x="400" y="84" font-size="30" fill="#1f2a30">×</text>
+        <rect x="430" y="40" width="150" height="70" rx="14" fill="#7a5a3a"/><text x="505" y="74" fill="#fff">VULNERA-</text><text x="505" y="94" fill="#fff">BILIDADE</text>
+        <text x="610" y="84" font-size="30" fill="#1f2a30">=</text>
+        <rect x="635" y="40" width="80" height="70" rx="14" fill="#b23a2e"/><text x="675" y="82" fill="#fff">RISCO</text>
+      </g>
+    </svg>
+    <p class="fonte">Esquema concetual baseado na terminologia do Gabinete das Nações Unidas para a Redução do Risco de Catástrofes (UNDRR).</p>
+  </div>
+
+  <div class="def"><b>Perigo real e perigo potencial</b><br>O perigo é <b>real</b> quando o incidente pode acontecer aqui e agora; é <b>potencial</b> quando pode acontecer no futuro, a médio ou longo prazo (GeoVisão 9).</div>
+
+  <div class="exemplo">Na praia Maria Luísa (Albufeira), em 2009, banhistas ignoraram o aviso «arribas instáveis» e sentaram-se à sombra da arriba. <b>Perigo</b>: queda da arriba. <b>Risco</b>: estarem expostos e vulneráveis junto a uma arriba instável. <b>Dano</b>: cinco mortos e vários feridos quando a arriba ruiu. (Caso analisado no Check-in 9, p. 136.)</div>
+
+  <h3>🧪 Simulador de risco</h3>
+  <div class="cartao sim">
+    <p>Move os cursores e observa como o risco muda. Repara: mesmo com um perigo forte, o risco pode baixar se reduzires a exposição ou a vulnerabilidade.</p>
+    <label for="sP">Perigosidade (força/frequência do fenómeno): <span id="vP">3</span></label>
+    <input type="range" id="sP" min="1" max="5" value="3">
+    <label for="sE">Exposição (pessoas e bens na área): <span id="vE">3</span></label>
+    <input type="range" id="sE" min="1" max="5" value="3">
+    <label for="sV">Vulnerabilidade (fragilidade, pobreza, falta de preparação): <span id="vV">3</span></label>
+    <input type="range" id="sV" min="1" max="5" value="3">
+    <div class="medidor"><div class="agulha" id="agulha"></div></div>
+    <p id="resSim" style="font-weight:700"></p>
+  </div>
+
+  <h3>Catástrofe: quando o risco se transforma em tragédia</h3>
+  <div class="def"><b>Catástrofe (ou desastre)</b><br>Acidente ou série de acidentes graves que provocam elevados prejuízos materiais e, eventualmente, vítimas, <b>perturbando gravemente</b> o funcionamento de uma comunidade, que deixa de conseguir responder apenas com os seus próprios recursos.</div>
+  <p>Considera-se, em geral, que existe catástrofe quando os danos são elevados e afetam uma área extensa, quando os serviços essenciais (hospitais, escolas, água, energia) são interrompidos e quando é necessária ajuda externa (nacional ou internacional).</p>
+  <div class="curiosidade">A base de dados internacional EM-DAT (Universidade de Lovaina) só regista um evento como catástrofe se cumprir pelo menos um destes critérios: 10 ou mais mortos, 100 ou mais pessoas afetadas, declaração de estado de emergência ou pedido de ajuda internacional.</div>
+
+  <h3>Natural, antrópica ou mista?</h3>
+  <div class="tabela-wrap"><table>
+    <tr><th>Tipo</th><th>Origem</th><th>Exemplos</th></tr>
+    <tr><td><b>Natural</b></td><td>Funcionamento dos sistemas naturais (atmosfera, hidrosfera, litosfera)</td><td>Sismo, erupção vulcânica, furacão, cheia, vaga de calor</td></tr>
+    <tr><td><b>Antrópica</b> (tecnológica/social)</td><td>Ação ou atitudes do ser humano</td><td>Derrame de petróleo, acidente industrial, colapso de estruturas, rutura de barragem</td></tr>
+    <tr><td><b>Mista</b></td><td>Causas naturais conjugadas com a ação humana</td><td>Incêndio florestal, desertificação, degradação do solo, smog</td></tr>
+  </table></div>
+  <div class="pensa">Uma inundação numa cidade onde se construiu no leito de cheia e se impermeabilizou o solo com asfalto é «puramente natural»? Que parte da responsabilidade cabe ao ordenamento do território?</div>
+</section>
+
+<!-- ============ 2. CLASSIFICAÇÃO E DISTRIBUIÇÃO ============ -->
+<section class="slide" data-titulo="Classificação e distribuição">
+  <span class="etiqueta">Secção 2</span>
+  <h2>Como se classificam os riscos naturais?</h2>
+  <p>Pela sua <b>origem</b>, os riscos naturais agrupam-se em quatro categorias. Toca em cada cartão para saber mais.</p>
+  <div class="grelha g4">
+    <button class="tipo" style="background:var(--hidro)"><h3>💧 Hidrológicos</h3>Cheias e inundações<div class="mais">Ligados ao ciclo da água: aumento do caudal dos rios, submersão de áreas habitualmente emersas, inundações costeiras e urbanas.</div></button>
+    <button class="tipo" style="background:var(--clima)"><h3>🌡️ Climáticos</h3>Vagas de calor e de frio, secas, tempestades (furacões, tornados)<div class="mais">Resultam de condições meteorológicas extremas: temperaturas anómalas, falta prolongada de precipitação, ventos muito fortes.</div></button>
+    <button class="tipo" style="background:var(--geo)"><h3>🌋 Geológicos</h3>Sismos, erupções vulcânicas, tsunâmis<div class="mais">Resultam da dinâmica interna da Terra, sobretudo do movimento das placas litosféricas.</div></button>
+    <button class="tipo" style="background:var(--geomorf)"><h3>⛰️ Geomorfológicos</h3>Deslizamentos (movimentos de vertente), avalanches<div class="mais">Deslocação de materiais (rochas, solo, neve) ao longo das vertentes, por ação da gravidade.</div></button>
+  </div>
+
+  <div class="def" style="border-left-color:var(--geo)"><b>⚠️ Atenção: os manuais não classificam todos da mesma forma</b>
+    <div class="tabela-wrap"><table>
+      <tr><th>Manual</th><th>Classificação</th><th>Onde ficam os sismos e vulcões?</th></tr>
+      <tr><td><b>GeoVisão 9</b></td><td>Hidrológicos · Climáticos · Geológicos · Geomorfológicos</td><td>Geológicos (com os tsunâmis)</td></tr>
+      <tr><td><b>Geo 9</b></td><td>Naturais (geológicos, meteorológicos, hidrológicos, climáticos), mistos e antrópicos (tecnológicos)</td><td>Geológicos</td></tr>
+      <tr><td><b>Check-in 9</b></td><td>Climáticos · Hidrológicos · Geomorfológicos (só três grupos)</td><td><b>Geomorfológicos</b>, juntamente com os deslizamentos</td></tr>
+    </table></div>
+    Nesta aula seguimos as <b>Aprendizagens Essenciais</b> (quatro grupos: hidrológicos, climáticos, geológicos e geomorfológicos). Se estudas pelo Check-in 9, lembra-te de que lá os sismos e as erupções aparecem como geomorfológicos — as duas respostas têm justificação, desde que expliques o critério.</div>
+
+  <h3>🗺️ Onde ocorrem? Mapa esquemático interativo</h3>
+  <p>Ativa ou desativa os tipos de risco e toca nos marcadores para conheceres catástrofes reais. As linhas tracejadas vermelhas assinalam as principais áreas de instabilidade tectónica.</p>
+  <div class="filtros" id="filtros"></div>
+  <div class="mapa-wrap">
+    <svg id="mapa" viewBox="0 0 900 450" role="img" aria-label="Mapa-mundo esquemático com catástrofes naturais"></svg>
+  </div>
+  <p class="fonte">Mapa esquemático (contornos simplificados, não está à escala). Projeção equirretangular.</p>
+  <div class="cartao" id="infoMapa"><i>Toca num marcador para ver a informação.</i></div>
+
+  <h3>Fatores que tornam uma região mais suscetível</h3>
+  <div class="tabela-wrap"><table>
+    <tr><th>Risco</th><th>Áreas mais suscetíveis</th><th>Fatores do meio</th></tr>
+    <tr><td><span class="tag t-geo">Sismos e vulcões</span></td><td>Anel de Fogo do Pacífico, Cintura Mediterrânica-Asiática (alpino-himalaia), Dorsal Médio-Atlântica (ex.: Islândia, Açores)</td><td>Limites de placas tectónicas e falhas ativas</td></tr>
+    <tr><td><span class="tag t-clima">Furacões / tufões / ciclones</span></td><td>Oceanos tropicais: Caraíbas e golfo do México, Pacífico ocidental, Índico, baía de Bengala</td><td>Água do mar acima de ~26 °C, forte humidade, afastamento do equador (força de Coriolis)</td></tr>
+    <tr><td><span class="tag t-clima">Tornados</span></td><td>Planícies centrais dos EUA («Tornado Alley»), mas ocorrem em todos os continentes exceto a Antártida</td><td>Encontro de ar quente e húmido com ar frio e seco sobre os continentes</td></tr>
+    <tr><td><span class="tag t-clima">Secas</span></td><td>Latitudes subtropicais (Sahel, Corno de África, Austrália, sudoeste dos EUA, Península Ibérica)</td><td>Anticiclones subtropicais (ar descendente e seco), irregularidade da precipitação</td></tr>
+    <tr><td><span class="tag t-hidro">Cheias e inundações</span></td><td>Planícies aluviais, deltas e estuários (Ásia de monções: Bangladesh, Índia, China, Paquistão)</td><td>Baixa altitude, chuvas intensas ou prolongadas, solos impermeabilizados</td></tr>
+    <tr><td><span class="tag t-geomorf">Deslizamentos</span></td><td>Grandes cadeias montanhosas (Himalaia, Andes), regiões tropicais montanhosas</td><td>Declive acentuado, rochas pouco coesas, chuva intensa, desflorestação</td></tr>
+  </table></div>
+  <div class="curiosidade">Segundo a Organização Meteorológica Mundial (OMM), entre 1970 e 2019 os fenómenos meteorológicos, climáticos e hidrológicos causaram 50% de todas as catástrofes, 45% das mortes e 74% das perdas económicas registadas — em média, <b>uma catástrofe por dia</b>.</div>
+</section>
+
+<!-- ============ 3. RISCOS CLIMÁTICOS: TEMPERATURAS E SECAS ============ -->
+<section class="slide" data-titulo="Vagas de calor, de frio e secas">
+  <span class="etiqueta">Secção 3 · Riscos climáticos (I)</span>
+  <h2>Temperaturas extremas e secas</h2>
+  <div class="grelha g2">
+    <div class="def"><b>Onda (vaga) de calor</b><br>Período de, pelo menos, <b>6 dias consecutivos</b> em que a temperatura máxima diária é superior em <b>5 °C</b> ao valor médio das temperaturas máximas diárias no período de referência (critério usado pelo IPMA).</div>
+    <div class="def"><b>Onda (vaga) de frio</b><br>Período de, pelo menos, <b>6 dias consecutivos</b> em que a temperatura mínima diária é inferior em <b>5 °C</b> ao valor médio das temperaturas mínimas diárias no período de referência.</div>
+  </div>
+
+  <div class="abas" data-grupo="temp">
+    <button class="ativo" data-p="t1">Vagas de calor</button>
+    <button data-p="t2">Vagas de frio</button>
+    <button data-p="t3">Secas</button>
+  </div>
+  <div class="painel ativo" id="t1">
+    <div class="grelha g2">
+      <div class="cartao"><h3>Causas</h3><ul><li>Anticiclones (altas pressões) persistentes, com ar descendente, seco e céu limpo.</li><li>Advecção (deslocação) de massas de ar quente e seco — em Portugal, vindas do Norte de África.</li><li>Ondulações da corrente de jato (<i>jet stream</i>) que «bloqueiam» o tempo durante dias.</li><li>Aquecimento global de origem antrópica, que torna estes episódios mais frequentes e intensos.</li></ul></div>
+      <div class="cartao"><h3>Consequências</h3><ul><li>Aumento da mortalidade (idosos, crianças, doentes crónicos, trabalhadores ao ar livre): desidratação, golpe de calor.</li><li>Maior risco de incêndios florestais.</li><li>Quebras na agricultura e na pecuária; maior consumo de água e de energia (refrigeração).</li><li>Efeito de «ilha de calor» nas cidades.</li></ul></div>
+    </div>
+    <div class="exemplo">Em maio de 2026, Mora (Alentejo) atingiu <b>40,3 °C</b>, novo máximo absoluto para o mês de maio em Portugal; segundo o IPMA, esta foi a terceira onda de calor mais longa desde que há registos. No verão de 2022 somaram-se <b>918 dias de onda de calor</b> no conjunto das estações meteorológicas — o valor mais alto da série.</div>
+  </div>
+  <div class="painel" id="t2">
+    <div class="grelha g2">
+      <div class="cartao"><h3>Causas</h3><ul><li>Deslocação de massas de ar polar ou árticas (ex.: ar siberiano sobre a Europa).</li><li>Enfraquecimento do vórtice polar: a corrente de jato ondula e deixa «escapar» ar gelado para sul.</li><li>Anticiclones continentais de inverno, com céu limpo e forte arrefecimento noturno.</li></ul></div>
+      <div class="cartao"><h3>Consequências</h3><ul><li>Hipotermia, queimaduras pelo frio e agravamento de doenças cardiovasculares e respiratórias.</li><li>Gelo e neve nas estradas: acidentes, cortes de vias, aeroportos e ferrovias encerrados.</li><li>Rutura de canalizações, falhas de energia, destruição de culturas (geada).</li><li>Intoxicações por monóxido de carbono (aquecimentos mal ventilados).</li></ul></div>
+    </div>
+    <div class="exemplo">Em fevereiro de 2021, uma vaga de frio no Texas (EUA) colapsou a rede elétrica: milhões de pessoas ficaram sem luz nem aquecimento durante dias, com centenas de mortes. Mesmo um país desenvolvido pode ser vulnerável se não estiver preparado para o fenómeno.</div>
+  </div>
+  <div class="painel" id="t3">
+    <div class="def"><b>Seca</b><br>Período em que a precipitação é muito inferior ao normal, durante tempo prolongado, provocando escassez de água para as necessidades das pessoas, da agricultura e dos ecossistemas.</div>
+    <div class="grelha g3">
+      <div class="cartao"><h3>Seca meteorológica</h3>Falta de precipitação em relação ao normal.</div>
+      <div class="cartao"><h3>Seca agrícola</h3>Falta de humidade no solo para as culturas.</div>
+      <div class="cartao"><h3>Seca hidrológica</h3>Diminuição do caudal dos rios, das albufeiras e dos aquíferos.</div>
+    </div>
+    <div class="grelha g2">
+      <div class="cartao"><h3>Causas</h3><ul><li>Permanência de anticiclones (ex.: anticiclone dos Açores).</li><li>Irregularidade da precipitação (clima mediterrâneo, semiárido).</li><li><b>Ação humana</b> agravante: desflorestação, sobre-exploração de aquíferos, regadio ineficiente, aquecimento global.</li></ul></div>
+      <div class="cartao"><h3>Consequências</h3><ul><li>Quebra da produção agrícola, morte de gado, fome e subnutrição.</li><li>Falhas no abastecimento de água; redução da produção hidroelétrica.</li><li>Incêndios, perda de biodiversidade, <b>desertificação</b>.</li><li>Migrações forçadas e conflitos pela água.</li></ul></div>
+    </div>
+    <div class="exemplo">No <b>Corno de África</b> (Etiópia, Somália, Quénia), as secas sucessivas desde 2020 deixaram milhões de pessoas em insegurança alimentar. Em 2024, segundo o CRED, as secas em África afetaram mais de 25 milhões de pessoas.</div>
+  </div>
+  <div class="pensa">As vagas de calor matam mais do que os furacões em muitos países europeus, mas raramente fazem manchetes com imagens de destruição. Porque achas que este risco é tantas vezes subestimado?</div>
+</section>
+
+<!-- ============ 4. RISCOS CLIMÁTICOS: TEMPESTADES ============ -->
+<section class="slide" data-titulo="Tempestades: furacões e tornados">
+  <span class="etiqueta">Secção 4 · Riscos climáticos (II)</span>
+  <h2>Tempestades: furacões e tornados</h2>
+  <div class="def"><b>Tempestade</b><br>Perturbação atmosférica violenta, associada a uma depressão (baixa pressão), com ventos fortes, chuva intensa e, por vezes, trovoada e granizo.</div>
+
+  <div class="grelha g2">
+    <div class="cartao">
+      <h3>🌀 Ciclones tropicais</h3>
+      <p>Formam-se sobre <b>oceanos tropicais</b> com água à superfície acima de ~26 °C. O ar quente e húmido sobe, condensa e liberta energia, alimentando a tempestade. A rotação da Terra faz o sistema girar em torno de um centro calmo — o <b>olho</b>.</p>
+      <p>Chamam-se <b>furacões</b> no Atlântico e Pacífico nordeste, <b>tufões</b> no Pacífico ocidental e <b>ciclones tropicais</b> no Índico. Diâmetro típico: centenas de quilómetros; duração: vários dias a semanas.</p>
+      <p>Ao chegarem a terra, perdem força (falta-lhes a água quente), mas causam ventos destruidores, chuvas torrenciais e a <b>maré de tempestade</b> (subida súbita do nível do mar).</p>
+    </div>
+    <div class="cartao">
+      <h3>🌪️ Tornados</h3>
+      <p>Coluna de ar em rotação muito rápida que desce de uma nuvem cumulonimbo até ao solo. Formam-se sobretudo <b>sobre os continentes</b>, quando o ar quente e húmido encontra ar frio e seco.</p>
+      <p>São muito <b>localizados</b> (dezenas de metros a poucos quilómetros de largura) e de <b>curta duração</b> (minutos), mas os ventos podem ultrapassar 300 km/h. O tempo de alerta é muito reduzido.</p>
+      <p>Sobre o mar chamam-se <b>trombas-d'água</b>.</p>
+    </div>
+  </div>
+
+  <h3>Escalas de medição</h3>
+  <div class="grelha g2">
+    <div class="tabela-wrap"><table>
+      <tr><th colspan="2">Escala Saffir-Simpson (furacões)</th></tr>
+      <tr><td>Categoria 1</td><td>119–153 km/h · danos mínimos</td></tr>
+      <tr><td>Categoria 2</td><td>154–177 km/h · danos moderados</td></tr>
+      <tr><td>Categoria 3</td><td>178–208 km/h · danos extensos</td></tr>
+      <tr><td>Categoria 4</td><td>209–251 km/h · danos extremos</td></tr>
+      <tr><td>Categoria 5</td><td>≥ 252 km/h · danos catastróficos</td></tr>
+    </table></div>
+    <div class="tabela-wrap"><table>
+      <tr><th colspan="2">Escala Fujita melhorada — EF (tornados)</th></tr>
+      <tr><td>EF0–EF1</td><td>105–177 km/h · ramos partidos, telhas arrancadas</td></tr>
+      <tr><td>EF2–EF3</td><td>178–266 km/h · telhados levantados, árvores arrancadas</td></tr>
+      <tr><td>EF4</td><td>267–322 km/h · casas robustas destruídas</td></tr>
+      <tr><td>EF5</td><td>&gt; 322 km/h · destruição total de edifícios</td></tr>
+    </table></div>
+  </div>
+  <p class="fonte">Fontes: NOAA – Centro Nacional de Furacões (EUA); manuais fornecidos.</p>
+
+  <div class="exemplo">O furacão <b>Katrina</b> (2005) inundou cerca de 80% de Nova Orleães, quando os diques cederam à maré de tempestade: mais de 1800 mortos. Em <b>Portugal</b>, a tempestade pós-tropical <b>Leslie</b> (outubro de 2018) atravessou a região Centro com rajadas superiores a 150 km/h, deixando centenas de milhares de pessoas sem eletricidade.</div>
+  <div class="curiosidade">Os furacões recebem nomes de pessoas a partir de listas da OMM. Quando um furacão é extremamente mortífero ou destruidor, o nome é «retirado» e nunca mais é usado — foi o que aconteceu ao Katrina.</div>
+</section>
+
+<!-- ============ 5. RISCOS HIDROLÓGICOS ============ -->
+<section class="slide" data-titulo="Cheias e inundações">
+  <span class="etiqueta">Secção 5 · Riscos hidrológicos</span>
+  <h2>Cheias e inundações: não são a mesma coisa!</h2>
+  <div class="grelha g2">
+    <div class="def"><b>Cheia</b><br>Aumento do caudal de um curso de água, que pode transbordar do seu leito normal (leito menor) e ocupar o leito de cheia.</div>
+    <div class="def"><b>Inundação</b><br>Submersão de uma área normalmente emersa (seca). Pode resultar de uma cheia, mas também de outras causas.</div>
+  </div>
+  <p><b>Atenção:</b> uma cheia pode provocar uma inundação, mas <b>nem todas as inundações são provocadas por cheias</b>.</p>
+
+  <div class="cartao">
+    <svg viewBox="0 0 700 220" role="img" aria-label="Perfil transversal de um vale com leito menor e leito de cheia">
+      <rect x="0" y="0" width="700" height="220" fill="#eef6f9"/>
+      <path d="M0 60 L120 140 L250 160 L300 175 L400 175 L450 160 L580 140 L700 60 L700 220 L0 220Z" fill="#c9a777"/>
+      <path d="M150 145 L250 160 L300 175 L400 175 L450 160 L550 145 Z" fill="#7fb3d5" opacity=".55"/>
+      <path d="M300 175 L400 175 L390 190 L310 190Z" fill="#2f6f9f"/>
+      <g font-family="sans-serif" font-size="14" fill="#1f2a30">
+        <text x="300" y="210">Leito menor (normal)</text>
+        <text x="170" y="130">Leito de cheia (planície aluvial)</text>
+        <rect x="455" y="120" width="26" height="22" fill="#b5703c"/><polygon points="452,120 468,106 484,120" fill="#6b3e26"/>
+        <text x="500" y="112" fill="#b23a2e" font-weight="700">Casas no leito de cheia = exposição!</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="tabela-wrap"><table>
+    <tr><th>Tipo de inundação</th><th>Causa principal</th></tr>
+    <tr><td>Fluvial (por cheia)</td><td>Chuvas prolongadas ou intensas, degelo; o rio transborda.</td></tr>
+    <tr><td>Rápida (torrencial)</td><td>Chuva muito intensa em bacias pequenas e declivosas; a água sobe em minutos.</td></tr>
+    <tr><td>Urbana</td><td>O sistema de drenagem não escoa a água; solos impermeabilizados (asfalto, betão).</td></tr>
+    <tr><td>Costeira</td><td>Maré de tempestade, forte ondulação, tsunâmi, subida do nível médio do mar.</td></tr>
+    <tr><td>Por rutura de barragem</td><td>Falha de uma infraestrutura (risco antrópico).</td></tr>
+  </table></div>
+
+  <div class="grelha g2">
+    <div class="cartao"><h3>Fatores agravantes (ação humana)</h3><ul><li>Construção em leitos de cheia e margens.</li><li>Impermeabilização dos solos: a água não se infiltra e escoa depressa.</li><li>Desflorestação das bacias hidrográficas.</li><li>Obstrução das linhas de água com lixo e entulho.</li><li>Aquecimento global: chuvas extremas mais intensas e subida do nível do mar.</li></ul></div>
+    <div class="cartao"><h3>Consequências</h3><ul><li>Vítimas, desalojados, evacuações.</li><li>Destruição de casas, estradas, pontes, colheitas.</li><li>Contaminação da água e doenças (cólera, diarreias, dengue, malária).</li><li><b>Aspeto positivo:</b> as cheias periódicas fertilizam as planícies aluviais com sedimentos (ex.: lezíria do Tejo, vale do Nilo).</li></ul></div>
+  </div>
+  <div class="exemplo">Em 2022, as monções extremas no <b>Paquistão</b> deixaram cerca de um terço do país debaixo de água e afetaram mais de 30 milhões de pessoas. Em outubro de 2024, uma depressão isolada em níveis altos (DANA) provocou inundações rápidas devastadoras na região de <b>Valência</b> (Espanha), com mais de duas centenas de mortos.</div>
+  <div class="pensa">Porque é que a mesma chuva provoca mais estragos numa cidade do que numa área agrícola com floresta? Pensa na infiltração e no escoamento superficial.</div>
+</section>
+
+<!-- ============ 6. RISCOS GEOLÓGICOS ============ -->
+<section class="slide" data-titulo="Sismos, vulcões e tsunâmis">
+  <span class="etiqueta">Secção 6 · Riscos geológicos</span>
+  <h2>Sismos, vulcões e tsunâmis</h2>
+  <p>Resultam da <b>dinâmica interna da Terra</b>. A litosfera está dividida em placas que se movem alguns centímetros por ano; nos seus limites acumulam-se tensões e sobe magma.</p>
+
+  <div class="abas" data-grupo="geo">
+    <button class="ativo" data-p="g1">Sismos</button>
+    <button data-p="g2">Vulcões</button>
+    <button data-p="g3">Tsunâmis</button>
+  </div>
+
+  <div class="painel ativo" id="g1">
+    <div class="def"><b>Sismo</b><br>Movimento vibratório, brusco e de curta duração da crosta terrestre, causado pela libertação súbita de energia acumulada em rochas sob tensão (geralmente numa falha). A energia propaga-se em <b>ondas sísmicas</b>.</div>
+    <div class="grelha g2">
+      <div class="cartao">
+        <svg viewBox="0 0 400 230" role="img" aria-label="Esquema de hipocentro e epicentro">
+          <rect width="400" height="230" fill="#f3e6cf"/>
+          <rect width="400" height="40" fill="#cfe3c4"/>
+          <line x1="230" y1="40" x2="150" y2="230" stroke="#6b3e26" stroke-width="3" stroke-dasharray="7 5"/>
+          <g fill="none" stroke="#b23a2e" stroke-width="2"><circle cx="195" cy="150" r="25"/><circle cx="195" cy="150" r="50" opacity=".7"/><circle cx="195" cy="150" r="80" opacity=".45"/></g>
+          <circle cx="195" cy="150" r="7" fill="#b23a2e"/>
+          <polygon points="195,40 185,22 205,22" fill="#b23a2e"/>
+          <line x1="195" y1="40" x2="195" y2="150" stroke="#1f2a30" stroke-dasharray="3 3"/>
+          <g font-family="sans-serif" font-size="13" font-weight="700" fill="#1f2a30"><text x="212" y="20">Epicentro</text><text x="212" y="172">Hipocentro (foco)</text><text x="20" y="215">Falha</text></g>
+        </svg>
+        <p><b>Hipocentro</b>: ponto no interior da Terra onde o sismo tem origem. <b>Epicentro</b>: ponto da superfície na vertical do hipocentro — onde, em geral, os efeitos são mais fortes.</p>
+      </div>
+      <div class="cartao">
+        <h3>Magnitude ≠ Intensidade</h3>
+        <p><b>Magnitude</b> (escala de Richter ou magnitude de momento): mede a <b>energia libertada</b> no hipocentro, a partir dos sismogramas. É única para cada sismo. Cada grau a mais corresponde a cerca de <b>32 vezes</b> mais energia.</p>
+        <p><b>Intensidade</b> (escala de Mercalli modificada, de I a XII): mede os <b>efeitos observados</b> nas pessoas, nos edifícios e na paisagem. Varia de lugar para lugar — diminui, em geral, com a distância ao epicentro.</p>
+        <p><b>Origem:</b> tectónica (a maioria), vulcânica, colapso de cavidades; e artificial (explosões, enchimento de albufeiras).</p>
+      </div>
+    </div>
+    <div class="curiosidade">Um sismo de magnitude 8 liberta cerca de 32 × 32 ≈ <b>1000 vezes</b> mais energia do que um de magnitude 6. Todos os dias se registam centenas de sismos no planeta, mas a maioria é tão fraca que ninguém os sente.</div>
+  </div>
+
+  <div class="painel" id="g2">
+    <div class="def"><b>Vulcão</b><br>Abertura na crosta por onde ascende magma, que chega à superfície como lava, acompanhado de gases, cinzas e fragmentos de rocha (piroclastos).</div>
+    <div class="grelha g2">
+      <div class="cartao">
+        <svg viewBox="0 0 400 240" role="img" aria-label="Estrutura de um vulcão">
+          <rect width="400" height="240" fill="#eef6f9"/>
+          <polygon points="60,200 170,60 230,60 340,200" fill="#8a6a4a"/>
+          <rect x="0" y="200" width="400" height="40" fill="#6b3e26"/>
+          <ellipse cx="200" cy="225" rx="70" ry="13" fill="#e2572b"/>
+          <rect x="193" y="60" width="14" height="165" fill="#e2572b"/>
+          <path d="M207 120 L260 150" stroke="#e2572b" stroke-width="8"/>
+          <g fill="#9aa4a8" opacity=".85"><circle cx="190" cy="40" r="16"/><circle cx="215" cy="30" r="20"/><circle cx="240" cy="18" r="14"/></g>
+          <g font-family="sans-serif" font-size="12" font-weight="700" fill="#1f2a30">
+            <text x="278" y="236" fill="#fff">Câmara magmática</text><text x="250" y="75">Cratera</text><text x="85" y="130">Chaminé</text><text x="265" y="160">Cone secundário</text><text x="262" y="34">Cinzas e gases</text>
+          </g>
+          <line x1="128" y1="126" x2="190" y2="126" stroke="#1f2a30"/>
+        </svg>
+      </div>
+      <div class="cartao">
+        <h3>Perigos e benefícios</h3>
+        <p><b>Perigos:</b> escoadas de lava, nuvens ardentes (fluxos piroclásticos, os mais mortíferos), queda de cinzas, gases tóxicos, lahares (escoadas de lama), sismos associados; as cinzas perturbam a aviação.</p>
+        <p><b>Benefícios:</b> solos muito férteis, energia geotérmica (ex.: Açores e Islândia), águas termais, turismo, matérias-primas (pedra-pomes, enxofre, basalto).</p>
+        <p>Existem cerca de <b>1350 vulcões potencialmente ativos</b> à superfície (Programa Global de Vulcanismo, Smithsonian); dezenas entram em erupção em cada ano.</p>
+      </div>
+    </div>
+    <div class="exemplo">Em 2010, a erupção do <b>Eyjafjallajökull</b> (Islândia) lançou cinzas que encerraram grande parte do espaço aéreo europeu durante cerca de uma semana. Em 2021, a erupção do <b>Cumbre Vieja</b> (La Palma, Canárias) durou 85 dias e destruiu milhares de edifícios.</div>
+  </div>
+
+  <div class="painel" id="g3">
+    <div class="def"><b>Tsunâmi (maremoto)</b><br>Série de ondas de grande comprimento e energia, geradas pela deslocação súbita de uma grande massa de água — sobretudo por sismos submarinos, mas também por erupções vulcânicas, deslizamentos ou queda de meteoritos.</div>
+    <p>No mar alto, as ondas são quase impercetíveis e viajam a mais de 700 km/h. Ao aproximarem-se da costa, abrandam e <b>crescem em altura</b>, invadindo o litoral. Um sinal de alerta natural é o <b>recuo súbito e anormal do mar</b>.</p>
+    <div class="exemplo">A 26 de dezembro de 2004, um sismo de magnitude 9,1 ao largo de Samatra (Indonésia) gerou um tsunâmi que matou cerca de 230 000 pessoas em 14 países do oceano Índico. Não existia então um sistema de alerta nesse oceano; hoje existe.</div>
+    <div class="curiosidade">Em Portugal, a costa algarvia e a região de Lisboa são as mais suscetíveis a tsunâmis. Em locais como Cascais e no Algarve já existe sinalética com percursos de evacuação em caso de tsunâmi.</div>
+  </div>
+
+  <h3>Onde se concentram?</h3>
+  <p>A maior parte dos sismos e vulcões localiza-se nos <b>limites das placas</b>: no <b>Anel de Fogo do Pacífico</b> (onde ocorre cerca de 90% dos sismos do mundo, segundo o Serviço Geológico dos EUA), na <b>Cintura Mediterrânica-Asiática</b> e na <b>Dorsal Médio-Atlântica</b>.</p>
+</section>
+
+<!-- ============ 7. RISCOS GEOMORFOLÓGICOS ============ -->
+<section class="slide" data-titulo="Deslizamentos e avalanches">
+  <span class="etiqueta">Secção 7 · Riscos geomorfológicos</span>
+  <h2>Movimentos de vertente: deslizamentos e avalanches</h2>
+  <div class="grelha g2">
+    <div class="def"><b>Deslizamento (movimento de vertente)</b><br>Deslocação de materiais (rochas, solo, detritos) ao longo de uma vertente, por ação da gravidade, geralmente sobre uma superfície de rutura.</div>
+    <div class="def"><b>Avalanche</b><br>Deslocação rápida de uma grande massa de neve (e por vezes gelo e rochas) ao longo de uma vertente de declive acentuado.</div>
+  </div>
+  <div class="cartao">
+    <svg viewBox="0 0 700 230" role="img" aria-label="Esquema dos fatores de um deslizamento numa vertente">
+      <rect width="700" height="230" fill="#eef6f9"/>
+      <path d="M0 40 L320 40 L560 200 L700 200 L700 230 L0 230Z" fill="#c9a777"/>
+      <path d="M330 48 L420 108 L470 160 L400 150 L350 95Z" fill="#8a5a3a"/>
+      <path d="M335 45 Q420 70 480 165" fill="none" stroke="#b23a2e" stroke-width="3" stroke-dasharray="8 5"/>
+      <g fill="#5b8c5a"><circle cx="60" cy="32" r="12"/><circle cx="110" cy="30" r="14"/><circle cx="160" cy="32" r="12"/></g>
+      <g stroke="#2f6f9f" stroke-width="2"><line x1="380" y1="0" x2="370" y2="20"/><line x1="410" y1="0" x2="400" y2="20"/><line x1="440" y1="0" x2="430" y2="20"/></g>
+      <rect x="520" y="175" width="26" height="25" fill="#b5703c"/><polygon points="516,175 533,160 550,175" fill="#6b3e26"/>
+      <g font-family="sans-serif" font-size="13" font-weight="700" fill="#1f2a30">
+        <text x="40" y="70">Vegetação segura o solo</text>
+        <text x="440" y="35">Chuva intensa satura o solo</text>
+        <text x="210" y="150">Superfície de rutura</text>
+        <text x="560" y="160" fill="#b23a2e">Casas expostas</text>
+      </g>
+    </svg>
+  </div>
+  <div class="grelha g2">
+    <div class="cartao"><h3>Fatores naturais</h3><ul><li>Declive acentuado das vertentes.</li><li>Rochas pouco coesas ou muito fraturadas.</li><li>Chuva intensa ou prolongada (solo saturado e mais pesado).</li><li>Sismos e erupções vulcânicas.</li><li>Para avalanches: acumulação de neve, subida de temperatura, ventos fortes.</li></ul></div>
+    <div class="cartao"><h3>Fatores humanos</h3><ul><li>Desflorestação e incêndios (o solo fica sem raízes que o segurem).</li><li>Construção em encostas; cortes de taludes para estradas.</li><li>Alteração da drenagem natural; pedreiras e minas.</li><li>Para avalanches: prática de desportos de neve fora das pistas.</li></ul></div>
+  </div>
+  <div class="exemplo">A 20 de fevereiro de 2010, chuvas muito intensas na <b>Madeira</b> provocaram uma aluvião: escoadas de lama e blocos de rocha desceram as ribeiras do Funchal e da Ribeira Brava, causando dezenas de mortos e graves estragos. O relevo muito declivoso e a ocupação das margens das ribeiras agravaram os danos.</div>
+  <div class="pensa">A Serra de Sintra tem vertentes declivosas, muita precipitação no inverno e casas em encostas. Que medidas tomarias para reduzir o risco de deslizamento?</div>
+</section>
+
+<!-- ============ 8. DANOS E DESENVOLVIMENTO ============ -->
+<section class="slide" data-titulo="Danos e desenvolvimento">
+  <span class="etiqueta">Secção 8</span>
+  <h2>Os danos: quem sofre mais e porquê?</h2>
+  <p>As catástrofes provocam danos de quatro tipos:</p>
+  <div class="grelha g4">
+    <div class="cartao"><h3>👥 Sociais</h3>Mortos, feridos, desalojados, doenças, traumas, migrações forçadas, escolas encerradas.</div>
+    <div class="cartao"><h3>💶 Económicos</h3>Perda de colheitas e empregos, paragem de empresas, custos de reconstrução, subida de preços.</div>
+    <div class="cartao"><h3>🏚️ Materiais</h3>Destruição de casas, estradas, pontes, redes de água, energia e telecomunicações.</div>
+    <div class="cartao"><h3>🌿 Ambientais</h3>Erosão, contaminação da água e dos solos, perda de biodiversidade, alteração da paisagem.</div>
+  </div>
+
+  <h3>O mesmo perigo, danos muito diferentes</h3>
+  <div class="cartao">
+    <svg viewBox="0 0 700 260" role="img" aria-label="Comparação dos sismos do Haiti e do Chile em 2010">
+      <g font-family="sans-serif" fill="#1f2a30">
+        <text x="20" y="28" font-size="15" font-weight="700">Sismos de 2010: magnitude e vítimas mortais (ordem de grandeza)</text>
+        <text x="20" y="80" font-size="14" font-weight="700">Haiti (12 jan.)</text>
+        <rect x="160" y="62" width="203" height="24" fill="#d0811a"/><text x="370" y="80" font-size="13">Magnitude 7,0</text>
+        <rect x="160" y="92" width="500" height="24" fill="#b23a2e"/><text x="168" y="110" font-size="13" fill="#fff" font-weight="700">≈ 100 000 a mais de 200 000 mortos</text>
+        <text x="20" y="170" font-size="14" font-weight="700">Chile (27 fev.)</text>
+        <rect x="160" y="152" width="255" height="24" fill="#d0811a"/><text x="422" y="170" font-size="13">Magnitude 8,8 (~500 × mais energia)</text>
+        <rect x="160" y="182" width="6" height="24" fill="#b23a2e"/><text x="174" y="200" font-size="13">≈ 500 mortos</text>
+        <text x="20" y="245" font-size="12" fill="#4a5a62">Barras de vítimas sem escala exata — as estimativas para o Haiti variam muito entre fontes.</text>
+      </g>
+    </svg>
+  </div>
+  <div class="grelha g2">
+    <div class="cartao"><h3>Haiti — país menos desenvolvido</h3><ul><li>Construções frágeis, sem normas antissísmicas.</li><li>Grande densidade populacional em Port-au-Prince, perto do epicentro.</li><li>Pobreza, serviços de saúde e de socorro frágeis.</li><li>Dependência quase total da ajuda internacional.</li></ul></div>
+    <div class="cartao"><h3>Chile — país mais desenvolvido</h3><ul><li>Normas de construção antissísmica rigorosas e fiscalizadas.</li><li>Cultura de risco: simulacros, educação, planos de emergência.</li><li>Proteção civil organizada e capacidade própria de resposta.</li><li>Maiores perdas económicas absolutas, mas muito menos vidas perdidas.</li></ul></div>
+  </div>
+  <div class="grelha g3">
+    <div class="def"><b>Suscetibilidade</b><br>Tendência de um território para ser afetado por um fenómeno, devido às suas características (declive, tipo de rochas, proximidade de falhas, de rios ou do mar).</div>
+    <div class="def"><b>Resiliência</b><br>Capacidade de uma comunidade resistir, absorver, adaptar-se e recuperar dos efeitos de um perigo, de forma rápida e eficiente.</div>
+    <div class="def"><b>Adaptação</b><br>Ajustar comportamentos, construções e ocupação do território às condições de risco (por exemplo, às alterações climáticas).</div>
+  </div>
+  <p>No esquema-síntese do GeoVisão 9, as medidas de prevenção, proteção e controlo servem para <b>diminuir a suscetibilidade</b> e <b>aumentar a resiliência e a adaptação</b> — e assim <b>reduzir a vulnerabilidade</b>.</p>
+  <div class="tabela-wrap"><table>
+    <tr><th></th><th>Países desenvolvidos</th><th>Países em desenvolvimento</th></tr>
+    <tr><td>Vítimas</td><td>Menos mortes</td><td>Muitas mais mortes (cerca de 9 em cada 10 mortes por fenómenos meteorológicos, climáticos e hidrológicos entre 1970 e 2019, segundo a OMM)</td></tr>
+    <tr><td>Perdas económicas</td><td>Muito elevadas em valor absoluto (muitos bens, seguros)</td><td>Menores em valor, mas enormes em proporção da riqueza do país</td></tr>
+    <tr><td>Prevenção</td><td>Sistemas de alerta, construção segura, ordenamento</td><td>Recursos escassos, ocupação informal de áreas de risco</td></tr>
+    <tr><td>Recuperação</td><td>Mais rápida</td><td>Lenta; pode atrasar o desenvolvimento durante anos</td></tr>
+  </table></div>
+  <div class="curiosidade">Segundo a OMM, entre 1970 e 2019 o número de catástrofes ligadas ao tempo e ao clima multiplicou-se por cinco, mas o número de mortes diminuiu quase três vezes — graças sobretudo aos <b>sistemas de alerta precoce</b> e a uma melhor gestão das emergências.</div>
+  <div class="exemplo">Em 2023, o CRED registou 399 catástrofes naturais e 86 473 mortes — mais de metade num só evento: o sismo da <b>Turquia e Síria</b> (fevereiro de 2023), com 56 683 mortos. Em 2024 houve 393 catástrofes e 16 753 mortes, valor abaixo da média por não ter havido nenhum mega-evento; ainda assim, 167 milhões de pessoas foram afetadas.</div>
+</section>
+
+<!-- ============ 9. PREVENÇÃO, PROTEÇÃO E CONTROLO ============ -->
+<section class="slide" data-titulo="Prevenção, proteção e controlo">
+  <span class="etiqueta">Secção 9</span>
+  <h2>Prevenção, proteção e controlo: como atuar?</h2>
+  <p>Não podemos impedir um sismo ou um furacão, mas podemos <b>reduzir a exposição e a vulnerabilidade</b>. A gestão do risco é um ciclo contínuo (ciclo de gestão de desastres, GeoVisão 9):</p>
+  <div class="cartao" style="text-align:center">
+    <svg viewBox="0 0 420 320" role="img" aria-label="Ciclo de gestão de catástrofes">
+      <g font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">
+        <circle cx="210" cy="160" r="112" fill="none" stroke="#d9cfbd" stroke-width="22"/>
+        <rect x="140" y="20" width="140" height="44" rx="22" fill="#5b8c5a"/><text x="210" y="47" fill="#fff">1. Mitigação</text>
+        <rect x="290" y="138" width="124" height="44" rx="22" fill="#2f6f9f"/><text x="352" y="165" fill="#fff">2. Preparação</text>
+        <rect x="150" y="256" width="120" height="44" rx="22" fill="#b23a2e"/><text x="210" y="283" fill="#fff">3. Resposta</text>
+        <rect x="6" y="138" width="130" height="44" rx="22" fill="#d0811a"/><text x="71" y="165" fill="#fff">4. Recuperação</text>
+        <text x="210" y="155" fill="#1f2a30" font-size="15">CATÁSTROFE</text><text x="210" y="175" fill="#4a5a62" font-size="12">(antes · durante · depois)</text>
+      </g>
+    </svg>
+  </div>
+  <div class="grelha g2">
+    <div class="cartao"><b>Mitigação (prevenção)</b> — reduzir o risco antes: ordenamento do território, cartas de risco, construção antissísmica, diques, reflorestação.</div>
+    <div class="cartao"><b>Preparação</b> — planos de emergência, sistemas de alerta, simulacros, kits de emergência, educação.</div>
+    <div class="cartao"><b>Resposta</b> — socorro, evacuação, abrigo, cuidados de saúde durante e logo após o evento.</div>
+    <div class="cartao"><b>Recuperação</b> — reconstruir «melhor do que antes», apoio às populações, aprender com o sucedido.</div>
+  </div>
+  <div class="def"><b>Quadro de Sendai para a Redução do Risco de Catástrofes 2015-2030</b><br>Acordo adotado a 18 de março de 2015, na 3.ª Conferência Mundial da ONU (Sendai, Japão). Tem 7 metas e 4 prioridades: compreender o risco; reforçar a governação do risco; investir na redução do risco para a resiliência; melhorar a preparação para uma resposta eficaz e «reconstruir melhor».</div>
+
+  <h3>Medidas de autoproteção — escolhe o risco</h3>
+  <div class="abas" data-grupo="auto">
+    <button class="ativo" data-p="a1">Sismo</button>
+    <button data-p="a2">Cheias</button>
+    <button data-p="a3">Vaga de calor</button>
+    <button data-p="a4">Vaga de frio</button>
+    <button data-p="a5">Tempestade</button>
+    <button data-p="a6">Erupção / tsunâmi</button>
+  </div>
+  <div class="painel ativo" id="a1"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Fixar móveis e objetos pesados às paredes.</li><li>Identificar locais seguros (debaixo de mesas robustas, cantos de paredes-mestras).</li><li>Preparar um kit de emergência e um plano familiar.</li><li>Saber desligar água, gás e eletricidade.</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li><b>BAIXAR, PROTEGER, AGUARDAR</b> (os três gestos da ANEPC).</li><li>Afastar-se de janelas, espelhos e objetos que possam cair.</li><li>Não usar elevadores nem correr para a rua.</li><li>Na rua: afastar-se de edifícios, postes e muros.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Sair com calma, sem usar elevadores; contar com réplicas.</li><li>Não acender fósforos (pode haver fugas de gás).</li><li>Ouvir as autoridades pela rádio; não ocupar as linhas telefónicas.</li><li>Junto à costa, afastar-se do mar (possível tsunâmi).</li></ul></div>
+  </div></div>
+  <div class="painel" id="a2"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Não construir nem guardar bens em leitos de cheia.</li><li>Limpar sarjetas e algerozes.</li><li>Guardar documentos e bens em locais altos.</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li>Desligar eletricidade e gás.</li><li>Nunca atravessar a pé ou de carro zonas inundadas (bastam 30 cm de água corrente para arrastar um carro).</li><li>Subir para andares superiores; seguir ordens de evacuação.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Beber só água engarrafada até indicação das autoridades.</li><li>Não ligar aparelhos molhados.</li><li>Limpar e desinfetar a casa.</li></ul></div>
+  </div></div>
+  <div class="painel" id="a3"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Acompanhar os avisos meteorológicos do IPMA.</li><li>Preparar a casa: persianas, ventilação, locais frescos.</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li>Beber água com frequência, mesmo sem sede.</li><li>Evitar o sol e esforços entre as 11h e as 17h.</li><li>Roupa leve, clara, chapéu e protetor solar.</li><li>Dar atenção a idosos, crianças e doentes.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Vigiar sinais de desidratação.</li><li>Atenção redobrada ao risco de incêndio.</li></ul></div>
+  </div></div>
+  <div class="painel" id="a4"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Verificar o isolamento da casa e os equipamentos de aquecimento.</li><li>Acompanhar os avisos do IPMA.</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li>Vestir várias camadas de roupa; proteger cabeça, mãos e pés.</li><li>Ventilar as divisões com braseiras ou lareiras (perigo de monóxido de carbono).</li><li>Evitar viajar com gelo nas estradas.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Verificar canalizações (podem rebentar com o gelo).</li><li>Apoiar vizinhos isolados e pessoas sem-abrigo.</li></ul></div>
+  </div></div>
+  <div class="painel" id="a5"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Prender objetos soltos em varandas e quintais.</li><li>Reforçar portas, janelas e telhados.</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li>Ficar em casa, longe das janelas; num tornado, abrigar-se na divisão interior mais baixa.</li><li>Afastar-se do mar, de árvores e de postes.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Não tocar em cabos elétricos caídos.</li><li>Atenção a inundações associadas à chuva.</li></ul></div>
+  </div></div>
+  <div class="painel" id="a6"><div class="grelha g3">
+    <div class="cartao"><h3>Antes</h3><ul><li>Conhecer os percursos de evacuação e os pontos de encontro.</li><li>Ter máscaras e óculos (cinzas vulcânicas).</li></ul></div>
+    <div class="cartao"><h3>Durante</h3><ul><li>Erupção: seguir as ordens de evacuação; não ir «ver» a lava.</li><li>Tsunâmi: se o mar recuar de repente ou sentires um sismo forte junto à costa, sobe <b>imediatamente</b> para um local alto.</li></ul></div>
+    <div class="cartao"><h3>Depois</h3><ul><li>Não regressar à costa até ordem das autoridades (as ondas vêm em série).</li><li>Limpar cinzas dos telhados (o peso pode fazê-los ruir).</li></ul></div>
+  </div></div>
+  <div class="curiosidade">Todos os anos, em novembro, a ANEPC organiza o exercício nacional <b>«A Terra Treme»</b>: durante um minuto, escolas, famílias e empresas praticam os três gestos — baixar, proteger e aguardar. O número europeu de emergência é o <b>112</b>.</div>
+</section>
+
+<!-- ============ 10. PORTUGAL ============ -->
+<section class="slide" data-titulo="Riscos naturais em Portugal">
+  <span class="etiqueta">Secção 10</span>
+  <h2>Riscos naturais em Portugal</h2>
+  <p>Pela sua posição (entre a placa Euroasiática e a Africana, na transição entre climas temperado e subtropical, virado ao Atlântico), Portugal está exposto a vários riscos. Os de maior incidência são as <b>cheias</b>, os <b>sismos</b>, as <b>tempestades</b>, os <b>deslizamentos</b>, as <b>secas</b> e as <b>vagas de calor</b>.</p>
+  <div class="grelha g2">
+    <div class="cartao"><h3><span class="tag t-geo">Sismos</span></h3><p>Risco mais elevado no <b>Algarve</b>, <b>Lisboa e Vale do Tejo</b> e nos <b>Açores</b> (junção tripla de placas). O sismo de <b>1 de novembro de 1755</b> (magnitude estimada entre 8,5 e 9), seguido de tsunâmi e incêndio, destruiu grande parte de Lisboa e provocou milhares de mortos; o epicentro terá sido no mar, a sudoeste do Cabo de São Vicente. Outros: Benavente (1909), Açores (1980 e 1998).</p></div>
+    <div class="cartao"><h3><span class="tag t-geo">Vulcões</span></h3><p>Nos <b>Açores</b> há vulcanismo ativo. A erupção dos <b>Capelinhos</b> (Faial, 1957-58) aumentou a área da ilha e levou milhares de faialenses a emigrar para os EUA. Em São Miguel aproveita-se a energia geotérmica.</p></div>
+    <div class="cartao"><h3><span class="tag t-hidro">Cheias e inundações</span></h3><p>Nas bacias dos grandes rios (Tejo, Douro, Mondego) e em áreas urbanas impermeabilizadas. As cheias de <b>novembro de 1967</b> na região de Lisboa causaram centenas de mortos — a pior catástrofe natural do século XX em Portugal. Inundações urbanas repetem-se em Lisboa, Algés e Cascais com chuvas intensas.</p></div>
+    <div class="cartao"><h3><span class="tag t-clima">Secas e vagas de calor</span></h3><p>Mais intensas no interior e no Sul. Em julho de 2022, <b>todo</b> o território continental estava em seca (mais de metade em seca severa e o restante em seca extrema). Prevê-se que as vagas de calor se tornem mais frequentes e longas com as alterações climáticas.</p></div>
+    <div class="cartao"><h3><span class="tag t-geomorf">Deslizamentos</span></h3><p>Mais frequentes na <b>Madeira</b> e nos <b>Açores</b> (vertentes declivosas, chuva intensa) e, no continente, em áreas de montanha e arribas litorais (Lisboa, Santarém, Coimbra, Viana do Castelo, Braga). Avalanches são raras (apenas na Serra da Estrela).</p></div>
+    <div class="cartao"><h3><span class="tag t-clima">Tempestades</span></h3><p>Depressões atlânticas de inverno, com vento forte e agitação marítima no litoral. Fenómenos raros mas intensos: tempestade <b>Leslie</b> (2018) e tornados localizados.</p></div>
+  </div>
+  <div class="tabela-wrap"><table>
+    <tr><th>Suscetibilidade</th><th>Vagas de calor</th><th>Vagas de frio</th></tr>
+    <tr><td>Muito elevada</td><td>Guarda, Castelo Branco, Portalegre, Évora, Beja (áreas urbanas com população idosa)</td><td>—</td></tr>
+    <tr><td>Elevada</td><td>Interior Norte e Centro</td><td>Norte e interior Centro</td></tr>
+    <tr><td>Moderada</td><td>Linha de costa</td><td>Litoral Centro, Alentejo Central</td></tr>
+  </table></div>
+  <p class="fonte">Adaptado de um dos manuais fornecidos (Quadro 3) e de dados do IPMA.</p>
+  <div class="exemplo">Vives no concelho de <b>Sintra</b>: a serra tem vertentes declivosas e é a área mais chuvosa da região de Lisboa (risco de deslizamentos e de cheias rápidas nas ribeiras); o litoral (Magoito, Praia Grande, Azenhas do Mar) tem arribas instáveis; e todo o concelho está numa zona de risco sísmico elevado.</div>
+</section>
+
+<!-- ============ 11. TIG E TRABALHO DE CAMPO ============ -->
+<section class="slide" data-titulo="TIG e trabalho de campo">
+  <span class="etiqueta">Secção 11</span>
+  <h2>Investigar com Tecnologias de Informação Geográfica</h2>
+  <p>As <b>TIG</b> (Sistemas de Informação Geográfica, deteção remota por satélite, GPS, Big Data) permitem localizar, monitorizar e prever riscos: mapas de suscetibilidade, imagens de satélite antes e depois de uma catástrofe, alertas sísmicos em tempo real.</p>
+  <div class="grelha g2">
+    <div class="cartao"><h3>Atividade 1 — Sismos em tempo real</h3><ol><li>Abre o sítio do IPMA (sismicidade) ou do Centro Sismológico Euro-Mediterrânico (EMSC).</li><li>Regista os 5 sismos mais recentes em Portugal: data, local, magnitude.</li><li>Localiza-os num mapa e indica a que área de instabilidade pertencem.</li></ol><p class="fonte">www.ipma.pt · www.emsc-csem.org</p></div>
+    <div class="cartao"><h3>Atividade 2 — O risco no meu concelho</h3><ol><li>Entra na Plataforma Nacional para a Redução do Risco de Catástrofes (PNRRC) ou no geoportal da ANEPC.</li><li>Ativa a camada de um risco (ex.: inundações) e faz <i>zoom</i> até Sintra.</li><li>Classifica a suscetibilidade e regista as medidas previstas no plano municipal de emergência.</li></ol><p class="fonte">www.prociv.gov.pt</p></div>
+    <div class="cartao"><h3>Atividade 3 — Antes e depois</h3><ol><li>No Google Earth, usa as imagens históricas (ícone do relógio).</li><li>Compara La Palma antes e depois de 2021, ou Valência antes e depois de outubro de 2024.</li><li>Descreve as alterações na paisagem e na ocupação humana.</li></ol></div>
+    <div class="cartao"><h3>Atividade 4 — Catástrofes ativas</h3><ol><li>No ReliefWeb (ONU) ou no serviço Copernicus de Gestão de Emergências, seleciona uma catástrofe atual.</li><li>Regista: data, local, tipo, causas e consequências.</li><li>Apresenta o resultado à turma.</li></ol><p class="fonte">reliefweb.int · emergency.copernicus.eu</p></div>
+  </div>
+  <h3>🥾 Trabalho de campo: «Percurso dos riscos» à volta da escola</h3>
+  <div class="cartao">
+    <p><b>Organização:</b> grupos de 3–4 alunos; material — caderno de campo, telemóvel com GPS (fora do horário escolar ou com autorização), máquina fotográfica, planta da área.</p>
+    <div class="tabela-wrap"><table>
+      <tr><th>Observar</th><th>Registar</th><th>Risco associado</th></tr>
+      <tr><td>Declive das encostas, muros de suporte, fissuras, árvores inclinadas</td><td>Fotografia + coordenadas GPS</td><td>Deslizamento</td></tr>
+      <tr><td>Linhas de água, sarjetas entupidas, construções junto às ribeiras</td><td>Desenho/esquema + localização</td><td>Cheia / inundação</td></tr>
+      <tr><td>Áreas impermeabilizadas vs. espaços verdes</td><td>Estimar a percentagem de cada</td><td>Inundação urbana, ilha de calor</td></tr>
+      <tr><td>Saídas de emergência, pontos de encontro, sinalética da escola</td><td>Planta da escola</td><td>Sismo, incêndio</td></tr>
+    </table></div>
+    <p><b>Depois do campo:</b> construir um mapa (em papel ou num SIG gratuito, ex.: My Maps) com os pontos observados e um gráfico com a frequência de cada risco; propor três medidas de prevenção à direção da escola.</p>
+  </div>
+</section>
+
+<!-- ============ 12. DICIONÁRIO: CONCEITOS DOS MANUAIS ============ -->
+<section class="slide" data-titulo="Conceitos dos manuais">
+  <span class="etiqueta">Dicionário</span>
+  <h2>Conceitos dos manuais</h2>
+  <p>Todos os conceitos do subtema, como aparecem no <b>Check-in 9</b>, no <b>Geo 9</b> e no <b>GeoVisão 9</b>. Em cada cartão tens uma <b>definição para estudar</b> (que junta o essencial dos três livros) e, ao abrir «Nos manuais», o que cada livro destaca, por palavras nossas. Os avisos ⚠️ assinalam onde os livros não dizem o mesmo.</p>
+  <div class="glos-ferr">
+    <input type="search" id="glosBusca" placeholder="Procurar conceito (ex.: seca, vulcão, risco)…" aria-label="Procurar conceito">
+  </div>
+  <div class="glos-ferr" id="glosChips"></div>
+  <p class="contador" id="glosConta"></p>
+  <div class="grelha g2" id="glosLista"></div>
+  <p class="fonte">Definições reescritas a partir dos manuais Check-in 9 (pp. 134–157), Geo 9 (pp. 104–119) e GeoVisão 9 (pp. 114–143). Os cartões marcados como «complementar» não têm definição própria nos manuais e seguem a terminologia da UNDRR e da ANEPC.</p>
+</section>
+
+<!-- ============ 14. SÍNTESE (estrutura do «Em síntese» do GeoVisão 9, pp. 142–143) ============ -->
+<section class="slide" data-titulo="Síntese final">
+  <span class="etiqueta">Síntese</span>
+  <h2>Em síntese</h2>
+  <p>Mapa concetual organizado segundo o «Em síntese» do <b>GeoVisão 9</b> (pp. 142–143) — dos três manuais, é o mais completo e o que segue as Aprendizagens Essenciais. Toca nas caixas com <b>＋</b> para recordar a definição.</p>
+
+  <div class="mapa-c">
+    <div class="mc-raiz">RISCOS E CATÁSTROFES NATURAIS</div>
+    <div class="mc-seta">↓</div>
+
+    <!-- Parte 1: conceitos-base -->
+    <div class="mc-linha">
+      <div class="mc-col">
+        <button class="mc-no" data-d="Situação ou fenómeno que, caso ocorra, pode causar dano.">Perigo ＋</button>
+        <div class="mc-seta">↓ pode causar</div>
+        <button class="mc-no mc-claro" data-d="Perdas ou prejuízos que resultam da ocorrência: vidas humanas, bens materiais, ambiente, economia.">Dano ＋</button>
+      </div>
+      <div class="mc-dif">≠</div>
+      <div class="mc-col">
+        <button class="mc-no" data-d="Probabilidade de um evento perigoso ocorrer, combinada com a gravidade dos danos esperados.">Risco ＋</button>
+        <div class="mc-seta">↓ pode ser</div>
+        <div class="mc-par">
+          <button class="mc-no mc-claro" data-d="Probabilidade de ocorrência de um evento natural perigoso.">Risco natural ＋</button>
+          <button class="mc-no mc-claro" data-d="Resulta de causas naturais conjugadas com a ação humana (ex.: incêndio florestal, desertificação).">Risco misto ＋</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-seta">↓ os riscos naturais podem ser de origem</div>
+    <div class="mc-quatro">
+      <div class="mc-cat" style="--c:var(--hidro)"><b>Hidrológica</b><ul><li>Cheias</li><li>Inundações</li></ul></div>
+      <div class="mc-cat" style="--c:var(--clima)"><b>Climática</b><ul><li>Furacões</li><li>Tornados</li><li>Vagas de frio</li><li>Vagas de calor</li><li>Secas</li></ul></div>
+      <div class="mc-cat" style="--c:var(--geo)"><b>Geológica</b><ul><li>Sismos</li><li>Erupções vulcânicas</li><li>Tsunâmis</li></ul></div>
+      <div class="mc-cat" style="--c:var(--geomorf)"><b>Geomorfológica</b><ul><li>Deslizamentos de terra</li><li>Avalanches</li></ul></div>
+    </div>
+    <p class="mc-nota">⚠️ No Check-in 9, os sismos e as erupções vulcânicas aparecem nos riscos geomorfológicos.</p>
+
+    <div class="mc-seta">↓ podem resultar em</div>
+    <div class="mc-forte">Catástrofes naturais — quando representam perigo para a população</div>
+    <div class="mc-seta">↓ fenómenos de origem natural que provocam destruição: <b>danos</b></div>
+    <div class="mc-par">
+      <div class="mc-no mc-claro">Vidas humanas ou animais</div>
+      <div class="mc-no mc-claro">Materiais, ambientais, económicos</div>
+    </div>
+    <div class="mc-seta">↓ sendo necessário adotar</div>
+    <div class="mc-forte">Medidas de PREVENÇÃO, PROTEÇÃO E CONTROLO</div>
+
+    <!-- Parte 2: medidas, vulnerabilidade e desenvolvimento -->
+    <div class="mc-seta">↓ têm como objetivo</div>
+    <div class="mc-tres">
+      <button class="mc-no" data-d="Tendência de um território para ser afetado por um fenómeno (declive, rochas, falhas, proximidade de rios ou do mar).">⬇ Suscetibilidade ＋</button>
+      <button class="mc-no" data-d="Capacidade de uma comunidade resistir, adaptar-se e recuperar rapidamente de uma catástrofe.">⬆ Resiliência ＋</button>
+      <button class="mc-no" data-d="Ajustar comportamentos, construções e ocupação do território às condições de risco.">⬆ Adaptação ＋</button>
+    </div>
+    <div class="mc-seta">↓ para</div>
+    <button class="mc-forte mc-btn" data-d="Grau de fragilidade das pessoas e bens expostos; depende da capacidade de prevenir e responder às catástrofes.">⬇ Vulnerabilidade ＋</button>
+    <div class="mc-seta">↓ que é muito diferente entre</div>
+    <div class="mc-linha">
+      <div class="mc-caixa">
+        <h4>Países desenvolvidos</h4>
+        <p><b>Sistemas de prevenção</b></p>
+        <ul><li>Maior capacidade de resposta e reação a catástrofes</li><li>Menor exposição ao risco</li><li>Menor vulnerabilidade</li></ul>
+      </div>
+      <div class="mc-dif">≠</div>
+      <div class="mc-caixa">
+        <h4>Países em desenvolvimento</h4>
+        <p><b>Estruturas menos resistentes</b></p>
+        <ul><li>Menor capacidade de resposta e reação a catástrofes</li><li>Maior exposição ao risco</li><li>Maior vulnerabilidade</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="cartao" id="mcDef" style="display:none"></div>
+  <p class="fonte">Estrutura adaptada de GeoVisão 9, «Em síntese», pp. 142–143; definições conferidas com o Check-in 9 («Relembro a minha viagem», pp. 156–157) e o Geo 9.</p>
+
+  <h3>✅ Verifica se sabes</h3>
+  <p>Marca o que já consegues fazer. Se não conseguires marcar algum ponto, volta à secção indicada.</p>
+  <div class="cartao" id="verifica">
+    <label><input type="checkbox"> Identificar os fatores de risco de catástrofes naturais numa região <span class="comp">(secções 2 e 11)</span></label>
+    <label><input type="checkbox"> Relacionar as condições meteorológicas extremas com os riscos e as catástrofes <span class="comp">(secções 4 e 5)</span></label>
+    <label><input type="checkbox"> Relacionar as características do meio com a possibilidade de ocorrerem riscos naturais <span class="comp">(secções 2, 6, 7 e 8)</span></label>
+    <label><input type="checkbox"> Aplicar as TIG para localizar, descrever e compreender riscos e catástrofes <span class="comp">(secções 3 e 12)</span></label>
+    <label><input type="checkbox"> Relacionar o nível dos danos com o grau de desenvolvimento <span class="comp">(secção 9)</span></label>
+    <label><input type="checkbox"> Indicar medidas de prevenção, proteção e controlo e saber como agir <span class="comp">(secção 10)</span></label>
+    <label><input type="checkbox"> Caracterizar os riscos naturais que afetam Portugal <span class="comp">(secção 11)</span></label>
+    <p id="verificaRes" style="font-weight:700;margin:8px 0 0"></p>
+  </div>
+</section>
+
+<!-- ============ 13. QUIZ ESCOLHA MÚLTIPLA ============ -->
+<section class="slide" data-titulo="Quiz: escolha múltipla">
+  <span class="etiqueta">Avaliação 1</span>
+  <h2>Questionário de escolha múltipla</h2>
+  <p>Escolhe a opção correta. A correção é imediata.</p>
+  <div class="placar" id="placarEM"></div>
+  <div id="quizEM"></div>
+</section>
+
+<!-- ============ 14. VERDADEIRO OU FALSO ============ -->
+<section class="slide" data-titulo="Quiz: verdadeiro ou falso">
+  <span class="etiqueta">Avaliação 2</span>
+  <h2>Verdadeiro ou falso?</h2>
+  <div class="placar" id="placarVF"></div>
+  <div id="quizVF"></div>
+</section>
+
+<!-- ============ 15. ASSOCIAÇÃO ============ -->
+<section class="slide" data-titulo="Quiz: associação de conceitos">
+  <span class="etiqueta">Avaliação 3</span>
+  <h2>Associação de conceitos</h2>
+  <p>Em cada exercício, associa cada elemento da esquerda à opção correta. Depois carrega em <b>Verificar</b>.</p>
+  <div class="placar" id="placarAS"></div>
+  <div id="quizAS"></div>
+</section>
+
+<!-- ============ 16. DESAFIO FINAL ============ -->
+<section class="slide" data-titulo="Desafio final">
+  <span class="etiqueta">Avaliação 4</span>
+  <h2>Desafio final: aplica o que aprendeste</h2>
+  <h3>🏫 Parte A — «Tu decides»: sismo na escola</h3>
+  <p>Estás na aula de Geografia, no 1.º andar, quando o chão começa a tremer. Escolhe a melhor decisão em cada momento.</p>
+  <div id="decisoes"></div>
+  <h3>✍️ Parte B — Questões de aplicação</h3>
+  <p>Responde por escrito e compara depois com a resposta-modelo. Autoavalia-te com honestidade.</p>
+  <div id="aplicacao"></div>
+  <h3>🏁 Resultados globais</h3>
+  <div class="cartao resultado-final" id="resultadoFinal"></div>
+</section>
+
+<!-- ============ 17. BIBLIOGRAFIA ============ -->
+<section class="slide" data-titulo="Bibliografia e fontes">
+  <span class="etiqueta">Fontes</span>
+  <h2>Bibliografia e fontes consultadas</h2>
+  <div class="cartao">
+    <h3>Materiais de base (fornecidos pelo professor)</h3>
+    <ul>
+      <li><i>Check-in 9</i> — Geografia, 9.º ano. Subtema B2 «Riscos e catástrofes naturais», pp. 134–157.</li>
+      <li><i>Geo 9</i> — Geografia, 9.º ano. «Riscos e catástrofes naturais», pp. 104–119.</li>
+      <li><i>GeoVisão 9</i> — Geografia, 9.º ano. «Ambiente e Sociedade: Riscos e Catástrofes Naturais», pp. 114–143.</li>
+      <li>Aprendizagens Essenciais de Geografia, 3.º ciclo — Direção-Geral da Educação.</li>
+    </ul>
+    <h3>Organizações internacionais e instituições científicas</h3>
+    <ul>
+      <li>UNDRR — Gabinete das Nações Unidas para a Redução do Risco de Catástrofes. <i>Quadro de Sendai para a Redução do Risco de Catástrofes 2015-2030</i>. undrr.org</li>
+      <li>OMM — Organização Meteorológica Mundial (2021). <i>Atlas of Mortality and Economic Losses from Weather, Climate and Water Extremes (1970–2019)</i>. wmo.int</li>
+      <li>CRED — Centro de Investigação em Epidemiologia de Catástrofes, UCLouvain (2024). <i>2023 Disasters in Numbers</i>; (2025) <i>2024 Disasters in Numbers</i> e <i>CRED Crunch n.º 78</i>. emdat.be</li>
+      <li>USGS — Serviço Geológico dos EUA. Programa de Riscos Sísmicos (magnitude, energia, Anel de Fogo). usgs.gov</li>
+      <li>Smithsonian Institution — Programa Global de Vulcanismo. volcano.si.edu</li>
+      <li>NOAA — Centro Nacional de Furacões (escala Saffir-Simpson). nhc.noaa.gov</li>
+    </ul>
+    <h3>Organismos públicos portugueses</h3>
+    <ul>
+      <li>IPMA — Instituto Português do Mar e da Atmosfera. «O Clima: Ondas de calor»; monitorização da seca e sismicidade. ipma.pt</li>
+      <li>ANEPC — Autoridade Nacional de Emergência e Proteção Civil. Medidas de autoproteção; exercício «A Terra Treme». prociv.gov.pt · aterratreme.pt</li>
+      <li>Plataforma Nacional para a Redução do Risco de Catástrofes (PNRRC).</li>
+    </ul>
+  </div>
+  <p class="creditos">Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</p>
+</section>
+
+</main>
+
+<!-- ===================== NAVEGAÇÃO INFERIOR ===================== -->
+<div class="navbar">
+  <div class="navbar-in">
+    <button class="btn sec" id="ant">◂ Anterior</button>
+    <span class="contador" id="tituloAtual"></span>
+    <button class="btn" id="seg">Seguinte ▸</button>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   JAVASCRIPT DA AULA
+   ========================================================= */
+(function(){
+"use strict";
+
+/* ---------- 1. Navegação entre secções ---------- */
+const slides = Array.from(document.querySelectorAll("section.slide"));
+let atual = 0;
+const barra = document.getElementById("barra");
+const contador = document.getElementById("contador");
+const tituloAtual = document.getElementById("tituloAtual");
+const listaMenu = document.getElementById("listaMenu");
+const menu = document.getElementById("menu");
+const veu = document.getElementById("veu");
+
+slides.forEach(function(s, i){
+  const li = document.createElement("li");
+  const b = document.createElement("button");
+  b.innerHTML = "<span>" + (i + 1) + ".</span>" + s.dataset.titulo;
+  b.addEventListener("click", function(){ mostrar(i); fecharMenu(); });
+  li.appendChild(b); listaMenu.appendChild(li);
+});
+
+function mostrar(i){
+  atual = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach(function(s, k){ s.classList.toggle("ativo", k === atual); });
+  barra.style.width = ((atual + 1) / slides.length * 100) + "%";
+  contador.textContent = (atual + 1) + "/" + slides.length;
+  tituloAtual.textContent = slides[atual].dataset.titulo;
+  document.getElementById("ant").disabled = atual === 0;
+  document.getElementById("seg").disabled = atual === slides.length - 1;
+  listaMenu.querySelectorAll("button").forEach(function(b, k){ b.classList.toggle("atual", k === atual); });
+  window.scrollTo({top:0, behavior:"smooth"});
+  if (slides[atual].querySelector("#resultadoFinal")) atualizarResultadoFinal();
+}
+function fecharMenu(){ menu.classList.remove("aberto"); veu.classList.remove("ativo"); }
+document.getElementById("ant").addEventListener("click", function(){ mostrar(atual - 1); });
+document.getElementById("seg").addEventListener("click", function(){ mostrar(atual + 1); });
+document.getElementById("abrirMenu").addEventListener("click", function(){ menu.classList.add("aberto"); veu.classList.add("ativo"); });
+veu.addEventListener("click", fecharMenu);
+document.addEventListener("keydown", function(e){
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "textarea" || tag === "input" || tag === "select") return;
+  if (e.key === "ArrowRight") mostrar(atual + 1);
+  if (e.key === "ArrowLeft") mostrar(atual - 1);
+  if (e.key === "Escape") fecharMenu();
+});
+
+/* ---------- 2. Cartões de classificação e separadores ---------- */
+document.querySelectorAll(".tipo").forEach(function(c){
+  c.addEventListener("click", function(){ c.classList.toggle("aberto"); });
+});
+document.querySelectorAll(".abas").forEach(function(grupo){
+  const botoes = grupo.querySelectorAll("button");
+  botoes.forEach(function(b){
+    b.addEventListener("click", function(){
+      botoes.forEach(function(x){
+        x.classList.remove("ativo");
+        document.getElementById(x.dataset.p).classList.remove("ativo");
+      });
+      b.classList.add("ativo");
+      document.getElementById(b.dataset.p).classList.add("ativo");
+    });
+  });
+});
+
+/* ---------- 3. Simulador de risco ---------- */
+function simular(){
+  const p = +document.getElementById("sP").value, e = +document.getElementById("sE").value, v = +document.getElementById("sV").value;
+  document.getElementById("vP").textContent = p;
+  document.getElementById("vE").textContent = e;
+  document.getElementById("vV").textContent = v;
+  const r = p * e * v; // de 1 a 125
+  const pct = (r - 1) / 124;
+  document.getElementById("agulha").style.left = "calc(" + (pct * 100) + "% - 3px)";
+  let txt;
+  if (r <= 12) txt = "Risco BAIXO — os danos esperados são reduzidos.";
+  else if (r <= 36) txt = "Risco MODERADO — justificam-se medidas de prevenção e vigilância.";
+  else if (r <= 64) txt = "Risco ELEVADO — é necessário planeamento, alertas e redução da exposição.";
+  else txt = "Risco MUITO ELEVADO — forte probabilidade de catástrofe se nada for feito.";
+  if (p >= 4 && v <= 2) txt += " Repara: o perigo é forte, mas a baixa vulnerabilidade limita os danos (como no Chile, em 2010).";
+  if (p <= 2 && v >= 4 && e >= 4) txt += " Mesmo um perigo moderado pode ser grave numa população exposta e vulnerável.";
+  document.getElementById("resSim").textContent = "Índice de risco: " + r + "/125 · " + txt;
+}
+["sP","sE","sV"].forEach(function(id){ document.getElementById(id).addEventListener("input", simular); });
+simular();
+
+/* ---------- 4. Mapa esquemático interativo ---------- */
+function xy(lon, lat){ return [(lon + 180) * 2.5, (90 - lat) * 2.5]; }
+function pts(arr){ return arr.map(function(c){ return xy(c[0], c[1]).join(","); }).join(" "); }
+const continentes = [
+  [[-168,66],[-140,70],[-95,72],[-80,63],[-62,56],[-55,48],[-70,43],[-76,35],[-81,25],[-97,26],[-97,20],[-88,16],[-80,8],[-84,12],[-92,15],[-105,20],[-117,32],[-124,40],[-125,49],[-135,58],[-152,58],[-165,62]],
+  [[-55,60],[-43,60],[-20,70],[-20,81],[-60,82],[-72,77]],
+  [[-80,8],[-60,10],[-50,0],[-35,-6],[-40,-22],[-48,-27],[-58,-38],[-65,-55],[-72,-50],[-73,-35],[-71,-18],[-81,-5]],
+  [[-10,36],[-9,43],[-2,44],[-5,48],[5,52],[8,57],[5,62],[15,69],[28,71],[40,67],[60,68],[60,46],[40,42],[28,41],[23,37],[16,38],[12,44],[3,42]],
+  [[-17,21],[-17,15],[-8,5],[9,4],[9,-1],[13,-12],[12,-17],[18,-34],[25,-34],[35,-25],[40,-15],[40,-5],[51,11],[43,12],[32,31],[10,37],[-6,36]],
+  [[28,41],[40,42],[60,46],[60,68],[80,73],[105,78],[140,72],[180,68],[170,60],[160,52],[142,46],[130,42],[122,40],[122,30],[110,20],[106,10],[100,13],[98,8],[92,22],[80,15],[77,8],[72,20],[60,25],[56,26],[52,16],[43,12],[35,30],[36,36]],
+  [[114,-22],[130,-12],[142,-11],[153,-27],[150,-37],[140,-38],[130,-32],[115,-34]],
+  [[130,31],[136,34],[141,36],[142,43],[140,41],[133,35]],
+  [[95,5],[106,-6],[103,-5]], [[109,2],[118,7],[119,0],[111,-3]], [[131,-2],[150,-6],[141,-9]],
+  [[-5,50],[1,51],[-2,57],[-6,58],[-5,54]], [[-24,64],[-14,65],[-17,66],[-22,66]],
+  [[44,-25],[50,-15],[49,-12],[44,-17]], [[167,-46],[178,-38],[173,-35],[172,-41]],
+  [[-74,-50],[-74,-43],[-72,-48]], [[120,18],[126,8],[122,10]]
+];
+const cinturas = [
+  [[-70,-55],[-75,-15],[-80,0],[-90,13],[-105,19],[-120,34],[-130,52],[-150,59],[-180,51]],
+  [[180,51],[160,54],[145,43],[140,35],[125,15],[127,0],[135,-5],[152,-6],[170,-18],[178,-38]],
+  [[-10,37],[15,40],[30,38],[45,35],[60,30],[75,34],[90,28],[97,20],[96,5],[105,-8],[120,-10]],
+  [[-20,70],[-30,55],[-30,38],[-38,15],[-15,-5],[-13,-30],[-12,-50]]
+];
+const cores = {sismo:"#b23a2e", vulcao:"#e2572b", tempestade:"#d0811a", cheia:"#2f6f9f", seca:"#c9a227", temperatura:"#8e44ad", deslizamento:"#7a5a3a"};
+const nomesTipo = {sismo:"Sismo / tsunâmi", vulcao:"Vulcão", tempestade:"Tempestade", cheia:"Cheia / inundação", seca:"Seca", temperatura:"Vaga de calor / frio", deslizamento:"Deslizamento"};
+const eventos = [
+  {t:"sismo", n:"Lisboa, 1755", c:[-9.1,38.7], d:"Sismo (magnitude estimada 8,5–9) seguido de tsunâmi e incêndio. Destruiu grande parte de Lisboa e afetou o Algarve e Marrocos."},
+  {t:"sismo", n:"Haiti, 2010", c:[-72.3,18.5], d:"Magnitude 7,0 junto a Port-au-Prince. Estimativas de 100 000 a mais de 200 000 mortos: construções frágeis e grande vulnerabilidade."},
+  {t:"sismo", n:"Chile, 2010", c:[-72.7,-35.9], d:"Magnitude 8,8 — muito mais energia do que no Haiti — mas cerca de 500 mortos graças à construção antissísmica e à preparação."},
+  {t:"sismo", n:"Turquia e Síria, 2023", c:[37.0,37.2], d:"Magnitude 7,8. Segundo o CRED, 56 683 mortos — a catástrofe mais mortífera de 2023."},
+  {t:"sismo", n:"Japão (Tohoku), 2011", c:[142.4,38.3], d:"Magnitude 9,0 e tsunâmi com ondas superiores a 30 m em alguns locais; cerca de 18 000 mortos e desaparecidos; acidente nuclear de Fukushima."},
+  {t:"sismo", n:"Samatra, 2004", c:[95.9,3.3], d:"Magnitude 9,1. O tsunâmi atingiu 14 países do Índico e matou cerca de 230 000 pessoas."},
+  {t:"vulcao", n:"Islândia (Eyjafjallajökull), 2010", c:[-19.6,63.6], d:"As cinzas encerraram grande parte do espaço aéreo europeu durante cerca de uma semana. A Islândia está sobre a Dorsal Médio-Atlântica."},
+  {t:"vulcao", n:"La Palma (Canárias), 2021", c:[-17.9,28.6], d:"Erupção do Cumbre Vieja durante 85 dias; milhares de edifícios e plantações destruídos pelas escoadas de lava."},
+  {t:"vulcao", n:"Capelinhos (Faial, Açores), 1957-58", c:[-28.8,38.6], d:"Erupção submarina que fez crescer a ilha; muitos faialenses emigraram para os EUA."},
+  {t:"tempestade", n:"Furacão Katrina (EUA), 2005", c:[-90.0,29.9], d:"Maré de tempestade rompeu os diques de Nova Orleães; mais de 1800 mortos."},
+  {t:"tempestade", n:"Tufão Haiyan (Filipinas), 2013", c:[125.0,11.2], d:"Um dos ciclones tropicais mais fortes alguma vez registados ao tocar terra; mais de 6000 mortos."},
+  {t:"tempestade", n:"Ciclone Idai (Moçambique), 2019", c:[34.8,-19.8], d:"Atingiu a Beira e provocou cheias enormes em Moçambique, Zimbabué e Malawi; mais de 1000 mortos."},
+  {t:"cheia", n:"Paquistão, 2022", c:[68.0,27.0], d:"Monções extremas: cerca de um terço do país inundado e mais de 30 milhões de pessoas afetadas."},
+  {t:"cheia", n:"Durban (África do Sul), 2022", c:[31.0,-29.9], d:"Chuvas torrenciais de uma depressão provocaram cheias e deslizamentos, destruindo estradas, escolas e redes de água e eletricidade."},
+  {t:"cheia", n:"Valência (Espanha), 2024", c:[-0.4,39.4], d:"Inundações rápidas provocadas por uma depressão isolada em níveis altos (DANA); mais de duas centenas de mortos."},
+  {t:"cheia", n:"Lisboa, 1967", c:[-9.3,38.9], d:"Cheias de 25-26 de novembro na região de Lisboa: centenas de mortos, sobretudo em bairros pobres junto às ribeiras."},
+  {t:"seca", n:"Corno de África, 2020-23", c:[42.0,6.0], d:"Secas sucessivas na Etiópia, Somália e Quénia: insegurança alimentar para milhões de pessoas, morte de gado e deslocações."},
+  {t:"seca", n:"Portugal, 2022", c:[-7.9,39.6], d:"Em julho de 2022, todo o território continental estava em seca severa ou extrema."},
+  {t:"temperatura", n:"Europa, 2003", c:[2.3,48.9], d:"Vaga de calor no verão de 2003: dezenas de milhares de mortes em excesso na Europa, sobretudo de idosos."},
+  {t:"temperatura", n:"Meca (Arábia Saudita), 2024", c:[39.8,21.4], d:"Calor extremo durante a peregrinação (Hajj), com temperaturas acima de 50 °C: mais de 1300 mortos (CRED)."},
+  {t:"temperatura", n:"Texas (EUA), 2021", c:[-97.0,31.0], d:"Vaga de frio que colapsou a rede elétrica: milhões sem energia e centenas de mortos."},
+  {t:"deslizamento", n:"Madeira, 2010", c:[-16.9,32.7], d:"Aluvião de 20 de fevereiro: escoadas de lama e blocos pelas ribeiras do Funchal e da Ribeira Brava; dezenas de mortos."},
+  {t:"deslizamento", n:"Vargas (Venezuela), 1999", c:[-67.0,10.6], d:"Chuvas intensas provocaram enormes escoadas de lama nas encostas junto ao mar; milhares de mortos."}
+];
+const svg = document.getElementById("mapa");
+const NS = "http://www.w3.org/2000/svg";
+function el(nome, at){ const e = document.createElementNS(NS, nome); for (const k in at) e.setAttribute(k, at[k]); return e; }
+// Linhas de referência (equador e trópicos)
+[[0,"Equador"],[23.44,"Trópico de Câncer"],[-23.44,"Trópico de Capricórnio"]].forEach(function(l){
+  const y = xy(0, l[0])[1];
+  svg.appendChild(el("line",{x1:0,y1:y,x2:900,y2:y,stroke:"#7aa9bd","stroke-dasharray":"4 6","stroke-width":1}));
+  const t = el("text",{x:6,y:y-4,"font-size":10,fill:"#4f7f93","font-family":"sans-serif"}); t.textContent = l[1]; svg.appendChild(t);
+});
+continentes.forEach(function(c){ svg.appendChild(el("polygon",{points:pts(c),"class":"continente"})); });
+cinturas.forEach(function(c){ svg.appendChild(el("polyline",{points:pts(c),fill:"none",stroke:"#b23a2e","stroke-width":2.2,"stroke-dasharray":"7 5",opacity:.75})); });
+const grupoMarc = el("g",{}); svg.appendChild(grupoMarc);
+const info = document.getElementById("infoMapa");
+eventos.forEach(function(ev){
+  const p = xy(ev.c[0], ev.c[1]);
+  const m = el("circle",{cx:p[0],cy:p[1],r:7,fill:cores[ev.t],"class":"marcador",tabindex:0,"data-t":ev.t});
+  const tit = el("title",{}); tit.textContent = ev.n; m.appendChild(tit);
+  function abrir(){
+    grupoMarc.querySelectorAll(".marcador").forEach(function(x){ x.classList.remove("sel"); });
+    m.classList.add("sel");
+    info.innerHTML = '<span class="tag" style="background:' + cores[ev.t] + '">' + nomesTipo[ev.t] + '</span><h3 style="margin-top:6px">' + ev.n + '</h3><p>' + ev.d + '</p>';
+  }
+  m.addEventListener("click", abrir);
+  m.addEventListener("keydown", function(e){ if (e.key === "Enter") abrir(); });
+  grupoMarc.appendChild(m);
+});
+const filtros = document.getElementById("filtros");
+Object.keys(nomesTipo).forEach(function(t){
+  const lab = document.createElement("label");
+  lab.innerHTML = '<input type="checkbox" checked data-t="' + t + '"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + cores[t] + '"></span>' + nomesTipo[t];
+  lab.querySelector("input").addEventListener("change", function(e){
+    grupoMarc.querySelectorAll('[data-t="' + t + '"]').forEach(function(m){ m.style.display = e.target.checked ? "" : "none"; });
+  });
+  filtros.appendChild(lab);
+});
+
+/* ---------- 5. Utilitários de pontuação ---------- */
+function baralhar(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function nota20(c, t){ return t ? (c / t * 20).toFixed(1).replace(".", ",") : "0"; }
+const pont = { EM:{c:0,r:0,t:0}, VF:{c:0,r:0,t:0}, AS:{c:0,r:0,t:0}, DE:{c:0,r:0,t:0} };
+function placar(id, k){
+  const p = pont[k];
+  const pct = p.t ? Math.round(p.c / p.t * 100) : 0;
+  document.getElementById(id).innerHTML = "<span>Respondidas: " + p.r + "/" + p.t + "</span><span>Certas: " + p.c + "</span><span>" + pct + "% · " + nota20(p.c, p.t) + " valores</span>";
+}
+
+/* ---------- 6. Escolha múltipla (14 perguntas, 4 opções) ---------- */
+const EM = [
+  {q:"O que é um perigo natural?", o:["Um fenómeno natural que pode causar danos a pessoas e bens","A probabilidade de ocorrer um acidente","O prejuízo provocado por uma catástrofe","A ajuda enviada por outros países"], c:0, e:"O perigo é o fenómeno potencialmente danoso (ex.: um sismo). O risco envolve a probabilidade e as consequências; o dano é o prejuízo real."},
+  {q:"O risco natural resulta da combinação de…", o:["perigosidade, exposição e vulnerabilidade","apenas da magnitude do fenómeno","apenas do número de habitantes","apenas do tipo de clima"], c:0, e:"Risco ≈ Perigo × Exposição × Vulnerabilidade. Se um destes fatores for baixo, o risco diminui."},
+  {q:"As cheias e as inundações são riscos…", o:["hidrológicos","geológicos","geomorfológicos","antrópicos"], c:0, e:"Estão ligadas ao ciclo da água (caudal dos rios, submersão de áreas emersas)."},
+  {q:"Um deslizamento de terras classifica-se como risco…", o:["geomorfológico","climático","hidrológico","tecnológico"], c:0, e:"Os movimentos de vertente e as avalanches são riscos geomorfológicos."},
+  {q:"Segundo o IPMA, ocorre uma onda de calor quando…", o:["durante pelo menos 6 dias consecutivos a temperatura máxima é superior em 5 °C à média do período de referência","a temperatura ultrapassa 40 °C num dia","durante 3 dias a temperatura é superior a 35 °C","a temperatura mínima é superior a 20 °C"], c:0, e:"O critério combina duração (≥ 6 dias) e anomalia (+5 °C em relação à média das máximas)."},
+  {q:"Os furacões formam-se…", o:["sobre oceanos tropicais com água acima de cerca de 26 °C","sobre desertos quentes","sobre as calotes polares","sobre as grandes cadeias montanhosas"], c:0, e:"A energia vem da evaporação e condensação de água quente. Em terra, perdem força."},
+  {q:"O ponto da superfície terrestre situado na vertical do foco de um sismo chama-se…", o:["epicentro","hipocentro","cratera","falha"], c:0, e:"O hipocentro é o ponto de origem no interior da Terra; o epicentro fica na vertical, à superfície."},
+  {q:"A escala que avalia os EFEITOS de um sismo nas pessoas e nos edifícios é a escala de…", o:["Mercalli modificada","Richter","Saffir-Simpson","Fujita melhorada"], c:0, e:"Mercalli = intensidade (efeitos, I a XII). Richter = magnitude (energia). Saffir-Simpson = furacões. Fujita = tornados."},
+  {q:"A área do planeta com maior concentração de sismos e vulcões é…", o:["o Anel de Fogo do Pacífico","o deserto do Sara","a planície da Europa do Norte","o escudo canadiano"], c:0, e:"Coincide com limites de placas tectónicas em redor do oceano Pacífico."},
+  {q:"O sismo do Haiti (M 7,0) causou muito mais mortes do que o do Chile (M 8,8), em 2010, sobretudo porque…", o:["o Haiti tinha maior vulnerabilidade: construções frágeis e fraca preparação","o sismo do Haiti libertou mais energia","o Chile não tem população","no Chile o sismo ocorreu no mar alto, longe de terra"], c:0, e:"O sismo do Chile foi muito mais energético; a diferença está na vulnerabilidade e no nível de desenvolvimento."},
+  {q:"O Quadro de Sendai (2015-2030) é…", o:["um acordo da ONU para reduzir o risco de catástrofes e as perdas que provocam","uma escala para medir furacões","um vulcão japonês","um tratado sobre a pesca"], c:0, e:"Foi adotado em Sendai, Japão, a 18 de março de 2015, com 7 metas e 4 prioridades."},
+  {q:"Durante um sismo, a ANEPC recomenda três gestos:", o:["Baixar, proteger e aguardar","Correr, gritar e sair","Apanhar o elevador e sair","Ir para a janela ver o que acontece"], c:0, e:"Baixar (ao chão), proteger (cabeça, debaixo de uma mesa resistente) e aguardar que o abalo termine."},
+  {q:"Em Portugal, a região com vulcanismo ativo é…", o:["o arquipélago dos Açores","a Serra da Estrela","o Algarve","a Serra de Sintra"], c:0, e:"Os Açores situam-se junto à Dorsal Médio-Atlântica, numa junção de três placas. Sintra é um antigo maciço eruptivo, sem atividade há milhões de anos."},
+  {q:"A seca hidrológica caracteriza-se pela…", o:["diminuição das reservas de água em rios, albufeiras e aquíferos","ausência de vento","descida súbita da temperatura","subida do nível do mar"], c:0, e:"A seca meteorológica (falta de chuva) prolongada leva à seca hidrológica."}
+];
+const zonaEM = document.getElementById("quizEM");
+pont.EM.t = EM.length;
+EM.forEach(function(item, i){
+  const box = document.createElement("div"); box.className = "q";
+  box.innerHTML = '<div class="num">Pergunta ' + (i + 1) + ' de ' + EM.length + '</div><div class="enun">' + item.q + '</div><div class="opcoes"></div><div class="feedback"></div>';
+  const opc = box.querySelector(".opcoes"), fb = box.querySelector(".feedback");
+  const ordem = baralhar([0,1,2,3]);
+  ordem.forEach(function(k, pos){
+    const b = document.createElement("button"); b.className = "opcao";
+    b.textContent = String.fromCharCode(65 + pos) + ") " + item.o[k];
+    b.addEventListener("click", function(){
+      opc.querySelectorAll("button").forEach(function(x){ x.disabled = true; });
+      pont.EM.r++;
+      const certo = k === item.c;
+      if (certo){ pont.EM.c++; b.classList.add("certa"); fb.className = "feedback ok"; fb.innerHTML = "✔ Correto! " + item.e; }
+      else {
+        b.classList.add("errada");
+        opc.querySelectorAll("button")[ordem.indexOf(item.c)].classList.add("certa");
+        fb.className = "feedback ko"; fb.innerHTML = "✘ Incorreto. " + item.e;
+      }
+      placar("placarEM","EM");
+    });
+    opc.appendChild(b);
+  });
+  zonaEM.appendChild(box);
+});
+placar("placarEM","EM");
+
+/* ---------- 7. Verdadeiro ou falso (13 afirmações) ---------- */
+const VF = [
+  {a:"Perigo e risco são sinónimos.", v:false, e:"O perigo é o fenómeno; o risco é a probabilidade de ocorrer combinada com as consequências esperadas."},
+  {a:"Todas as inundações são provocadas por cheias.", v:false, e:"Há inundações urbanas (drenagem insuficiente) e costeiras (marés de tempestade, tsunâmis) sem cheia de um rio."},
+  {a:"A impermeabilização dos solos nas cidades agrava as inundações.", v:true, e:"O asfalto e o betão impedem a infiltração e aumentam o escoamento superficial."},
+  {a:"Os tornados formam-se sobre os oceanos tropicais e duram vários dias.", v:false, e:"Isso descreve os furacões. Os tornados formam-se sobretudo sobre os continentes e duram minutos."},
+  {a:"Os países desenvolvidos têm, em geral, maiores perdas económicas absolutas, mas menos vítimas mortais.", v:true, e:"Têm mais bens expostos, mas também melhor prevenção, construção e resposta."},
+  {a:"Um sismo de magnitude 7 liberta cerca de 32 vezes mais energia do que um de magnitude 6.", v:true, e:"Cada grau de magnitude corresponde a cerca de 32 vezes mais energia."},
+  {a:"Os vulcões só trazem prejuízos às populações.", v:false, e:"Também dão solos férteis, energia geotérmica, águas termais, turismo e matérias-primas."},
+  {a:"As vagas de frio são mais frequentes no inverno, nas regiões de clima continental e frio.", v:true, e:"Ex.: interior da Europa, Ásia Central, América do Norte."},
+  {a:"Portugal continental não tem risco sísmico.", v:false, e:"Lisboa e Vale do Tejo e o Algarve têm risco sísmico elevado (recorda o sismo de 1755)."},
+  {a:"A desflorestação das vertentes aumenta a probabilidade de deslizamentos.", v:true, e:"Sem raízes, o solo perde coesão e a água escoa e infiltra-se de forma diferente."},
+  {a:"Um tsunâmi pode ser originado por um sismo submarino, uma erupção vulcânica ou um deslizamento.", v:true, e:"Qualquer deslocação súbita de uma grande massa de água pode gerar um tsunâmi."},
+  {a:"O número de catástrofes registadas diminuiu nos últimos 50 anos.", v:false, e:"Segundo a OMM, multiplicou-se por cinco entre 1970 e 2019 (alterações climáticas e melhor registo). O que diminuiu foi o número de mortes."},
+  {a:"Os incêndios florestais e a desertificação são exemplos de riscos mistos.", v:true, e:"Resultam da combinação de fatores naturais (calor, secura, vento) com a ação humana."}
+];
+const zonaVF = document.getElementById("quizVF");
+pont.VF.t = VF.length;
+VF.forEach(function(item, i){
+  const box = document.createElement("div"); box.className = "q";
+  box.innerHTML = '<div class="num">Afirmação ' + (i + 1) + ' de ' + VF.length + '</div><div class="enun">' + item.a + '</div><div class="vf"><button class="opcao">✔ Verdadeiro</button><button class="opcao">✘ Falso</button></div><div class="feedback"></div>';
+  const bs = box.querySelectorAll(".vf button"), fb = box.querySelector(".feedback");
+  bs.forEach(function(b, k){
+    b.addEventListener("click", function(){
+      bs.forEach(function(x){ x.disabled = true; });
+      pont.VF.r++;
+      const escolha = k === 0;
+      if (escolha === item.v){ pont.VF.c++; b.classList.add("certa"); fb.className = "feedback ok"; fb.innerHTML = "✔ Correto! " + item.e; }
+      else { b.classList.add("errada"); bs[item.v ? 0 : 1].classList.add("certa"); fb.className = "feedback ko"; fb.innerHTML = "✘ Incorreto — a afirmação é " + (item.v ? "verdadeira" : "falsa") + ". " + item.e; }
+      placar("placarVF","VF");
+    });
+  });
+  zonaVF.appendChild(box);
+});
+placar("placarVF","VF");
+
+/* ---------- 8. Associação de conceitos (7 exercícios) ---------- */
+const AS = [
+  {t:"Conceitos-base", p:[["Perigo","Fenómeno que pode causar danos"],["Risco","Probabilidade de ocorrência × consequências esperadas"],["Dano","Prejuízo efetivamente provocado"],["Catástrofe","Rutura grave do funcionamento de uma comunidade"]]},
+  {t:"Classifica o risco pela origem (segundo as Aprendizagens Essenciais)", p:[["Cheia","Hidrológico"],["Vaga de calor","Climático"],["Sismo","Geológico"],["Avalanche","Geomorfológico"]]},
+  {t:"Escalas de medição", p:[["Richter","Magnitude dos sismos (energia)"],["Mercalli modificada","Intensidade dos sismos (efeitos)"],["Saffir-Simpson","Furacões"],["Fujita melhorada (EF)","Tornados"]]},
+  {t:"Tempestades e locais de formação", p:[["Furacão","Atlântico e Pacífico nordeste"],["Tufão","Pacífico ocidental"],["Ciclone tropical","Oceano Índico"],["Tornado","Sobre os continentes, curta duração"]]},
+  {t:"Catástrofes em Portugal", p:[["Lisboa, 1755","Sismo, tsunâmi e incêndio"],["Faial, 1957-58","Erupção vulcânica dos Capelinhos"],["Região de Lisboa, 1967","Cheias e inundações"],["Madeira, 2010","Aluvião e deslizamentos"]]},
+  {t:"Medida de prevenção ↔ risco", p:[["Construção antissísmica","Sismo"],["Não construir em leitos de cheia","Inundação"],["Reflorestar as vertentes","Deslizamento"],["Hidratação e evitar o sol entre as 11h e as 17h","Vaga de calor"]]},
+  {t:"Ciclo de gestão de catástrofes", p:[["Mitigação (prevenção)","Ordenamento do território e cartas de risco"],["Preparação","Planos de emergência e simulacros"],["Resposta","Socorro e evacuação durante o evento"],["Recuperação","Reconstrução e apoio às populações"]]}
+];
+const zonaAS = document.getElementById("quizAS");
+AS.forEach(function(ex){ pont.AS.t += ex.p.length; });
+AS.forEach(function(ex, i){
+  const box = document.createElement("div"); box.className = "q";
+  box.innerHTML = '<div class="num">Exercício ' + (i + 1) + ' de ' + AS.length + '</div><div class="enun">' + ex.t + '</div><div class="linhas"></div><button class="btn-peq">Verificar</button><div class="feedback"></div>';
+  const linhas = box.querySelector(".linhas");
+  const opcoes = baralhar(ex.p.map(function(p){ return p[1]; }));
+  ex.p.forEach(function(par){
+    const l = document.createElement("div"); l.className = "assoc-linha";
+    let html = '<b>' + par[0] + '</b><select><option value="">— escolhe —</option>';
+    opcoes.forEach(function(o){ html += '<option>' + o + '</option>'; });
+    l.innerHTML = html + '</select>';
+    l.dataset.certa = par[1];
+    linhas.appendChild(l);
+  });
+  const btn = box.querySelector("button"), fb = box.querySelector(".feedback");
+  btn.addEventListener("click", function(){
+    const ls = linhas.querySelectorAll(".assoc-linha");
+    let vazias = 0; ls.forEach(function(l){ if (!l.querySelector("select").value) vazias++; });
+    if (vazias){ fb.className = "feedback ko"; fb.textContent = "Completa todas as associações antes de verificar."; return; }
+    let certas = 0;
+    ls.forEach(function(l){
+      const s = l.querySelector("select"); const ok = s.value === l.dataset.certa;
+      l.classList.add(ok ? "certa" : "errada");
+      if (ok) certas++;
+      else { const d = document.createElement("div"); d.style.gridColumn = "1/-1"; d.style.fontSize = ".88rem"; d.style.color = "#1d5235"; d.textContent = "Resposta correta: " + l.dataset.certa; l.appendChild(d); }
+      s.disabled = true;
+    });
+    btn.disabled = true;
+    pont.AS.c += certas; pont.AS.r += ls.length;
+    fb.className = certas === ls.length ? "feedback ok" : "feedback ko";
+    fb.textContent = certas === ls.length ? "✔ Excelente! Todas as associações estão corretas." : "Acertaste " + certas + " de " + ls.length + ". Revê as correções assinaladas.";
+    placar("placarAS","AS");
+  });
+  zonaAS.appendChild(box);
+});
+placar("placarAS","AS");
+
+/* ---------- 9. Desafio final ---------- */
+const DE = [
+  {q:"O chão começa a tremer com força. O que fazes primeiro?", o:["Baixo-me, protejo a cabeça debaixo da mesa e aguardo","Corro para a escada para sair do edifício","Vou à janela ver o que se passa","Pego no telemóvel para filmar"], c:0, e:"Correr durante o abalo é a principal causa de ferimentos: a queda de objetos e vidros é o maior perigo."},
+  {q:"O abalo terminou. Como sais da sala?", o:["Com calma, seguindo o professor e o plano de evacuação, pelas escadas","Pelo elevador, que é mais rápido","A correr, empurrando os colegas","Fico na sala até ao fim do dia"], c:0, e:"Os elevadores podem avariar ou ficar sem energia; a evacuação deve ser ordenada para evitar quedas."},
+  {q:"No exterior, onde aguardas?", o:["No ponto de encontro, em espaço aberto, longe de edifícios e muros","Encostado à parede do pavilhão","Debaixo de uma árvore grande junto a cabos elétricos","No parque de estacionamento, entre carros em movimento"], c:0, e:"Podem ocorrer réplicas e quedas de estruturas; o ponto de encontro permite contar todos os alunos."},
+  {q:"Sentes cheiro a gás na cozinha da escola. O que fazes?", o:["Não acendo nada, afasto-me e aviso um adulto","Acendo um isqueiro para ver melhor","Ligo os interruptores das luzes","Ignoro, não é importante"], c:0, e:"Uma faísca pode provocar uma explosão; é preciso fechar o gás e ventilar, o que cabe aos adultos responsáveis."},
+  {q:"Queres saber se há perigo de tsunâmi (a escola fica longe do mar, mas a tua família está na praia). O que aconselhas?", o:["Afastarem-se imediatamente da costa para um local alto e seguirem as autoridades","Irem ver o mar recuar, é um espetáculo raro","Ficarem no areal à espera da primeira onda","Entrarem na água para fugir"], c:0, e:"Após um sismo forte junto à costa ou um recuo anormal do mar, a regra é subir imediatamente para locais altos."}
+];
+const zonaDE = document.getElementById("decisoes");
+pont.DE.t = DE.length;
+DE.forEach(function(item, i){
+  const box = document.createElement("div"); box.className = "q";
+  box.innerHTML = '<div class="num">Decisão ' + (i + 1) + ' de ' + DE.length + '</div><div class="enun">' + item.q + '</div><div class="opcoes"></div><div class="feedback"></div>';
+  const opc = box.querySelector(".opcoes"), fb = box.querySelector(".feedback");
+  const ordem = baralhar([0,1,2,3]);
+  ordem.forEach(function(k){
+    const b = document.createElement("button"); b.className = "opcao"; b.textContent = item.o[k];
+    b.addEventListener("click", function(){
+      opc.querySelectorAll("button").forEach(function(x){ x.disabled = true; });
+      pont.DE.r++;
+      if (k === item.c){ pont.DE.c++; b.classList.add("certa"); fb.className = "feedback ok"; fb.textContent = "✔ Boa decisão! " + item.e; }
+      else { b.classList.add("errada"); opc.querySelectorAll("button")[ordem.indexOf(item.c)].classList.add("certa"); fb.className = "feedback ko"; fb.textContent = "✘ Decisão perigosa. " + item.e; }
+      atualizarResultadoFinal();
+    });
+    opc.appendChild(b);
+  });
+  zonaDE.appendChild(box);
+});
+
+const APL = [
+  {q:"1. Uma vila cresceu na planície aluvial de um rio: os bairros novos ocupam o leito de cheia e as ruas e parques de estacionamento foram asfaltados. Identifica o principal risco natural, dois fatores humanos que o agravam e duas medidas de prevenção.", m:"Risco de cheia/inundação (hidrológico). Fatores: ocupação do leito de cheia (maior exposição) e impermeabilização do solo (menos infiltração, mais escoamento). Medidas: proibir novas construções no leito de cheia (ordenamento do território), criar espaços verdes e bacias de retenção, limpar as linhas de água, instalar sistemas de alerta."},
+  {q:"2. Explica por que razão o sismo do Haiti (2010) causou muito mais vítimas do que o sismo do Chile (2010), apesar de ter menor magnitude.", m:"O Chile é mais desenvolvido: tem normas de construção antissísmica, proteção civil organizada, educação e simulacros. O Haiti tinha construções frágeis, grande densidade populacional perto do epicentro, pobreza e fraca capacidade de resposta. A vulnerabilidade, e não só a magnitude, determina os danos."},
+  {q:"3. Relaciona as vagas de calor com as alterações climáticas e indica dois grupos da população mais vulneráveis.", m:"O aquecimento global eleva as temperaturas médias, tornando as vagas de calor mais frequentes, longas e intensas (ex.: Portugal, 2022 e 2026). Grupos vulneráveis: idosos, crianças pequenas, doentes crónicos (cardiovasculares, respiratórios), trabalhadores ao ar livre, pessoas sem-abrigo ou em casas mal isoladas."},
+  {q:"4. A Serra de Sintra tem vertentes declivosas, a maior precipitação da região de Lisboa e casas construídas em encostas. Que risco geomorfológico pode ocorrer e em que situação meteorológica é mais provável?", m:"Deslizamentos/movimentos de vertente. São mais prováveis após chuvas intensas ou prolongadas no outono/inverno, que saturam o solo; agravam-se com a desflorestação, os incêndios e os cortes de taludes."},
+  {q:"5. Elabora um plano familiar de emergência: indica cinco itens de um kit de emergência e onde seria o vosso ponto de encontro.", m:"Kit: água engarrafada, alimentos não perecíveis, lanterna e pilhas, rádio a pilhas, estojo de primeiros socorros e medicamentos habituais, cópias de documentos, apito, agasalhos. Ponto de encontro: um espaço aberto conhecido de todos, longe de edifícios (ex.: um jardim próximo), e um contacto de um familiar fora da área."}
+];
+const zonaAP = document.getElementById("aplicacao");
+APL.forEach(function(item){
+  const box = document.createElement("div"); box.className = "q";
+  box.innerHTML = '<div class="enun">' + item.q + '</div><textarea placeholder="Escreve aqui a tua resposta…"></textarea><p><button class="btn-peq">Ver resposta-modelo</button></p><div class="modelo"><b>Resposta-modelo:</b> ' + item.m + '<p style="margin-top:8px"><b>Autoavaliação:</b> <button class="btn-peq" data-a="2">Respondi bem</button> <button class="btn-peq" data-a="1">Respondi em parte</button> <button class="btn-peq" data-a="0">Ainda não</button> <span class="aval"></span></p></div>';
+  const mod = box.querySelector(".modelo");
+  box.querySelector("p button").addEventListener("click", function(){ mod.classList.add("ver"); });
+  mod.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      box.dataset.auto = b.dataset.a;
+      mod.querySelector(".aval").textContent = ["→ Revê a secção correspondente.","→ Quase! Completa a tua resposta.","→ Muito bem!"][+b.dataset.a];
+      atualizarResultadoFinal();
+    });
+  });
+  zonaAP.appendChild(box);
+});
+
+/* ---------- 10. Resultados globais ---------- */
+function atualizarResultadoFinal(){
+  const autos = Array.from(zonaAP.querySelectorAll(".q")).map(function(q){ return q.dataset.auto; }).filter(function(x){ return x !== undefined; });
+  const autoPts = autos.reduce(function(s, x){ return s + (+x); }, 0);
+  const c = pont.EM.c + pont.VF.c + pont.AS.c + pont.DE.c;
+  const t = pont.EM.t + pont.VF.t + pont.AS.t + pont.DE.t;
+  const pct = Math.round(c / t * 100);
+  let msg = pct >= 90 ? "Excelente! Dominas o tema." : pct >= 70 ? "Muito bom trabalho!" : pct >= 50 ? "Bom caminho — revê as secções onde erraste." : "Revê a aula e volta a tentar.";
+  document.getElementById("resultadoFinal").innerHTML =
+    '<div class="nota">' + nota20(c, t) + ' / 20</div><p><b>' + pct + '%</b> de respostas certas (' + c + ' em ' + t + ', nos exercícios de correção automática)</p>' +
+    '<div class="tabela-wrap"><table><tr><th>Exercício</th><th>Certas</th><th>Respondidas</th></tr>' +
+    '<tr><td>Escolha múltipla</td><td>' + pont.EM.c + '/' + pont.EM.t + '</td><td>' + pont.EM.r + '</td></tr>' +
+    '<tr><td>Verdadeiro ou falso</td><td>' + pont.VF.c + '/' + pont.VF.t + '</td><td>' + pont.VF.r + '</td></tr>' +
+    '<tr><td>Associação (por par)</td><td>' + pont.AS.c + '/' + pont.AS.t + '</td><td>' + pont.AS.r + '</td></tr>' +
+    '<tr><td>«Tu decides»</td><td>' + pont.DE.c + '/' + pont.DE.t + '</td><td>' + pont.DE.r + '</td></tr>' +
+    '<tr><td>Autoavaliação (questões abertas)</td><td colspan="2">' + autoPts + ' / ' + (APL.length * 2) + ' pontos (' + autos.length + ' avaliadas)</td></tr></table></div><p>' + msg + '</p>' +
+    '<p><button class="btn-peq" id="recomecar">↺ Recomeçar a aula (limpa as respostas)</button></p>';
+  document.getElementById("recomecar").addEventListener("click", function(){ if (confirm("Queres mesmo apagar todas as respostas e recomeçar?")) location.reload(); });
+}
+
+/* ---------- 11. Dicionário de conceitos dos manuais ---------- */
+// cat: base | clima | hidro | geo | geomorf | gestao
+// e = definição para estudar; m = [livro, o que destaca]; a = aviso de divergência; c = conceito complementar
+const GLOS = [
+  {t:"Perigo", cat:"base", e:"Fenómeno, situação ou ação (natural, tecnológica ou mista) que pode causar danos a pessoas, bens ou ao ambiente.",
+   m:[["Check-in 9","Fenómeno perigoso, natural, misto ou tecnológico, que pode causar danos."],["Geo 9","Processo ou ação natural, tecnológica ou mista capaz de provocar perdas e danos; reconhece-se por sinais de alerta (ex.: sismos antes de uma erupção)."],["GeoVisão 9","Situação, fenómeno ou ação humana que pode pôr em causa a integridade das pessoas, dos bens ou do ambiente, ou causar perturbação social."]]},
+  {t:"Perigo real e perigo potencial", cat:"base", e:"Real: o incidente pode acontecer aqui e agora. Potencial: pode acontecer no futuro, a médio ou longo prazo.",
+   m:[["GeoVisão 9","É o único manual que faz esta distinção."]]},
+  {t:"Risco", cat:"base", e:"Probabilidade de um perigo ocorrer, combinada com a gravidade dos danos esperados — que dependem da exposição e da vulnerabilidade de pessoas e bens.",
+   m:[["Check-in 9","Resultado de um perigo que afeta pessoas e bens conforme o seu grau de exposição e vulnerabilidade; pode levar a catástrofes quando os danos são muito elevados e o país precisa de ajuda externa."],["Geo 9","Probabilidade de um acontecimento danoso e a estimativa das suas consequências negativas."],["GeoVisão 9","Probabilidade de ocorrência e grau de danos esperados numa situação de perigo; refere vários tipos: de morte, para a saúde, biológico, financeiro."]],
+   a:"O Check-in 9 define risco pela exposição e vulnerabilidade; o Geo 9 e o GeoVisão 9 pela probabilidade e pelos danos esperados. As duas ideias completam-se."},
+  {t:"Dano", cat:"base", e:"Prejuízo efetivamente causado (humano, material, económico, ambiental) quando um perigo se concretiza.",
+   m:[["Check-in 9","Prejuízo provocado pela concretização de um perigo."],["Geo 9","Prejuízo material e/ou humano causado por uma catástrofe natural."],["GeoVisão 9","Perda ou prejuízo resultante de uma ocorrência ou situação."]]},
+  {t:"Exposição (elementos expostos)", cat:"base", e:"Pessoas, construções, infraestruturas, atividades económicas e património localizados numa área onde um perigo pode atuar.",
+   m:[["Check-in 9","Usa a exposição para explicar o risco (banhistas expostos à queda da arriba)."],["GeoVisão 9","Esquema concetual do risco: fenómenos perigosos + elementos expostos (população, construções, infraestruturas, economia, cultura) = risco."]]},
+  {t:"Vulnerabilidade", cat:"base", e:"Grau de fragilidade dos elementos expostos; depende da capacidade da população para prevenir e responder a uma catástrofe.",
+   m:[["Check-in 9","Associada ao risco, a par da exposição."],["GeoVisão 9","A maior ou menor capacidade de prevenir e responder determina a vulnerabilidade; os países em desenvolvimento têm maior vulnerabilidade."]]},
+  {t:"Suscetibilidade", cat:"base", c:true, e:"Tendência de um território para ser afetado por um fenómeno, devido às suas características (declive, rochas, proximidade de falhas, rios ou mar).",
+   m:[["GeoVisão 9","Aparece na síntese: as medidas de prevenção, proteção e controlo visam diminuir a suscetibilidade."],["Check-in 9","Usa a expressão «áreas mais sensíveis» a cada risco."]]},
+  {t:"Resiliência", cat:"base", c:true, e:"Capacidade de uma comunidade resistir, adaptar-se e recuperar rapidamente dos efeitos de uma catástrofe.",
+   m:[["GeoVisão 9","Na síntese: as medidas de prevenção visam aumentar a resiliência."]]},
+  {t:"Adaptação", cat:"base", c:true, e:"Ajustar comportamentos, construções e ocupação do território às condições de risco e às alterações climáticas.",
+   m:[["GeoVisão 9","Na síntese: as medidas de prevenção visam aumentar a adaptação, reduzindo a vulnerabilidade."]]},
+  {t:"Catástrofe (desastre)", cat:"base", e:"Acontecimento grave que causa elevados prejuízos materiais e, eventualmente, vítimas, perturbando intensamente a vida da população e a economia de uma área — que deixa de conseguir responder sozinha.",
+   m:[["Check-in 9","Acidente ou série de acidentes graves com elevados prejuízos e, eventualmente, vítimas; quando causada por um perigo natural chama-se desastre ou catástrofe natural."],["Geo 9","Evento perigoso com elevados prejuízos e vítimas; considera-se catástrofe quando os danos são elevados e extensos, a ajuda vem do exterior, os serviços comuns são interrompidos e o Estado intervém diretamente."],["GeoVisão 9","Distingue catástrofe natural e antrópica (ver os cartões seguintes)."]]},
+  {t:"Catástrofe natural", cat:"base", e:"Rutura grave do funcionamento de uma comunidade, com grande destruição e perda de vidas ou bens, causada por um fenómeno perigoso de origem natural.",
+   m:[["GeoVisão 9","Definição em destaque, com esta ideia de rutura grave."],["Check-in 9","Catástrofe causada por um perigo natural."]]},
+  {t:"Catástrofe antrópica", cat:"base", e:"Rutura causada por perigos com origem nas atividades ou atitudes do ser humano; pode ser tecnológica ou social.",
+   m:[["GeoVisão 9","Divide os riscos antrópicos em tecnológicos e sociais."],["Geo 9","Riscos antrópicos (tecnológicos): derrame de petróleo, colapso de estruturas, acidente industrial."]]},
+  {t:"Risco natural", cat:"base", e:"Probabilidade de ocorrer, num dado lugar e tempo, um fenómeno de origem natural com consequências graves para as pessoas e a sociedade.",
+   m:[["Check-in 9","Probabilidade de ocorrer, no tempo e no espaço, um fenómeno natural (ou biológico) com consequências graves; resulta do funcionamento dos sistemas naturais."],["GeoVisão 9","Probabilidade de ocorrência de um evento natural perigoso que pode afetar pessoas e bens."]]},
+  {t:"Risco misto", cat:"base", e:"Risco que resulta de causas naturais conjugadas com a ação humana.",
+   m:[["Geo 9","Exemplos: smog, chuva ácida, desertificação, incêndio florestal, degradação do solo, aumento do efeito de estufa."],["GeoVisão 9","Na síntese: causas naturais conjugadas com a ação humana."],["Check-in 9","Refere os riscos naturais, mistos e tecnológicos no mapa concetual."]]},
+  {t:"Onda (vaga) de calor", cat:"clima", e:"Pelo menos 6 dias consecutivos com a temperatura máxima diária mais de 5 °C acima do valor médio do período de referência.",
+   m:[["Check-in 9","Usa «onda de calor»; o efeito é mais percetível no verão."],["Geo 9","Usa «vaga de calor»; relacionada com anticiclones subtropicais."],["GeoVisão 9","Usa «vaga de calor»; refere a corrente de jato e as alterações climáticas."]],
+   a:"«Onda» e «vaga» de calor são sinónimos — o Check-in 9 usa «onda», o Geo 9 e o GeoVisão 9 usam «vaga»."},
+  {t:"Onda (vaga) de frio", cat:"clima", e:"Pelo menos 6 dias consecutivos com a temperatura mínima diária mais de 5 °C abaixo do valor médio do período de referência.",
+   m:[["Check-in 9","Áreas mais sensíveis: climas frios (polar, subpolar e de altitude)."],["Geo 9","Associada a massas de ar frio que se deslocam para zonas temperadas."],["GeoVisão 9","Associa-a ao enfraquecimento do vórtice polar e à ondulação da corrente de jato."]]},
+  {t:"Seca", cat:"clima", e:"Período relativamente longo com precipitação muito inferior ao normal, em que a água disponível não chega para as necessidades dos seres vivos.",
+   m:[["Check-in 9","Período de persistência de tempo seco, associado à ausência de precipitação."],["Geo 9","Período de tempo seco; a humidade do solo fica deficitária. A gravidade depende da água no solo, da duração e da área afetada."],["GeoVisão 9","Risco climático causado por precipitação insuficiente durante um período relativamente longo; afeta mais pessoas do que qualquer outro risco, a seguir às inundações."]]},
+  {t:"Seca meteorológica", cat:"clima", e:"Fase inicial da seca: falta de precipitação em relação ao normal.",
+   m:[["Check-in 9","Escassez de precipitação."],["Geo 9","Falta de água causada pelo desequilíbrio entre a precipitação e a evaporação."],["GeoVisão 9","Resulta da permanência de centros de altas pressões (ex.: anticiclone dos Açores)."]]},
+  {t:"Seca hidrológica", cat:"clima", e:"A seca prolongada reflete-se na diminuição das reservas de água: caudal dos rios, albufeiras, água no solo e aquíferos.",
+   m:[["Check-in 9","Escassez de água no solo e nos reservatórios."],["Geo 9","Diminuição das reservas hídricas: caudal dos rios, água no solo e nos aquíferos."],["GeoVisão 9","Diminuição das reservas em rios, lagos, albufeiras, aquíferos e solo."]]},
+  {t:"Tempestade", cat:"clima", e:"Perturbação atmosférica violenta, associada a uma depressão, com ventos fortes e chuva intensa (por vezes trovoada e granizo).",
+   m:[["Check-in 9","Perturbação violenta com chuva forte, rajadas, relâmpagos, trovões e granizo; dura pouco (cerca de 20 minutos a 1 hora) e afeta uma área específica."],["Geo 9","Perturbação violenta com ventos fortes e precipitação intensa; os furacões formam-se a partir de tempestades."],["GeoVisão 9","Instabilidade associada a uma depressão barométrica, com trovoada, chuva e vento forte; pode resultar em furacões ou tornados."]],
+   a:"O Check-in 9 descreve sobretudo a trovoada local, de curta duração; o Geo 9 e o GeoVisão 9 incluem também as grandes tempestades (furacões), que duram dias ou semanas."},
+  {t:"Furacão / tufão / ciclone tropical", cat:"clima", e:"Tempestade tropical com ventos iguais ou superiores a 119 km/h, formada sobre águas oceânicas com mais de 26 °C. Chama-se furacão no Atlântico, tufão no Pacífico ocidental e ciclone tropical no Índico.",
+   m:[["Geo 9","Tempestade tropical energética e destrutiva, com ventos acima de 119 km/h; ciclo de vida de duas a três semanas; diâmetro típico de 400 a 600 km."],["GeoVisão 9","Centro de baixas pressões sobre águas tropicais ou subtropicais, com intensa circulação ciclónica; escala Saffir-Simpson."]]},
+  {t:"Tornado", cat:"clima", e:"Coluna de ar em rotação muito rápida que desce de uma nuvem cumulonimbo até ao solo; forma-se sobre os continentes, é muito localizado e de curta duração.",
+   m:[["Geo 9","Ventos na ordem dos 300 km/h; mais frequentes nos EUA."],["GeoVisão 9","Escala de Fujita-Pearson (EF0 a EF5); no EF5 os ventos ultrapassam 322 km/h e podem atingir 500 km/h."]],
+   a:"Os valores de vento variam entre os manuais (cerca de 300 km/h no Geo 9; mais de 322 km/h no EF5 do GeoVisão 9). Ambos estão certos: depende da intensidade do tornado."},
+  {t:"Cheia", cat:"hidro", e:"Aumento do caudal de um curso de água, que pode transbordar do leito normal e ocupar o leito de cheia.",
+   m:[["Check-in 9","Fenómeno hidrológico extremo, natural ou induzido pelo ser humano, em que o rio transborda do leito ordinário e inunda os terrenos ribeirinhos."],["Geo 9","Aumento do caudal que ultrapassa o leito normal."],["GeoVisão 9","Provocada por chuva moderada e persistente ou repentina e muito intensa; as cheias periódicas também fertilizam as planícies aluviais."]],
+   a:"Cheia ≠ inundação. O Check-in 9 diz que «as cheias provocam inundações, mas nem todas as inundações resultam de cheias»; o Geo 9 acrescenta que também há cheias que não provocam inundações (o rio sobe sem sair das margens)."},
+  {t:"Inundação", cat:"hidro", e:"Submersão de uma área que normalmente está emersa (seca); pode ter origem natural ou humana.",
+   m:[["Check-in 9","Fenómeno hidrológico extremo, natural ou induzido, de submersão de uma área habitualmente emersa."],["Geo 9","Tipos: fluviais, urbanas e costeiras (por ondulação, subida do mar, tsunâmis ou tempestades)."],["GeoVisão 9","Tipos: fluviais, repentinas, por ação humana (rutura de diques/barragens), costeiras, urbanas e pluviais."]]},
+  {t:"Sismo", cat:"geo", e:"Movimento brusco e vibratório da crosta terrestre, de curta duração, causado pela libertação súbita de energia (geralmente numa falha), que se propaga em ondas sísmicas.",
+   m:[["Check-in 9","Movimento rápido e intenso da crosta, num curto período, que se propaga em todas as direções; distingue sismos naturais e artificiais (explosões, testes nucleares, enchimento de albufeiras)."],["Geo 9","Movimento ondulatório por súbita libertação de energia na crosta; dura de segundos a dezenas de segundos, seguido de réplicas."],["GeoVisão 9","Causas naturais: tectónica, vulcânica e movimentos de terreno (colapso de grutas, por exemplo)."]],
+   a:"Classificação: o Geo 9 e o GeoVisão 9 tratam os sismos como riscos geológicos; o Check-in 9 inclui-os nos riscos geomorfológicos."},
+  {t:"Hipocentro e epicentro", cat:"geo", e:"Hipocentro (foco): ponto no interior da Terra onde o sismo tem origem. Epicentro: ponto da superfície na vertical do hipocentro.",
+   m:[["Geo 9","Figura do sismo tectónico com hipocentro, epicentro, falha e ondas sísmicas."],["GeoVisão 9","O maior grau de destruição verifica-se, em geral, no epicentro."]]},
+  {t:"Magnitude e intensidade", cat:"geo", e:"Magnitude (Richter): energia libertada no hipocentro, medida nos sismogramas. Intensidade (Mercalli modificada): efeitos observados nas pessoas e construções.",
+   m:[["Geo 9","Distingue as duas escalas e mostra um sismograma."],["GeoVisão 9","Escala de magnitude de Richter, de «micro» a «excecional»."],["Check-in 9","Refere a magnitude estimada de 8,75 do sismo de 1755."]]},
+  {t:"Tsunâmi (maremoto)", cat:"geo", e:"Ondas de grandes dimensões geradas por um sismo com epicentro no fundo do mar, uma erupção, um deslizamento ou a queda de um meteorito.",
+   m:[["Check-in 9","Fenómeno secundário de alguns sismos (como o de 1755)."],["GeoVisão 9","Explica as causas possíveis e o sistema de alerta de tsunâmi de Cascais."],["Geo 9","Uma das causas das inundações costeiras."]]},
+  {t:"Vulcão", cat:"geo", e:"Abertura na crosta terrestre por onde sobem à superfície magma, gases e partículas vindos do interior da Terra.",
+   m:[["Check-in 9","Abertura natural da crosta por onde ascendem materiais do manto ou da crosta (magma, que à superfície se chama lava); partes: câmara magmática, chaminé, cone, cratera."],["Geo 9","Estrutura geológica formada pela ascensão de magma, gases e partículas quentes; destaca os benefícios (solos férteis, geotermia, turismo, termas)."],["GeoVisão 9","Abertura na crosta pela qual são expelidos materiais por vezes incandescentes do interior da Terra."]]},
+  {t:"Erupção vulcânica", cat:"geo", e:"Saída de magma, fragmentos de rocha, gases e cinzas devido ao vulcanismo.",
+   m:[["Check-in 9","Definição em destaque; consequências: perda de vidas, poluição, chuvas ácidas, mas também fertilidade dos solos."],["GeoVisão 9","As erupções são acompanhadas de sismos de origem vulcânica."]],
+   a:"O Check-in 9 classifica as erupções vulcânicas como risco geomorfológico; o Geo 9 e o GeoVisão 9 como risco geológico."},
+  {t:"Anel de Fogo do Pacífico", cat:"geo", e:"Faixa em redor do oceano Pacífico, nos limites de placas, onde se concentra a maioria dos vulcões e sismos do planeta.",
+   m:[["Check-in 9","Cadeia vulcânica semicircular ao longo da costa do Pacífico, com atividade sísmica muito elevada."],["Geo 9","Relacionado com os limites convergentes das grandes placas."],["GeoVisão 9","Uma das três áreas de grande frequência sísmica, com a Cintura Mediterrânica e a Dorsal Médio-Atlântica."]]},
+  {t:"Deslizamento (movimento de vertente)", cat:"geomorf", e:"Deslocação de solo, rochas ou detritos ao longo de uma vertente, por ação da gravidade, sobre um plano de rutura.",
+   m:[["Check-in 9","Movimentos de solo ou rocha sobretudo ao longo de planos de rutura."],["Geo 9","Movimento de solo ou rocha numa vertente por ação da gravidade; inclui desabamentos e escoadas; fatores naturais e antrópicos."],["GeoVisão 9","Deslocação de materiais ao longo de uma vertente devido a uma rutura; também chamado movimento de vertente."]]},
+  {t:"Avalanche", cat:"geomorf", e:"Deslocação rápida de neve, gelo e terra ao longo de uma vertente de declive acentuado.",
+   m:[["GeoVisão 9","É o único manual que a define; em Portugal são pouco frequentes (só na Serra da Estrela)."]]},
+  {t:"Mitigação", cat:"gestao", e:"Conjunto de medidas que reduzem os efeitos e os danos de uma catástrofe (antes de ela acontecer ou durante).",
+   m:[["Check-in 9","Em cada risco apresenta «medidas de prevenção e mitigação» e «medidas de autoproteção»."],["GeoVisão 9","A mitigação é uma das fases do ciclo de gestão de desastres."]]},
+  {t:"Ciclo de gestão de desastres", cat:"gestao", e:"Sequência contínua: mitigação → preparação → resposta → recuperação.",
+   m:[["GeoVisão 9","Figura 41: ciclo de gestão de desastres, para reduzir o impacto das catástrofes."]]},
+  {t:"Medidas de autoproteção", cat:"gestao", e:"Comportamentos que cada pessoa deve adotar antes, durante e depois de uma catástrofe para se proteger.",
+   m:[["Check-in 9","Antes, durante e depois para cada risco (fonte: ANEPC)."],["GeoVisão 9","Medidas de atuação antes, durante e após cada catástrofe (esquema 13)."]]},
+  {t:"Quadro de Sendai", cat:"gestao", e:"Acordo da ONU (2015-2030), adotado na 3.ª Conferência Mundial da ONU, para reduzir substancialmente o risco de catástrofes e as perdas que provocam.",
+   m:[["GeoVisão 9","Define metas e prioridades para prevenir novos riscos e reduzir os existentes."]]},
+  {t:"Corno de África", cat:"clima", e:"Extremo oriental de África (Etiópia, Eritreia, Somália e Djibuti), muito afetado por secas.",
+   m:[["Check-in 9","Estudo de caso sobre a seca na Etiópia: fome, abandono escolar, conflitos pela água, casamentos precoces."]]}
+];
+const CATS = {todos:"Todos", base:"Conceitos-base", clima:"Climáticos", hidro:"Hidrológicos", geo:"Geológicos", geomorf:"Geomorfológicos", gestao:"Prevenção e gestão"};
+const corCat = {base:"var(--tinta)", clima:"var(--clima)", hidro:"var(--hidro)", geo:"var(--geo)", geomorf:"var(--geomorf)", gestao:"var(--verde)"};
+let glosCat = "todos";
+function semAcentos(s){ return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+function desenharGlos(){
+  const q = semAcentos(document.getElementById("glosBusca").value.trim());
+  const lista = document.getElementById("glosLista");
+  lista.innerHTML = "";
+  let n = 0;
+  GLOS.forEach(function(g){
+    if (glosCat !== "todos" && g.cat !== glosCat) return;
+    const texto = semAcentos(g.t + " " + g.e + " " + g.m.map(function(x){ return x[1]; }).join(" "));
+    if (q && texto.indexOf(q) === -1) return;
+    n++;
+    const d = document.createElement("div"); d.className = "termo";
+    let html = '<span class="tag" style="background:' + corCat[g.cat] + '">' + CATS[g.cat] + '</span>' + (g.c ? ' <span class="comp">complementar</span>' : '') +
+      '<h3>' + g.t + '</h3><p class="estudar"><b>Para estudar:</b> ' + g.e + '</p>';
+    if (g.a) html += '<div class="alerta">⚠️ ' + g.a + '</div>';
+    html += '<details><summary>Nos manuais</summary><ul>' + g.m.map(function(x){ return '<li><span class="livro">' + x[0] + '</span>' + x[1] + '</li>'; }).join("") + '</ul></details>';
+    d.innerHTML = html;
+    lista.appendChild(d);
+  });
+  document.getElementById("glosConta").textContent = n + " conceito" + (n === 1 ? "" : "s");
+}
+const chips = document.getElementById("glosChips");
+Object.keys(CATS).forEach(function(k){
+  const b = document.createElement("button"); b.className = "chip" + (k === "todos" ? " ativo" : ""); b.textContent = CATS[k];
+  b.addEventListener("click", function(){ glosCat = k; chips.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("ativo"); }); b.classList.add("ativo"); desenharGlos(); });
+  chips.appendChild(b);
+});
+document.getElementById("glosBusca").addEventListener("input", desenharGlos);
+desenharGlos();
+
+/* ---------- 12. Síntese: definições no mapa concetual e «Verifica se sabes» ---------- */
+document.querySelectorAll(".mapa-c [data-d]").forEach(function(b){
+  b.addEventListener("click", function(){
+    const caixa = document.getElementById("mcDef");
+    caixa.style.display = "block";
+    caixa.innerHTML = "<b>" + b.textContent.replace(/[＋⬆⬇]/g, "").trim() + ":</b> " + b.dataset.d;
+  });
+});
+const caixasVer = document.querySelectorAll("#verifica input");
+function contarVerifica(){
+  const n = Array.from(caixasVer).filter(function(c){ return c.checked; }).length;
+  document.getElementById("verificaRes").textContent = n === caixasVer.length ? "🎉 Dominas todos os objetivos — estás pronto para os exercícios!" : n + " de " + caixasVer.length + " objetivos dominados.";
+}
+caixasVer.forEach(function(c){ c.addEventListener("change", contarVerifica); });
+contarVerifica();
+
+/* ---------- Arranque ---------- */
+mostrar(0);
+})();
+</script>
+</body>
+</html>
