@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Escala · Atividade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: um ecrã por pergunta, para projetar; régua de escala gráfica como barra de progresso */
+:root{
+  --bg:#eef3f1; --panel:#ffffff; --fg:#17302b; --muted:#5b726c; --line:#c9d6d2;
+  --accent:#1f6f8b; --accent-soft:#d8ebf2; --ok:#2f7d4f; --ok-soft:#dff1e5; --bad:#b0412e; --bad-soft:#f7e1dc;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1a19; --panel:#172624; --fg:#e4efec; --muted:#9db3ad; --line:#2c403c;
+  --accent:#6cb8d4; --accent-soft:#1c3640; --ok:#7fcf9c; --ok-soft:#1d3628; --bad:#ec8f7c; --bad-soft:#3d2420; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a19; --panel:#172624; --fg:#e4efec; --muted:#9db3ad; --line:#2c403c;
+  --accent:#6cb8d4; --accent-soft:#1c3640; --ok:#7fcf9c; --ok-soft:#1d3628; --bad:#ec8f7c; --bad-soft:#3d2420; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:clamp(17px,2.1vw,30px);line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.app{max-width:1200px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:1.2em;padding-block:1em}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:1em;flex-wrap:wrap;color:var(--muted);font-size:.6em}
+header b{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.slide{flex:1;display:flex;flex-direction:column;gap:.9em;min-width:0}
+.slide[hidden]{display:none!important}
+.grupo{font-family:var(--mono);font-size:.6em;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:700;font-size:2.6em;line-height:1.05;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:500;font-size:1.35em;line-height:1.25;margin:0;text-wrap:balance}
+.lead{color:var(--muted);max-width:40em;margin:0}
+.texto{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1em 1.2em;line-height:2.1;max-width:46em}
+.gap{display:inline-block;min-width:6.5em;border-bottom:3px solid var(--accent);text-align:center;font-weight:700;color:transparent;transition:color .3s;line-height:1.2}
+.revealed .gap{color:var(--accent)}
+.banco{display:flex;flex-wrap:wrap;gap:.4em}
+.banco span{font-family:var(--mono);font-size:.7em;padding:.2em .6em;border:1px dashed var(--line);border-radius:6px;color:var(--muted)}
+.afirm{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1em 1.2em;max-width:46em}
+.vf{display:flex;gap:.6em;flex-wrap:wrap}
+.opts{display:grid;gap:.5em;max-width:40em}
+button{font:inherit;color:inherit;cursor:pointer}
+.opt,.vfbtn{text-align:left;background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:.45em .8em;display:flex;gap:.7em;align-items:center}
+.vfbtn{min-width:5.5em;justify-content:center;font-weight:700}
+.opt .l{font-family:var(--mono);color:var(--accent);font-weight:500}
+.opt:hover,.vfbtn:hover{border-color:var(--accent)}
+.opt.certo,.vfbtn.certo{border-color:var(--ok);background:var(--ok-soft)}
+.opt.errado,.vfbtn.errado{border-color:var(--bad);background:var(--bad-soft)}
+.sol{border-left:4px solid var(--ok);background:var(--ok-soft);padding:.5em .9em;border-radius:0 8px 8px 0;max-width:46em;font-size:.85em}
+.calc{font-family:var(--mono);font-size:.9em}
+nav{display:flex;align-items:center;gap:.8em;flex-wrap:wrap}
+.btn{border:2px solid var(--accent);background:transparent;color:var(--accent);border-radius:8px;padding:.3em .9em;font-weight:700;font-size:.75em}
+.btn.primary{background:var(--accent);color:var(--panel)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn:focus-visible,.opt:focus-visible,.vfbtn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.regua{flex:1;min-width:8em;display:flex;align-items:flex-end;height:1.6em}
+.regua i{flex:1;height:.55em;border:2px solid var(--fg);border-right-width:0;background:var(--panel)}
+.regua i:last-child{border-right-width:2px}
+.regua i.on{background:var(--fg)}
+.num{font-family:var(--mono);font-size:.6em;color:var(--muted);font-variant-numeric:tabular-nums}
+footer{font-size:.5em;color:var(--muted)}
+.capa-regua{display:flex;max-width:22em;margin-top:.4em}
+.capa-regua div{flex:1;height:.5em;border:2px solid var(--fg)}
+.capa-regua div:nth-child(odd){background:var(--fg)}
+.capa-km{display:flex;justify-content:space-between;max-width:22em;font-family:var(--mono);font-size:.55em;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.gap{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header><b>Geografia · 7.º ano</b><span>A Terra: estudos e representações</span></header>
+
+  <!-- 0 capa -->
+  <section class="slide" data-s>
+    <div class="grupo">Atividade de consolidação</div>
+    <h1>A Escala</h1>
+    <div>
+      <div class="capa-regua"><div></div><div></div><div></div><div></div></div>
+      <div class="capa-km"><span>0</span><span>5</span><span>10</span><span>15</span><span>20 km</span></div>
+    </div>
+    <p class="lead">Seis perguntas sobre o que é a escala, a escala numérica, a escala gráfica e a conversão entre escalas. Responde no caderno; a seguir corrigimos em conjunto.</p>
+    <p class="lead" style="font-size:.75em">Grupo I · Completar o texto (2) &nbsp;·&nbsp; Grupo II · Verdadeiro ou falso (2) &nbsp;·&nbsp; Grupo III · Escolha múltipla (2)</p>
+  </section>
+
+  <!-- 1 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo I · Completa o texto</div>
+    <h2>1. O que é a escala?</h2>
+    <div class="banco"><span>realidade</span><span>mapa</span><span>real</span><span>reduzida</span><span>ampliada</span><span>satélite</span></div>
+    <div class="texto" data-reveal>
+      A escala indica o número de vezes que a <span class="gap">realidade</span> foi <span class="gap">reduzida</span> para ser representada.
+      Estabelece a relação entre a distância no <span class="gap">mapa</span> e a distância <span class="gap">real</span> correspondente.
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo I · Completa o texto</div>
+    <h2>2. Escala numérica e escala gráfica</h2>
+    <div class="banco"><span>numérica</span><span>gráfica</span><span>numerador</span><span>denominador</span><span>legenda</span></div>
+    <div class="texto" data-reveal>
+      A escala <span class="gap">numérica</span> apresenta-se sob a forma de fração: o <span class="gap">numerador</span> (1) é a distância no mapa
+      e o <span class="gap">denominador</span> é a distância na realidade, na mesma unidade.
+      A escala <span class="gap">gráfica</span> representa-se por um segmento de reta graduado, dividido em partes iguais.
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo II · Verdadeiro ou falso</div>
+    <h2>3. Lê a afirmação e classifica-a.</h2>
+    <div class="afirm">Num mapa à escala <b class="calc">1 : 500 000</b>, 1 cm no mapa corresponde a 5 km na realidade.</div>
+    <div class="vf" data-vf="V"><button class="vfbtn" data-v="V">V</button><button class="vfbtn" data-v="F">F</button></div>
+    <div class="sol" hidden><b>Verdadeiro.</b> <span class="calc">500 000 cm = 5000 m = 5 km</span></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo II · Verdadeiro ou falso</div>
+    <h2>4. Lê a afirmação e classifica-a. Se for falsa, corrige-a.</h2>
+    <div class="afirm">Se fotocopiarmos um mapa ampliado, a escala numérica continua correta, mas a escala gráfica deixa de ser válida.</div>
+    <div class="vf" data-vf="F"><button class="vfbtn" data-v="V">V</button><button class="vfbtn" data-v="F">F</button></div>
+    <div class="sol" hidden><b>Falso.</b> É ao contrário: a escala <b>gráfica</b> aumenta ou diminui com o mapa e mantém-se correta; a escala <b>numérica</b> deixa de ser válida.</div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo III · Escolha múltipla</div>
+    <h2>5. Queremos transformar a escala <span class="calc">1 : 250 000</span> numa escala gráfica. Um segmento de 1 cm corresponde a…</h2>
+    <div class="opts" data-mc="b">
+      <button class="opt" data-o="a"><span class="l">A</span>25 km</button>
+      <button class="opt" data-o="b"><span class="l">B</span>2,5 km</button>
+      <button class="opt" data-o="c"><span class="l">C</span>250 km</button>
+      <button class="opt" data-o="d"><span class="l">D</span>0,25 km</button>
+    </div>
+    <div class="sol" hidden><b>B.</b> <span class="calc">250 000 cm = 2500 m = 2,5 km</span> → o segmento de 1 cm leva 0 no início e 2,5 km no fim.</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Grupo III · Escolha múltipla</div>
+    <h2>6. Numa escala gráfica, um segmento de 1 cm corresponde a 30 km. A escala numérica equivalente é…</h2>
+    <div class="opts" data-mc="c">
+      <button class="opt" data-o="a"><span class="l">A</span><span class="calc">1 : 30 000</span></button>
+      <button class="opt" data-o="b"><span class="l">B</span><span class="calc">1 : 300 000</span></button>
+      <button class="opt" data-o="c"><span class="l">C</span><span class="calc">1 : 3 000 000</span></button>
+      <button class="opt" data-o="d"><span class="l">D</span><span class="calc">1 : 30 000 000</span></button>
+    </div>
+    <div class="sol" hidden><b>C.</b> <span class="calc">30 km = 30 000 m = 3 000 000 cm</span> → 1 : 3 000 000</div>
+  </section>
+
+  <!-- 7 fim -->
+  <section class="slide" data-s hidden>
+    <div class="grupo">Para recordar</div>
+    <h2>Converter escalas</h2>
+    <div class="texto" style="line-height:1.7">
+      <b>Numérica → gráfica:</b> desenha um segmento de 1 cm e converte o denominador para km.<br>
+      <span class="calc">1 : 150 000 → 150 000 cm = 1,5 km</span><br><br>
+      <b>Gráfica → numérica:</b> mede o segmento (numerador) e converte os km em cm (denominador).<br>
+      <span class="calc">1 cm = 20 km → 1 : 2 000 000</span><br><br>
+      <span style="color:var(--muted)">Lembra-te: 1 km = 1000 m = 100 000 cm.</span>
+    </div>
+  </section>
+
+  <nav>
+    <button class="btn" id="prev">◀ Anterior</button>
+    <button class="btn primary" id="show">Mostrar resposta</button>
+    <button class="btn" id="next">Seguinte ▶</button>
+    <div class="regua" id="regua" aria-hidden="true"></div>
+    <span class="num" id="num"></span>
+  </nav>
+  <footer>Fonte: aula «A Escala», secções 1 a 4 · Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</footer>
+</div>
+
+<script>
+(function(){
+  const S=[...document.querySelectorAll('[data-s]')];
+  const prev=document.getElementById('prev'),next=document.getElementById('next'),show=document.getElementById('show');
+  const regua=document.getElementById('regua'),num=document.getElementById('num');
+  let i=0;
+  S.forEach(()=>regua.appendChild(document.createElement('i')));
+  function reveal(s){
+    const t=s.querySelector('[data-reveal]'); if(t) t.classList.add('revealed');
+    const vf=s.querySelector('[data-vf]'); if(vf) vf.querySelector('[data-v="'+vf.dataset.vf+'"]').classList.add('certo');
+    const mc=s.querySelector('[data-mc]'); if(mc) mc.querySelector('[data-o="'+mc.dataset.mc+'"]').classList.add('certo');
+    const sol=s.querySelector('.sol'); if(sol) sol.hidden=false;
+  }
+  function go(n){
+    i=Math.max(0,Math.min(S.length-1,n));
+    S.forEach((s,k)=>s.hidden=k!==i);
+    [...regua.children].forEach((b,k)=>b.classList.toggle('on',k<=i));
+    num.textContent=(i+1)+' / '+S.length;
+    prev.disabled=i===0; next.disabled=i===S.length-1;
+    const hasAns=!!S[i].querySelector('[data-reveal],[data-vf],[data-mc]');
+    show.hidden=!hasAns;
+  }
+  prev.onclick=()=>go(i-1); next.onclick=()=>go(i+1); show.onclick=()=>reveal(S[i]);
+  document.querySelectorAll('[data-vf] .vfbtn, [data-mc] .opt').forEach(b=>b.addEventListener('click',()=>{
+    const box=b.parentElement, right=box.dataset.vf||box.dataset.mc, val=b.dataset.v||b.dataset.o;
+    box.querySelectorAll('button').forEach(x=>x.classList.remove('errado'));
+    if(val===right) reveal(box.closest('[data-s]')); else b.classList.add('errado');
+  }));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+    else if(e.key==='r'||e.key==='R'||e.key==='Enter'){reveal(S[i])}
+  });
+  go(0);
+})();
+</script>
+</body>
+</html>
