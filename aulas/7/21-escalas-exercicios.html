@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escalas — Exercícios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#f4efe3; --papel2:#fbf8f1; --tinta:#2b2a26; --tinta2:#5a564c;
+  --mar:#4f86a8; --mar-claro:#dce9f1; --verde:#6f9a5b; --verde-claro:#e3eedb;
+  --castanho:#a8693a; --castanho-claro:#f3e3d2; --linha:#d8cfbb;
+  --serif:"Fraunces",Georgia,serif; --sans:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{font-size:19px}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+header{border-bottom:3px double var(--tinta);padding-bottom:14px;margin-bottom:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+h1{font-family:var(--serif);font-weight:800;font-size:2.4rem;margin:0;line-height:1.05}
+.sub{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta2)}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap}
+button{font-family:var(--sans);font-weight:700;font-size:.95rem;border:2px solid var(--tinta);background:var(--papel2);color:var(--tinta);padding:8px 14px;border-radius:8px;cursor:pointer}
+button:hover{background:var(--tinta);color:var(--papel)}
+h2{font-family:var(--serif);font-weight:800;font-size:1.7rem;margin:38px 0 10px;display:flex;align-items:center;gap:12px}
+h2 .tag{font-family:var(--mono);font-size:.85rem;background:var(--tinta);color:var(--papel);padding:3px 10px;border-radius:6px}
+.metodo{background:var(--papel2);border-left:6px solid var(--mar);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:18px}
+.metodo b{color:var(--mar)}
+.metodo.verde{border-color:var(--verde)} .metodo.verde b{color:var(--verde)}
+.metodo.cast{border-color:var(--castanho)} .metodo.cast b{color:var(--castanho)}
+.grelha{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--papel2);border:1.5px solid var(--linha);border-radius:12px;padding:14px 16px 16px;display:flex;flex-direction:column}
+.card .num{font-family:var(--mono);font-weight:600;font-size:.85rem;color:var(--tinta2);margin-bottom:6px}
+.card svg{max-width:100%;height:auto;display:block;margin:4px 0 8px}
+.escnum{font-family:var(--mono);font-weight:600;font-size:2rem;text-align:center;padding:16px 0;letter-spacing:.02em}
+.btnsol{margin-top:auto;align-self:flex-start;border-color:var(--verde);color:var(--verde)}
+.btnsol:hover{background:var(--verde);color:#fff}
+.btnsol[aria-expanded="true"]{background:var(--verde);color:#fff}
+.sol{display:none;margin-top:12px;background:var(--verde-claro);border-radius:8px;padding:12px 14px;border:1.5px dashed var(--verde)}
+.sol.on{display:block;animation:surge .35s ease}
+@keyframes surge{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.sol .res{font-family:var(--mono);font-weight:600;font-size:1.6rem;color:var(--tinta);text-align:center;margin:4px 0 8px}
+.sol .passo{font-size:.95rem;margin:3px 0}
+.sol .passo code{font-family:var(--mono);background:#fff;padding:1px 6px;border-radius:4px}
+.prob{grid-column:1/-1}
+.prob p{margin:6px 0}
+.prob ol{margin:6px 0 10px;padding-left:24px}
+.prob .ctx{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--castanho)}
+table.conv{border-collapse:collapse;margin:8px auto 0;font-family:var(--mono);font-size:1rem}
+table.conv td,table.conv th{border:1.5px solid var(--tinta);padding:5px 12px;text-align:center}
+table.conv th{background:var(--mar-claro)}
+.lembrete{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:760px){.lembrete{grid-template-columns:1fr}html{font-size:17px}h1{font-size:1.9rem}}
+footer{margin-top:50px;border-top:1px solid var(--linha);padding-top:12px;font-family:var(--mono);font-size:.75rem;color:var(--tinta2);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="sub">Geografia · A representação da superfície terrestre</div>
+    <h1>Escalas — Exercícios</h1>
+  </div>
+  <div class="ctrl">
+    <button id="todas">Mostrar todas as soluções</button>
+    <button id="nenhuma">Esconder todas</button>
+  </div>
+</header>
+
+<div class="lembrete">
+  <div class="metodo">
+    <b>Escala numérica</b> — fração <code>1 : N</code>: 1 cm no mapa corresponde a <b>N cm</b> na realidade.<br>
+    <b>Escala gráfica</b> — segmento de reta dividido em partes iguais; cada divisão (com uma medida conhecida no papel) corresponde a uma distância real.
+  </div>
+  <div class="metodo cast">
+    <b>Conversão de unidades</b> (cada casa para a direita × 10)
+    <table class="conv">
+      <tr><th>km</th><th>hm</th><th>dam</th><th>m</th><th>dm</th><th>cm</th></tr>
+      <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    </table>
+    <div style="text-align:center;font-family:var(--mono);margin-top:6px">1 km = 100 000 cm · 1 m = 100 cm</div>
+  </div>
+</div>
+
+<h2><span class="tag">A</span> Da escala gráfica à escala numérica</h2>
+<div class="metodo">
+  <b>Método:</b> 1) vê quanto mede uma divisão no papel; 2) vê a que distância real corresponde; 3) converte essa distância para <b>cm</b>; 4) se a divisão tiver mais de 1 cm, divide para obteres o valor de 1 cm; 5) escreve <code>1 : N</code>.
+</div>
+<div class="grelha" id="secA"></div>
+
+<h2><span class="tag">B</span> Da escala numérica à escala gráfica</h2>
+<div class="metodo verde">
+  <b>Método:</b> 1) <code>1 : N</code> significa 1 cm = N cm; 2) converte N cm para m ou km; 3) desenha um segmento dividido em partes de 1 cm; 4) escreve 0 no início e os valores reais em cada divisão, com a unidade no fim.
+</div>
+<div class="grelha" id="secB"></div>
+
+<h2><span class="tag">C</span> Problemas — do mapa à realidade</h2>
+<div class="metodo cast">
+  <b>Distância real = distância no mapa × denominador da escala</b> (o resultado vem em cm — converte para m ou km).
+</div>
+<div class="grelha" id="secC"></div>
+
+<footer>Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</footer>
+</div>
+
+<script>
+/* ---------- utilitários ---------- */
+function fmt(n){ // separador de milhares com espaço (norma portuguesa)
+  var s = String(n).split('.'); var int = s[0], dec = s[1];
+  if(int.length>=4) int = int.replace(/\B(?=(\d{3})+(?!\d))/g,'\u2009');
+  return dec ? int+','+dec : int;
+}
+function emCm(v,u){ return u==='km' ? v*100000 : u==='m' ? v*100 : v; }
+var PX = 54; // píxeis por "cm" desenhado
+
+/* Desenha uma escala gráfica em SVG
+   divs: n.º de divisões; val: valor real por divisão; u: unidade; cm: cm de papel por divisão */
+function escalaSVG(divs,val,u,cm){
+  var w = divs*cm*PX, m = 26, H = 96, y = 40;
+  var s = '<svg viewBox="0 0 '+(w+2*m+40)+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escala gráfica">';
+  for(var i=0;i<divs;i++){
+    s += '<rect x="'+(m+i*cm*PX)+'" y="'+y+'" width="'+(cm*PX)+'" height="13" fill="'+(i%2?'#fbf8f1':'#2b2a26')+'" stroke="#2b2a26" stroke-width="1.6"/>';
+  }
+  for(var j=0;j<=divs;j++){
+    var x = m+j*cm*PX, lab = fmt(+(j*val).toFixed(2)) + (j===divs?' '+u:'');
+    s += '<line x1="'+x+'" y1="'+(y-6)+'" x2="'+x+'" y2="'+(y+13)+'" stroke="#2b2a26" stroke-width="1.6"/>';
+    s += '<text x="'+x+'" y="'+(y-11)+'" font-family="IBM Plex Mono,Consolas,monospace" font-size="15" font-weight="600" text-anchor="'+(j===divs?'start':'middle')+'" '+(j===divs?'dx="-6"':'')+' fill="#2b2a26">'+lab+'</text>';
+  }
+  // chaveta com a medida da 1.ª divisão
+  var x1=m, x2=m+cm*PX, yb=y+22;
+  s += '<path d="M'+x1+' '+yb+' v6 H'+x2+' v-6" fill="none" stroke="#a8693a" stroke-width="1.6"/>';
+  s += '<text x="'+((x1+x2)/2)+'" y="'+(yb+24)+'" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#a8693a">'+fmt(cm)+' cm</text>';
+  return s+'</svg>';
+}
+
+function botao(id){ return '<button class="btnsol" aria-expanded="false" data-alvo="'+id+'">Mostrar solução</button>'; }
+
+/* ---------- A: gráfica → numérica ---------- */
+var A = [
+  {divs:5,val:2,  u:'km',cm:1},
+  {divs:4,val:500,u:'m', cm:1},
+  {divs:4,val:25, u:'km',cm:1},
+  {divs:3,val:10, u:'km',cm:2},
+  {divs:5,val:100,u:'km',cm:1},
+  {divs:4,val:250,u:'m', cm:1}
+];
+var hA='';
+A.forEach(function(e,i){
+  var tot = emCm(e.val,e.u), N = tot/e.cm, id='solA'+i;
+  var passos = '<p class="passo">1) Uma divisão mede <code>'+fmt(e.cm)+' cm</code> e representa <code>'+fmt(e.val)+' '+e.u+'</code>.</p>'+
+    '<p class="passo">2) '+fmt(e.val)+' '+e.u+' = <code>'+fmt(tot)+' cm</code>.</p>'+
+    (e.cm>1 ? '<p class="passo">3) '+fmt(e.cm)+' cm → '+fmt(tot)+' cm, logo 1 cm → '+fmt(tot)+' ÷ '+e.cm+' = <code>'+fmt(N)+' cm</code>.</p>' : '');
+  hA += '<div class="card"><div class="num">Exercício A'+(i+1)+' — escreve a escala numérica</div>'+
+    escalaSVG(e.divs,e.val,e.u,e.cm)+ botao(id)+
+    '<div class="sol" id="'+id+'"><div class="res">1 : '+fmt(N)+'</div>'+passos+'</div></div>';
+});
+document.getElementById('secA').innerHTML = hA;
+
+/* ---------- B: numérica → gráfica ---------- */
+var B = [100000, 25000, 50000, 1000000, 5000000, 20000];
+var hB='';
+B.forEach(function(N,i){
+  var u = N>=100000 ? 'km':'m', val = u==='km' ? N/100000 : N/100, divs = (val===1||val===10||val===50)?5:4, id='solB'+i;
+  var passos = '<p class="passo">1) 1 cm no mapa = <code>'+fmt(N)+' cm</code> na realidade.</p>'+
+    '<p class="passo">2) '+fmt(N)+' cm = <code>'+fmt(val)+' '+u+'</code>.</p>'+
+    '<p class="passo">3) Cada divisão de 1 cm vale '+fmt(val)+' '+u+'.</p>';
+  hB += '<div class="card"><div class="num">Exercício B'+(i+1)+' — desenha a escala gráfica</div>'+
+    '<div class="escnum">1 : '+fmt(N)+'</div>'+ botao(id)+
+    '<div class="sol" id="'+id+'">'+escalaSVG(divs,val,u,1)+passos+'</div></div>';
+});
+document.getElementById('secB').innerHTML = hB;
+
+/* ---------- C: problemas com contexto ---------- */
+var C = [
+  { ctx:'Visita de estudo',
+    txt:'<p>A turma vai fazer uma visita de estudo <b>a pé</b> até ao Palácio da Pena, na Serra de Sintra. Numa carta topográfica à escala <b>1 : 25 000</b>, a distância em linha reta entre a escola e o palácio mede <b>12 cm</b>.</p>',
+    q:['Qual é a distância real em linha reta, em km?',
+       'Como a estrada da serra tem muitas curvas, o caminho verdadeiro é 1,5 vezes maior do que a linha reta. Quantos km vão percorrer?',
+       'Sempre a subir, a turma anda a 3 km/h. Quanto tempo demora a chegar?'],
+    sol:['<code>12 × 25 000 = 300 000 cm = 3 km</code>',
+         '<code>3 × 1,5 = 4,5 km</code>',
+         '<code>4,5 ÷ 3 = 1,5 h</code> → <b>1 h 30 min</b>'] },
+  { ctx:'Viagem em Portugal',
+    txt:'<p>A Inês vai visitar os avós a Coimbra. Num mapa de Portugal à escala <b>1 : 2 000 000</b>, a distância em linha reta entre Lisboa e Coimbra mede cerca de <b>9 cm</b>.</p>',
+    q:['Qual é a distância real aproximada, em km?',
+       'O irmão dela tem outro mapa, à escala 1 : 4 000 000. Quantos cm medirá aí a mesma distância? Qual dos dois mapas tem maior escala?'],
+    sol:['<code>9 × 2 000 000 = 18 000 000 cm = 180 km</code>',
+         '<code>18 000 000 ÷ 4 000 000 = 4,5 cm</code>. O mapa da Inês (1 : 2 000 000) tem <b>maior escala</b>: o denominador é menor e mostra mais pormenor.'] },
+  { ctx:'Mobilidade sustentável',
+    txt:'<p>A Câmara Municipal vai construir uma nova ciclovia. No plano, à escala <b>1 : 50 000</b>, a ciclovia mede <b>14 cm</b>. O Tiago vai usá-la para ir de bicicleta para a escola e voltar para casa, todos os dias úteis.</p>',
+    q:['Qual é o comprimento real da ciclovia?',
+       'Quantos km pedala o Tiago por dia (ida e volta)?',
+       'E numa semana de aulas (5 dias)?'],
+    sol:['<code>14 × 50 000 = 700 000 cm = 7 km</code>',
+         '<code>7 × 2 = 14 km</code>',
+         '<code>14 × 5 = 70 km</code>'] },
+  { ctx:'Pedestrianismo',
+    txt:'<p>O folheto de um trilho pedestre tem a escala gráfica abaixo. O trilho tem dois troços: o primeiro mede <b>4,5 cm</b> no mapa e o segundo <b>6 cm</b>.</p>',
+    fig: escalaSVG(5,200,'m',1),
+    q:['Qual é o comprimento real do trilho, em metros e em km?',
+       'Escreve a escala numérica do folheto.'],
+    sol:['<code>4,5 + 6 = 10,5 cm</code>; 1 cm = 200 m → <code>10,5 × 200 = 2100 m = 2,1 km</code>',
+         '200 m = 20 000 cm → <b>1 : 20 000</b>'] },
+  { ctx:'Viagem às ilhas',
+    txt:'<p>A família do Rodrigo vai passar férias à Madeira, de avião. Num mapa à escala <b>1 : 10 000 000</b>, a distância entre Lisboa e o Funchal mede cerca de <b>9,7 cm</b>.</p>',
+    q:['Qual é a distância real aproximada, em km?',
+       'Se o avião voar a uma velocidade média de 800 km/h, quanto tempo dura, aproximadamente, o voo?'],
+    sol:['<code>9,7 × 10 000 000 = 97 000 000 cm = 970 km</code>',
+         '<code>970 ÷ 800 ≈ 1,21 h</code> → cerca de <b>1 h 13 min</b> (0,21 × 60 ≈ 13 min)'] }
+];
+var hC='';
+C.forEach(function(p,i){
+  var id='solC'+i, letras='abcdefg';
+  var qs = '<ol type="a">'+p.q.map(function(q){return '<li>'+q+'</li>';}).join('')+'</ol>';
+  var ss = p.sol.map(function(s,k){return '<p class="passo"><b>'+letras[k]+')</b> '+s+'</p>';}).join('');
+  hC += '<div class="card prob"><div class="num">Problema '+(i+1)+' · <span class="ctx">'+p.ctx+'</span></div>'+
+    p.txt+(p.fig||'')+qs+botao(id)+'<div class="sol" id="'+id+'">'+ss+'</div></div>';
+});
+document.getElementById('secC').innerHTML = hC;
+
+/* ---------- botões ---------- */
+function abrir(b,on){
+  var s=document.getElementById(b.getAttribute('data-alvo'));
+  s.classList.toggle('on',on);
+  b.setAttribute('aria-expanded',on);
+  b.textContent = on ? 'Esconder solução' : 'Mostrar solução';
+}
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('.btnsol'); if(!b) return;
+  abrir(b, b.getAttribute('aria-expanded')!=='true');
+});
+document.getElementById('todas').onclick=function(){document.querySelectorAll('.btnsol').forEach(function(b){abrir(b,true);});};
+document.getElementById('nenhuma').onclick=function(){document.querySelectorAll('.btnsol').forEach(function(b){abrir(b,false);});};
+</script>
+</body>
+</html>
