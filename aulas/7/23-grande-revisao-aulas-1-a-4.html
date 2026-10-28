@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grande Revisão · Aulas 1 a 4 · Geografia 7.º ano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F0E4; --paper-2:#FBF7EE; --card:#FFFDF8; --ink:#2C2723; --ink-soft:#5C5348; --ink-faint:#8A8072;
+  --water:#BFE0EA; --water-deep:#7FB6CA; --sea:#3E6E82; --low:#BFD3A0; --low2:#A9C489; --mid:#E7D6A2; --high:#D6AE76; --peak:#B07A4E;
+  --rust:#B5622E; --rust-deep:#8A4A22; --rust-soft:#EBD6C4; --line:#DCCFB6; --line-soft:#E9E0CD;
+  --good:#4E7A3E; --good-bg:#E4EFD8; --bad:#B23A2E; --bad-bg:#F4DFD9;
+  --serif:"Fraunces",Georgia,serif; --sans:"Atkinson Hyperlegible",Verdana,Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  --shadow:0 1px 0 #EFE6D2, 0 10px 28px -18px rgba(60,45,25,.5);
+}
+*{box-sizing:border-box}
+html{font-size:18px;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px 70px}
+a{color:var(--sea)}
+/* capa */
+.capa{background:linear-gradient(160deg,#3E6E82 0%,#4f86a8 45%,#6f9a5b 100%);color:#fff;padding:38px 16px 30px;margin:0 -16px 26px}
+.capa .in{max-width:1120px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.capa h1{font-family:var(--serif);font-weight:800;font-size:2.6rem;line-height:1.05;margin:8px 0 10px}
+.capa p{max-width:760px;margin:0 0 14px;font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-family:var(--mono);font-size:.78rem;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:3px 10px;border-radius:99px}
+/* barra fixa */
+.barra{position:sticky;top:0;z-index:20;background:rgba(246,240,228,.96);backdrop-filter:blur(4px);border-bottom:1px solid var(--line);margin:0 -16px 20px;padding:8px 16px}
+.barra .in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.barra a{font-family:var(--mono);font-size:.8rem;text-decoration:none;color:var(--ink);border:1.5px solid var(--line);background:var(--card);padding:4px 10px;border-radius:8px}
+.barra a:hover{border-color:var(--ink)}
+.barra .esp{flex:1}
+button{font-family:var(--sans);font-weight:700;font-size:.92rem;border:2px solid var(--ink);background:var(--card);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}
+button:hover{background:var(--ink);color:var(--paper)}
+button.prim{background:var(--ink);color:var(--paper)}
+button.prim:hover{background:var(--rust-deep);border-color:var(--rust-deep)}
+button.verde{border-color:var(--good);color:var(--good)}
+button.verde:hover{background:var(--good);color:#fff}
+/* secções */
+.sec{margin:46px 0 10px;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;border-bottom:3px double var(--ink);padding-bottom:10px;scroll-margin-top:60px}
+.sec .letra{font-family:var(--serif);font-weight:800;font-size:3rem;line-height:.9;color:var(--rust)}
+.sec h2{font-family:var(--serif);font-weight:800;font-size:1.9rem;margin:0;line-height:1.1}
+.sec .aula{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em}
+.relembra{background:var(--paper-2);border:1.5px solid var(--line);border-left:6px solid var(--sea);border-radius:0 12px 12px 0;padding:12px 16px;margin:16px 0}
+.relembra h4{margin:0 0 6px;font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sea)}
+.relembra ul{margin:4px 0;padding-left:20px}
+.relembra li{margin:2px 0}
+.relembra.cast{border-left-color:var(--rust)} .relembra.cast h4{color:var(--rust)}
+.relembra.verde{border-left-color:var(--good)} .relembra.verde h4{color:var(--good)}
+.nota-prof{font-size:.9rem;background:#fff6dc;border:1.5px dashed #d8b54a;border-radius:10px;padding:10px 14px;margin:12px 0}
+/* blocos */
+.bloco{background:var(--card);border:1.5px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px 18px 16px;margin:20px 0;scroll-margin-top:60px}
+.bloco-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.bloco .cod{font-family:var(--mono);font-weight:600;font-size:.82rem;background:var(--ink);color:var(--paper);padding:2px 9px;border-radius:6px}
+.bloco h3{font-family:var(--serif);font-weight:800;font-size:1.35rem;margin:0}
+.bloco .instr{color:var(--ink-soft);margin:6px 0 12px}
+.fig{margin:8px 0 14px;text-align:center}
+.fig svg{max-width:100%;height:auto;border-radius:10px;border:1.5px solid var(--line);background:#fff}
+.fig figcaption{font-size:.82rem;color:var(--ink-faint);margin-top:4px}
+.itens{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.itens.largo{grid-template-columns:1fr}
+.item{border:1.5px solid var(--line-soft);background:var(--paper-2);border-radius:11px;padding:11px 13px;display:flex;flex-direction:column;gap:7px}
+.item .q{margin:0}
+.item .q .n{font-family:var(--mono);font-weight:600;color:var(--rust);margin-right:6px}
+.item.ok{border-color:var(--good);background:var(--good-bg)}
+.item.no{border-color:var(--bad);background:var(--bad-bg)}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font-weight:400;font-size:.9rem;border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:5px 11px;border-radius:99px}
+.opt:hover{background:#fff;border-color:var(--ink);color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff;font-weight:700}
+.opt.certa{outline:3px solid var(--good);outline-offset:1px}
+.part-lbl{font-family:var(--mono);font-size:.75rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.06em}
+select,input[type=text]{font-family:var(--sans);font-size:.95rem;border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;background:#fff;color:var(--ink);max-width:100%}
+input[type=text]{width:9.5em;font-family:var(--mono)}
+.numrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.numrow .u{font-family:var(--mono);color:var(--ink-soft)}
+.sol{display:none;font-size:.9rem;background:#fff;border:1.5px dashed var(--good);border-radius:8px;padding:8px 11px}
+.sol.on{display:block;animation:surge .3s ease}
+.sol b{color:var(--good)}
+.sol .passo{font-family:var(--mono);font-size:.85rem;margin:2px 0}
+@keyframes surge{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.acoes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.res{font-family:var(--mono);font-weight:600;padding:5px 12px;border-radius:8px;background:var(--paper);display:none}
+.res.on{display:inline-block}
+/* fotos */
+.fotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.foto{margin:0;border-radius:10px;overflow:hidden;background:#e9e2d2;aspect-ratio:4/3;position:relative}
+.foto img{width:100%;height:100%;object-fit:cover;display:block}
+.foto .falha{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:.85rem;color:var(--ink-soft)}
+.cred{font-size:.72rem;color:var(--ink-faint);line-height:1.3}
+.cred a{color:var(--ink-faint)}
+/* resultado global */
+.global{background:var(--ink);color:var(--paper);border-radius:16px;padding:20px;margin-top:40px}
+.global h3{font-family:var(--serif);font-size:1.5rem;margin:0 0 10px}
+.global table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.88rem}
+.global td,.global th{border-bottom:1px solid #4a433c;padding:6px 8px;text-align:left}
+.global .grande{font-family:var(--serif);font-size:2.4rem;font-weight:800}
+/* treino */
+.treino{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.treino .card{background:var(--paper-2);border:1.5px solid var(--line);border-radius:12px;padding:14px}
+.treino .enun{font-size:1.15rem;margin:6px 0 12px}
+.placar{font-family:var(--mono);text-align:center;min-width:150px;background:var(--paper-2);border:1.5px solid var(--line);border-radius:12px;padding:12px}
+.placar b{display:block;font-family:var(--serif);font-size:2rem}
+.tipos{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+@media (max-width:700px){.barra{position:static}html{font-size:16.5px}.capa h1{font-size:2rem}.treino{grid-template-columns:1fr}.itens{grid-template-columns:1fr}}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:14px;font-size:.82rem;color:var(--ink-soft)}
+footer h4{font-family:var(--mono);text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;margin:10px 0 4px}
+footer ul{margin:0;padding-left:18px}
+.credito{font-family:var(--mono);font-size:.75rem;text-align:center;margin-top:16px;color:var(--ink-faint)}
+body.prof .sol{display:block}
+@media print{.barra,.acoes,button{display:none!important}.sol{display:block}.bloco{break-inside:avoid-page;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="capa"><div class="in">
+  <div class="eyebrow">Geografia · 7.º ano · A Terra: estudos e representações</div>
+  <h1>Grande Revisão — Aulas 1 a 4</h1>
+  <p>Muitos exercícios para rever a Geografia e a Terra, a paisagem, a cartografia e a escala. Responde, verifica e lê a correção. No fim tens um teste com nota de 0 a 20.</p>
+  <div class="chips"><span>A · Geografia e Terra</span><span>B · Paisagem</span><span>C · Cartografia</span><span>D · Escala</span><span>E · Teste final</span><span id="contagem">— exercícios</span></div>
+</div></header>
+
+<nav class="barra"><div class="in">
+  <a href="#secA">A · Terra</a><a href="#secB">B · Paisagem</a><a href="#secC">C · Cartografia</a><a href="#secD">D · Escala</a><a href="#treino">Treino sem fim</a><a href="#secE">E · Teste</a><a href="#global">Resultado</a>
+  <span class="esp"></span>
+  <button type="button" id="btnProf" aria-pressed="false">Mostrar todas as soluções</button>
+</div></nav>
+
+<div class="nota-prof"><b>Sugestão para 2 aulas:</b> 1.ª aula — secções A e B (paisagens e áreas homogéneas); 2.ª aula — secções C e D (escala) e o teste final E. O botão «Mostrar todas as soluções» serve para corrigir no quadro.</div>
+
+<div id="conteudo"></div>
+
+<section class="global" id="global">
+  <h3>O teu resultado global</h3>
+  <p style="margin:0 0 10px">Conta apenas os exercícios que já verificaste.</p>
+  <div class="grande" id="gNota">—</div>
+  <div id="gSub" style="font-family:var(--mono);margin-bottom:10px"></div>
+  <table><thead><tr><th>Exercício</th><th>Certas</th><th>%</th></tr></thead><tbody id="gTab"></tbody></table>
+</section>
+
+<footer>
+  <h4>Fontes</h4>
+  <ul>
+    <li>Aulas 1 a 4 de Geografia do 7.º ano (A Geografia e a Terra; A Paisagem; Cartografia e Representação do Espaço; A Escala).</li>
+    <li>DGE — <a href="https://www.dge.mec.pt/aprendizagens-essenciais-ensino-basico" target="_blank" rel="noopener">Aprendizagens Essenciais de Geografia, 3.º ciclo</a>.</li>
+    <li>Fotografias: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> — ficheiros com licença livre (Creative Commons ou domínio público). Autor e licença de cada foto na página do ficheiro (ligação por baixo de cada imagem). As fotos precisam de ligação à Internet.</li>
+    <li>Ilustrações das paisagens, vistas aéreas, mapa e escalas gráficas: desenhos originais em SVG.</li>
+  </ul>
+  <div class="credito">Powered by Claude IA &amp; Ideias&amp;Soltas — concepção de produtos multimédia</div>
+</footer>
+</div>
+
+<script>
+"use strict";
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+function fmt(n){ return Number(n).toLocaleString("pt-PT",{maximumFractionDigits:3}); }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+/* lê um número; "kind" converte unidades escritas pelo aluno */
+function lerNum(raw, kind){
+  if(raw==null) return NaN;
+  var t=String(raw).toLowerCase().replace(/\s| /g,"");
+  /* pontos: separador de milhares (25.000) se houver vírgula ou grupos de 3; senão, decimal (0.5) */
+  /* aceita "1:25000" no denominador */
+  if(kind==="den"){ t=t.replace(/^1[:\/]/,""); }
+  if(t.indexOf(",")>=0 || /^[1-9]\d{0,2}(\.\d{3})+(\D*)$/.test(t)) t=t.replace(/\./g,"");
+  else t=t.replace(/\./g,",");
+  var fator=1;
+  if(kind==="km"){
+    if(/km$/.test(t)){ t=t.replace(/km$/,""); }
+    else if(/cm$/.test(t)){ t=t.replace(/cm$/,""); fator=1/100000; }
+    else if(/m$/.test(t)){ t=t.replace(/m$/,""); fator=1/1000; }
+  } else if(kind==="cm"){
+    if(/mm$/.test(t)){ t=t.replace(/mm$/,""); fator=0.1; }
+    else if(/cm$/.test(t)){ t=t.replace(/cm$/,""); }
+  }
+  t=t.replace(",",".");
+  if(t==="") return NaN;
+  var n=Number(t);
+  return isNaN(n)?NaN:n*fator;
+}
+var FP=function(nome,w){ return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(nome)+"?width="+(w||900); };
+var PG=function(nome){ return "https://commons.wikimedia.org/wiki/File:"+encodeURIComponent(nome.replace(/ /g,"_")); };
+
+/* =========================================================
+   FIGURAS SVG (desenhos originais)
+   ========================================================= */
+function marca(x,y,n){ return '<g><circle cx="'+x+'" cy="'+y+'" r="15" fill="#2C2723" stroke="#fff" stroke-width="2.5"/><text x="'+x+'" y="'+(y+5.5)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="16" fill="#fff">'+n+'</text></g>'; }
+function casa(x,y,w,h,cor){ cor=cor||"#fbf7ee"; return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+cor+'" stroke="#6b5f52" stroke-width="1"/><path d="M'+(x-2)+' '+y+' L'+(x+w/2)+' '+(y-h*0.6)+' L'+(x+w+2)+' '+y+' Z" fill="#B5622E"/>'; }
+
+function svgPlanos(){
+  var s='<svg viewBox="0 0 800 460" role="img" aria-label="Esboço de uma paisagem com elementos numerados de 1 a 9">';
+  s+='<defs><linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6f0"/><stop offset="1" stop-color="#f1f7f8"/></linearGradient></defs>';
+  s+='<rect width="800" height="460" fill="url(#ceu)"/>';
+  /* 3.º plano: serra */
+  s+='<path d="M0 205 L0 150 L90 108 L160 140 L250 66 L340 128 L430 92 L525 150 L610 80 L705 128 L800 100 L800 205 Z" fill="#9fb3a6"/>';
+  s+='<path d="M230 84 L250 66 L270 82 L258 80 L250 88 L242 80 Z" fill="#fff" opacity=".9"/>';
+  var fl=[[300,150],[318,160],[336,152],[354,165],[372,156],[390,168],[560,150],[578,160],[596,148],[614,162],[632,152],[650,166],[668,156]];
+  fl.forEach(function(p){ s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="11" fill="#5e7f55"/>'; });
+  /* 2.º plano */
+  s+='<rect x="0" y="200" width="800" height="135" fill="#cfdca8"/>';
+  var cores=["#e7d6a2","#bfd3a0","#d9c27c","#a9c489","#e2cf8f","#c4d69c"];
+  for(var i=0;i<8;i++){ var x=i*100; s+='<path d="M'+x+' 206 L'+(x+96)+' 206 L'+(x+92)+' 238 L'+(x-4)+' 238 Z" fill="'+cores[i%6]+'" stroke="#b9ab7f" stroke-width="1"/>'; }
+  s+='<path d="M800 236 C 640 250, 560 300, 420 288 S 160 300, 0 318" fill="none" stroke="#7FB6CA" stroke-width="20"/>';
+  /* ponte */
+  s+='<rect x="400" y="270" width="70" height="10" fill="#8A4A22"/><path d="M405 280 Q 418 268 431 280 M440 280 Q 453 268 466 280" fill="none" stroke="#8A4A22" stroke-width="4"/>';
+  /* aldeia */
+  [[560,246],[584,240],[608,248],[632,242],[596,262],[620,264],[650,256]].forEach(function(p){ s+=casa(p[0],p[1],18,14); });
+  s+='<rect x="672" y="226" width="10" height="34" fill="#fbf7ee" stroke="#6b5f52"/><path d="M670 226 L677 214 L684 226 Z" fill="#B5622E"/>';
+  /* 1.º plano */
+  s+='<rect x="0" y="330" width="800" height="130" fill="#a9c489"/>';
+  s+='<path d="M330 460 L392 332 L420 332 L540 460 Z" fill="#8d8a84"/><path d="M406 340 L432 460" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>';
+  s+=casa(80,372,130,72,"#fbf7ee");
+  s+='<rect x="128" y="404" width="22" height="40" fill="#8A4A22"/><rect x="92" y="390" width="24" height="20" fill="#BFE0EA" stroke="#6b5f52"/><rect x="168" y="390" width="24" height="20" fill="#BFE0EA" stroke="#6b5f52"/>';
+  s+='<path d="M220 440 L320 440" stroke="#8A4A22" stroke-width="3"/>';
+  for(var k=0;k<6;k++){ s+='<line x1="'+(222+k*19)+'" y1="424" x2="'+(222+k*19)+'" y2="446" stroke="#8A4A22" stroke-width="3"/>'; }
+  s+='<rect x="652" y="370" width="16" height="70" fill="#7a5233"/><circle cx="660" cy="350" r="48" fill="#4E7A3E"/><circle cx="628" cy="370" r="30" fill="#5e8a4a"/><circle cx="694" cy="372" r="30" fill="#5e8a4a"/>';
+  /* marcas */
+  s+=marca(52,404,1)+marca(735,330,2)+marca(470,420,3)+marca(150,300,4)+marca(436,250,5)+marca(60,222,6)+marca(612,212,7)+marca(370,128,8)+marca(610,62,9);
+  s+='</svg>';
+  return s;
+}
+
+function svgAreasA(){
+  var s='<svg viewBox="0 0 800 520" role="img" aria-label="Vista aérea esquemática com áreas assinaladas com letras">';
+  s+='<rect width="800" height="520" fill="#dfe6c7"/>';
+  /* mar e praia */
+  s+='<rect x="0" y="0" width="100" height="520" fill="#7FB6CA"/>';
+  for(var y=20;y<520;y+=34){ s+='<path d="M14 '+y+' q12 -7 24 0 t24 0" fill="none" stroke="#dcefF4" stroke-width="2"/>'; }
+  s+='<rect x="100" y="0" width="42" height="520" fill="#efe0b0"/>';
+  for(var y2=14;y2<520;y2+=28){ s+='<path d="M108 '+y2+' q8 -6 16 0" fill="none" stroke="#d6c287" stroke-width="2"/>'; }
+  /* A urbana */
+  s+='<rect x="142" y="0" width="266" height="246" fill="#d9d4cc"/>';
+  for(var gx=150;gx<400;gx+=30){ for(var gy=8;gy<236;gy+=28){ s+='<rect x="'+gx+'" y="'+gy+'" width="22" height="20" fill="#9a948c"/>'; } }
+  s+='<rect x="270" y="90" width="52" height="46" fill="#a9c489"/>';
+  /* F rural disperso */
+  s+='<rect x="408" y="0" width="196" height="246" fill="#cfdca8"/>';
+  [[408,0,98,80,"#e7d6a2"],[506,0,98,120,"#bfd3a0"],[408,80,98,90,"#c4d69c"],[506,120,98,126,"#e2cf8f"],[408,170,98,76,"#d9c27c"]].forEach(function(r){ s+='<rect x="'+r[0]+'" y="'+r[1]+'" width="'+r[2]+'" height="'+r[3]+'" fill="'+r[4]+'" stroke="#b9ab7f"/>'; });
+  [[440,40],[560,70],[470,140],[540,190],[580,30],[450,210]].forEach(function(p){ s+=casa(p[0],p[1],14,11); });
+  /* D floresta */
+  s+='<rect x="604" y="0" width="196" height="246" fill="#6f9a5b"/>';
+  for(var fx=616;fx<800;fx+=24){ for(var fy=12;fy<240;fy+=24){ s+='<circle cx="'+(fx+((fy/24)%2)*8)+'" cy="'+fy+'" r="10" fill="#4E7A3E"/>'; } }
+  /* B industrial */
+  s+='<rect x="142" y="284" width="258" height="236" fill="#cdc7d6"/>';
+  [[156,300,100,60],[270,300,110,44],[156,380,70,110],[240,360,140,50]].forEach(function(r){ s+='<rect x="'+r[0]+'" y="'+r[1]+'" width="'+r[2]+'" height="'+r[3]+'" fill="#8a83a0" stroke="#5f5874"/>'; });
+  [[270,452],[310,452],[350,452],[290,490],[330,490]].forEach(function(p){ s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="15" fill="#e8e4ef" stroke="#5f5874" stroke-width="2"/>'; });
+  s+='<rect x="210" y="430" width="10" height="40" fill="#5f5874"/>';
+  /* C agrícola */
+  s+='<rect x="400" y="284" width="400" height="236" fill="#e7d6a2"/>';
+  var cc=["#e7d6a2","#bfd3a0","#d9c27c","#a9c489","#e2cf8f","#c4d69c","#d6ae76"];
+  var idx=0;
+  for(var ax=400;ax<800;ax+=80){ for(var ay=284;ay<520;ay+=59){ s+='<rect x="'+ax+'" y="'+ay+'" width="80" height="59" fill="'+cc[(idx++)%7]+'" stroke="#b9ab7f"/>'; } }
+  for(var ln=412;ln<790;ln+=10){ s+='<line x1="'+ln+'" y1="290" x2="'+ln+'" y2="337" stroke="#b49a5a" stroke-width="1" opacity=".5"/>'; }
+  /* E rio */
+  s+='<path d="M142 265 C 300 240, 420 290, 560 262 S 740 245, 800 258" fill="none" stroke="#7FB6CA" stroke-width="30"/>';
+  s+='<path d="M100 250 L142 252 L142 278 L100 282 Z" fill="#7FB6CA"/>';
+  /* estrada e ponte */
+  s+='<rect x="402" y="0" width="12" height="520" fill="#8d8a84"/><line x1="408" y1="0" x2="408" y2="520" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"/>';
+  s+='<rect x="396" y="246" width="24" height="38" fill="#6b6762"/>';
+  /* letras */
+  s+=marca(276,170,"A")+marca(270,340,"B")+marca(600,400,"C")+marca(702,120,"D")+marca(500,268,"E")+marca(506,98,"F")+marca(121,410,"G")+marca(50,150,"H");
+  s+='</svg>';
+  return s;
+}
+
+function svgAreasB(){
+  var s='<svg viewBox="0 0 800 520" role="img" aria-label="Vista aérea esquemática de um vale do interior com áreas assinaladas">';
+  s+='<rect width="800" height="520" fill="#dfe6c7"/>';
+  /* F mato */
+  s+='<rect x="430" y="0" width="370" height="200" fill="#c9c08f"/>';
+  [[460,30],[520,70],[600,40],[680,90],[740,30],[500,150],[640,160],[760,140],[560,120],[700,180],[470,100]].forEach(function(p){ s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="#8c8a4e"/><circle cx="'+(p[0]+10)+'" cy="'+(p[1]+4)+'" r="5" fill="#9b985a"/>'; });
+  /* A albufeira */
+  s+='<path d="M40 40 C 120 10, 260 20, 330 60 C 390 95, 400 160, 372 196 C 330 210, 280 170, 220 175 C 150 182, 70 160, 46 120 C 30 92, 26 60, 40 40 Z" fill="#7FB6CA"/>';
+  /* B barragem */
+  s+='<path d="M346 190 Q 372 214 404 204" fill="none" stroke="#7d7a75" stroke-width="12" stroke-linecap="round"/>';
+  /* rio */
+  s+='<path d="M392 214 C 410 260, 380 300, 420 340 S 440 440, 470 520" fill="none" stroke="#7FB6CA" stroke-width="12"/>';
+  /* E eucaliptal (plantação regular) */
+  s+='<rect x="0" y="240" width="370" height="280" fill="#b7cd98"/>';
+  for(var ex=16;ex<370;ex+=22){ for(var ey=256;ey<520;ey+=22){ s+='<circle cx="'+ex+'" cy="'+ey+'" r="7" fill="#3f6b3a"/>'; } }
+  /* D socalcos */
+  s+='<rect x="630" y="210" width="170" height="310" fill="#a9c489"/>';
+  for(var sy=220;sy<520;sy+=18){ s+='<path d="M630 '+sy+' Q 715 '+(sy-10)+' 800 '+sy+'" fill="none" stroke="#6f8f4f" stroke-width="5"/>'; }
+  /* C aldeia */
+  [[480,270],[504,262],[528,272],[552,264],[492,296],[516,300],[540,292],[566,300],[504,326],[530,330],[556,322],[586,280]].forEach(function(p){ s+=casa(p[0],p[1],18,14); });
+  s+='<rect x="590" y="306" width="12" height="36" fill="#fbf7ee" stroke="#6b5f52"/><path d="M588 306 L596 292 L604 306 Z" fill="#B5622E"/>';
+  /* estrada */
+  s+='<path d="M0 230 C 160 226, 300 232, 460 250 S 600 360, 620 520" fill="none" stroke="#8d8a84" stroke-width="9"/>';
+  s+='<path d="M620 250 C 640 200, 700 150, 800 120" fill="none" stroke="#8d8a84" stroke-width="7"/>';
+  s+=marca(200,100,"A")+marca(380,236,"B")+marca(540,240,"C")+marca(716,420,"D")+marca(180,400,"E")+marca(620,80,"F");
+  s+='</svg>';
+  return s;
+}
+
+function svgMapaElementos(){
+  var s='<svg viewBox="0 0 640 420" role="img" aria-label="Mapa de uma ilha fictícia com cinco elementos numerados">';
+  s+='<rect width="640" height="420" fill="#fbf7ee"/><rect x="10" y="10" width="620" height="400" fill="none" stroke="#2C2723" stroke-width="2"/>';
+  s+='<text x="320" y="44" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="800" font-size="22" fill="#2C2723">Ilha da Revisão — Uso do solo</text>';
+  s+='<rect x="30" y="60" width="430" height="300" fill="#BFE0EA"/>';
+  s+='<path d="M90 140 C 120 90, 220 80, 280 100 C 350 120, 420 140, 410 210 C 400 280, 330 330, 240 320 C 160 312, 90 290, 80 230 C 74 190, 76 165, 90 140 Z" fill="#BFD3A0" stroke="#5C5348" stroke-width="1.5"/>';
+  s+='<path d="M170 140 C 200 120, 260 125, 270 160 C 280 200, 230 220, 190 205 C 160 192, 150 160, 170 140 Z" fill="#4E7A3E"/>';
+  s+='<path d="M290 220 C 320 210, 370 220, 370 250 C 370 280, 320 290, 300 272 C 282 258, 276 230, 290 220 Z" fill="#E7D6A2"/>';
+  s+='<rect x="200" y="250" width="40" height="30" fill="#9a948c"/>';
+  /* rosa dos ventos */
+  s+='<g transform="translate(410,100)"><path d="M0 -34 L8 0 L0 34 L-8 0 Z" fill="#2C2723"/><path d="M-34 0 L0 -8 L34 0 L0 8 Z" fill="#8A8072"/><text x="0" y="-40" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="14">N</text></g>';
+  /* legenda */
+  s+='<rect x="480" y="70" width="135" height="150" fill="#fff" stroke="#2C2723"/><text x="492" y="92" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="13">Legenda</text>';
+  [["#4E7A3E","Floresta",112],["#E7D6A2","Agricultura",142],["#9a948c","Cidade",172],["#BFE0EA","Mar",202]].forEach(function(l){ s+='<rect x="492" y="'+(l[2]-11)+'" width="18" height="14" fill="'+l[0]+'" stroke="#5C5348"/><text x="518" y="'+l[2]+'" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-size="13">'+l[1]+'</text>'; });
+  /* escala */
+  s+='<g transform="translate(40,382)"><rect x="0" y="0" width="60" height="8" fill="#2C2723"/><rect x="60" y="0" width="60" height="8" fill="#fff" stroke="#2C2723"/><rect x="120" y="0" width="60" height="8" fill="#2C2723"/>';
+  s+='<text x="0" y="-5" font-family="IBM Plex Mono,monospace" font-size="11">0</text><text x="56" y="-5" font-family="IBM Plex Mono,monospace" font-size="11">2</text><text x="116" y="-5" font-family="IBM Plex Mono,monospace" font-size="11">4</text><text x="172" y="-5" font-family="IBM Plex Mono,monospace" font-size="11">6 km</text></g>';
+  s+='<text x="615" y="398" text-anchor="end" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-size="12" fill="#5C5348">Fonte: dados fictícios, 2026</text>';
+  s+=marca(80,40,1)+marca(370,100,2)+marca(598,240,3)+marca(282,386,4)+marca(420,394,5);
+  s+='</svg>';
+  return s;
+}
+
+/* escala gráfica: nDiv divisões, cada uma com "cmDiv" cm e valor "val" na unidade "un" */
+function svgBarra(nDiv,cmDiv,val,un){
+  var w=cmDiv===2?110:70, x0=20, s='<svg viewBox="0 0 '+(x0*2+w*nDiv+40)+' 74" role="img" aria-label="Escala gráfica">';
+  for(var i=0;i<nDiv;i++){
+    s+='<rect x="'+(x0+i*w)+'" y="22" width="'+w+'" height="12" fill="'+(i%2?"#fff":"#2C2723")+'" stroke="#2C2723" stroke-width="1.5"/>';
+    s+='<text x="'+(x0+i*w+w/2)+'" y="54" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#B5622E">'+cmDiv+' cm</text>';
+    s+='<line x1="'+(x0+i*w+4)+'" y1="44" x2="'+(x0+(i+1)*w-4)+'" y2="44" stroke="#B5622E" stroke-width="1"/>';
+  }
+  for(var j=0;j<=nDiv;j++){
+    var lab=fmt(val*j)+(j===nDiv?" "+un:"");
+    s+='<text x="'+(x0+j*w)+'" y="16" text-anchor="'+(j===nDiv?"start":"middle")+'" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="13" fill="#2C2723">'+lab+'</text>';
+  }
+  s+='</svg>';
+  return s;
+}
+
+/* =========================================================
+   OPÇÕES COMUNS
+   ========================================================= */
+var VF=["Verdadeiro","Falso"];
+var ETAPAS=["Observação","Localização","Descrição","Interpretação"];
+var OBS=["Direta","Indireta"];
+var NH=["Natural","Humano"];
+var PAIS=["Natural","Urbana","Rural","Agrária","Industrial"];
+var PLANOS=["1.º plano","2.º plano","3.º plano"];
+var ESC=["Pequena escala","Média escala","Grande escala"];
+function S(o,a){ return {t:"sel",o:o,a:a}; }
+function N(a,kind,u){ return {t:"num",a:a,kind:kind,u:u}; }
+function I(q,parts,sol,extra){ var it={q:q,parts:Array.isArray(parts)?parts:[parts],sol:sol}; if(extra){ for(var k in extra) it[k]=extra[k]; } return it; }
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+var SECOES=[
+/* ---------------- A ---------------- */
+{id:"secA",letra:"A",aula:"Aula 1",titulo:"A Geografia e a Terra",
+ relembra:'<div class="relembra"><h4>Relembra</h4><ul><li><b>Geografia</b> = GEO (Terra) + GRAFIA (descrição): a «descrição da Terra». Dois ramos: <b>Física</b> (elementos naturais) e <b>Humana</b> (ação das pessoas).</li><li><b>Método</b>: Observação (O quê?) → Localização (Onde?) → Descrição (Como?) → Interpretação (Porquê?).</li><li><b>Observação direta</b> (no local, <i>in loco</i>) e <b>indireta</b> (fotografias, mapas, satélite, estatísticas).</li><li><b>6 continentes</b>: Ásia &gt; América &gt; África &gt; Antártida &gt; Europa &gt; Oceânia. <b>5 oceanos</b>: Pacífico &gt; Atlântico &gt; Índico &gt; Glacial Antártico &gt; Glacial Ártico.</li></ul></div>',
+ blocos:[
+  {cod:"A1",titulo:"Completa as frases",instr:"Escolhe a palavra que completa cada frase.",itens:[
+    I("A palavra Geografia significa «______ da Terra».",S(["medição","descrição","história","viagem"],1),"GEO = Terra; GRAFIA = descrição."),
+    I("O relevo, o clima e os rios são estudados pela Geografia ______.",S(["Física","Humana"],0),"São elementos naturais → Geografia Física."),
+    I("A população, as cidades e a indústria são estudadas pela Geografia ______.",S(["Física","Humana"],1),"Resultam da ação das pessoas → Geografia Humana."),
+    I("A agricultura é um tema da Geografia ______.",S(["Física","Humana"],1),"A agricultura é uma atividade humana."),
+    I("A vegetação natural é um tema da Geografia ______.",S(["Física","Humana"],0),"A vegetação natural é um elemento natural."),
+    I("A Geografia apoia-se noutras ciências, chamadas ciências de ______.",S(["apoio","ficção","computação"],0),"São as ciências de apoio (ou auxiliares).")
+  ]},
+  {cod:"A2",titulo:"Ciências de apoio à Geografia",instr:"Qual é a ciência que estuda cada assunto?",itens:(function(){
+    var C=["Cartografia","Geologia","Geomorfologia","Climatologia","Hidrologia","Oceanografia","Demografia","Economia","História","Estatística"];
+    return [
+      I("A elaboração de mapas e cartas.",S(C,0),"Cartografia."),
+      I("As rochas, os minerais e os sismos.",S(C,1),"Geologia — composição e estrutura da Terra."),
+      I("As formas do relevo e como se formam e alteram.",S(C,2),"Geomorfologia."),
+      I("O clima de uma região.",S(C,3),"Climatologia (o estado do tempo é a Meteorologia)."),
+      I("Os rios e os lagos.",S(C,4),"Hidrologia."),
+      I("Os mares e os oceanos.",S(C,5),"Oceanografia."),
+      I("O crescimento, a distribuição e as migrações da população.",S(C,6),"Demografia."),
+      I("As atividades económicas e a distribuição dos recursos.",S(C,7),"Economia."),
+      I("Os acontecimentos ao longo do tempo que ajudam a explicar as paisagens.",S(C,8),"História."),
+      I("O tratamento e a análise de dados numéricos sobre o território.",S(C,9),"Estatística.")
+    ];})()},
+  {cod:"A3",titulo:"O método geográfico: que etapa é?",instr:"Cada frase foi escrita por um aluno numa saída de campo. A que etapa do método pertence?",itens:[
+    I("«Vejo uma aldeia, campos e um rio.»",S(ETAPAS,0),"Observação — responde a «O quê?»."),
+    I("«Fica no concelho de Sintra, perto da serra.»",S(ETAPAS,1),"Localização — responde a «Onde?»."),
+    I("«O relevo é ondulado e as casas são de pedra, com telhados vermelhos.»",S(ETAPAS,2),"Descrição — responde a «Como?»."),
+    I("«As casas concentram-se junto ao rio porque aí há água e solos férteis.»",S(ETAPAS,3),"Interpretação — explica «Porquê?»."),
+    I("«Situa-se a 38° N e 9° W.»",S(ETAPAS,1),"Coordenadas → Localização."),
+    I("«O que estou a observar?»",S(ETAPAS,0),"É a pergunta da Observação."),
+    I("«A vegetação é rasteira e os campos estão divididos em pequenas parcelas.»",S(ETAPAS,2),"Caracteriza a paisagem → Descrição."),
+    I("«A vila cresceu aqui por causa da estrada nacional e do comboio.»",S(ETAPAS,3),"Dá uma razão → Interpretação."),
+    I("«A fotografia foi tirada no vale do Douro, no Norte de Portugal.»",S(ETAPAS,1),"Diz onde → Localização."),
+    I("«Há poucas árvores porque o terreno foi desbravado para a agricultura.»",S(ETAPAS,3),"Explica uma causa → Interpretação.")
+  ]},
+  {cod:"A4",titulo:"A ordem do método",instr:"Escolhe a etapa que corresponde a cada posição.",itens:[
+    I("1.ª etapa",S(ETAPAS,0),"Observação (O quê?)."),
+    I("2.ª etapa",S(ETAPAS,1),"Localização (Onde?)."),
+    I("3.ª etapa",S(ETAPAS,2),"Descrição (Como?)."),
+    I("4.ª etapa",S(ETAPAS,3),"Interpretação (Porquê?).")
+  ]},
+  {cod:"A5",titulo:"Observação direta ou indireta?",instr:"Classifica cada situação.",itens:[
+    I("Visita de estudo à Serra de Sintra para observar a vegetação.",S(OBS,0),"No local → direta."),
+    I("Explorar a tua localidade no Google Earth.",S(OBS,1),"À distância, com imagens → indireta."),
+    I("Entrevistar agricultores no próprio campo.",S(OBS,0),"Entrevistas no local → direta."),
+    I("Analisar um mapa de Portugal no manual.",S(OBS,1),"Mapa → indireta."),
+    I("Ver fotografias antigas da cidade.",S(OBS,1),"Fotografias → indireta."),
+    I("Saída de campo à praia para observar as arribas.",S(OBS,0),"Saída de campo → direta."),
+    I("Consultar estatísticas da população do INE.",S(OBS,1),"Estatísticas → indireta."),
+    I("Percorrer o centro histórico a registar os edifícios.",S(OBS,0),"No local → direta."),
+    I("Ver um documentário sobre a Amazónia.",S(OBS,1),"Filme → indireta."),
+    I("Observar uma imagem de satélite de um incêndio.",S(OBS,1),"Imagem de satélite → indireta.")
+  ]},
+  {cod:"A6",titulo:"Continentes: do maior para o menor",instr:"Indica a posição de cada continente (1 = maior; 6 = menor).",itens:(function(){
+    var P=["1.º","2.º","3.º","4.º","5.º","6.º"];
+    return [
+      I("Ásia (≈ 44,6 milhões km²)",S(P,0),"A Ásia é o maior continente."),
+      I("América (≈ 42,5 milhões km²)",S(P,1),"2.º lugar."),
+      I("África (≈ 30,3 milhões km²)",S(P,2),"3.º lugar."),
+      I("Antártida (≈ 14 milhões km²)",S(P,3),"4.º — é maior do que a Europa!"),
+      I("Europa (≈ 10,2 milhões km²)",S(P,4),"5.º lugar."),
+      I("Oceânia (≈ 8,5 milhões km²)",S(P,5),"A Oceânia é o menor continente.")
+    ];})()},
+  {cod:"A7",titulo:"Oceanos: do maior para o menor",instr:"Indica a posição de cada oceano (1 = maior; 5 = menor).",itens:(function(){
+    var P=["1.º","2.º","3.º","4.º","5.º"];
+    return [
+      I("Oceano Atlântico (≈ 85 milhões km²)",S(P,1),"2.º lugar."),
+      I("Oceano Glacial Ártico (≈ 14 milhões km²)",S(P,4),"É o menor oceano."),
+      I("Oceano Pacífico (≈ 165 milhões km²)",S(P,0),"É o maior oceano."),
+      I("Oceano Glacial Antártico (≈ 20 milhões km²)",S(P,3),"4.º lugar."),
+      I("Oceano Índico (≈ 70 milhões km²)",S(P,2),"3.º lugar.")
+    ];})()},
+  {cod:"A8",titulo:"Verdadeiro ou falso — continentes e oceanos",instr:"Lê com atenção cada afirmação.",itens:[
+    I("A Terra tem seis continentes e cinco oceanos.",S(VF,0),"Verdadeiro."),
+    I("A Europa é o menor continente.",S(VF,1),"Falso: o menor é a Oceânia."),
+    I("O Atlântico é o maior oceano.",S(VF,1),"Falso: o maior é o Pacífico."),
+    I("A Antártida é maior do que a Europa.",S(VF,0),"Verdadeiro: ≈ 14 contra ≈ 10,2 milhões km²."),
+    I("África é maior do que a América.",S(VF,1),"Falso: a América (≈ 42,5) é maior do que África (≈ 30,3)."),
+    I("O Oceano Índico é maior do que o Atlântico.",S(VF,1),"Falso: Atlântico ≈ 85; Índico ≈ 70 milhões km²."),
+    I("Portugal fica na Europa e é banhado pelo Oceano Atlântico.",S(VF,0),"Verdadeiro."),
+    I("Um oceano é uma grande massa de água doce.",S(VF,1),"Falso: é uma grande massa de água salgada."),
+    I("Um continente é uma grande extensão de terra emersa.",S(VF,0),"Verdadeiro.")
+  ]},
+  {cod:"A9",titulo:"Que oceano separa…?",instr:"Escolhe o oceano.",itens:(function(){
+    var O=["Pacífico","Atlântico","Índico","Glacial Ártico","Glacial Antártico"];
+    return [
+      I("…a Europa e a África da América?",S(O,1),"O Atlântico."),
+      I("…a Ásia e a Oceânia da América?",S(O,0),"O Pacífico."),
+      I("…a África da Oceânia?",S(O,2),"O Índico."),
+      I("Qual rodeia a Antártida?",S(O,4),"O Glacial Antártico."),
+      I("Qual fica à volta do Polo Norte?",S(O,3),"O Glacial Ártico.")
+    ];})()}
+ ]},
+
+/* ---------------- B ---------------- */
+{id:"secB",letra:"B",aula:"Aula 2",titulo:"A Paisagem",
+ relembra:'<div class="relembra verde"><h4>Relembra</h4><ul><li><b>Paisagem</b>: área da superfície terrestre que observamos a partir de um lugar, com elementos <b>naturais</b> e/ou <b>humanos</b>. Está sempre em mudança.</li><li><b>Paisagem natural</b>: sem intervenção humana visível (desertos, Antártida, florestas densas). <b>Paisagem humanizada</b>: com marcas do ser humano.</li><li>Tipos de paisagem humanizada: <b>urbana</b> (cidade; maior grau de humanização), <b>rural</b> (campo, agricultura, pecuária, povoamento disperso), <b>agrária</b> (dominada pelos campos de cultura — um tipo de rural) e <b>industrial</b> (fábricas, armazéns).</li><li><b>Planos de observação</b>: 1.º (mais perto, mais pormenor), 2.º (intermédio), 3.º (fundo).</li><li><b>Unidade de paisagem</b>: área <b>homogénea</b> quanto ao uso do solo, povoamento, vegetação… Várias unidades → paisagem <b>multifuncional</b>.</li></ul></div>',
+ blocos:[
+  {cod:"B1",titulo:"Que paisagem é esta? (fotografias reais)",instr:"Observa cada fotografia e classifica a paisagem: natural ou humanizada — e, se for humanizada, de que tipo.",fotos:true,itens:[
+    I("Foto 1",S(PAIS,0),"Dunas do deserto do Saara (Erg Chebbi, Marrocos): só elementos naturais → paisagem natural.",{img:"Erg Chebbi in the evening light.jpg",alt:"Dunas de areia no deserto"}),
+    I("Foto 2",S(PAIS,1),"Lisboa vista do ar: grande densidade de edifícios e ruas → paisagem urbana (maior grau de humanização).",{img:"Lisbon aerial view 2017-04 --2.jpg",alt:"Vista aérea de Lisboa"}),
+    I("Foto 3",S(PAIS,3),"Vinhas em socalcos no vale do Douro: domina o espaço cultivado (socalcos, parcelas) → paisagem agrária.",{img:"Terraced vineyards in the douro valley.jpg",alt:"Vinhas em socalcos no Douro"}),
+    I("Foto 4",S(PAIS,4),"Porto de Sines e o complexo industrial: armazéns, tanques e instalações de produção → paisagem industrial.",{img:"PortofSinesGeral.jpg",alt:"Porto e zona industrial de Sines"}),
+    I("Foto 5",S(PAIS,0),"Glaciar na Península Antártica: gelo e montanhas, sem intervenção humana → paisagem natural.",{img:"Glacier in Antarctica, Antarctic Peninsula.JPG",alt:"Glaciar na Antártida"}),
+    I("Foto 6",S(PAIS,2),"Aldeia do Piódão (Arganil): pequena aldeia de xisto no campo, rodeada de natureza → paisagem rural.",{img:"Aldeia de Piodão.jpg",alt:"Aldeia do Piódão"}),
+    I("Foto 7",S(PAIS,3),"Arrozais da Comporta: grandes campos de cultura com canais de rega → paisagem agrária.",{img:"Comporta Rice Fields.JPG",alt:"Campos de arroz na Comporta"}),
+    I("Foto 8",S(PAIS,0),"Floresta amazónica vista do ar: floresta densa e intacta → paisagem natural.",{img:"Aerial view of the Amazon Rainforest.jpg",alt:"Floresta amazónica vista do ar"}),
+    I("Foto 9",S(PAIS,2),"Montado alentejano: sobreiros/azinheiras com pastagens e cereal — agricultura, pecuária e silvicultura, pouca construção → paisagem rural.",{img:"Alentejo montado02.JPG",alt:"Montado no Alentejo"}),
+    I("Foto 10",S(PAIS,1),"Baixa de Lisboa e o Tejo: edifícios, praças e ruas → paisagem urbana.",{img:"Lisboa, Vista sobre a Baixa e Tejo.jpg",alt:"Baixa de Lisboa e rio Tejo"})
+  ]},
+  {cod:"B2",titulo:"Elemento natural ou humano?",instr:"Classifica cada elemento da paisagem. Atenção às «rasteiras»!",itens:[
+    I("Montanha",S(NH,0),"Natural."),I("Ponte",S(NH,1),"Humano."),I("Rio",S(NH,0),"Natural."),I("Autoestrada",S(NH,1),"Humano."),
+    I("Floresta natural",S(NH,0),"Natural."),I("Eucaliptal plantado",S(NH,1),"Humano: foi plantado pelo ser humano."),
+    I("Barragem",S(NH,1),"Humano."),I("Albufeira (lago de uma barragem)",S(NH,1),"Humano: só existe por causa da barragem."),
+    I("Lago natural",S(NH,0),"Natural."),I("Dunas",S(NH,0),"Natural."),I("Campo de trigo",S(NH,1),"Humano: é cultivado."),
+    I("Vulcão",S(NH,0),"Natural."),I("Farol",S(NH,1),"Humano."),I("Arriba",S(NH,0),"Natural."),I("Salinas",S(NH,1),"Humano."),
+    I("Cascata",S(NH,0),"Natural."),I("Vinha",S(NH,1),"Humano."),I("Linha de comboio",S(NH,1),"Humano."),
+    I("Nuvens",S(NH,0),"Natural."),I("Moinho de vento",S(NH,1),"Humano.")
+  ]},
+  {cod:"B3",titulo:"Planos de observação",instr:"Observa o esboço. Para cada elemento numerado, diz em que plano está e se é natural ou humano.",fig:function(){ return '<figure class="fig">'+svgPlanos()+'<figcaption>Esboço de paisagem (desenho original). Os números assinalam elementos.</figcaption></figure>'; },itens:[
+    I("Elemento 1 — casa",[S(PLANOS,0),S(NH,1)],"1.º plano · humano."),
+    I("Elemento 2 — árvore",[S(PLANOS,0),S(NH,0)],"1.º plano · natural (vegetação)."),
+    I("Elemento 3 — estrada",[S(PLANOS,0),S(NH,1)],"1.º plano · humano."),
+    I("Elemento 4 — rio",[S(PLANOS,1),S(NH,0)],"2.º plano · natural."),
+    I("Elemento 5 — ponte",[S(PLANOS,1),S(NH,1)],"2.º plano · humano."),
+    I("Elemento 6 — campos de cultivo",[S(PLANOS,1),S(NH,1)],"2.º plano · humano (são cultivados)."),
+    I("Elemento 7 — aldeia",[S(PLANOS,1),S(NH,1)],"2.º plano · humano."),
+    I("Elemento 8 — floresta na encosta",[S(PLANOS,2),S(NH,0)],"3.º plano · natural."),
+    I("Elemento 9 — serra",[S(PLANOS,2),S(NH,0)],"3.º plano · natural."),
+    I("Em que plano se vê com mais pormenor?",S(PLANOS,0),"No 1.º plano, o mais próximo do observador."),
+    I("No conjunto, esta paisagem é…",S(["natural","humanizada (rural)","humanizada (urbana)","humanizada (industrial)"],1),"Tem aldeia, campos, estrada e ponte, mas pouca construção → paisagem humanizada rural.")
+  ]},
+  {cod:"B4",titulo:"Áreas homogéneas — vista aérea 1 (litoral)",instr:"Cada letra marca uma área homogénea (unidade de paisagem). Identifica-as.",fig:function(){ return '<figure class="fig">'+svgAreasA()+'<figcaption>Vista aérea esquemática (desenho original).</figcaption></figure>'; },itens:(function(){
+    var U=["Área urbana","Área industrial","Área agrícola","Floresta","Rio","Área rural (povoamento disperso)","Praia e dunas","Mar"];
+    return [
+      I("Área A",S(U,0),"Edifícios muito juntos, quarteirões e ruas → área urbana."),
+      I("Área B",S(U,1),"Grandes pavilhões, tanques e chaminé → área industrial."),
+      I("Área C",S(U,2),"Mosaico de parcelas cultivadas → área agrícola."),
+      I("Área D",S(U,3),"Copas de árvores contínuas → floresta."),
+      I("Área E",S(U,4),"Faixa de água que desagua no mar → rio."),
+      I("Área F",S(U,5),"Campos com casas isoladas → área rural de povoamento disperso."),
+      I("Área G",S(U,6),"Faixa de areia junto ao mar → praia e dunas."),
+      I("Área H",S(U,7),"Mar."),
+      I("Que área tem o maior grau de humanização?",S(["A","C","D","F"],0),"A área urbana (A)."),
+      I("Que áreas são predominantemente naturais?",S(["A, B e C","D, E, G e H","B, C e F","A e F"],1),"Floresta, rio, praia/dunas e mar."),
+      I("Porque se terá instalado a indústria (B) neste lugar?",S(["Junto ao rio, ao mar e à estrada, o que facilita o transporte","Porque há muita floresta","Porque é longe de tudo","Porque é a área mais alta"],0),"Interpretação: acessibilidade (estrada, rio, porto) e proximidade da cidade (mão de obra)."),
+      I("Esta paisagem é multifuncional porque…",S(["só tem uma função","tem várias funções (residencial, industrial, agrícola, ecológica…)","é toda natural"],1),"Coexistem várias funções em unidades diferentes.")
+    ];})()},
+  {cod:"B5",titulo:"Áreas homogéneas — vista aérea 2 (vale do interior)",instr:"Identifica cada área homogénea. Cuidado: nem tudo o que é verde ou azul é natural!",fig:function(){ return '<figure class="fig">'+svgAreasB()+'<figcaption>Vista aérea esquemática de um vale do interior (desenho original).</figcaption></figure>'; },itens:(function(){
+    var U=["Albufeira","Barragem","Aldeia (povoamento concentrado)","Vinha em socalcos","Floresta plantada (eucaliptal)","Mato"];
+    return [
+      I("Área A",S(U,0),"Lago criado pela barragem → albufeira."),
+      I("Área B",S(U,1),"Muro que retém a água → barragem."),
+      I("Área C",S(U,2),"Casas juntas, com igreja → aldeia (povoamento concentrado)."),
+      I("Área D",S(U,3),"Patamares na encosta → socalcos (vinha)."),
+      I("Área E",S(U,4),"Árvores alinhadas em filas regulares → plantação (eucaliptal)."),
+      I("Área F",S(U,5),"Vegetação baixa e dispersa → mato."),
+      I("A albufeira (A) é um elemento…",S(NH,1),"Humano: é água retida por uma obra humana."),
+      I("Como se percebe que a floresta E foi plantada?",S(["As árvores estão em filas regulares","As árvores são verdes","Fica junto à estrada"],0),"O alinhamento regular é sinal de plantação."),
+      I("Qual destas áreas é a mais natural?",S(["C","D","E","F"],3),"O mato (F)."),
+      I("Os socalcos foram construídos para…",S(["cultivar em encostas inclinadas","guardar água","proteger as casas do vento"],0),"Os socalcos permitem cultivar em terrenos declivosos e reduzem a erosão do solo.")
+    ];})()},
+  {cod:"B6",titulo:"Fatores que mudam a paisagem",instr:"Cada mudança resulta de um fator natural ou de um fator humano (humanização)?",itens:[
+    I("Expansão urbana",S(NH,1),"Humano."),I("Erosão provocada pelo mar",S(NH,0),"Natural."),I("Sismo",S(NH,0),"Natural (movimentos tectónicos)."),
+    I("Construção de uma autoestrada",S(NH,1),"Humano."),I("Industrialização",S(NH,1),"Humano."),I("Desflorestação para agricultura",S(NH,1),"Humano (exploração dos recursos)."),
+    I("Erupção vulcânica",S(NH,0),"Natural."),I("Movimentos migratórios",S(NH,1),"Humano."),I("Cheia de um rio",S(NH,0),"Natural."),
+    I("Aumento da população mundial",S(NH,1),"Humano."),I("Erosão provocada pelo vento",S(NH,0),"Natural."),I("Abertura de uma mina",S(NH,1),"Humano.")
+  ]},
+  {cod:"B7",titulo:"Verdadeiro ou falso — paisagem",instr:"",itens:[
+    I("A paisagem é sempre igual ao longo do tempo.",S(VF,1),"Falso: é um espaço dinâmico, em constante mudança."),
+    I("A paisagem urbana tem maior grau de humanização do que a rural.",S(VF,0),"Verdadeiro."),
+    I("A paisagem agrária é um tipo particular de paisagem rural.",S(VF,0),"Verdadeiro: é centrada no cultivo da terra."),
+    I("Na paisagem natural predominam as atividades de comércio e serviços.",S(VF,1),"Falso: isso caracteriza a paisagem urbana."),
+    I("O esboço de paisagem realça apenas os elementos mais significativos.",S(VF,0),"Verdadeiro."),
+    I("O 3.º plano é o mais próximo do observador.",S(VF,1),"Falso: é o mais afastado."),
+    I("As paisagens naturais também mudam, por ação de fatores naturais.",S(VF,0),"Verdadeiro: erosão, sismos, fenómenos extremos."),
+    I("Uma unidade de paisagem é uma área heterogénea, com usos muito diferentes.",S(VF,1),"Falso: é uma área homogénea."),
+    I("A paisagem industrial está ligada à transformação de matérias-primas em produtos.",S(VF,0),"Verdadeiro.")
+  ]},
+  {cod:"B8",titulo:"Como se faz um esboço? (ordem dos passos)",instr:"Indica a ordem de cada passo (1 a 5).",itens:(function(){
+    var P=["1.º","2.º","3.º","4.º","5.º"];
+    return [
+      I("Traçar as linhas mestras (contornos do relevo, rio, estradas…).",S(P,3),"4.º passo."),
+      I("Desenhar a moldura (delimitar o campo de visão).",S(P,0),"1.º passo."),
+      I("Fazer a legenda e indicar a orientação.",S(P,4),"5.º passo."),
+      I("Marcar a linha do horizonte.",S(P,1),"2.º passo."),
+      I("Dividir a paisagem nos três planos.",S(P,2),"3.º passo.")
+    ];})()}
+ ]},
+
+/* ---------------- C ---------------- */
+{id:"secC",letra:"C",aula:"Aula 3",titulo:"Cartografia e representação do espaço",
+ relembra:'<div class="relembra"><h4>Relembra</h4><ul><li><b>Globo</b>: representação esférica, quase sem distorções, mas pouco pormenor e difícil de transportar. <b>Mapa</b>: representação plana, fácil de transportar, com distorções.</li><li><b>Imagem de satélite</b>, <b>fotografia aérea</b> (avião/drone), <b>ortofotomapa</b> (foto aérea corrigida — permite medir), <b>esboço</b>, <b>mapa mental</b> (de memória, sem rigor), <b>SIG</b> (dados georreferenciados em camadas).</li><li><b>Projeções</b>: cilíndrica (planisférios; menos distorção no Equador), cónica (latitudes médias), azimutal (regiões polares). Conformes (forma — Mercator), equivalentes (área — Gall-Peters), afiláticas (compromisso — Robinson).</li><li>Mapas <b>gerais</b> (de base: topográfico, planta, planisfério) e <b>temáticos</b> (hipsométrico, político, população, clima…).</li><li>5 elementos do mapa: <b>título, orientação, escala, legenda, fonte</b>.</li></ul></div>',
+ blocos:[
+  {cod:"C1",titulo:"Formas de representação",instr:"Que forma de representação corresponde a cada descrição?",itens:(function(){
+    var F=["Globo","Mapa","Imagem de satélite","Fotografia aérea","Ortofotomapa","Esboço cartográfico","Mapa mental","SIG"];
+    return [
+      I("Representação esférica da superfície terrestre.",S(F,0),"Globo."),
+      I("Representação num plano de toda ou parte da superfície terrestre.",S(F,1),"Mapa."),
+      I("Imagem captada por sensores a centenas de quilómetros de altitude.",S(F,2),"Imagem de satélite."),
+      I("Imagem captada a partir de um avião ou drone.",S(F,3),"Fotografia aérea."),
+      I("Fotografia aérea corrigida geometricamente, que permite medir distâncias e áreas.",S(F,4),"Ortofotomapa."),
+      I("Desenho simplificado que destaca os elementos mais importantes de uma área.",S(F,5),"Esboço cartográfico."),
+      I("Desenho feito de memória, com aquilo que cada pessoa sente e conhece do lugar.",S(F,6),"Mapa mental."),
+      I("Sistema informático que cruza dados georreferenciados em camadas.",S(F,7),"SIG (Sistemas de Informação Geográfica)."),
+      I("O Google Maps, com trânsito e rotas, é um exemplo de…",S(F,7),"SIG Web de navegação."),
+      I("Representação que NÃO tem escala nem rigor métrico.",S(F,6),"Mapa mental.")
+    ];})()},
+  {cod:"C2",titulo:"Globo ou mapa?",instr:"A que representação se refere cada característica?",itens:[
+    I("É fácil de transportar.",S(["Globo","Mapa"],1),"Mapa."),
+    I("Representa a Terra quase sem distorções.",S(["Globo","Mapa"],0),"Globo."),
+    I("Permite ver toda a superfície ao mesmo tempo.",S(["Globo","Mapa"],1),"Mapa (planisfério)."),
+    I("Tem pouco pormenor.",S(["Globo","Mapa"],0),"Globo."),
+    I("Apresenta sempre distorções.",S(["Globo","Mapa"],1),"Mapa: é impossível planificar uma esfera sem a deformar."),
+    I("É uma representação esférica.",S(["Globo","Mapa"],0),"Globo."),
+    I("Pode mostrar só uma cidade com muito pormenor.",S(["Globo","Mapa"],1),"Mapa (planta)."),
+    I("É difícil de transportar.",S(["Globo","Mapa"],0),"Globo.")
+  ]},
+  {cod:"C3",titulo:"Projeções cartográficas",instr:"",itens:(function(){
+    var P=["Cilíndrica","Cónica","Azimutal (polar)"], Pr=["Conforme","Equivalente","Afilática"];
+    return [
+      I("A mais adequada para planisférios.",S(P,0),"Cilíndrica."),
+      I("Menor distorção junto ao Equador.",S(P,0),"Cilíndrica: o cilindro toca o globo no Equador."),
+      I("A melhor para representar a Europa (latitudes médias).",S(P,1),"Cónica."),
+      I("A melhor para representar as regiões polares.",S(P,2),"Azimutal (polar)."),
+      I("Usa um plano que toca o globo num só ponto.",S(P,2),"Azimutal."),
+      I("Usa um cone que toca um paralelo intermédio.",S(P,1),"Cónica."),
+      I("Mantém as formas mas distorce as áreas (Mercator).",S(Pr,0),"Conforme."),
+      I("Mantém as áreas mas distorce as formas (Gall-Peters).",S(Pr,1),"Equivalente."),
+      I("Não mantém exatamente nem formas nem áreas, mas equilibra (Robinson).",S(Pr,2),"Afilática (de compromisso)."),
+      I("Na projeção de Mercator, a Gronelândia parece do tamanho de África porque…",S(["a Gronelândia é mesmo desse tamanho","as altas latitudes ficam muito ampliadas","o mapa está mal impresso"],1),"Na cilíndrica, a distorção aumenta para os polos. Na realidade, a Gronelândia é cerca de 14 vezes menor do que África."),
+      I("Onde está a menor distorção de qualquer projeção?",S(["Na linha ou ponto de contacto com o globo","Nas margens do mapa","No centro dos oceanos"],0),"Quanto mais longe do contacto, maior a deformação.")
+    ];})()},
+  {cod:"C4",titulo:"Mapa geral (de base) ou temático?",instr:"",itens:(function(){
+    var G=["Geral (de base)","Temático"];
+    return [
+      I("Planta de uma cidade",S(G,0),"Geral."),I("Carta topográfica",S(G,0),"Geral: relevo, rios, vias."),I("Planisfério geral",S(G,0),"Geral."),
+      I("Mapa hipsométrico",S(G,1),"Temático: altitude por cores."),I("Mapa político (países e capitais)",S(G,1),"Temático."),
+      I("Mapa da densidade populacional",S(G,1),"Temático."),I("Mapa dos climas do mundo",S(G,1),"Temático."),
+      I("Mapa das áreas ardidas num verão",S(G,1),"Temático: um fenómeno específico."),I("Mapa geológico",S(G,1),"Temático."),
+      I("Mapa da precipitação em Portugal",S(G,1),"Temático."),I("Mapa económico (indústrias)",S(G,1),"Temático.")
+    ];})()},
+  {cod:"C5",titulo:"Os cinco elementos do mapa",instr:"Identifica cada elemento numerado.",fig:function(){ return '<figure class="fig">'+svgMapaElementos()+'<figcaption>Mapa de uma ilha fictícia (desenho original).</figcaption></figure>'; },itens:(function(){
+    var E=["Título","Orientação","Escala","Legenda","Fonte"];
+    return [
+      I("Elemento 1",S(E,0),"Título — indica o assunto do mapa."),
+      I("Elemento 2",S(E,1),"Orientação — rosa dos ventos / seta do Norte."),
+      I("Elemento 3",S(E,3),"Legenda — significado das cores e símbolos."),
+      I("Elemento 4",S(E,2),"Escala gráfica — quantas vezes a realidade foi reduzida."),
+      I("Elemento 5",S(E,4),"Fonte — origem da informação."),
+      I("Que elemento explica as cores e os símbolos?",S(E,3),"Legenda."),
+      I("Que elemento te diz onde é o Norte?",S(E,1),"Orientação."),
+      I("Neste mapa, quantos km tem a ilha (aprox.) de oeste a este? (usa a escala: 1 divisão = 2 km)",S(["≈ 4 km","≈ 11 km","≈ 50 km"],1),"A ilha ocupa cerca de 5,5 divisões da escala → ≈ 11 km.")
+    ];})()}
+ ]},
+
+/* ---------------- D ---------------- */
+{id:"secD",letra:"D",aula:"Aula 4",titulo:"A escala",
+ relembra:'<div class="relembra cast"><h4>Relembra</h4><ul><li><b>Escala</b>: número de vezes que a realidade foi reduzida. <b>Numérica</b> 1 : N → 1 cm no mapa = N cm na realidade. <b>Gráfica</b>: segmento graduado (continua certa se ampliares ou reduzires o mapa).</li><li><b>1 km = 100 000 cm</b> · 1 m = 100 cm. Para passar de cm a km, divide por 100 000 (corta 5 zeros).</li><li><b>Distância real</b> = distância no mapa × denominador. <b>Distância no mapa</b> = distância real (em cm) ÷ denominador. <b>Denominador</b> = distância real (em cm) ÷ distância no mapa.</li><li><b>Pequena escala</b>: inferior a 1:500 000 (muita área, pouco pormenor). <b>Média</b>: 1:500 000 a 1:50 000. <b>Grande</b>: superior a 1:50 000 (pouca área, muito pormenor).</li><li><b>Regra de ouro</b>: maior denominador → menor escala → menos pormenor.</li></ul></div><div class="nota-prof">Escreve os números à portuguesa: decimais com <b>vírgula</b> (2,5). Podes escrever as unidades (ex.: «800 m» numa resposta em km também é aceite).</div>',
+ blocos:[
+  {cod:"D1",titulo:"Ler a escala numérica",instr:"A quantos quilómetros corresponde 1 cm no mapa?",itens:[
+    I("1 : 100 000",N(1,"km","km"),"100 000 cm = 1 km."),
+    I("1 : 50 000",N(0.5,"km","km"),"50 000 cm = 500 m = 0,5 km."),
+    I("1 : 25 000",N(0.25,"km","km"),"25 000 cm = 250 m = 0,25 km."),
+    I("1 : 250 000",N(2.5,"km","km"),"250 000 cm = 2,5 km."),
+    I("1 : 1 000 000",N(10,"km","km"),"1 000 000 cm = 10 km."),
+    I("1 : 2 500 000",N(25,"km","km"),"2 500 000 cm = 25 km."),
+    I("1 : 10 000 000",N(100,"km","km"),"10 000 000 cm = 100 km."),
+    I("1 : 200 000",N(2,"km","km"),"200 000 cm = 2 km."),
+    I("1 : 75 000",N(0.75,"km","km"),"75 000 cm = 750 m = 0,75 km."),
+    I("1 : 5 000",N(0.05,"km","km"),"5 000 cm = 50 m = 0,05 km.")
+  ]},
+  {cod:"D2",titulo:"Da escala gráfica à numérica",instr:"Observa cada escala gráfica e escreve o denominador da escala numérica (1 : ?).",itens:[
+    I("",N(500000,"den","1 : ?"),"1 cm = 5 km = 500 000 cm → 1 : 500 000.",{svg:function(){return svgBarra(3,1,5,"km");}}),
+    I("",N(200000,"den","1 : ?"),"1 cm = 2 km = 200 000 cm → 1 : 200 000.",{svg:function(){return svgBarra(4,1,2,"km");}}),
+    I("",N(50000,"den","1 : ?"),"1 cm = 500 m = 50 000 cm → 1 : 50 000.",{svg:function(){return svgBarra(4,1,500,"m");}}),
+    I("",N(25000,"den","1 : ?"),"1 cm = 250 m = 25 000 cm → 1 : 25 000.",{svg:function(){return svgBarra(4,1,250,"m");}}),
+    I("",N(2000000,"den","1 : ?"),"1 cm = 20 km = 2 000 000 cm → 1 : 2 000 000.",{svg:function(){return svgBarra(3,1,20,"km");}}),
+    I("",N(10000000,"den","1 : ?"),"1 cm = 100 km = 10 000 000 cm → 1 : 10 000 000.",{svg:function(){return svgBarra(3,1,100,"km");}}),
+    I("Atenção: cada divisão tem 2 cm.",N(500000,"den","1 : ?"),"2 cm = 10 km → 1 cm = 5 km = 500 000 cm → 1 : 500 000.",{svg:function(){return svgBarra(3,2,10,"km");}}),
+    I("Atenção: cada divisão tem 2 cm.",N(50000,"den","1 : ?"),"2 cm = 1 km → 1 cm = 0,5 km = 50 000 cm → 1 : 50 000.",{svg:function(){return svgBarra(3,2,1,"km");}}),
+    I("",N(150000,"den","1 : ?"),"1 cm = 1,5 km = 150 000 cm → 1 : 150 000.",{svg:function(){return svgBarra(4,1,1.5,"km");}}),
+    I("",N(5000000,"den","1 : ?"),"1 cm = 50 km = 5 000 000 cm → 1 : 5 000 000.",{svg:function(){return svgBarra(3,1,50,"km");}})
+  ]},
+  {cod:"D3",titulo:"Da escala numérica à gráfica",instr:"Vais desenhar a escala gráfica com divisões de 1 cm. Que valor (em km) escreves no fim da 1.ª divisão?",itens:[
+    I("1 : 300 000",N(3,"km","km"),"300 000 cm = 3 km → 0 · 3 · 6 · 9 km."),
+    I("1 : 40 000",N(0.4,"km","km"),"40 000 cm = 400 m = 0,4 km."),
+    I("1 : 1 500 000",N(15,"km","km"),"1 500 000 cm = 15 km."),
+    I("1 : 80 000",N(0.8,"km","km"),"80 000 cm = 800 m = 0,8 km."),
+    I("1 : 6 000 000",N(60,"km","km"),"6 000 000 cm = 60 km."),
+    I("1 : 120 000",N(1.2,"km","km"),"120 000 cm = 1,2 km.")
+  ]},
+  {cod:"D4",titulo:"Pequena, média ou grande escala?",instr:"Classifica cada escala.",itens:[
+    I("1 : 5 000 000",S(ESC,0),"Inferior a 1:500 000 → pequena."),I("1 : 2 000",S(ESC,2),"Superior a 1:50 000 → grande (é uma planta)."),
+    I("1 : 100 000",S(ESC,1),"Entre 1:500 000 e 1:50 000 → média."),I("1 : 25 000",S(ESC,2),"Grande."),
+    I("1 : 20 000 000",S(ESC,0),"Pequena."),I("1 : 200 000",S(ESC,1),"Média."),
+    I("1 : 10 000",S(ESC,2),"Grande."),I("1 : 750 000",S(ESC,0),"Pequena."),
+    I("1 : 250 000",S(ESC,1),"Média."),I("1 : 40 000",S(ESC,2),"Grande: 40 000 é menor do que 50 000."),
+    I("1 : 1 000 000",S(ESC,0),"Pequena."),I("1 : 75 000",S(ESC,1),"Média.")
+  ]},
+  {cod:"D5",titulo:"Comparar escalas",instr:"Escolhe a resposta certa.",itens:[
+    I("Qual tem mais pormenor?",S(["1 : 25 000","1 : 100 000"],0),"Menor denominador → maior escala → mais pormenor."),
+    I("Qual representa uma área maior, na mesma folha?",S(["1 : 1 000 000","1 : 50 000"],0),"Pequena escala → mais área."),
+    I("Qual é a maior escala?",S(["1 : 10 000","1 : 500 000"],0),"1 : 10 000 (denominador menor)."),
+    I("Qual é a menor escala?",S(["1 : 2 000 000","1 : 200 000"],0),"1 : 2 000 000."),
+    I("Para a planta da tua escola, usas…",S(["1 : 500","1 : 500 000"],0),"Área muito pequena, muito pormenor → 1 : 500."),
+    I("Para Portugal continental numa folha A4, usas…",S(["1 : 4 000 000","1 : 25 000"],0),"Portugal tem cerca de 560 km de norte a sul: a 1 : 4 000 000 ocupa ≈ 14 cm; a 1 : 25 000 precisaria de mais de 22 m de papel!"),
+    I("A mesma estrada de 5 km aparece mais comprida em qual mapa?",S(["1 : 50 000","1 : 100 000"],0),"A 1 : 50 000 mede 10 cm; a 1 : 100 000 mede 5 cm."),
+    I("Se fotocopiares um mapa ampliado, que escala continua certa?",S(["A numérica","A gráfica"],1),"A gráfica: o segmento aumenta na mesma proporção.")
+  ]},
+  {cod:"D6",titulo:"Calcular a distância real",instr:"Resposta em km. Distância real = distância no mapa × denominador; depois ÷ 100 000.",itens:[
+    I("Escala 1 : 100 000 · no mapa 7 cm",N(7,"km","km"),"7 × 100 000 = 700 000 cm = 7 km."),
+    I("Escala 1 : 50 000 · no mapa 12 cm",N(6,"km","km"),"12 × 50 000 = 600 000 cm = 6 km."),
+    I("Escala 1 : 250 000 · no mapa 4 cm",N(10,"km","km"),"4 × 250 000 = 1 000 000 cm = 10 km."),
+    I("Escala 1 : 25 000 · no mapa 6 cm",N(1.5,"km","km"),"6 × 25 000 = 150 000 cm = 1,5 km."),
+    I("Escala 1 : 1 000 000 · no mapa 5,5 cm",N(55,"km","km"),"5,5 × 1 000 000 = 5 500 000 cm = 55 km."),
+    I("Escala 1 : 500 000 · no mapa 9 cm",N(45,"km","km"),"9 × 500 000 = 4 500 000 cm = 45 km."),
+    I("Escala 1 : 2 000 000 · no mapa 3,5 cm",N(70,"km","km"),"3,5 × 2 000 000 = 7 000 000 cm = 70 km."),
+    I("Escala 1 : 200 000 · no mapa 12,5 cm",N(25,"km","km"),"12,5 × 200 000 = 2 500 000 cm = 25 km."),
+    I("Escala 1 : 10 000 · no mapa 8 cm",N(0.8,"km","km"),"8 × 10 000 = 80 000 cm = 800 m = 0,8 km."),
+    I("Escala 1 : 5 000 000 · no mapa 6 cm",N(300,"km","km"),"6 × 5 000 000 = 30 000 000 cm = 300 km."),
+    I("Escala 1 : 150 000 · no mapa 4 cm",N(6,"km","km"),"4 × 150 000 = 600 000 cm = 6 km."),
+    I("Escala 1 : 75 000 · no mapa 8 cm",N(6,"km","km"),"8 × 75 000 = 600 000 cm = 6 km."),
+    I("Escala 1 : 20 000 000 · no mapa 2,5 cm",N(500,"km","km"),"2,5 × 20 000 000 = 50 000 000 cm = 500 km."),
+    I("Escala 1 : 300 000 · no mapa 11 cm",N(33,"km","km"),"11 × 300 000 = 3 300 000 cm = 33 km."),
+    I("Escala 1 : 40 000 · no mapa 15 cm",N(6,"km","km"),"15 × 40 000 = 600 000 cm = 6 km."),
+    I("Escala gráfica: 1 cm = 25 km · no mapa 3,2 cm",N(80,"km","km"),"3,2 × 25 = 80 km.")
+  ]},
+  {cod:"D7",titulo:"Calcular a distância no mapa",instr:"Resposta em cm. Passa a distância real para cm e divide pelo denominador.",itens:[
+    I("10 km reais · escala 1 : 100 000",N(10,"cm","cm"),"10 km = 1 000 000 cm; 1 000 000 ÷ 100 000 = 10 cm."),
+    I("3 km reais · escala 1 : 50 000",N(6,"cm","cm"),"300 000 ÷ 50 000 = 6 cm."),
+    I("50 km reais · escala 1 : 1 000 000",N(5,"cm","cm"),"5 000 000 ÷ 1 000 000 = 5 cm."),
+    I("1 km real · escala 1 : 25 000",N(4,"cm","cm"),"100 000 ÷ 25 000 = 4 cm."),
+    I("120 km reais · escala 1 : 2 000 000",N(6,"cm","cm"),"12 000 000 ÷ 2 000 000 = 6 cm."),
+    I("600 m reais · escala 1 : 10 000",N(6,"cm","cm"),"600 m = 60 000 cm; 60 000 ÷ 10 000 = 6 cm."),
+    I("35 km reais · escala 1 : 500 000",N(7,"cm","cm"),"3 500 000 ÷ 500 000 = 7 cm."),
+    I("400 km reais · escala 1 : 10 000 000",N(4,"cm","cm"),"40 000 000 ÷ 10 000 000 = 4 cm.")
+  ]},
+  {cod:"D8",titulo:"Descobrir a escala",instr:"Escreve o denominador (1 : ?). Denominador = distância real (cm) ÷ distância no mapa.",itens:[
+    I("5 cm no mapa = 5 km reais",N(100000,"den","1 : ?"),"500 000 ÷ 5 = 100 000 → 1 : 100 000."),
+    I("4 cm no mapa = 20 km reais",N(500000,"den","1 : ?"),"2 000 000 ÷ 4 = 500 000."),
+    I("8 cm no mapa = 2 km reais",N(25000,"den","1 : ?"),"200 000 ÷ 8 = 25 000."),
+    I("3 cm no mapa = 60 km reais",N(2000000,"den","1 : ?"),"6 000 000 ÷ 3 = 2 000 000."),
+    I("10 cm no mapa = 1 km real",N(10000,"den","1 : ?"),"100 000 ÷ 10 = 10 000."),
+    I("6 cm no mapa = 300 km reais",N(5000000,"den","1 : ?"),"30 000 000 ÷ 6 = 5 000 000."),
+    I("2,5 cm no mapa = 5 km reais",N(200000,"den","1 : ?"),"500 000 ÷ 2,5 = 200 000.")
+  ]},
+  {cod:"D9",titulo:"Planisfério, planta ou itinerário?",instr:"Que representação deves usar?",itens:(function(){
+    var R=["Planisfério","Planta","Itinerário"];
+    return [
+      I("Mostrar toda a superfície da Terra.",S(R,0),"Planisfério (pequena escala)."),
+      I("Mostrar as ruas do centro histórico de Sintra.",S(R,1),"Planta (grande escala)."),
+      I("Mostrar as estações e ligações do Metro de Lisboa.",S(R,2),"Itinerário."),
+      I("Mostrar as divisões da tua casa.",S(R,1),"Planta."),
+      I("Mostrar os continentes e os oceanos.",S(R,0),"Planisfério."),
+      I("Mostrar o percurso do autocarro escolar.",S(R,2),"Itinerário."),
+      I("Uma planta tem uma escala…",S(["superior a 1 : 10 000","inferior a 1 : 1 000 000"],0),"A planta é de grande escala (superior a 1 : 10 000).")
+    ];})()}
+ ]},
+
+/* ---------------- E ---------------- */
+{id:"secE",letra:"E",aula:"Aulas 1 a 4",titulo:"Teste final",
+ relembra:'<div class="relembra"><h4>Instruções</h4>30 perguntas sobre toda a matéria, por ordem aleatória. No fim, clica em «Verificar» para veres a nota de 0 a 20.</div>',
+ blocos:[
+  {cod:"E",titulo:"Teste final — 30 perguntas",instr:"",baralhar:true,itens:[
+    I("«Geografia» significa…",S(["descrição da Terra","estudo das estrelas","medição do tempo"],0),"GEO + GRAFIA."),
+    I("O clima é estudado pela Geografia…",S(["Física","Humana"],0),"É um elemento natural."),
+    I("A ciência que estuda a população é a…",S(["Geologia","Demografia","Hidrologia"],1),"Demografia."),
+    I("A etapa do método que responde a «Porquê?» é a…",S(ETAPAS,3),"Interpretação."),
+    I("Observar uma imagem de satélite é observação…",S(OBS,1),"Indireta."),
+    I("O maior continente é a…",S(["América","Ásia","África"],1),"Ásia."),
+    I("O menor oceano é o…",S(["Índico","Glacial Antártico","Glacial Ártico"],2),"Glacial Ártico."),
+    I("Uma paisagem sem intervenção humana visível é…",S(["natural","rural","urbana"],0),"Natural."),
+    I("A paisagem com maior grau de humanização é a…",S(["rural","urbana","agrária"],1),"Urbana."),
+    I("Uma albufeira é um elemento…",S(NH,1),"Humano: resulta da construção de uma barragem."),
+    I("No esboço, o plano mais afastado é o…",S(PLANOS,2),"3.º plano."),
+    I("Uma área homogénea quanto ao uso do solo chama-se…",S(["unidade de paisagem","plano de observação","projeção"],0),"Unidade de paisagem."),
+    I("Um fator natural de mudança da paisagem é…",S(["a expansão urbana","um sismo","a industrialização"],1),"O sismo."),
+    I("Representação plana da superfície terrestre:",S(["globo","mapa"],1),"Mapa."),
+    I("A fotografia aérea corrigida que permite medir chama-se…",S(["ortofotomapa","mapa mental","esboço"],0),"Ortofotomapa."),
+    I("O Google Maps é um exemplo de…",S(["SIG","mapa mental","globo"],0),"SIG."),
+    I("A projeção mais adequada para as regiões polares é a…",S(["cilíndrica","cónica","azimutal"],2),"Azimutal."),
+    I("A projeção de Mercator é…",S(["conforme","equivalente","afilática"],0),"Conforme: mantém as formas."),
+    I("Um mapa hipsométrico é um mapa…",S(["geral","temático"],1),"Temático."),
+    I("O elemento do mapa que explica as cores é a…",S(["fonte","legenda","escala"],1),"Legenda."),
+    I("Na escala 1 : 100 000, 1 cm no mapa corresponde a…",S(["1 km","10 km","100 m"],0),"100 000 cm = 1 km."),
+    I("1 km tem…",S(["1 000 cm","100 000 cm","10 000 cm"],1),"1 km = 100 000 cm."),
+    I("1 : 25 000 é uma escala…",S(ESC,2),"Grande."),
+    I("1 : 5 000 000 é uma escala…",S(ESC,0),"Pequena."),
+    I("Quanto maior o denominador…",S(["maior o pormenor","menor o pormenor"],1),"Menor escala, menos pormenor."),
+    I("Escala 1 : 50 000, no mapa 10 cm. Distância real?",S(["5 km","50 km","0,5 km"],0),"10 × 50 000 = 500 000 cm = 5 km."),
+    I("Escala 1 : 200 000, distância real 20 km. No mapa?",S(["1 cm","10 cm","100 cm"],1),"2 000 000 ÷ 200 000 = 10 cm."),
+    I("Escala gráfica: 1 cm = 3 km. Escala numérica?",S(["1 : 3 000","1 : 300 000","1 : 30 000"],1),"3 km = 300 000 cm."),
+    I("Para mostrar o trajeto entre estações de metro usa-se…",S(["planta","itinerário","planisfério"],1),"Itinerário."),
+    I("Qual escala continua certa depois de fotocopiar o mapa ampliado?",S(["numérica","gráfica"],1),"Gráfica.")
+  ]}
+ ]}
+];
+
+/* =========================================================
+   MOTOR
+   ========================================================= */
+var RES={};          // resultados por bloco
+var BLOCOS={};       // bloco -> dados
+var totalItens=0;
+
+function renderParte(bid,ii,pi,p){
+  var nm=bid+"-"+ii+"-"+pi;
+  if(p.t==="sel"){
+    if(p.o.length>6){
+      var h='<select data-k="'+nm+'" aria-label="Escolhe uma opção"><option value="">— escolhe —</option>';
+      p.o.forEach(function(o,oi){ h+='<option value="'+oi+'">'+esc(o)+'</option>'; });
+      return h+'</select>';
+    }
+    var g='<div class="opts" role="group" data-k="'+nm+'">';
+    p.o.forEach(function(o,oi){ g+='<button type="button" class="opt" data-v="'+oi+'" aria-pressed="false">'+esc(o)+'</button>'; });
+    return g+'</div>';
+  }
+  return '<div class="numrow"><input type="text" inputmode="decimal" autocomplete="off" data-k="'+nm+'" aria-label="Resposta"><span class="u">'+esc(p.u||"")+'</span></div>';
+}
+
+function renderBloco(b){
+  BLOCOS[b.cod]=b;
+  var itens=b.baralhar?shuffle(b.itens):b.itens;
+  b._ordem=itens;
+  var h='<section class="bloco" id="b-'+b.cod+'"><div class="bloco-top"><span class="cod">'+b.cod+'</span><h3>'+b.titulo+'</h3></div>';
+  if(b.instr) h+='<p class="instr">'+b.instr+'</p>';
+  if(b.fig) h+=b.fig();
+  h+='<div class="'+(b.fotos?"fotos":"itens")+'">';
+  itens.forEach(function(it,ii){
+    totalItens+=it.parts.length;
+    h+='<div class="item" id="it-'+b.cod+'-'+ii+'">';
+    if(it.img){
+      h+='<figure class="foto"><img loading="lazy" src="'+FP(it.img)+'" alt="'+esc(it.alt||"")+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="falha" style="display:none">Imagem indisponível (precisa de Internet).</div></figure>';
+      h+='<div class="cred">Foto: <a href="'+PG(it.img)+'" target="_blank" rel="noopener">Wikimedia Commons</a> · licença livre</div>';
+    }
+    if(it.svg) h+='<div class="fig" style="margin:0">'+it.svg()+'</div>';
+    if(it.q) h+='<p class="q"><span class="n">'+(ii+1)+'.</span>'+it.q+'</p>'; else h+='<p class="q"><span class="n">'+(ii+1)+'.</span></p>';
+    it.parts.forEach(function(p,pi){
+      if(it.parts.length>1) h+='<div class="part-lbl">'+(pi===0?"Plano":"Natural ou humano?")+'</div>';
+      h+=renderParte(b.cod,ii,pi,p);
+    });
+    h+='<div class="sol"><b>Correção:</b> '+it.sol+'</div></div>';
+  });
+  h+='</div><div class="acoes"><button type="button" class="prim" data-acao="ver" data-b="'+b.cod+'">Verificar</button><button type="button" class="verde" data-acao="sol" data-b="'+b.cod+'">Ver soluções</button><button type="button" data-acao="limpar" data-b="'+b.cod+'">Limpar</button><span class="res" id="res-'+b.cod+'"></span></div></section>';
+  return h;
+}
+
+function valorParte(bid,ii,pi,p){
+  var k=bid+"-"+ii+"-"+pi, el=document.querySelector('[data-k="'+k+'"]');
+  if(!el) return null;
+  if(p.t==="sel"){
+    if(el.tagName==="SELECT") return el.value===""?null:parseInt(el.value,10);
+    var on=el.querySelector('[aria-pressed="true"]');
+    return on?parseInt(on.dataset.v,10):null;
+  }
+  var v=lerNum(el.value,p.kind);
+  return isNaN(v)?null:v;
+}
+function certo(p,v){
+  if(v===null) return false;
+  if(p.t==="sel") return v===p.a;
+  return Math.abs(v-p.a)<=Math.max(1e-9,Math.abs(p.a)*1e-6);
+}
+
+function verificar(bid){
+  var b=BLOCOS[bid], ok=0, tot=0;
+  b._ordem.forEach(function(it,ii){
+    var tudo=true;
+    it.parts.forEach(function(p,pi){ tot++; var v=valorParte(bid,ii,pi,p); if(certo(p,v)) ok++; else tudo=false; });
+    var el=document.getElementById("it-"+bid+"-"+ii);
+    el.classList.remove("ok","no"); el.classList.add(tudo?"ok":"no");
+    el.querySelector(".sol").classList.add("on");
+  });
+  RES[bid]={ok:ok,tot:tot,tit:b.titulo};
+  var r=document.getElementById("res-"+bid);
+  var nota=Math.round(ok/tot*200)/10;
+  r.textContent=ok+" / "+tot+" certas · "+Math.round(ok/tot*100)+"% · "+String(nota).replace(".",",")+" valores";
+  r.classList.add("on");
+  atualizaGlobal();
+}
+function verSol(bid){
+  var b=BLOCOS[bid];
+  b._ordem.forEach(function(it,ii){
+    var el=document.getElementById("it-"+bid+"-"+ii);
+    el.querySelector(".sol").classList.toggle("on");
+    it.parts.forEach(function(p,pi){
+      if(p.t!=="sel") return;
+      var g=document.querySelector('[data-k="'+bid+"-"+ii+"-"+pi+'"]');
+      if(g && g.tagName!=="SELECT"){ var bt=g.querySelector('[data-v="'+p.a+'"]'); if(bt) bt.classList.toggle("certa"); }
+    });
+  });
+}
+function limpar(bid){
+  var b=BLOCOS[bid];
+  b._ordem.forEach(function(it,ii){
+    var el=document.getElementById("it-"+bid+"-"+ii);
+    el.classList.remove("ok","no"); el.querySelector(".sol").classList.remove("on");
+    el.querySelectorAll(".opt").forEach(function(o){ o.setAttribute("aria-pressed","false"); o.classList.remove("certa"); });
+    el.querySelectorAll("select").forEach(function(s){ s.value=""; });
+    el.querySelectorAll("input").forEach(function(s){ s.value=""; });
+  });
+  delete RES[bid];
+  document.getElementById("res-"+bid).classList.remove("on");
+  atualizaGlobal();
+}
+function atualizaGlobal(){
+  var tb=document.getElementById("gTab"), ok=0, tot=0, h="";
+  Object.keys(BLOCOS).forEach(function(k){
+    var r=RES[k]; if(!r) return;
+    ok+=r.ok; tot+=r.tot;
+    h+="<tr><td>"+k+" · "+r.tit+"</td><td>"+r.ok+" / "+r.tot+"</td><td>"+Math.round(r.ok/r.tot*100)+"%</td></tr>";
+  });
+  tb.innerHTML=h||'<tr><td colspan="3">Ainda não verificaste nenhum exercício.</td></tr>';
+  document.getElementById("gNota").textContent=tot?String(Math.round(ok/tot*200)/10).replace(".",",")+" / 20":"—";
+  document.getElementById("gSub").textContent=tot?ok+" certas em "+tot+" respostas ("+Math.round(ok/tot*100)+"%)":"";
+}
+
+/* construir página */
+(function(){
+  var c=document.getElementById("conteudo"), h="";
+  SECOES.forEach(function(s){
+    h+='<div class="sec" id="'+s.id+'"><span class="letra">'+s.letra+'</span><div><div class="aula">'+s.aula+'</div><h2>'+s.titulo+'</h2></div></div>';
+    h+=s.relembra;
+    s.blocos.forEach(function(b){ h+=renderBloco(b); });
+    if(s.id==="secD") h+=htmlTreino();
+  });
+  c.innerHTML=h;
+  document.getElementById("contagem").textContent=totalItens+" respostas + treino sem fim";
+  atualizaGlobal();
+
+  c.addEventListener("click",function(e){
+    var o=e.target.closest(".opt");
+    if(o){ var g=o.parentNode; g.querySelectorAll(".opt").forEach(function(x){ x.setAttribute("aria-pressed","false"); }); o.setAttribute("aria-pressed","true"); return; }
+    var a=e.target.closest("[data-acao]");
+    if(a){ var bid=a.dataset.b; if(a.dataset.acao==="ver") verificar(bid); else if(a.dataset.acao==="sol") verSol(bid); else if(a.dataset.acao==="limpar") limpar(bid); }
+  });
+  c.addEventListener("keydown",function(e){
+    if(e.key==="Enter" && e.target.tagName==="INPUT" && e.target.dataset.k){
+      var bid=e.target.dataset.k.split("-")[0]; verificar(bid);
+    }
+  });
+  document.getElementById("btnProf").addEventListener("click",function(){
+    var on=document.body.classList.toggle("prof");
+    this.setAttribute("aria-pressed",on?"true":"false");
+    this.textContent=on?"Esconder as soluções":"Mostrar todas as soluções";
+  });
+  iniciaTreino();
+})();
+
+/* =========================================================
+   TREINO SEM FIM (problemas de escala gerados ao acaso)
+   ========================================================= */
+function htmlTreino(){
+  return '<section class="bloco" id="treino"><div class="bloco-top"><span class="cod">D10</span><h3>Treino sem fim — problemas de escala</h3></div>'+
+  '<p class="instr">Cada clique em «Novo problema» gera um exercício diferente. Escolhe os tipos que queres treinar.</p>'+
+  '<div class="tipos" id="tTipos">'+
+  '<button type="button" class="opt" data-t="real" aria-pressed="true">Distância real</button>'+
+  '<button type="button" class="opt" data-t="mapa" aria-pressed="true">Distância no mapa</button>'+
+  '<button type="button" class="opt" data-t="escala" aria-pressed="true">Descobrir a escala</button>'+
+  '<button type="button" class="opt" data-t="leitura" aria-pressed="true">1 cm = ? km</button>'+
+  '<button type="button" class="opt" data-t="classe" aria-pressed="true">Classificar</button></div>'+
+  '<div class="treino"><div class="card"><div class="part-lbl" id="tTipo"></div><div class="enun" id="tEnun"></div><div id="tResp"></div>'+
+  '<div class="acoes"><button type="button" class="prim" id="tVer">Verificar</button><button type="button" class="verde" id="tSol">Ver resolução</button><button type="button" id="tNovo">Novo problema →</button></div>'+
+  '<div class="sol" id="tSolBox"></div></div>'+
+  '<div class="placar">Certas<b id="tOk">0</b>de <span id="tTot">0</span><br>Sequência: <span id="tSeq">0</span> 🔥</div></div></section>';
+}
+function iniciaTreino(){
+  var DEN=[5000,10000,20000,25000,40000,75000,100000,150000,200000,250000,300000,400000,1000000,2000000,2500000,5000000,10000000];
+  var DM=[1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,9,10,11,12,12.5,14,15];
+  var atual=null, respondido=false, ok=0, tot=0, seq=0;
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function tiposOn(){ var t=[]; document.querySelectorAll("#tTipos .opt").forEach(function(b){ if(b.getAttribute("aria-pressed")==="true") t.push(b.dataset.t); }); return t.length?t:["real"]; }
+  function kmTxt(cm){ var km=cm/100000; return km>=1?fmt(km)+" km":fmt(cm/100)+" m"; }
+  function novo(){
+    var t=pick(tiposOn()), d=pick(DEN), m=pick(DM), cm=m*d, P={tipo:t};
+    if(t==="real"){ P.rot="Distância real"; P.enun="Num mapa à escala <b>1 : "+fmt(d)+"</b>, dois lugares distam <b>"+fmt(m)+" cm</b>. Qual é a distância real (em km)?"; P.ans=cm/100000; P.kind="km"; P.u="km";
+      P.res=["real = "+fmt(m)+" × "+fmt(d)+" = "+fmt(cm)+" cm",fmt(cm)+" cm ÷ 100 000 = "+fmt(cm/100000)+" km"]; }
+    else if(t==="mapa"){ P.rot="Distância no mapa"; P.enun="Dois lugares estão a <b>"+kmTxt(cm)+"</b> na realidade. Num mapa à escala <b>1 : "+fmt(d)+"</b>, a que distância ficam (em cm)?"; P.ans=m; P.kind="cm"; P.u="cm";
+      P.res=[kmTxt(cm)+" = "+fmt(cm)+" cm",fmt(cm)+" ÷ "+fmt(d)+" = "+fmt(m)+" cm"]; }
+    else if(t==="escala"){ P.rot="Descobrir a escala"; P.enun="No mapa, <b>"+fmt(m)+" cm</b> correspondem a <b>"+kmTxt(cm)+"</b> na realidade. Qual é a escala? (1 : ?)"; P.ans=d; P.kind="den"; P.u="1 : ?";
+      P.res=[kmTxt(cm)+" = "+fmt(cm)+" cm",fmt(cm)+" ÷ "+fmt(m)+" = "+fmt(d),"Escala 1 : "+fmt(d)]; }
+    else if(t==="leitura"){ P.rot="Ler a escala"; P.enun="Na escala <b>1 : "+fmt(d)+"</b>, 1 cm no mapa corresponde a quantos km?"; P.ans=d/100000; P.kind="km"; P.u="km";
+      P.res=[fmt(d)+" cm ÷ 100 000 = "+fmt(d/100000)+" km"]; }
+    else { var dd=pick(DEN); P.rot="Classificar"; P.enun="A escala <b>1 : "+fmt(dd)+"</b> é de…"; P.sel=true; P.ans=dd<50000?2:(dd>500000?0:1);
+      P.res=[dd<50000?"Denominador menor do que 50 000 → grande escala.":(dd>500000?"Denominador maior do que 500 000 → pequena escala.":"Entre 1 : 500 000 e 1 : 50 000 → média escala.")]; }
+    atual=P; respondido=false;
+    document.getElementById("tTipo").textContent=P.rot;
+    document.getElementById("tEnun").innerHTML=P.enun;
+    var r=document.getElementById("tResp");
+    if(P.sel){ r.innerHTML='<div class="opts" id="tOpts">'+ESC.map(function(o,i){ return '<button type="button" class="opt" data-v="'+i+'" aria-pressed="false">'+o+'</button>'; }).join("")+'</div>'; }
+    else { r.innerHTML='<div class="numrow"><input type="text" id="tIn" inputmode="decimal" autocomplete="off" aria-label="Resposta"><span class="u">'+P.u+'</span></div>'; var inp=document.getElementById("tIn"); inp.addEventListener("keydown",function(e){ if(e.key==="Enter") ver(); }); }
+    var sb=document.getElementById("tSolBox"); sb.classList.remove("on"); sb.innerHTML="";
+    document.querySelector("#treino .card").style.background="";
+  }
+  function mostraRes(){
+    var sb=document.getElementById("tSolBox");
+    sb.innerHTML='<b>Resolução:</b>'+atual.res.map(function(x){ return '<div class="passo">'+x+'</div>'; }).join("")+(atual.sel?'<div class="passo">Resposta: '+ESC[atual.ans]+'</div>':'<div class="passo">Resposta: '+fmt(atual.ans)+' '+(atual.kind==="den"?"(1 : "+fmt(atual.ans)+")":atual.u)+'</div>');
+    sb.classList.add("on");
+  }
+  function ver(){
+    if(!atual) return;
+    var v=null;
+    if(atual.sel){ var on=document.querySelector('#tOpts [aria-pressed="true"]'); v=on?parseInt(on.dataset.v,10):null; }
+    else { v=lerNum(document.getElementById("tIn").value,atual.kind); if(isNaN(v)) v=null; }
+    if(v===null) return;
+    var c=atual.sel?v===atual.ans:Math.abs(v-atual.ans)<=Math.abs(atual.ans)*1e-6+1e-9;
+    if(!respondido){ tot++; if(c){ ok++; seq++; } else seq=0; respondido=true; }
+    document.getElementById("tOk").textContent=ok; document.getElementById("tTot").textContent=tot; document.getElementById("tSeq").textContent=seq;
+    document.querySelector("#treino .card").style.background=c?"var(--good-bg)":"var(--bad-bg)";
+    mostraRes();
+  }
+  document.getElementById("tTipos").addEventListener("click",function(e){ var b=e.target.closest(".opt"); if(!b) return; e.stopPropagation(); b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"); });
+  document.getElementById("tResp").addEventListener("click",function(e){ var o=e.target.closest(".opt"); if(!o) return; e.stopPropagation(); o.parentNode.querySelectorAll(".opt").forEach(function(x){ x.setAttribute("aria-pressed","false"); }); o.setAttribute("aria-pressed","true"); });
+  document.getElementById("tVer").addEventListener("click",ver);
+  document.getElementById("tSol").addEventListener("click",function(){ if(atual) mostraRes(); });
+  document.getElementById("tNovo").addEventListener("click",novo);
+  novo();
+}
+</script>
+</body>
+</html>
