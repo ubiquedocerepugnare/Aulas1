@@ -353,6 +353,211 @@ svg.puz .vazio{cursor:pointer}
     <li><strong>Açores</strong> — arquipélago com 9 ilhas, organizado em <strong>19 municípios</strong>. O município da ilha do Corvo é o único do país sem freguesias.</li>
     <li><strong>Madeira</strong> — ilhas da Madeira e do Porto Santo, mais as Desertas e as Selvagens (desabitadas), em <strong>11 municípios</strong>.</li>
   </ul>
+
+  <!-- ===== Mapa interativo: ilhas dos Açores e da Madeira ===== -->
+  <style>
+  .ilh-fig .figcorpo{grid-template-columns:minmax(0,1fr) minmax(230px,290px)}
+  .ilh-fig svg.ilh-mapa{display:block;width:100%;min-width:400px;height:auto;background:var(--sea)}
+  .ilh-mapa .ilha{fill:#c9b98a;stroke:#1d2b2f;stroke-width:.9;stroke-linejoin:round;cursor:pointer;transition:fill .15s}
+  .ilh-mapa .ilha:hover{fill:#e2cf86}
+  .ilh-mapa .ilha.on{fill:var(--gold);stroke-width:2.2}
+  .ilh-mapa .ilha.g-oc{fill:#9fc3a6}.ilh-mapa .ilha.g-ce{fill:#e0b48a}.ilh-mapa .ilha.g-or{fill:#a9b9d8}
+  .ilh-mapa .ilha.g-oc:hover,.ilh-mapa .ilha.g-ce:hover,.ilh-mapa .ilha.g-or:hover{filter:brightness(1.08)}
+  .ilh-mapa .ilha.on{fill:var(--gold)!important}
+  .ilh-mapa .alvo{fill:transparent;stroke:none;cursor:pointer}
+  .ilh-mapa .grp{fill:none;stroke:var(--deep);stroke-width:1.3;stroke-dasharray:6 4;opacity:.55}
+  .ilh-mapa .grp.on{opacity:1;stroke-width:2.2}
+  .ilh-mapa .grp-rot{font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.16em;fill:var(--deep);
+    cursor:pointer;paint-order:stroke;stroke:var(--sea);stroke-width:5px;stroke-linejoin:round}
+  .ilh-mapa .grp-rot:hover{text-decoration:underline}
+  .ilh-mapa .nome{font-family:var(--f-body);font-size:14px;font-weight:700;fill:var(--ink);text-anchor:middle;
+    paint-order:stroke;stroke:#fff;stroke-width:4.5px;stroke-linejoin:round;pointer-events:none;opacity:0;transition:opacity .2s}
+  .ilh-mapa .nome.ver{opacity:1}
+  .ilh-mapa .moldura{fill:#cfe0e8;stroke:#8c9ba1;stroke-width:1.1;stroke-dasharray:5 3}
+  .ilh-mapa .rot{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;fill:#5f747b}
+  .ilh-mapa .escala text{font-family:var(--f-mono);font-size:10px;fill:var(--ink)}
+  .ilh-mapa .escala rect{stroke:var(--ink);stroke-width:1}
+  .ilh-ficha{background:#fff;border:1.5px solid var(--ink);padding:12px 14px;margin:2px 0 10px;font-size:.88rem;line-height:1.45}
+  .ilh-ficha .t{font-family:var(--f-disp);font-weight:800;font-size:1.3rem;line-height:1.05;display:block;letter-spacing:-.02em}
+  .ilh-ficha .g{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--deep);display:block;margin:4px 0 8px}
+  .ilh-ficha dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0 0 8px}
+  .ilh-ficha dt{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+  .ilh-ficha dd{margin:0;font-weight:700}
+  .ilh-ficha p{margin:0;font-size:.85rem}
+  .ilh-ficha.vazia{color:var(--ink-soft);font-style:italic}
+  .ilh-fig .item .pin{border-radius:50%}
+  @media (max-width:760px){.ilh-fig .figcorpo{grid-template-columns:1fr}.ilh-fig .mapabox{border-right:none;border-bottom:1px solid var(--line)}}
+  </style>
+
+  <figure class="ilh-fig" id="ilh-fig">
+    <div class="figtopo">
+      <span class="figtit" id="ilh-tit">As ilhas dos Açores</span>
+      <div class="abas">
+        <button class="aba on" type="button" data-arq="acores">Açores</button>
+        <button class="aba" type="button" data-arq="madeira">Madeira</button>
+        <button class="aba" type="button" id="ilh-todos">Mostrar todos os nomes</button>
+      </div>
+    </div>
+    <div class="figcorpo">
+      <div class="mapabox"><svg class="ilh-mapa" id="ilh-svg" role="img" aria-label="Mapa interativo das ilhas"></svg></div>
+      <div class="listabox">
+        <div class="ilh-ficha vazia" id="ilh-ficha">Carrega numa ilha (no mapa ou na lista) para ver o nome e alguns dados. Carrega no nome de um grupo para o destacar.</div>
+        <div id="ilh-lista"></div>
+      </div>
+    </div>
+    <figcaption>Contornos: <b>Natural Earth</b> (1:10 M), projeção equidistante simples. Dados: SREA, DREM, INE, DGT (CAOP). As Selvagens estão em caixa, à mesma escala aproximada.</figcaption>
+  </figure>
+
+  <script>
+  (function(){
+    var GEO = {"acores":{"W":900,"H":520,"pxkm":1.3414780213199187,"ilhas":{"flores":{"d":"M91.8 87.0L92.6 88.1L94.3 88.8L95.5 89.1L97.2 88.1L99.3 90.8L100.6 93.3L100.6 99.7L99.8 103.2L97.7 107.2L95.1 109.7L93.4 108.5L90.9 109.5L88.4 109.7L86.3 109.5L84.6 108.5L83.3 106.5L82.5 103.4L82.5 100.9L83.7 99.4L82.9 96.9L83.7 94.6L84.6 92.3L85.4 89.6L85.8 87.0L88.0 85.5L90.5 85.0L92.6 85.0L91.8 87.0Z","c":[90.5,96.7],"b":[82.5,85,100.6,109.7]},"corvo":{"d":"M102.3 54.3L106.5 55.0L106.5 59.3L104.4 63.8L100.6 64.6L100.6 63.6L98.5 59.1L98.1 58.3L98.5 56.8L99.3 55.3L101.0 54.3L102.3 54.3Z","c":[101.6,58.2],"b":[98.1,54.3,106.5,64.6]},"faial":{"d":"M395.9 223.0L397.6 229.8L396.8 230.0L393.0 231.5L392.1 232.3L393.0 233.3L393.0 233.8L393.4 234.1L394.7 234.3L393.0 235.3L391.7 235.3L388.8 234.3L387.5 234.3L383.7 235.3L382.4 235.3L379.9 234.1L376.5 229.5L374.4 227.2L368.9 224.0L368.9 222.7L372.7 221.9L376.1 221.9L377.8 221.7L379.1 220.9L380.3 219.7L382.0 216.9L383.3 215.9L393.4 220.7L395.9 223.0Z","c":[385.7,228],"b":[368.9,215.9,397.6,235.3]},"pico":{"d":"M454.6 245.7L460.1 246.2L462.2 247.7L463.0 251.2L461.3 252.7L457.5 252.7L448.7 251.5L445.7 251.7L443.6 252.5L439.4 256.0L437.7 255.2L436.9 253.2L435.6 251.7L432.6 250.9L416.2 250.4L413.7 251.7L406.1 244.4L403.1 239.9L403.1 233.3L406.9 230.0L410.7 229.0L419.1 229.3L423.8 230.0L435.6 237.3L439.4 239.1L439.8 239.3L441.1 239.9L443.2 241.9L444.5 242.4L447.0 242.9L454.6 245.7Z","c":[436.3,244.7],"b":[403.1,229,463,256]},"saojorge":{"d":"M480.3 221.9L489.2 225.2L493.4 227.5L495.5 230.3L493.8 231.0L491.3 231.3L486.6 231.3L485.0 230.5L481.2 228.5L477.4 227.7L475.7 227.0L473.6 226.0L471.9 224.7L470.2 223.7L467.2 224.2L465.1 223.0L463.4 224.2L462.6 223.5L460.5 220.9L458.8 219.9L446.6 215.9L444.5 214.4L442.3 210.3L441.5 209.8L440.7 209.8L440.2 210.3L439.8 210.3L438.6 209.8L438.1 209.3L438.6 208.6L438.6 208.1L437.3 207.8L436.4 207.3L431.0 202.5L430.5 201.5L430.5 199.5L432.6 200.3L436.4 203.0L438.1 203.5L440.2 203.8L463.4 212.9L480.3 221.9Z","c":[458.3,216.7],"b":[430.5,199.5,495.5,231.3]},"graciosa":{"d":"M469.4 160.7L467.2 160.7L464.7 160.2L462.2 159.2L460.5 157.4L459.2 155.1L459.2 152.9L461.3 148.3L462.2 147.6L463.4 147.3L464.7 147.6L466.0 148.3L466.8 147.3L468.5 149.8L472.3 153.1L474.4 155.1L475.3 157.6L473.6 159.4L471.5 160.4L469.4 160.7Z","c":[466.6,154.4],"b":[459.2,147.3,475.3,160.7]},"terceira":{"d":"M582.4 208.6L581.6 209.3L579.0 210.3L578.2 210.9L578.2 212.1L578.6 214.6L578.2 215.9L577.8 216.4L574.4 217.9L571.5 216.9L563.4 216.9L560.9 214.9L559.2 216.4L557.9 216.7L555.0 214.9L552.0 214.1L549.1 213.9L546.6 212.9L543.6 210.1L541.1 206.6L539.8 203.5L539.0 199.0L541.5 195.5L545.7 193.2L549.9 192.2L567.7 193.5L571.0 195.0L576.1 197.7L579.9 201.0L580.3 204.0L579.9 205.6L580.7 206.6L582.0 207.3L582.4 208.6Z","c":[565.4,208],"b":[539,192.2,582.4,217.9]},"saomiguel":{"d":"M795.9 332.4L800.5 334.4L803.5 338.7L803.5 344.2L801.0 349.0L796.3 351.1L780.7 353.1L775.7 354.6L769.7 355.1L764.7 354.8L761.7 355.1L760.0 356.1L756.7 354.1L753.7 352.8L747.0 351.1L736.8 350.6L722.5 339.7L718.3 334.2L720.4 326.3L729.7 325.6L732.6 326.3L736.8 329.9L737.3 331.1L737.3 332.9L737.7 334.2L738.5 335.2L739.4 335.7L754.1 337.7L755.8 337.2L759.2 335.2L760.9 334.7L761.7 334.9L764.3 336.9L765.5 337.7L767.2 336.7L779.4 332.9L795.9 332.4Z","c":[760.1,340.4],"b":[718.3,325.6,803.5,356.1]},"santamaria":{"d":"M811.5 458.5L813.6 460.0L815.7 462.8L817.0 466.0L817.8 469.1L816.2 471.3L811.9 471.1L805.2 468.6L801.4 469.6L799.3 469.6L798.4 468.1L797.6 466.3L796.3 464.5L795.5 463.0L796.7 461.5L799.3 459.2L803.5 458.2L808.1 458.0L811.5 458.5Z","c":[806.1,464.4],"b":[795.5,458,817.8,471.3]}}},"madeira":{"W":760,"H":560,"pxkm":5.389867049946099,"inset":[535,375,210,170],"pxkmIns":5.144873093130396,"ilhas":{"madeira":{"d":"M373.0 312.2L364.0 329.4L344.0 337.5L318.5 339.5L278.5 335.5L194.9 301.0L174.9 288.9L158.6 273.7L144.0 256.5L140.4 246.3L138.6 235.2L142.2 227.1L149.5 223.0L153.1 220.0L165.8 202.8L169.5 200.7L173.1 199.7L176.7 200.7L182.2 202.8L187.6 206.8L200.4 221.0L205.8 223.0L207.6 224.0L218.5 227.1L231.3 235.2L245.8 236.2L258.5 234.2L269.4 227.1L276.7 224.0L287.6 221.0L307.6 219.0L314.9 222.0L331.2 233.2L336.7 236.2L362.1 256.5L369.4 259.5L374.9 260.5L393.0 261.5L402.1 263.6L411.2 268.6L416.7 265.6L422.1 263.6L427.6 265.6L431.2 268.6L422.1 270.7L405.8 279.8L398.5 280.8L393.0 285.8L376.7 306.1L373.0 312.2Z","c":[284,253.8],"b":[138.6,199.7,431.2,339.5]},"portosanto":{"d":"M600.3 89.3L593.0 97.4L587.5 103.5L580.3 104.5L569.4 100.4L569.4 96.4L574.8 95.4L580.3 93.4L582.1 89.3L589.4 70.0L598.4 60.9L611.2 57.9L622.1 63.0L625.7 58.9L625.7 76.1L627.5 83.2L633.0 88.3L614.8 84.2L607.5 84.2L600.3 89.3Z","c":[599.6,84.3],"b":[569.4,57.9,633,104.5]},"desertas":{"d":"M525.7 428.7L507.6 400.3L503.9 395.3L500.3 389.2L498.5 383.1L496.7 376.0L505.7 384.1L514.8 397.3L522.1 413.5L525.7 428.7Z","c":[510.1,399.6],"b":[496.7,376,525.7,428.7]},"selvagens":{"d":"M605.7 492.3L609.3 493.3L609.3 495.2L607.5 494.2L605.7 492.3ZM687.8 424.6L691.4 427.5L691.4 431.4L689.6 435.2L687.8 434.3L684.2 433.3L682.4 432.3L682.4 431.4L682.4 430.4L682.4 429.4L687.8 424.6Z","c":[661.7,450.1],"b":[605.7,424.6,691.4,495.2]}}}};
+    var INFO = {
+      acores:{
+        titulo:'As ilhas dos Açores',
+        grupos:[
+          {id:'oc',nome:'Grupo Ocidental',ilhas:['flores','corvo']},
+          {id:'ce',nome:'Grupo Central',ilhas:['faial','pico','saojorge','graciosa','terceira']},
+          {id:'or',nome:'Grupo Oriental',ilhas:['saomiguel','santamaria']}
+        ],
+        ilhas:{
+          flores:{n:'Flores',a:'141',m:'2 (Santa Cruz das Flores, Lajes das Flores)',t:'O ilhéu de Monchique, junto às Flores, é o ponto mais ocidental da Europa.'},
+          corvo:{n:'Corvo',a:'17',m:'1 (Corvo)',t:'A ilha mais pequena e menos povoada do arquipélago. O seu município é o único do país sem freguesias.'},
+          faial:{n:'Faial',a:'173',m:'1 (Horta)',t:'Na Horta funciona a Assembleia Legislativa Regional dos Açores. O vulcão dos Capelinhos entrou em erupção em 1957–58.'},
+          pico:{n:'Pico',a:'445',m:'3 (Madalena, São Roque do Pico, Lajes do Pico)',t:'A Montanha do Pico (2351 m) é o ponto mais alto de Portugal. A paisagem da vinha é Património Mundial da UNESCO (2004).'},
+          saojorge:{n:'São Jorge',a:'244',m:'2 (Velas, Calheta)',t:'Ilha estreita e comprida, conhecida pelas fajãs — pequenas planícies junto ao mar, no sopé das arribas.'},
+          graciosa:{n:'Graciosa',a:'61',m:'1 (Santa Cruz da Graciosa)',t:'A ilha mais baixa do Grupo Central. É Reserva da Biosfera da UNESCO (2007).'},
+          terceira:{n:'Terceira',a:'400',m:'2 (Angra do Heroísmo, Praia da Vitória)',t:'O centro histórico de Angra do Heroísmo é Património Mundial da UNESCO (1983).'},
+          saomiguel:{n:'São Miguel',a:'745',m:'6 (Ponta Delgada, Lagoa, Ribeira Grande, Vila Franca do Campo, Povoação, Nordeste)',t:'A maior e mais povoada ilha dos Açores. Em Ponta Delgada fica a Presidência do Governo Regional.'},
+          santamaria:{n:'Santa Maria',a:'97',m:'1 (Vila do Porto)',t:'A ilha mais a sul do arquipélago e a mais antiga do ponto de vista geológico.'}
+        }
+      },
+      madeira:{
+        titulo:'As ilhas do arquipélago da Madeira',
+        grupos:[
+          {id:'hab',nome:'Ilhas habitadas',ilhas:['madeira','portosanto'],sem:true},
+          {id:'des',nome:'Ilhas desabitadas',ilhas:['desertas','selvagens'],sem:true}
+        ],
+        ilhas:{
+          madeira:{n:'Madeira',a:'≈ 741',m:'10 (Funchal, Câmara de Lobos, Ribeira Brava, Ponta do Sol, Calheta, Porto Moniz, São Vicente, Santana, Machico, Santa Cruz)',t:'A maior ilha do arquipélago; o Funchal é a capital regional. O Pico Ruivo (1862 m) é o ponto mais alto. A Floresta Laurissilva é Património Mundial da UNESCO (1999).'},
+          portosanto:{n:'Porto Santo',a:'≈ 42',m:'1 (Porto Santo)',t:'Ilha baixa e seca, com uma praia de areia com cerca de 9 km de extensão.'},
+          desertas:{n:'Ilhas Desertas',a:'≈ 14',m:'pertencem ao município de Santa Cruz',t:'Três ilhas (Ilhéu Chão, Deserta Grande e Bugio), desabitadas. Reserva Natural, refúgio do lobo-marinho (foca-monge-do-mediterrâneo).'},
+          selvagens:{n:'Ilhas Selvagens',a:'< 4',m:'pertencem ao município do Funchal',t:'Ficam a cerca de 300 km a sul do Funchal. Desabitadas (só vigilantes da natureza), são Reserva Natural e o ponto mais a sul de Portugal.'}
+        }
+      }
+    };
+    var NS='http://www.w3.org/2000/svg';
+    var svg=document.getElementById('ilh-svg'), lista=document.getElementById('ilh-lista'),
+        ficha=document.getElementById('ilh-ficha'), tit=document.getElementById('ilh-tit'),
+        btTodos=document.getElementById('ilh-todos');
+    var arq='acores', sel=null, todos=false;
+    function el(tag,at,txt){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;return e;}
+    function grupoDe(id){var gs=INFO[arq].grupos;for(var i=0;i<gs.length;i++)if(gs[i].ilhas.indexOf(id)>-1)return gs[i];}
+
+    function desenha(){
+      var G=GEO[arq], I=INFO[arq];
+      svg.innerHTML=''; svg.setAttribute('viewBox','0 0 '+G.W+' '+G.H); tit.textContent=I.titulo;
+      if(G.inset){var r=G.inset;
+        svg.appendChild(el('rect',{x:r[0],y:r[1],width:r[2],height:r[3],'class':'moldura'}));
+        svg.appendChild(el('text',{x:r[0]+8,y:r[1]+15,'class':'rot'},'CERCA DE 300 KM A SUL'));}
+      var gIl=el('g',{}), gGr=el('g',{}), gNm=el('g',{});
+      svg.appendChild(gGr); svg.appendChild(gIl); svg.appendChild(gNm);
+      Object.keys(G.ilhas).forEach(function(id){
+        var d=G.ilhas[id], g=grupoDe(id);
+        var p=el('path',{d:d.d,'class':'ilha'+(g&&!g.sem?' g-'+g.id:''),'data-id':id});
+        var t=el('title',{},I.ilhas[id].n); p.appendChild(t); gIl.appendChild(p);
+        var w=d.b[2]-d.b[0], h=d.b[3]-d.b[1];
+        if(w<26||h<26){gIl.appendChild(el('circle',{cx:(d.b[0]+d.b[2])/2,cy:(d.b[1]+d.b[3])/2,r:16,'class':'alvo','data-id':id}));}
+        var y=d.b[1]-7; if(y<18) y=d.b[3]+17;
+        gNm.appendChild(el('text',{x:(d.b[0]+d.b[2])/2,y:y,'class':'nome','data-id':id},I.ilhas[id].n));
+      });
+      // molduras dos grupos (só Açores)
+      if(arq==='acores') I.grupos.forEach(function(gr){
+        var b=[1e9,1e9,-1e9,-1e9];
+        gr.ilhas.forEach(function(id){var x=G.ilhas[id].b;b=[Math.min(b[0],x[0]),Math.min(b[1],x[1]),Math.max(b[2],x[2]),Math.max(b[3],x[3])];});
+        var m=26, cx=(b[0]+b[2])/2, cy=(b[1]+b[3])/2, rx=(b[2]-b[0])/2+m, ry=(b[3]-b[1])/2+m;
+        gGr.appendChild(el('ellipse',{cx:cx,cy:cy,rx:rx,ry:ry,'class':'grp','data-g':gr.id}));
+        var ly = gr.id==='or' ? cy-ry-8 : cy+ry+18, lx = gr.id==='oc' ? cx+rx+10 : cx;
+        if(gr.id==='oc') ly=cy+4;
+        var tx=el('text',{x:lx,y:ly,'class':'grp-rot','data-g':gr.id,'text-anchor':gr.id==='oc'?'start':'middle'},gr.nome.toUpperCase());
+        gNm.appendChild(tx);
+      });
+      // escala gráfica
+      var km = arq==='acores'?50:20, px=km*G.pxkm, x0=26, y0=G.H-24, e=el('g',{'class':'escala'});
+      e.appendChild(el('rect',{x:x0,y:y0,width:px/2,height:5,fill:'#1d2b2f'}));
+      e.appendChild(el('rect',{x:x0+px/2,y:y0,width:px/2,height:5,fill:'#fff'}));
+      e.appendChild(el('text',{x:x0,y:y0-5},'0'));
+      e.appendChild(el('text',{x:x0+px,y:y0-5,'text-anchor':'middle'},km+' km'));
+      svg.appendChild(e);
+      // seta do norte
+      var nx=G.W-30, ny=30, n=el('g',{});
+      n.appendChild(el('path',{d:'M'+nx+' '+(ny-14)+'L'+(nx+7)+' '+(ny+8)+'L'+nx+' '+(ny+3)+'L'+(nx-7)+' '+(ny+8)+'Z',fill:'#1d2b2f'}));
+      n.appendChild(el('text',{x:nx,y:ny+22,'text-anchor':'middle','class':'rot'},'N'));
+      svg.appendChild(n);
+      fazLista(); sel=null; mostraFicha(); aplicaNomes();
+    }
+
+    function fazLista(){
+      var I=INFO[arq], h='';
+      I.grupos.forEach(function(gr){
+        h+='<div class="grupo" data-g="'+gr.id+'" style="cursor:'+(gr.sem?'default':'pointer')+'">'+gr.nome+'</div>';
+        gr.ilhas.forEach(function(id){
+          var cor=gr.sem?'#c9b98a':({oc:'#9fc3a6',ce:'#e0b48a',or:'#a9b9d8'})[gr.id];
+          h+='<button type="button" class="item" data-id="'+id+'"><span class="pin" style="background:'+cor+'"></span>'+I.ilhas[id].n+'</button>';
+        });
+      });
+      lista.innerHTML=h;
+    }
+
+    function mostraFicha(){
+      if(!sel){ficha.className='ilh-ficha vazia';ficha.innerHTML='Carrega numa ilha (no mapa ou na lista) para ver o nome e alguns dados.'+(arq==='acores'?' Carrega no nome de um grupo para o destacar.':'');return;}
+      var d=INFO[arq].ilhas[sel], g=grupoDe(sel);
+      ficha.className='ilh-ficha';
+      ficha.innerHTML='<span class="t">'+d.n+'</span><span class="g">'+(arq==='acores'?g.nome:'Arquipélago da Madeira · '+g.nome)+'</span>'+
+        '<dl><dt>Área</dt><dd>'+d.a+' km²</dd><dt>Municípios</dt><dd>'+d.m+'</dd></dl><p>'+d.t+'</p>';
+    }
+
+    function aplicaNomes(){
+      svg.querySelectorAll('.nome').forEach(function(t){t.classList.toggle('ver',todos||t.getAttribute('data-id')===sel);});
+      svg.querySelectorAll('.ilha').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-id')===sel);});
+      lista.querySelectorAll('.item').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-id')===sel);});
+    }
+
+    function escolhe(id){sel=(sel===id)?null:id;destacaGrupo(null);mostraFicha();aplicaNomes();}
+
+    function destacaGrupo(gid){
+      svg.querySelectorAll('.grp').forEach(function(e){e.classList.toggle('on',e.getAttribute('data-g')===gid);});
+      if(!gid) return;
+      var gr=INFO[arq].grupos.filter(function(g){return g.id===gid;})[0];
+      sel=null; aplicaNomes();
+      svg.querySelectorAll('.nome').forEach(function(t){if(gr.ilhas.indexOf(t.getAttribute('data-id'))>-1)t.classList.add('ver');});
+      ficha.className='ilh-ficha';
+      ficha.innerHTML='<span class="t">'+gr.nome+'</span><span class="g">'+gr.ilhas.length+' ilhas</span><p>'+
+        gr.ilhas.map(function(id){return INFO[arq].ilhas[id].n;}).join(' · ')+'</p>';
+    }
+
+    svg.addEventListener('click',function(ev){
+      var id=ev.target.getAttribute('data-id'), g=ev.target.getAttribute('data-g');
+      if(id) escolhe(id); else if(g) destacaGrupo(g);
+    });
+    lista.addEventListener('click',function(ev){
+      var b=ev.target.closest('.item'); if(b){escolhe(b.getAttribute('data-id'));return;}
+      var g=ev.target.closest('.grupo'); if(g&&arq==='acores') destacaGrupo(g.getAttribute('data-g'));
+    });
+    document.querySelectorAll('#ilh-fig [data-arq]').forEach(function(b){
+      b.addEventListener('click',function(){
+        arq=b.getAttribute('data-arq');
+        document.querySelectorAll('#ilh-fig [data-arq]').forEach(function(x){x.classList.toggle('on',x===b);});
+        desenha();
+      });
+    });
+    btTodos.addEventListener('click',function(){
+      todos=!todos; btTodos.classList.toggle('on',todos);
+      btTodos.textContent=todos?'Esconder os nomes':'Mostrar todos os nomes';
+      aplicaNomes();
+    });
+    desenha();
+  })();
+  </script>
 </section>
 
 <!-- 3 -->
