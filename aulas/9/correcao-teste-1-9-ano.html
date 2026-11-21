@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Correção do teste de Geografia — 9.º ano</title>
+<style>
+  :root{
+    --azul:#1F3B5C; --azul-claro:#E8EEF5; --verde:#2E7D4F; --verde-claro:#E6F2E6;
+    --amarelo:#9A6B00; --amarelo-claro:#FFF4D6; --vermelho:#B42318; --vermelho-claro:#F8E3E3;
+    --texto:#1d2430; --suave:#5b6675; --linha:#d6dde6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;color:var(--texto);background:#f6f8fb;line-height:1.5;font-size:17px}
+  main{max-width:900px;margin:0 auto;padding:32px 20px 60px}
+  header{border-bottom:3px solid var(--azul);padding-bottom:14px;margin-bottom:24px}
+  .escola{color:var(--suave);font-size:14px;margin:0}
+  h1{color:var(--azul);font-size:30px;margin:6px 0 4px}
+  .tema{color:var(--suave);margin:0}
+  h2{color:var(--azul);font-size:23px;margin:40px 0 10px;border-bottom:1px solid var(--linha);padding-bottom:6px}
+  h3{font-size:18px;margin:0 0 6px}
+  p{margin:0 0 10px;text-align:justify;hyphens:auto}
+  nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+  nav a{background:var(--azul);color:#fff;text-decoration:none;padding:6px 14px;border-radius:20px;font-size:15px}
+  nav a:hover{opacity:.85}
+  .nota{background:var(--azul-claro);border-left:4px solid var(--azul);padding:10px 14px;border-radius:4px;font-size:15.5px;margin:12px 0}
+  /* escolha múltipla */
+  .q{background:#fff;border:1px solid var(--linha);border-radius:8px;padding:14px 16px;margin:12px 0}
+  .q .enun{font-weight:600;margin-bottom:8px}
+  .q ol{list-style:none;padding:0;margin:0 0 8px}
+  .q li{padding:4px 8px;border-radius:4px;margin:2px 0}
+  .q li b{display:inline-block;width:26px}
+  .q li.certa{background:var(--verde-claro);color:#174d2e;font-weight:600}
+  .q li.certa::after{content:"  ✓";color:var(--verde)}
+  .porque{font-size:15.5px;color:var(--suave);margin:0}
+  .porque strong{color:var(--texto)}
+  .anulada{opacity:.6}
+  .anulada .enun::after{content:" — anulada";color:var(--vermelho);font-weight:600}
+  .chave{display:grid;grid-template-columns:repeat(11,1fr);gap:4px;margin:12px 0 4px}
+  .chave div{background:#fff;border:1px solid var(--linha);border-radius:6px;text-align:center;padding:6px 0}
+  .chave span{display:block;font-size:12px;color:var(--suave)}
+  .chave b{font-size:20px;color:var(--verde)}
+  /* respostas escritas */
+  .pergunta{background:#fff;border:1px solid var(--linha);border-radius:8px;padding:14px 16px;font-style:italic;margin:8px 0 14px}
+  .resp{border-radius:8px;padding:14px 16px;margin:12px 0;border:1px solid}
+  .resp.bom{background:var(--verde-claro);border-color:#b7d9bf}
+  .resp.suf{background:var(--amarelo-claro);border-color:#ecd697}
+  .resp.fraco{background:var(--vermelho-claro);border-color:#e9bcbc}
+  .resp h3{display:flex;justify-content:space-between;gap:10px}
+  .bom h3{color:var(--verde)} .suf h3{color:var(--amarelo)} .fraco h3{color:var(--vermelho)}
+  .pts{font-weight:700;white-space:nowrap}
+  .aluno{font-family:"Segoe Print","Comic Neue","Comic Sans MS",cursive;font-size:16.5px;background:rgba(255,255,255,.7);border-radius:6px;padding:10px 14px;margin:6px 0 10px}
+  .aluno p{text-align:left}
+  .comentario{font-size:15.5px;margin:0}
+  table.crit{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0 4px;background:#fff}
+  table.crit th{background:var(--azul);color:#fff;text-align:left;padding:6px 8px}
+  table.crit td{border:1px solid var(--linha);padding:6px 8px;vertical-align:top}
+  table.crit td:last-child,table.crit th:last-child{text-align:center;white-space:nowrap}
+  details{margin:8px 0}
+  summary{cursor:pointer;color:var(--azul);font-weight:600}
+  footer{margin-top:40px;color:var(--suave);font-size:13.5px;text-align:center}
+  @media print{
+    body{background:#fff;font-size:12pt}
+    nav{display:none}
+    .q,.resp,.pergunta{break-inside:avoid}
+    details{display:block} details>summary{display:none}
+    h2{break-after:avoid}
+  }
+  @media (max-width:600px){.chave{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="escola">Agrupamento de Escolas Monte da Lua · Escola Básica D. Fernando II</p>
+  <h1>Correção do teste de Geografia — 9.º ano</h1>
+  <p class="tema">Indústria · Comércio e Serviços · Turismo · Ano letivo 2026/2027</p>
+  <nav>
+    <a href="#grupo1">Grupo I</a>
+    <a href="#ii1">II.1</a>
+    <a href="#ii2">II.2</a>
+    <a href="#ii4">II.4</a>
+  </nav>
+</header>
+
+<section id="grupo1">
+  <h2>Grupo I — Escolha múltipla</h2>
+  <p>A opção certa está a verde, com uma explicação curta de porque é a certa e onde costuma estar a confusão.</p>
+  <div class="chave" aria-label="Chave das respostas">
+    <div><span>1</span><b>C</b></div><div><span>2</span><b>D</b></div><div><span>3</span><b>A</b></div>
+    <div><span>4</span><b>D</b></div><div><span>5</span><b>C</b></div><div><span>6</span><b>B</b></div>
+    <div><span>7</span><b>C</b></div><div><span>8</span><b>A</b></div><div><span>9</span><b>A</b></div>
+    <div><span>10</span><b>D</b></div><div><span>11</span><b>B</b></div>
+  </div>
+  <div class="nota">As perguntas 12 e 13 foram anuladas e não contam para a nota.</div>
+
+  <div class="q">
+    <div class="enun">1. Uma siderurgia produz chapas de aço que vende a uma fábrica de bicicletas. As chapas de aço são:</div>
+    <ol>
+      <li><b>A)</b> produtos acabados, porque já passaram por uma transformação industrial.</li>
+      <li><b>B)</b> matérias-primas, porque ainda não foram transformadas por nenhuma indústria.</li>
+      <li class="certa"><b>C)</b> produtos semielaborados, porque já foram transformadas, mas vão servir de matéria-prima a outra indústria.</li>
+      <li><b>D)</b> bens de consumo, porque se destinam ao comércio a retalho.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> o aço já foi transformado a partir do minério, mas ainda não é o produto final: a fábrica de bicicletas vai transformá-lo outra vez.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">2. Seleciona a correspondência correta entre a revolução industrial, as suas fontes de energia e o seu modelo de produção:</div>
+    <ol>
+      <li><b>A)</b> Primeira Revolução — petróleo e eletricidade — produção em série.</li>
+      <li><b>B)</b> Segunda Revolução — carvão e água — ritmo marcado pela máquina.</li>
+      <li><b>C)</b> Terceira Revolução — eletricidade de fontes renováveis — robotização e valorização do conhecimento.</li>
+      <li class="certa"><b>D)</b> Terceira Revolução — petróleo, gás natural e energia nuclear — automatização e segmentação global da produção.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> a 1.ª revolução usou o carvão e a água; a 2.ª, o petróleo e a eletricidade; a 3.ª juntou o gás natural e o nuclear e espalhou a produção pelo mundo. A C fala da 4.ª.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">3. Tendo em conta os três critérios de classificação das indústrias, o fabrico de satélites artificiais é uma indústria:</div>
+    <ol>
+      <li class="certa"><b>A)</b> de bens de equipamento, de ponta e ligeira.</li>
+      <li><b>B)</b> de bens de consumo, de ponta e ligeira.</li>
+      <li><b>C)</b> de bens de equipamento, tradicional e pesada.</li>
+      <li><b>D)</b> de bens de consumo, tradicional e ligeira.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> um satélite não é comprado pelas famílias (equipamento), usa alta tecnologia (de ponta) e não precisa de grandes quantidades de matéria-prima pesada (ligeira). Foi a pergunta com mais erros: só 49 % acertaram.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">4. Uma fábrica de lacticínios instalou-se junto das explorações que lhe fornecem o leite. O fator de localização que explica esta escolha é:</div>
+    <ol>
+      <li><b>A)</b> a proximidade dos mercados, porque o leite é vendido sobretudo nas cidades.</li>
+      <li><b>B)</b> o preço do solo, porque a fábrica precisa de terrenos muito grandes e baratos.</li>
+      <li><b>C)</b> a mão de obra muito qualificada, porque o processo de fabrico é muito complexo.</li>
+      <li class="certa"><b>D)</b> a proximidade das matérias-primas, porque o leite se estraga depressa e tem de ser tratado logo.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> o leite é perecível. A fábrica fica junto das vacas, não das lojas.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">5. De acordo com o modelo de Clark-Fisher, a Era Pós-Industrial caracteriza-se por:</div>
+    <ol>
+      <li><b>A)</b> um setor primário que emprega a maior parte da população ativa.</li>
+      <li><b>B)</b> um setor secundário que atinge o seu valor máximo.</li>
+      <li class="certa"><b>C)</b> um setor terciário que emprega a maior parte da população ativa, enquanto o secundário diminui e o primário tem valores muito baixos.</li>
+      <li><b>D)</b> três setores com pesos semelhantes na população ativa.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> A é a era pré-industrial, B é a era industrial. Na era pós-industrial quase todos trabalham nos serviços.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">6. Seleciona o conjunto constituído apenas por serviços raros:</div>
+    <ol>
+      <li><b>A)</b> padaria, restauração local e joalharia de luxo.</li>
+      <li class="certa"><b>B)</b> tratamentos médicos oncológicos, investigação científica e joalharia de luxo.</li>
+      <li><b>C)</b> escola de ensino básico, investigação científica e padaria.</li>
+      <li><b>D)</b> restauração local, escola de ensino básico e tratamentos médicos oncológicos.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> os três são especializados, caros e procurados poucas vezes. Padaria, restaurante e escola básica são serviços banais, que há em todo o lado.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">7. Seleciona a opção que apresenta, por esta ordem, um serviço e o equipamento onde ele é prestado:</div>
+    <ol>
+      <li><b>A)</b> hospital — consulta médica.</li>
+      <li><b>B)</b> escola — aula.</li>
+      <li class="certa"><b>C)</b> aula — escola.</li>
+      <li><b>D)</b> consulta médica — farmácia.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> o serviço é o que se faz (a aula); o equipamento é o edifício onde se faz (a escola). A e B estão pela ordem trocada.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">8. Um país exporta sobretudo café e algodão em bruto e importa automóveis e computadores. O mais provável é tratar-se de um país:</div>
+    <ol>
+      <li class="certa"><b>A)</b> em desenvolvimento, com balança comercial tendencialmente negativa, porque vende matérias-primas de baixo valor e compra bens transformados de alto valor.</li>
+      <li><b>B)</b> desenvolvido, com balança comercial positiva, porque as vendas superam as compras.</li>
+      <li><b>C)</b> em desenvolvimento, com balança comercial positiva, porque as matérias-primas valem mais do que os bens transformados.</li>
+      <li><b>D)</b> desenvolvido, com balança comercial nula, porque exporta e importa bens de tipos diferentes.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> vende barato (produtos em bruto) e compra caro (produtos transformados), por isso gasta mais do que recebe.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">9. Um armazém vende caixas de fruta, em grande quantidade, a mercearias e supermercados. Trata-se de comércio:</div>
+    <ol>
+      <li class="certa"><b>A)</b> grossista, porque o cliente é outro comerciante.</li>
+      <li><b>B)</b> a retalho, porque o cliente é o consumidor final.</li>
+      <li><b>C)</b> externo, porque a fruta é vendida a vários clientes.</li>
+      <li><b>D)</b> a retalho tradicional, porque é feito em feiras.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> quem compra são mercearias e supermercados, que voltam a vender. Muitos escolheram B por causa das «caixas»: o que conta é quem é o cliente.</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">10. Uma família de Sintra passou três dias de férias no Algarve. Esta deslocação é considerada turismo porque:</div>
+    <ol>
+      <li><b>A)</b> foi feita por vontade própria e podia ter acontecido em casa.</li>
+      <li><b>B)</b> teve de ser feita para fora do país.</li>
+      <li><b>C)</b> durou menos de 24 horas.</li>
+      <li class="certa"><b>D)</b> foi uma deslocação para fora do ambiente habitual, com mais de 24 horas e menos de um ano.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> é a definição de turismo. O turismo pode ser dentro do país (B errada); menos de 24 horas é excursionismo (C errada).</p>
+  </div>
+
+  <div class="q">
+    <div class="enun">11. Seleciona a opção que apresenta apenas impactos negativos do turismo:</div>
+    <ol>
+      <li><b>A)</b> criação de emprego, destruição de dunas e aumento do preço da habitação.</li>
+      <li class="certa"><b>B)</b> degradação ambiental, tensão entre turistas e moradores e aumento do custo de vida.</li>
+      <li><b>C)</b> valorização do património, desemprego sazonal e melhoria das vias de comunicação.</li>
+      <li><b>D)</b> criação de riqueza, preservação do património e perda de identidade local.</li>
+    </ol>
+    <p class="porque"><strong>Porquê:</strong> as outras opções misturam impactos positivos (emprego, riqueza, património, estradas) com negativos.</p>
+  </div>
+
+  <div class="q anulada">
+    <div class="enun">12. Evolução dos meios de comunicação</div>
+  </div>
+  <div class="q anulada">
+    <div class="enun">13. Trabalho à distância na Finlândia, em Portugal e na Bulgária</div>
+  </div>
+</section>
+
+<section id="ii1">
+  <h2>II.1 — Têxtil e calçado e robótica: onde e porquê</h2>
+  <div class="pergunta">Uma empresa de têxtil e calçado e uma empresa de robótica procuram o local para instalar as suas fábricas. Tendo em conta o fator mão de obra, explica onde se deve localizar cada uma delas e porquê.</div>
+
+  <div class="resp bom">
+    <h3>Bom aluno <span class="pts">14 / 14</span></h3>
+    <div class="aluno">
+      <p>A empresa de têxtil e calçado deve instalar-se na periferia das cidades ou em países onde os salários são baixos, como no Sudeste Asiático. Esta indústria é tradicional e precisa de muitos trabalhadores, mas não precisam de ser muito qualificados, por isso a empresa procura mão de obra abundante e barata para gastar menos.</p>
+      <p>Já a empresa de robótica é uma indústria de ponta e deve ficar perto de universidades e centros de investigação, normalmente perto das grandes cidades. Precisa de menos trabalhadores, mas têm de ser muito qualificados, como engenheiros e técnicos, e é aí que os encontra.</p>
+    </div>
+    <p class="comentario">Localiza bem as duas empresas e justifica cada uma com o tipo de mão de obra certo. Usa vocabulário da disciplina: tradicional, de ponta, qualificada.</p>
+  </div>
+
+  <div class="resp suf">
+    <h3>Aluno suficiente <span class="pts">8 / 14</span></h3>
+    <div class="aluno"><p>A fábrica de têxtil devia ficar num sítio onde haja muita gente para trabalhar e onde não se pague muito, porque fazer roupa precisa de muitas pessoas. A de robótica devia ficar numa cidade grande porque precisa de pessoas que percebam de tecnologia.</p></div>
+    <p class="comentario">A ideia está certa, mas fica vaga. Diz «num sítio» e «numa cidade grande» sem dizer onde. Não usa as palavras «barata» e «qualificada» e não fala de universidades.</p>
+  </div>
+
+  <div class="resp fraco">
+    <h3>Aluno fraco <span class="pts">1 / 14</span></h3>
+    <div class="aluno"><p>As duas empresas deviam ficar no centro da cidade porque há mais pessoas e assim vendem mais. A de robótica também precisa de eletricidade.</p></div>
+    <p class="comentario">Responde com o mercado (vender mais), não com a mão de obra, que era o que a pergunta pedia. Põe as duas no mesmo sítio e não as distingue. Foi o erro mais frequente nas quatro turmas.</p>
+  </div>
+
+  <details>
+    <summary>Critérios de cotação (14 pontos)</summary>
+    <table class="crit">
+      <tr><th>Critério</th><th>Pontos</th></tr>
+      <tr><td>Têxtil e calçado — localização (periferias, países de baixos salários)</td><td>3,5</td></tr>
+      <tr><td>Têxtil e calçado — justificação: mão de obra abundante, barata, pouco qualificada</td><td>3,5</td></tr>
+      <tr><td>Robótica — localização (junto a universidades e centros de investigação)</td><td>3,5</td></tr>
+      <tr><td>Robótica — justificação: mão de obra qualificada</td><td>3,5</td></tr>
+    </table>
+  </details>
+</section>
+
+<section id="ii2">
+  <h2>II.2 — Serviço raro e «imposto invisível»</h2>
+  <div class="pergunta">Alfredo Pires viaja de quinze em quinze dias, de autocarro, de Bragança até ao Instituto Português de Oncologia, no Porto. Cada viagem representa mais de 230 km, mais de 3 horas em trânsito e 21,60 € só em bilhetes. Explica de que forma este caso mostra que a distribuição dos serviços no território não é uniforme, utilizando os conceitos de serviço raro e de «imposto invisível».</div>
+
+  <div class="resp bom">
+    <h3>Bom aluno <span class="pts">14 / 14</span></h3>
+    <div class="aluno">
+      <p>O tratamento do cancro é um serviço raro, porque é muito especializado, é caro e não é preciso muitas vezes, por isso só existe em poucos sítios. Estes serviços concentram-se nas grandes cidades, como Lisboa, Porto e Coimbra, onde há mais população. Quem vive longe, como o Alfredo em Bragança, tem de se deslocar muitos quilómetros.</p>
+      <p>Isso cria um «imposto invisível»: o Alfredo não paga a mais pelo tratamento, mas gasta 21,60 € em bilhetes e perde mais de 3 horas em cada viagem, de quinze em quinze dias. É um custo que quem vive no Porto não tem. Isto mostra que os serviços não estão distribuídos de forma igual pelo território.</p>
+    </div>
+    <p class="comentario">Define serviço raro com as três características, explica a concentração nas grandes cidades e usa os números do caso para explicar o «imposto invisível».</p>
+  </div>
+
+  <div class="resp suf">
+    <h3>Aluno suficiente <span class="pts">7,5 / 14</span></h3>
+    <div class="aluno"><p>O IPO é um serviço raro porque não há em todo o lado, só nas cidades grandes. Por isso o Alfredo tem de ir ao Porto e gasta muito dinheiro e tempo nas viagens, e isso é o imposto invisível.</p></div>
+    <p class="comentario">Tem as três ideias, mas todas incompletas. Não diz porque é que o serviço é raro (especializado, caro) e não usa os números do caso.</p>
+  </div>
+
+  <div class="resp fraco">
+    <h3>Aluno fraco <span class="pts">2 / 14</span></h3>
+    <div class="aluno"><p>O Alfredo tem de pagar muito dinheiro porque o autocarro é caro e também demora muito. O serviço é raro porque é difícil de encontrar. Devia haver hospitais em todo o lado.</p></div>
+    <p class="comentario">Usa a palavra «raro» sem explicar o conceito e não fala em «imposto invisível». Repete o enunciado em vez de o explicar. A última frase é uma opinião, não uma explicação geográfica.</p>
+  </div>
+
+  <details>
+    <summary>Critérios de cotação (14 pontos)</summary>
+    <table class="crit">
+      <tr><th>Critério</th><th>Pontos</th></tr>
+      <tr><td>Serviço raro: pouco frequente, especializado, caro</td><td>4</td></tr>
+      <tr><td>Concentração nas grandes cidades e necessidade de deslocação</td><td>5</td></tr>
+      <tr><td>«Imposto invisível» explicado com os dados do caso (tempo, distância, dinheiro)</td><td>5</td></tr>
+    </table>
+  </details>
+</section>
+
+<section id="ii4">
+  <h2>II.4 — Evolução da localização industrial</h2>
+  <div class="pergunta">«Hoje em dia, as fábricas já não precisam de ficar junto aos rios ou às minas de carvão.» Comenta esta afirmação, explicando como mudou a localização das indústrias desde as primeiras fábricas até hoje. Refere: onde se localizavam as primeiras indústrias e porquê; o papel da eletricidade na localização das indústrias atuais; dois exemplos de indústrias atuais e o fator de localização de cada uma.</div>
+
+  <div class="resp bom">
+    <h3>Bom aluno <span class="pts">17 / 17</span></h3>
+    <div class="aluno">
+      <p>Concordo com a afirmação. Na Revolução Industrial, as primeiras fábricas instalavam-se junto aos rios e às minas de carvão, porque a energia vinha da força da água e do carvão que fazia trabalhar as máquinas a vapor. O carvão era pesado e caro de transportar, por isso era mais barato ficar ao pé dele.</p>
+      <p>Com a eletricidade isto mudou. A eletricidade pode ser levada por cabos a grandes distâncias, por isso as fábricas deixaram de depender das fontes de energia e passaram a escolher o local por outros fatores, como a mão de obra, os transportes ou os mercados.</p>
+      <p>Por exemplo, uma fábrica de lacticínios fica perto das explorações de gado, porque o leite estraga-se depressa (proximidade das matérias-primas). Uma empresa de tecnologia fica perto de uma universidade, porque precisa de mão de obra qualificada.</p>
+    </div>
+    <p class="comentario">Responde às três partes pela ordem pedida. Explica o porquê da energia e dá dois exemplos de indústrias verdadeiras, cada um com o seu fator.</p>
+  </div>
+
+  <div class="resp suf">
+    <h3>Aluno suficiente <span class="pts">10,5 / 17</span></h3>
+    <div class="aluno"><p>Antigamente as fábricas ficavam perto dos rios e das minas de carvão porque precisavam de energia para as máquinas. Hoje há eletricidade e as fábricas já não precisam de ficar lá, podem ficar em quase todo o lado. Por exemplo as fábricas de roupa ficam onde a mão de obra é barata e as fábricas de carros ficam perto das cidades.</p></div>
+    <p class="comentario">A primeira parte está certa e a ideia da eletricidade também, mas curta. O segundo exemplo não tem fator de localização: diz «perto das cidades» sem dizer porquê.</p>
+  </div>
+
+  <div class="resp fraco">
+    <h3>Aluno fraco <span class="pts">3,5 / 17</span></h3>
+    <div class="aluno"><p>As primeiras fábricas ficavam perto dos rios porque precisavam de água. Hoje as fábricas usam eletricidade para as máquinas funcionarem. Exemplos: o McDonald's e a Zara, que estão nos centros comerciais para as pessoas comprarem.</p></div>
+    <p class="comentario">Esquece o carvão e não explica a energia. Diz para que serve a eletricidade, mas não o que mudou na localização. Os exemplos são lojas e restaurantes, não indústrias, um erro que apareceu em várias turmas.</p>
+  </div>
+
+  <details>
+    <summary>Critérios de cotação (17 pontos)</summary>
+    <table class="crit">
+      <tr><th>Critério</th><th>Pontos</th></tr>
+      <tr><td>Primeiras indústrias: junto a rios e minas de carvão, pela energia (e pelo custo do transporte)</td><td>5</td></tr>
+      <tr><td>Papel da eletricidade: transporta-se a grande distância; as fábricas deixam de depender das fontes de energia</td><td>5</td></tr>
+      <tr><td>Exemplo 1 de indústria atual + fator de localização</td><td>3</td></tr>
+      <tr><td>Exemplo 2 de indústria atual + fator de localização</td><td>3</td></tr>
+      <tr><td>Organização do texto e vocabulário geográfico</td><td>1</td></tr>
+    </table>
+  </details>
+</section>
+
+<footer>As respostas de exemplo foram escritas para mostrar níveis de desempenho; não são de nenhum aluno real. A pergunta II.3 (telecomunicações) foi anulada.</footer>
+</main>
+</body>
+</html>
